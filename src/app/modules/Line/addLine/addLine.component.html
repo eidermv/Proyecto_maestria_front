@@ -1,0 +1,78 @@
+<div class="animated fadeIn">
+
+      <div class="row">
+        <div class="col-lg-12 ">
+          <div class="card ">
+            <div class="card-body ">
+              <form [formGroup] = "fieldsForm" (ngSubmit)="onSubmit()" #f="ngForm" >
+                <h1 class="title">{{stringApp.TITLE_ADD_LINE}}</h1>
+                <p class="text-muted">{{stringApp.MSJ_EJEMPLO_ADD_LINE}}</p>
+                <div class="formGroup">
+                  <i class="fa fa-exclamation-circle uncheck"
+                      *ngIf="(fieldsForm.controls.nameLine.invalid && fieldsForm.controls.nameLine.touched) ">
+                      {{stringApp.MSJ_ERROR_ADD_LINE}}
+                  </i>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="icon-layers"></i></span>
+                    </div>
+                    <input  type="text"
+                            class="form-control"
+                            placeholder={{stringApp.PLACEHOLDER_ADD_LINE}}
+                            id="nameLine"
+                            formControlName="nameLine">
+                  </div>
+                </div>
+                <button type="submit"
+                        class="btn btn-lg  btn-success"
+                        [disabled] = "fieldsForm.invalid"
+                        >{{stringApp.BTN_ADD_LINE}}
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <div bsModal #successModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-success" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">{{stringApp.MSJ_OK_REGISTRY}}</h4>
+            <button type="button" class="close" (click)="successModal.hide()" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>{{stringApp.MSJ_EXITO_ADD_LINE_MODAL}}</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-success"  (click)="successModal.hide()">{{stringApp.MSJ_CLOSE}}</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <div bsModal #dangerModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-danger" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">{{stringApp.MSJ_ERROR_REGISTRY}}</h4>
+            <button type="button" class="close" (click)="dangerModal.hide()" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>{{stringApp.MSJ_FAIL_ADD_LINE_MODAL}}</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" (click)="dangerModal.hide()">{{stringApp.MSJ_CLOSE}}</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+</div>
+
+
+

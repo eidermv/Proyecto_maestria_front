@@ -1,0 +1,55 @@
+<app-header
+  [fixed]="true"
+  [navbarBrandFull]="{src: 'assets/img/brand/iris-logo.svg', width: 95, height: 60, alt: 'Iris Software'}"
+  [navbarBrandMinimized]="{src: 'assets/img/brand/iris-logo.svg', width: 30, height: 30, alt: 'Iris Software'}"
+  [sidebarToggler]="'lg'"
+  [asideMenuToggler]="'lg'">
+  <ul class="nav navbar-nav d-md-down-none">
+  </ul>
+  <ul class="nav navbar-nav ml-auto">
+    <li class="nav-item d-md-down-none">
+      <a class="nav-link" href="#"><i class="icon-bell"></i><span class="badge badge-pill badge-danger">0</span></a>
+    </li>
+    <li class="nav-item dropdown" dropdown placement="bottom right">
+      <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" dropdownToggle (click)="false">
+        <img src="assets/img/avatars/user.png" class="img-avatar" alt="Usuario"/>
+      </a>
+      <div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown" >
+        <div class="dropdown-header text-center" ><strong>Mi perfil</strong></div>
+        <a class="dropdown-item"  ><i class="fa fa-bell-o"></i> Editar Usuario<span class="badge badge-info"></span></a>
+        <div class="dropdown-header text-center"><strong>Configuracion</strong></div>
+        <a class="dropdown-item" href="#"><i class="fa fa-user"></i> Empresa</a>
+        <a class="dropdown-item" href="#"><i class="fa fa-wrench"></i> Licencia</a>
+        <a class="dropdown-item" href="#"><i class="fa fa-usd"></i> Restaurar de Fabrica<span class="badge badge-dark"></span></a>
+        <div class="divider"></div>
+        <a class="dropdown-item" href="#"><i class="fa fa-shield"></i> Salir</a>
+      </div>
+    </li>
+  </ul>
+</app-header>
+<div class="app-body">
+  <app-sidebar [fixed]="true"  >
+    <app-sidebar-nav [navItems]="navItems" [perfectScrollbar] [disabled]="sidebarMinimized" ></app-sidebar-nav>
+    <app-sidebar-minimizer></app-sidebar-minimizer>
+
+  </app-sidebar>
+  <!-- Main content -->
+  <main class="main">
+    <!-- Breadcrumb -->
+    <ol class="breadcrumb">
+      <app-breadcrumb></app-breadcrumb>
+      <!-- Breadcrumb Menu-->
+      <li class="breadcrumb-menu d-md-down-none">
+        Mark Software
+      </li>
+    </ol>
+    <div class="container-fluid">
+      <router-outlet></router-outlet>
+    </div><!-- /.container-fluid -->
+  </main>
+
+</div>
+<app-footer>
+  <span class="ml-auto">Mark Software <a href="https://http://www.marksoftware.co/">Iris Software</a></span>
+</app-footer>
+

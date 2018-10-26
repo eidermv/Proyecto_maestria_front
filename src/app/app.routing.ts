@@ -8,6 +8,7 @@ import { P404Component } from './views/error/404.component';
 import { P500Component } from './views/error/500.component';
 import { LoginComponent } from './modules/auth/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
+import { AuthGuard } from './modules/auth/auth-guard.service';
 
 export const routes: Routes = [
   {
@@ -52,6 +53,7 @@ export const routes: Routes = [
     children: [
       {
         path: 'line',
+        canActivate: [AuthGuard],
         loadChildren: './modules/Line/line.module#LineModule'
       }
     ]

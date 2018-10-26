@@ -38,7 +38,7 @@ export class AddLineComponent implements OnInit {
     this.fieldsForm = this.formBuilder.group(
       {
         nameLine: ['', [Validators.required,
-                        Validators.maxLength(this.stringValidation.MAX_LONG_NAME_LINE),
+                        //Validators.maxLength(this.stringValidation.MAX_LONG_NAME_LINE),
                         Validators.minLength(this.stringValidation.MIN_LONG_TEX)
                       ]
                   ]

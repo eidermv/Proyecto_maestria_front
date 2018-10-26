@@ -102,7 +102,7 @@ input.ng-valid.ng-dirty
   width: 188px;
   height: 92px;
   float: left;
-  margin-right: 10px;
+  //margin-right: 10px;
 }
 .init {
   display: table !important;
@@ -137,21 +137,23 @@ input.ng-valid.ng-dirty
   padding: 35px 20px 0;
     width: 380px;
     display: inline-block;
-    height: 344px; /* DUX para acomodar el tamaño del div, que lucía terrible. */
+    height: 394px; /* DUX para acomodar el tamaño del div, que lucía terrible. */
     margin-top: 25px; /* DUX Para que quede alineado con el comunicado superior. */
+    background-size: 100%;
 }
 
 #logoSimca {
   background: url("../assets/img/imgDefault/folder.png") no-repeat;
-  width: 101px;
-  height: 101px;
+  width: 70px;
+  height: 70px;
  margin-left: auto;
  margin-right: auto;
+ margin-bottom: 10px;
 }
 
 #login .formLogin
 {
-  width: 230px;
+  width: 260px;
 }
 
 #login h3 {

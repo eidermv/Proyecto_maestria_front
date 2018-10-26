@@ -135,18 +135,23 @@ input.ng-valid.ng-dirty
 #login {
   background: url("../assets/img/imgDefault/back-login.png") no-repeat;
   padding: 35px 20px 0;
-    width: 330px;
+    width: 380px;
     display: inline-block;
     height: 344px; /* DUX para acomodar el tamaño del div, que lucía terrible. */
     margin-top: 25px; /* DUX Para que quede alineado con el comunicado superior. */
-
 }
 
 #logoSimca {
-  background: url("../assets/img/imgDefault/logo-simca.png") no-repeat;
+  background: url("../assets/img/imgDefault/folder.png") no-repeat;
   width: 101px;
   height: 101px;
-  margin: 0 auto 10px;
+ margin-left: auto;
+ margin-right: auto;
+}
+
+#login .formLogin
+{
+  width: 230px;
 }
 
 #login h3 {
@@ -156,7 +161,7 @@ input.ng-valid.ng-dirty
 
 #login h3, #login form {
 	display: table !important;
-	margin: auto !important;
+  margin: auto !important;
 }
 
 h3, h5 {
@@ -164,15 +169,9 @@ h3, h5 {
   margin: 0 !important;
   font-weight: normal !important;
 }
-
 body {
-  background: #fff;
-  font: 14px/21px "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: #444;
-  -webkit-font-smoothing: antialiased; /* Fix for webkit rendering */
-  -webkit-text-size-adjust: 100%;
+  height: auto !important;
 }
-
 body {
   background: url("../assets/img/imgDefault/background.png") no-repeat;
       background-color: rgba(0, 0, 0, 0);
@@ -209,6 +208,19 @@ body {
 	bottom: 0;
 }
 
+.botonIngresarClass {
+
+  border: none !important;
+  background: url("../assets/img/imgDefault/btn-ingresar.png") no-repeat !important;
+  width: 100px !important;
+  height: 37px !important;
+  margin: 10px auto 10px !important;
+  display: block !important;
+  color: #555555 !important;
+  font-size: 12px !important;
+  box-shadow: none !important;
+}
+
 /* Smaller than standard 960 (devices and browsers) */
 @media only screen and (max-width: 959px) {}
 
@@ -223,8 +235,6 @@ body {
 
 /* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
 @media only screen and (max-width: 479px) {}
-
-
 
 body{
 height: auto !important; /* Para corregir un problema con application.css */
@@ -241,7 +251,7 @@ Poner todo lo responsive aquí adentro. */
 #login
 {
   background: url("../assets/img/imgDefault/back-login-medium.png") no-repeat;
-  width: 280px;
+  width: 320px;
 }
 p.separador
 {

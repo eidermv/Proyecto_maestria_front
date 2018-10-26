@@ -1,62 +1,73 @@
-<div class="app-body img-background ">
-  <main class="main d-flex align-items-center img-pie-login">
+<body >
 
-    <div class="container  ">
+  <div id="antorcha"></div>
+  <div id="bandera"></div>
 
-      <div class="row ">
-        <div class="col-6  mx-auto">
-          <div class="row ">
+  <header class="init">
+    <a id="logoU"></a>
+    <P class="separador"></P>
+    <p id="desc">Sistema de Gestion Documental Unicauca</p>
+  </header>
 
-            <div class="aling-center">
-              <img src="../../../../assets/img/imgDefault/logo.png" class="img-fluid ">
+  <div class="container">
+    <div id="general">
+      <div id="login">
+        <div id="logoSimca"></div>
+        <h3>Iniciar Sesion</h3>
+
+        <form class="form-signin">
+            <div class="form-label-group">
+              <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
 
             </div>
-            <div class="aling-center col-md-6">
-              <h4 style="color: aqua;" >Sistema de Gestion de Documentos Institucionales </h4>
+
+            <div class="form-label-group">
+              <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+
             </div>
 
+            <div class="custom-control custom-checkbox mb-3">
+              <input type="checkbox" class="custom-control-input" id="customCheck1">
 
+            </div>
+            <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Sign in</button>
+          </form>
 
-          </div>
-        </div>
       </div>
-
-      <div class="row ">
-        <div class="col-md-5 mx-auto ">
-          <div class="card-group ">
-            <div class="card p-4">
-              <div class="card-body ">
-                <form>
-                  <img src="../../../../assets/img/imgDefault/folder.png" class="img-fluid aling-center">
-                  <img><br>
-                  <h3 class=" text-center">Iniciar Sesion</h3><br>
-
-                  <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="icon-user"></i></span>
-                    </div>
-                    <input type="text" class="form-control" placeholder="Username" autocomplete="username" required>
-                  </div>
-                  <div class="input-group mb-4">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="icon-lock"></i></span>
-                    </div>
-                    <input type="password" class="form-control" placeholder="Password" autocomplete="current-password"
-                      required>
-                  </div>
-                  <div class="row">
-                    <div class="col-6 aling-center">
-                      <button type="button" class="btn btn-primary btn-block">Login</button>
-                    </div>
-
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
     </div>
-  </main>
-</div>
+  </div>
+
+  <!--<div class="container">
+    <div class="row">
+      <div class="aling-center">
+        <img src="../../../../assets/img/imgDefault/logo.png" class="img-fluid ">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+        <div class="card card-signin my-5">
+          <div class="card-body">
+            <h5 class="card-title text-center">Sign In</h5>
+            <form class="form-signin">
+              <div class="form-label-group">
+                <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+
+              </div>
+
+              <div class="form-label-group">
+                <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+
+              </div>
+
+              <div class="custom-control custom-checkbox mb-3">
+                <input type="checkbox" class="custom-control-input" id="customCheck1">
+
+              </div>
+              <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Sign in</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>-->
+</body>

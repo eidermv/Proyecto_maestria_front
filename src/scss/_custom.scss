@@ -30,16 +30,14 @@ input.ng-valid.ng-dirty
  // background-image:url("../assets/img/img default/back-login.png");
  background-image: url("../assets/img/imgDefault/back-login.png");
  background-color: transparent;
+
 }
 
 .img-background
 {
-  background: url("../assets/img/imgDefault/background.png") ;
-
+  background: url("../assets/img/imgDefault/background.png") no-repeat ;
   background-color: transparent;
-  display: flex;
-  flex-direction: row;
-  flex-grow: 1;
+
 }
 
 .img-antorcha
@@ -54,6 +52,7 @@ input.ng-valid.ng-dirty
   background: url("../assets/img/imgDefault/bandera.png") no-repeat bottom left;
   background-color: transparent;
 }
+
 
 .img-background-login
 {
@@ -96,3 +95,167 @@ input.ng-valid.ng-dirty
 .row-divided > .vertical-divider {
   height: calc(50% - 1rem);
 }
+
+/*css para el login*/
+#logoU {
+  background: url("../assets/img/imgDefault/logo.png") no-repeat;
+  width: 188px;
+  height: 92px;
+  float: left;
+  margin-right: 10px;
+}
+.init {
+  display: table !important;
+  margin: 30px auto 5px !important;
+}
+
+.init .separador {
+  background: url("../assets/img/imgDefault/barra.png") no-repeat;
+  width: 2px;
+  height: 40px;
+  float: left;
+  margin: 25px 10px 0 0;
+}
+
+#desc {
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 17px;
+  color: #FFFFFF;
+  padding-top: 27px;
+  width: 235px;
+  float: left;
+}
+
+#general {
+  margin: auto auto 20px auto;
+  display: table;
+}
+
+#login {
+  background: url("../assets/img/imgDefault/back-login.png") no-repeat;
+  padding: 35px 20px 0;
+    width: 330px;
+    display: inline-block;
+    height: 344px; /* DUX para acomodar el tamaño del div, que lucía terrible. */
+    margin-top: 25px; /* DUX Para que quede alineado con el comunicado superior. */
+
+}
+
+#logoSimca {
+  background: url("../assets/img/imgDefault/logo-simca.png") no-repeat;
+  width: 101px;
+  height: 101px;
+  margin: 0 auto 10px;
+}
+
+#login h3 {
+  font-size: 16px;
+  color: #26467E;
+}
+
+#login h3, #login form {
+	display: table !important;
+	margin: auto !important;
+}
+
+h3, h5 {
+  font-family: "Vegur", "Arial Narrow", Arial, sans-serif !important;
+  margin: 0 !important;
+  font-weight: normal !important;
+}
+
+body {
+  background: #fff;
+  font: 14px/21px "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #444;
+  -webkit-font-smoothing: antialiased; /* Fix for webkit rendering */
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: url("../assets/img/imgDefault/background.png") no-repeat;
+      background-color: rgba(0, 0, 0, 0);
+      background-position-x: 0%;
+      background-position-y: 0%;
+      background-repeat: no-repeat;
+      background-attachment: scroll;
+      background-size: auto auto;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center center;
+  background-color: #0D4185 !important;
+  background-size: 100%;
+  font-family: "Vegur", "Arial Narrow", Arial, sans-serif !important;
+}
+
+#antorcha {
+  position: fixed;
+  z-index: -1;
+  background: url("../assets/img/imgDefault/antorcha.png") no-repeat;
+  height: 592px;
+  right: 15%;
+  top: 0;
+  width: 251px;
+}
+
+#bandera {
+  background: url("../assets/img/imgDefault/bandera.png") no-repeat;
+	width: 345px;
+	height: 130px;
+	position: fixed;
+	z-index: -1;
+	left: 0;
+	bottom: 0;
+}
+
+/* Smaller than standard 960 (devices and browsers) */
+@media only screen and (max-width: 959px) {}
+
+/* Tablet Portrait size to standard 960 (devices and browsers) */
+@media only screen and (min-width: 768px) and (max-width: 959px) {}
+
+/* All Mobile Sizes (devices and browser) */
+@media only screen and (max-width: 767px) {}
+
+/* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
+@media only screen and (min-width: 480px) and (max-width: 767px) {}
+
+/* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
+@media only screen and (max-width: 479px) {}
+
+
+
+body{
+height: auto !important; /* Para corregir un problema con application.css */
+}
+
+.container{
+width: auto !important; /* Para corregir un problema con Bootstrap.css, dejarlo responsive */
+}
+
+@media all and (max-width: 979px)
+/* DUX Cuando el tamaño del viewport sea 996px (se pone 979), para todos los medios.
+Poner todo lo responsive aquí adentro. */
+{
+#login
+{
+  background: url("../assets/img/imgDefault/back-login-medium.png") no-repeat;
+  width: 280px;
+}
+p.separador
+{
+  display: none;
+}
+header #logoU
+{
+  margin-left: 17px;
+}
+header #desc
+{
+  clear: both;
+  text-align: center;
+  padding-top: 20px;
+}
+}
+

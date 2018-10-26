@@ -16,8 +16,8 @@ $layout-transition-speed:             .25s !default;
 
 // Navbar
 
-$navbar-height:                       55px !default;
-$navbar-bg:                           #fff !default;
+$navbar-height:                       60px !default;
+$navbar-bg:                         rgb(5,50,83) !default;
 $navbar-border: (
   bottom: (
     size:                             1px,
@@ -33,8 +33,8 @@ $navbar-brand-minimized-width:        50px !default;
 $navbar-brand-minimized-bg:           $navbar-brand-bg !default;
 $navbar-brand-minimized-border:       $navbar-brand-border !default;
 
-$navbar-color:                        $gray-600 !default;
-$navbar-hover-color:                  $gray-800 !default;
+$navbar-color:                        white !default;
+$navbar-hover-color:                  black !default;
 $navbar-active-color:                 $gray-800 !default;
 $navbar-disabled-color:               $gray-300 !default;
 
@@ -49,8 +49,8 @@ $sidebar-minimized-width:             50px !default;
 $sidebar-minimized-height:            $sidebar-minimized-width !default;
 $sidebar-compact-width:               150px !default;
 $sidebar-compact-height:              $sidebar-compact-width !default;
-$sidebar-color:                       #fff !default;
-$sidebar-bg:                          $gray-800 !default;
+$sidebar-color:                      white !default;
+$sidebar-bg:                          rgb(5,50,83) !default;
 $sidebar-borders:                     none !default;
 $mobile-sidebar-width:                220px !default;
 

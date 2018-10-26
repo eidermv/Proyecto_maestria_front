@@ -172,7 +172,7 @@ h3, h5 {
 body {
   height: auto !important;
 }
-body {
+body  {
   background: url("../assets/img/imgDefault/background.png") no-repeat;
       background-color: rgba(0, 0, 0, 0);
       background-position-x: 0%;
@@ -188,17 +188,45 @@ body {
   font-family: "Vegur", "Arial Narrow", Arial, sans-serif !important;
 }
 
+ .set-background
+{
+  background: url("../assets/img/imgDefault/fondo-blanco.jpg") no-repeat;
+  background-color: rgba(0, 0, 0, 0);
+  background-position-x: 0%;
+  background-position-y: 0%;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-size: auto auto;
+background-repeat: no-repeat;
+background-attachment: fixed;
+background-position: center center;
+background-color: grey !important;
+background-size: 100%;
+font-family: "Vegur", "Arial Narrow", Arial, sans-serif !important;
+}
+
 #antorcha {
   position: fixed;
-  z-index: -1;
+ // z-index: -1;
   background: url("../assets/img/imgDefault/antorcha.png") no-repeat;
-  height: 592px;
-  right: 15%;
+  height: 600px;
+  right: 5%;
   top: 0;
   width: 251px;
 }
 
 #bandera {
+  background: url("../assets/img/imgDefault/bandera.png") no-repeat;
+	width: 445px;
+	height: 130px;
+	position: fixed;
+	z-index: -1;
+	left: 0;
+	bottom: 0;
+}
+
+#banderaHead
+{
   background: url("../assets/img/imgDefault/bandera.png") no-repeat;
 	width: 345px;
 	height: 130px;
@@ -206,6 +234,7 @@ body {
 	z-index: -1;
 	left: 0;
 	bottom: 0;
+
 }
 
 .botonIngresarClass {
@@ -253,6 +282,18 @@ Poner todo lo responsive aquí adentro. */
   background: url("../assets/img/imgDefault/back-login-medium.png") no-repeat;
   width: 320px;
 }
+#banderaHead
+{
+  background: url("../assets/img/imgDefault/bandera.png") no-repeat;
+	width: 200px;
+	height: 60px;
+	position: fixed;
+	z-index: -1;
+	left: 0;
+	bottom: 0;
+}
+
+
 p.separador
 {
   display: none;

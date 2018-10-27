@@ -8,7 +8,7 @@ const httpOptions = {
 
 
 @Injectable()
-export class AuthService
+export class StudentService
 {
 
   constructor(private httpClient: HttpClient){}

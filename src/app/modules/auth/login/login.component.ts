@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
                           Validators.minLength(this.stringValidation.MIN_LONG_TEX)
                         ]
                     ],
-        passLogin:  ['',[Validators.required,
+        passLogin:  ['', [Validators.required,
                         Validators.maxLength(this.stringValidation.MAX_LONG_PASS),
                         Validators.minLength(this.stringValidation.MIN_LONG_TEX)
                         ]
@@ -38,6 +38,15 @@ export class LoginComponent implements OnInit {
 
   onSubmit()
   {
+   /* this.authService.authUser()
+    .subscribe( data =>
+      {
+        console.log('registre');
+      },
+      err =>
+      {
+        console.log('no registre');
+      });*/
 
   }
 

@@ -52,9 +52,9 @@ export const routes: Routes = [
     },
     children: [
       {
-        path: 'line',
+        path: 'student',
         canActivate: [AuthGuard],
-        loadChildren: './modules/Line/line.module#LineModule'
+        loadChildren: './modules/student/student.module#StudentModule'
       }
     ]
   }

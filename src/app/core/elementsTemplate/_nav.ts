@@ -11,17 +11,17 @@ export const navItems = [
     children: [
       {
         name: 'Registrar Estudiante',
-        url: '/line/addLine',
+        url: '/student/addStudent',
         icon: 'fa fa-plus'
       },
       {
         name: 'Editar Estudiante',
-        url: '/line/editLine',
+        url: '/student/addStudent',
         icon: 'fa fa-pencil'
       },
       {
         name: 'Eliminar Estudiante',
-        url: '/linea/addLine',
+        url: '/student/addStudent',
         icon: 'fa fa-trash-o'
       }
     ]

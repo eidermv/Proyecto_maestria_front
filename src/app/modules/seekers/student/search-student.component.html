@@ -1,0 +1,26 @@
+<form [formGroup]="fieldsForm"  #f="ngForm" (ngSubmit)="getDataStudent()">
+  <div class="input-group">
+    <i class="fa fa-exclamation-circle uncheck"
+    *ngIf="studentNotFound">
+    <!--{{stringModuleThird.MSJ_THIRD_NOT_FOUND}}-->
+    </i>
+    <i class="fa fa-exclamation-circle uncheck"
+    *ngIf="fielstudentEmpty">
+    <!--{{stringModuleThird.MSJ_THIRD_EMPTY}}-->
+    </i>
+    <div class="input-group mb-3 input-group-lg">
+      <input type="text" placeholder="Didite nombre, apellido o identificacion del estudiante a buscar" aria-label="Number"
+              [matAutocomplete]="auto" class="form-control"  (keyup)="determineAction($event)"
+              formControlName="nameThird" id="nameLine" >
+      <span class="input-group-prepend">
+          <button type="submit" class="btn btn-primary" ><i class="fa fa-search"></i>  </button>
+      </span>
+    </div>
+  </div>
+
+  <mat-autocomplete #auto="matAutocomplete" >
+    <mat-option *ngFor="let option of options" [value]="option" (click)="determineAction($event)" >
+      {{option}}
+    </mat-option>
+  </mat-autocomplete>
+</form>

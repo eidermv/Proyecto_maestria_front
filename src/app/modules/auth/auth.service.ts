@@ -13,14 +13,29 @@ export class AuthService
 
   constructor(private httpClient: HttpClient){}
 
-  authUser()
+  authUser(user: string, password: string)
   {
-    //return this.httpClient.post();
+    let url = 'http://192.168.1.63:8080/login';
+    const newStudent = JSON.stringify({usuario: user,
+                                     contrasena: password});
+    return this.httpClient.post(url, newStudent, httpOptions);
   }
 
   login()
   {
+    this.saveLocalStorage();
     return true;
+  }
+
+  saveLocalStorage()
+  {
+    let auth1 =
+    {
+      token: 'aksdjfalksdjfkasdf----',
+      tipoUsuario: 'bueno'
+    }
+
+    localStorage.setItem('sesion', JSON.stringify(auth1));
   }
 
 }

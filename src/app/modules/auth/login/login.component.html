@@ -15,11 +15,10 @@
         <h3>Iniciar Sesion</h3><br>
 
         <form [formGroup]="fieldsForm" (ng-submit)="onSubmit()" class="formLogin">
-
           <div class="formGroup">
-              <i class="fa fa-exclamation-circle uncheck" *ngIf="(fieldsForm.controls.userLogin.invalid && fieldsForm.controls.userLogin.touched ) ">
-                  <small> usuario vacio o digitó mas de 30 caracteres</small>
-              </i>
+            <i class="fa fa-exclamation-circle uncheck" *ngIf="(fieldsForm.controls.userLogin.invalid && fieldsForm.controls.userLogin.touched ) ">
+              <small> usuario vacio o digitó mas de 30 caracteres</small>
+            </i>
             <div class="input-group mb-3">
               <div class="input-group-prepend">
                 <span class="input-group-text" id="inputGroup-sizing-default"><i class="fa fa-user" aria-hidden="true"></i>
@@ -32,22 +31,21 @@
 
           <div class="formGroup">
             <i class="fa fa-exclamation-circle uncheck" *ngIf="(fieldsForm.controls.passLogin.invalid && fieldsForm.controls.passLogin.touched ) ">
-               <small> contraseña vacia o digitó más 15 caracteres</small>
+              <small> contraseña vacia o digitó más 15 caracteres</small>
             </i>
 
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="inputGroup-sizing-default"><i class="fa fa-unlock-alt" aria-hidden="true"></i>
-              </span>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-default"><i class="fa fa-unlock-alt" aria-hidden="true"></i>
+                </span>
+              </div>
+              <input type="text" class="form-control" aria-label="Default" aria-describedby="putGroup-siinzing-default"
+                formControlName="passLogin">
             </div>
-            <input type="text" class="form-control" aria-label="Default" aria-describedby="putGroup-siinzing-default"
-                    formControlName="passLogin">
           </div>
-          </div>
-          <button class="botonIngresarClass" type="submit"><strong>Ingresar</strong></button>
+          <button class="botonIngresarClass" type="submit" (click)="onSubmit()"><strong>Ingresar</strong></button>
         </form>
       </div>
     </div>
   </div>
-
 </body>

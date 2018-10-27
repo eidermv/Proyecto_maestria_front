@@ -28,6 +28,8 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { CoreModule } from './core/core.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SeekersModule } from './modules/seekers/seekers.module';
+
 
 @NgModule({
   imports: [
@@ -38,6 +40,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     CoreModule,
     HttpClientModule,
     AuthModule,
+    SeekersModule,
     BrowserAnimationsModule,
   ],
   declarations: [

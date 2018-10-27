@@ -24,6 +24,7 @@ export class AddStudentComponent implements OnInit {
     this.resetForm = 'ok';
     this.isFormAddStudent = true;
     this.student = new Student();
+    console.log(localStorage.getItem('sesion'));
   }
 
   ngOnInit() {

@@ -38,16 +38,17 @@ export class LoginComponent implements OnInit {
 
   onSubmit()
   {
-   /* this.authService.authUser()
+    let user = this.fieldsForm.get('userLogin').value;
+    let pass = this.fieldsForm.get('passLogin').value;
+    this.authService.authUser(user,pass)
     .subscribe( data =>
       {
-        console.log('registre');
+        console.log('registre: ' + data);
       },
       err =>
       {
-        console.log('no registre');
-      });*/
-
+        console.log('no registre: '+ err);
+      });
   }
 
  }

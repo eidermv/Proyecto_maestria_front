@@ -45,89 +45,89 @@
             </div>
 
             <div class="row">
-              <div class="formGroup col-6">
-                <i class="fa fa-exclamation-circle uncheck" *ngIf="(fieldsForm.controls.cohorteStudent.invalid && fieldsForm.controls.cohorteStudent.touched)">
-                  Año de ingreso vacio o digito mas de 4 caracteres
-                </i>
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="fa fa-calendar"></i></span>
-                  </div>
-                  <input type="text" class="form-control" placeholder="Año en el que ingreso el estudiante"
-                    formControlName="cohorteStudent">
-                </div>
-              </div>
-              <div class="formGroup col-6">
-                <i class="fa fa-exclamation-circle uncheck" *ngIf="(fieldsForm.controls.emailStudent.errrors?.minLength && fieldsForm.controls.emailStudent.touched)">
-                  Correo institucional vacio o digitó más de 40 caracteres
-                </i>
-                <div *ngIf="fieldsForm.controls.emailStudent.errors?.pattern && fieldsForm.controls.emailStudent.dirty ">
-                    <i class="fa fa-exclamation-circle uncheck" >
-                        El texto escrito debe terminar en @unicauca.edu.co
-                      </i>
-               </div>
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="fa fa-envelope-o"></i></span>
-                  </div>
-                  <input type="text" class="form-control" placeholder="correo institucional. Ejemplo: juanito@unicauca.edu.co"
-                    formControlName="emailStudent">
-                </div>
-              </div>
-            </div>
-
-            <div class="row">
                 <div class="formGroup col-6">
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-user-secret"><small> Tutor</small></i></span>
+                      </div>
+                      <select type="text" class="form-control" #tutor>
+                        <option></option>
+                      </select>
+                    </div>
+                  </div>
+                <div class="formGroup col-6">
+                  <i class="fa fa-exclamation-circle uncheck" *ngIf="(fieldsForm.controls.emailStudent.errors?.maxlength  && fieldsForm.controls.emailStudent.dirty)
+                                                                    || (fieldsForm.controls.emailStudent.errors?.required && fieldsForm.controls.emailStudent.touched ) ">
+                    Campo vacio o digito más de 40 caracteres
+                  </i>
+
+                  <i class="fa fa-exclamation-circle uncheck" *ngIf="fieldsForm.controls.emailStudent.errors?.pattern">
+                    El correo escrito debe terminar en @unicauca.edu.co
+                  </i>
+
                   <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="fa fa-user-secret"><small> Tutor</small></i></span>
+                      <span class="input-group-text"><i class="fa fa-envelope-o"></i></span>
                     </div>
-                    <select type="text" class="form-control" #tutor>
-                      <option></option>
-                    </select>
+                    <input type="text" class="form-control" placeholder="correo institucional. Ejemplo: juanito@unicauca.edu.co"
+                      formControlName="emailStudent">
                   </div>
                 </div>
+              </div>
+
+              <div class="row">
+                  <div class="formGroup col-6">
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"><i class="fa fa-user-secret"><small> Cohorte</small></i></span>
+                        </div>
+                        <select type="text" class="form-control" #cohorteStudent>
+                          <option [ngValue]="years" *ngFor="let years of optionsCohorte">{{years}}</option>
+                        </select>
+                      </div>
+                    </div>
+
                 <div class="formGroup col-6">
                   <div class="input-group mb-3">
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="fa fa-tasks"></i><small> Estado </small></span>
                     </div>
                     <select type="text" class="form-control" #state>
-                      <option></option>
+                      <option [ngValue]="states" *ngFor="let states of optionsState">{{states}}</option>
                     </select>
                   </div>
                 </div>
               </div>
 
 
-            <div class="row">
-              <div class="formGroup col-6">
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="fa fa-users"><small> Semestre Ingreso</small></i></span>
+              <div class="row">
+                <div class="formGroup col-6">
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fa fa-users"><small> Semestre Ingreso</small></i></span>
+                    </div>
+                    <select type="text" class="form-control" #semester>
+                      <option [ngValue]="semesters" *ngFor="let semesters of optionsEnteredSemester">{{semesters}}</option>
+                    </select>
                   </div>
-                  <select type="text" class="form-control" #semester>
-                    <option></option>
-                  </select>
+                </div>
+                <div class="formGroup col-6">
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fa fa-university"></i><small>Ingresó por</small></span>
+                    </div>
+                    <select type="text" class="form-control" #enteredBy>
+                      <option [ngValue]="modesEnterd" *ngFor="let modesEnterd of optionsModeEntered">{{modesEnterd}}</option>
+                    </select>
+                  </div>
                 </div>
               </div>
-              <div class="formGroup col-6">
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="fa fa-university"></i><small>Ingreso por</small></span>
-                  </div>
-                  <select type="text" class="form-control" #enteredBy>
-                    <option></option>
-                  </select>
-                </div>
+
+
+              <div style="text-align:right">
+                <button type="submit" class="btn btn-lg  btn-success">btn
+                </button>
               </div>
-            </div>
-
-
-            <div style="text-align:right">
-              <button type="submit" class="btn btn-lg  btn-success">btn
-              </button>
-            </div>
           </form>
         </div>
       </div>

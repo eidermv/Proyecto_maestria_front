@@ -20,9 +20,9 @@ export const navItems = [
         icon: 'fa fa-pencil'
       },
       {
-        name: 'Eliminar Estudiante',
+        name: 'Listar Estudiantes',
         url: '/student/addStudent',
-        icon: 'fa fa-trash-o'
+        icon: 'fa fa-list-ol'
       }
     ]
   },

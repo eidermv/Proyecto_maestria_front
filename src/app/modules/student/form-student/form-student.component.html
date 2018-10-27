@@ -5,7 +5,7 @@
         <div class="card-body ">
           <form [formGroup]="fieldsForm" (ngSubmit)="onSubmit()" #f="ngForm">
             <h1 class="title text-center">{{titleForm}}</h1>
-            <p class="text-muted">{{subtitleForm}}</p>
+            <p class="text-muted text-center">{{subtitleForm}}</p>
 
             <div class="formGroup">
               <i class="fa fa-exclamation-circle uncheck" *ngIf="(fieldsForm.controls.idStudent.invalid && fieldsForm.controls.idStudent.touched ) ">
@@ -123,9 +123,8 @@
                 </div>
               </div>
 
-
               <div style="text-align:right">
-                <button type="submit" class="btn btn-lg  btn-success">btn
+                <button type="submit" class="btn btn-lg  btn-success" [disabled]="fieldsForm.invalid">{{buttonAction}}
                 </button>
               </div>
           </form>

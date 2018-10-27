@@ -1,4 +1,4 @@
-export class Line
+export class Student
 {
   private id: string;
   private name: string;

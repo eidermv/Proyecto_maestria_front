@@ -21,7 +21,7 @@ export const navItems = [
       },
       {
         name: 'Listar Estudiantes',
-        url: '/student/addStudent',
+        url: '/student/listStudent',
         icon: 'fa fa-list-ol'
       }
     ]

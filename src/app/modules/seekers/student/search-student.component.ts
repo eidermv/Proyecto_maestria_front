@@ -69,7 +69,7 @@ export class SearchStudentComponent implements OnInit {
   private searchStudent()
   {
     this.txt_fieldNameStudent = this.fieldsForm.get('nameStudent').value;
-    /*this.seekersServices.searchTheard(this.txt_fieldNameThird).
+   /* this.seekersServices.searchTheard(this.txt_fieldNameThird).
     subscribe(data =>
       {
         this.proccessResponse(data);
@@ -77,7 +77,7 @@ export class SearchStudentComponent implements OnInit {
       err =>
       {
         this.clearOptions();
-        this.fieldTrhidEmpty = true;
+        //this.fieldTrhidEmpty = true;
       }
 
     );*/

@@ -6,6 +6,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { StudentRoutingModule } from './student.routing';
 import { FormStudentComponent } from './form-student/form-student.component';
 import { StudentService } from './student.service';
+import { ListStudentComponent } from './list-student/list-student.component';
 
 @NgModule({
   imports:
@@ -17,6 +18,6 @@ import { StudentService } from './student.service';
             ModalModule.forRoot(),
             ],
   providers:[StudentService],
-  declarations: [AddStudentComponent, FormStudentComponent]
+  declarations: [AddStudentComponent, FormStudentComponent, ListStudentComponent]
 })
 export class StudentModule { }

@@ -15,8 +15,11 @@
         <h3>Iniciar Sesion</h3><br>
 
         <form [formGroup]="fieldsForm" (ng-submit)="onSubmit()" class="formLogin">
+            <i class="fa fa-exclamation-circle uncheck" *ngIf="showErrorDates">
+                <small> usuario o contraseña incorrectos</small>
+              </i>
           <div class="formGroup">
-            <i class="fa fa-exclamation-circle uncheck" *ngIf="(fieldsForm.controls.userLogin.invalid && fieldsForm.controls.userLogin.touched ) ">
+            <i class="fa fa-exclamation-circle uncheck" *ngIf="(fieldsForm.controls.userLogin.invalid && fieldsForm.controls.userLogin.touched ) || showErrorUser ">
               <small> usuario vacio o digitó mas de 30 caracteres</small>
             </i>
             <div class="input-group mb-3">
@@ -30,7 +33,7 @@
           </div>
 
           <div class="formGroup">
-            <i class="fa fa-exclamation-circle uncheck" *ngIf="(fieldsForm.controls.passLogin.invalid && fieldsForm.controls.passLogin.touched ) ">
+            <i class="fa fa-exclamation-circle uncheck" *ngIf="(fieldsForm.controls.passLogin.invalid && fieldsForm.controls.passLogin.touched ) || showErrorPass ">
               <small> contraseña vacia o digitó más 15 caracteres</small>
             </i>
 

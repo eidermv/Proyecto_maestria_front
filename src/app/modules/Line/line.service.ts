@@ -11,7 +11,7 @@ export class LineService
 {
   stringApp: StringApp = new StringApp();
 
-  URL: String = this.stringApp.URL_SERVICIO;
+  URL: String = this.stringApp.URL_SERVICIO_GET_ALL_TUTORS;
   constructor(private httpClient: HttpClient)
   {
 
@@ -26,7 +26,7 @@ export class LineService
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json'})
     };
-    return this.httpClient.post(this.stringApp.URL_SERVICIO + 'line', newLine, httpOptions);
+    return this.httpClient.post(this.stringApp.URL_SERVICIO_GET_ALL_TUTORS + 'line', newLine, httpOptions);
     }
   }
 

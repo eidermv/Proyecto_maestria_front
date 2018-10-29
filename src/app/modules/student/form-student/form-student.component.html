@@ -54,7 +54,7 @@
                         <span class="input-group-text"><i class="fa fa-user-secret"><small> Tutor</small></i></span>
                       </div>
                       <select type="text" class="form-control" #tutor>
-                        <option></option>
+                        <option [ngValue]="tutors" *ngFor="let tutors of optionsTutor">{{tutors['nombre']}}</option>
                       </select>
                     </div>
                   </div>

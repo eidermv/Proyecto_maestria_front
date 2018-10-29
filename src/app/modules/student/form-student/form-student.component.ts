@@ -32,6 +32,7 @@ export class FormStudentComponent implements OnInit, OnChanges {
   optionsState: Array<string>;
   optionsEnteredSemester: Array<string>;
   optionsModeEntered: Array<string>;
+  optionsTutor: Array<string>;
 
   /************************VARIABLES DE INSTANCIA********** */
   @Output() getStudent = new EventEmitter<{id: string, name: string, surname: string, tutor: string, email: string, cohorte: string,
@@ -46,8 +47,25 @@ export class FormStudentComponent implements OnInit, OnChanges {
     this.optionsState = ['Activo', 'Graduado', 'Inactivo'];
     this.optionsEnteredSemester = ['1', '2'];
     this.optionsModeEntered = ['Maestría', 'Doctorado'];
+    this.optionsTutor = [];
     this.getAllCohorte();
+    this.getTutors();
    }
+
+   getTutors()
+   {
+     this.studentService.getAllTutors()
+     .subscribe(data =>
+      {
+        this.proccessResponseTutors(data);
+      });
+   }
+
+   private proccessResponseTutors(data: Array<any>)
+  {
+    this.optionsTutor = data;
+  }
+
 
    getAllCohorte()
    {// se llena un array con los años desde el 2000 hasta la fecha actual para usarlas en el combo cohorte estudiante

@@ -19,7 +19,11 @@ export class StringApp
 
   /** URL DEL SERVICIO*********** */
 
-  public URL_SERVICIO = 'http://162.249.4.195:3000/';
+  private URL_SERVICIO = 'http://localhost:8080/';
+  public URL_SERVICIO_LOGIN = this.URL_SERVICIO + 'login';
+  public URL_SERVICIO_GET_ALL_TUTORS = this.URL_SERVICIO + 'tutor/buscar/todo';
+  public URL_SERVICIO_CREATE_STUDENT = this.URL_SERVICIO + 'estudiante/crear';
+  public URL_SERVICIO_GET_ALL_STUDENTS = this.URL_SERVICIO + 'estudiante/buscar/todo';
 
 }
 

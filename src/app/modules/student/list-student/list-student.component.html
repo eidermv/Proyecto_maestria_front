@@ -1,62 +1,77 @@
 <div class="container-fluid">
-    <div class="animated fadeIn">
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="card">
-            <div class="card-header">
-              <i class="fa fa-align-justify"></i> Estudiantes de maestria </div>
-            <div class="card-body">
-              <table class="table table-responsive-sm">
-                <thead>
-                  <tr>
-                    <th>Nombres</th>
-                    <th>Codigo</th>
-                    <th>Tutor</th>
-                    <th>Cohorte</th>
-                    <th>Estado</th>
-                    <th>Acciones</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let student of optionsDataStudents" >
-                    <td>{{student['nombres']}} {{ student['apellidos']}}</td>
-                    <td>{{student['codigo']}}</td>
-                    <td>{{student['tutor']['nombre']}}</td>
-                    <td>{{student['cohorte']}}</td>
-                    <td>
-                      <span class="badge badge-success" *ngIf="student['estado'] == 'Activo'">Activo</span>
-                    </td>
-                    <td>
-                      <button>Ver</button>
-                      <button>Editar</button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-              <ul class="pagination">
-                <li class="page-item">
-                  <a class="page-link" href="#">Prev</a>
-                </li>
-                <li class="page-item active">
-                  <a class="page-link" href="#">1</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="#">2</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="#">3</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="#">4</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="#">Next</a>
-                </li>
-              </ul>
-            </div>
+  <div class="animated fadeIn">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-header  bg-info">
+            <i class="fa fa-align-justify"></i> <strong> Estudiantes de maestria </strong> </div>
+          <div class="card-body">
+
+            <table class="table table-responsive-sm">
+              <thead>
+                <tr>
+                  <th>Nombres</th>
+                  <th>Codigo</th>
+                  <th>Tutor</th>
+                  <th>Cohorte</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let student of optionsDataStudents | paginate: {itemsPerPage: 8, currentPage: p}">
+                  <td>{{student['nombres']}} {{ student['apellidos']}}</td>
+                  <td>{{student['codigo']}}</td>
+                  <td>{{student['tutor']['nombre']}}</td>
+                  <td>{{student['cohorte']}}</td>
+                  <td>
+                    <span class="badge badge-primary" *ngIf="student['estado'] == 'Activo'">Activo</span>
+                    <span class="badge badge-dark" *ngIf="student['estado'] == 'Graduado'">Graduado</span>
+                    <span class="badge badge-secondary" *ngIf="student['estado'] == 'Inactivo'">Inactivo</span>
+                  </td>
+                  <td>
+                    <div class="col-lg-12">
+                      <button class="btn btn-primary col-lg-4" (click)="showModalOk(student)">Ver</button>
+                      <button class="btn btn-danger col-lg-4" (click)="sendInfoToEditStudentComponent(student)">Editar</button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <pagination-controls (pageChange)="p =$event"></pagination-controls>
+
           </div>
         </div>
-        </div>
-        </div>
-        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
+<div bsModal #successModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-primary" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title"> Informacion del estudiante</h4>
+        <button type="button" class="close" (click)="successModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Nombres: </strong>{{studentShow.getName()}}</p>
+        <p><strong>Apellidos: </strong>{{studentShow.getSurname()}}</p>
+        <p><strong>Identificación: </strong>{{studentShow.getId()}}</p>
+        <p><strong>Correo: </strong>{{studentShow.getEmail()}}</p>
+        <p><strong>Cohorte: </strong>{{studentShow.getCohorte()}}</p>
+        <p><strong>Semestre Ingreso: </strong>{{studentShow.getEnteredSemester()}}</p>
+        <p><strong>Ingresó por: </strong>{{studentShow.getEnteredBy()}}</p>
+        <p><strong>Estado: </strong>{{studentShow.getState()}}</p>
+        <p><strong>Tutor: </strong>{{studentShow.getTutor()}}</p>
+        <p><strong></strong></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="successModal.hide()">Cerrar</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

@@ -27,6 +27,8 @@
   },
   "private": true,
   "dependencies": {
+    "@angular/animations": "^6.0.0",
+    "@angular/cdk": "^6.2.0",
     "@angular/common": "^6.1.6",
     "@angular/compiler": "^6.1.6",
     "@angular/core": "^6.1.6",
@@ -49,14 +51,13 @@
     "mutationobserver-shim": "^0.3.2",
     "ng2-charts": "^1.6.0",
     "ngx-bootstrap": "^3.0.1",
+    "ngx-pagination": "^3.2.1",
     "ngx-perfect-scrollbar": "^6.3.0",
     "rxjs": "^6.3.0",
     "rxjs-compat": "^6.3.0",
     "simple-line-icons": "^2.4.1",
     "ts-helpers": "^1.1.2",
-    "zone.js": "^0.8.26",
-    "@angular/cdk": "^6.2.0",
-    "@angular/animations": "^6.0.0"
+    "zone.js": "^0.8.26"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.7.5",

@@ -5,7 +5,7 @@ import { SeekersService } from '../seekers.service';
 import { Student } from '../../../models/student';
 
 @Component({
-  selector: 'app-student',
+  selector: 'app-student-search',
   templateUrl: './search-student.component.html'
 })
 export class SearchStudentComponent implements OnInit {
@@ -69,22 +69,29 @@ export class SearchStudentComponent implements OnInit {
   private searchStudent()
   {
     this.txt_fieldNameStudent = this.fieldsForm.get('nameStudent').value;
-   /* this.seekersServices.searchTheard(this.txt_fieldNameThird).
-    subscribe(data =>
-      {
-        this.proccessResponse(data);
-      },
-      err =>
-      {
+    if(this.txt_fieldNameStudent.length == 0)
+    {
+        this.fielstudentEmpty = true;
         this.clearOptions();
-        //this.fieldTrhidEmpty = true;
-      }
+    }
+    else{
+      this.seekersServices.searchStudent(this.txt_fieldNameStudent).
+      subscribe(data =>
+        {
 
-    );*/
+          this.proccessResponse(data);
+        },
+        err =>
+        {
+          this.clearOptions();
+          this.fielstudentEmpty = true;
+        }
+      );
+    }
   }
-  private proccessResponse(data: JSON)
+  private proccessResponse(data: Array<any>)
   {
-    this.arrayStudent = data['data'].thirdParties;
+    this.arrayStudent = data;
     if(this.arrayStudent.length > 0)
       {
       this.loadOptions(this.arrayStudent);
@@ -102,7 +109,7 @@ export class SearchStudentComponent implements OnInit {
     this.clearOptions();
     for(let i = 0 ; i < students.length ; i++)
       {
-        this.options.push(students[i]['name']);
+        this.options.push(students[i]['nombres'] + ' ' + students[i]['apellidos']);
       }
   }
 
@@ -136,8 +143,15 @@ export class SearchStudentComponent implements OnInit {
     {
       for(let i = 0; i < this.arrayStudent.length ; i++)
       {
-        if(this.arrayStudent[i]['name'].includes(this.fieldsForm.get('nameStudent').value.trim()) )
+        let nameAndSurname = this.fieldsForm.get('nameStudent').value.split(' ');
+        let name = nameAndSurname[0] + nameAndSurname [1].trim();
+        let surname = nameAndSurname[2] + nameAndSurname [3].trim();
+        console.log(name);
+        console.log(surname);
+        if((this.arrayStudent[i]['nombres'].includes(name))
+            && (this.arrayStudent[i]['apellidos'].includes(surname)))
         {
+          console.log('si pase la condicion');
           this.student.setId(this.arrayStudent[i]);
         }
       }

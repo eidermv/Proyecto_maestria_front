@@ -5,9 +5,9 @@ import {Line} from '../../models/line';
 import { Observable } from 'rxjs';
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json'})
+  headers: new HttpHeaders({ 'Content-Type': 'application/json',
+                            'Authorization': localStorage.getItem('token')})
 };
-
 
 @Injectable()
 export class SeekersService
@@ -19,9 +19,9 @@ export class SeekersService
 
   }
 
-  searchStudent()
+  searchStudent(student: string)
   {
-   // this.httpClient.
+    return this.httpClient.get<Array<any>>(this.stringApp.URL_SERVICIO_SEARCH_STUDENT + student, httpOptions);
   }
 
 }

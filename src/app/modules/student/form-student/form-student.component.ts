@@ -130,9 +130,9 @@ export class FormStudentComponent implements OnInit, OnChanges {
     {
       this.getStudent.emit(
                             {
-                              id: this.fieldsForm.get('idStudent').value,
-                              name:  this.fieldsForm.get('nameStudent').value,
-                              surname: this.fieldsForm.get('surnameStudent').value,
+                              id: this.fieldsForm.get('idStudent').value.trim(),
+                              name:  this.fieldsForm.get('nameStudent').value.trim(),
+                              surname: this.fieldsForm.get('surnameStudent').value.trim(),
                               tutor: this.cbx_tutorStudent.nativeElement.value,
                               email: this.fieldsForm.get('emailStudent').value,
                               cohorte: this.cbx_cohorteStudent.nativeElement.value,

@@ -24,6 +24,7 @@ export class StringApp
   public URL_SERVICIO_GET_ALL_TUTORS = this.URL_SERVICIO + 'tutor/buscar/todo';
   public URL_SERVICIO_CREATE_STUDENT = this.URL_SERVICIO + 'estudiante/crear';
   public URL_SERVICIO_GET_ALL_STUDENTS = this.URL_SERVICIO + 'estudiante/buscar/todo';
+  public URL_SERVICIO_SEARCH_STUDENT = this.URL_SERVICIO + 'estudiante/buscar/match/';
 
 }
 

@@ -2,16 +2,16 @@
   <div class="input-group">
     <i class="fa fa-exclamation-circle uncheck"
     *ngIf="studentNotFound">
-    <!--{{stringModuleThird.MSJ_THIRD_NOT_FOUND}}-->
+     El estudiante no se encuentra registrado en el sistema
     </i>
     <i class="fa fa-exclamation-circle uncheck"
     *ngIf="fielstudentEmpty">
-    <!--{{stringModuleThird.MSJ_THIRD_EMPTY}}-->
+     No ha digitado un nombre, apellido o identificacion para el estudiante
     </i>
     <div class="input-group mb-3 input-group-lg">
       <input type="text" placeholder="Didite nombre, apellido o identificacion del estudiante a buscar" aria-label="Number"
               [matAutocomplete]="auto" class="form-control"  (keyup)="determineAction($event)"
-              formControlName="nameThird" id="nameLine" >
+              formControlName="nameStudent"  >
       <span class="input-group-prepend">
           <button type="submit" class="btn btn-primary" ><i class="fa fa-search"></i>  </button>
       </span>

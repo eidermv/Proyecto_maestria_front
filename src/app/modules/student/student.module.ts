@@ -7,6 +7,10 @@ import { StudentRoutingModule } from './student.routing';
 import { FormStudentComponent } from './form-student/form-student.component';
 import { StudentService } from './student.service';
 import { ListStudentComponent } from './list-student/list-student.component';
+import { EditStudentComponent } from './edit-student/edit-student.component';
+import { SeekersModule } from '../seekers/seekers.module';
+import { NgxPaginationModule} from 'ngx-pagination'
+
 
 @NgModule({
   imports:
@@ -16,8 +20,10 @@ import { ListStudentComponent } from './list-student/list-student.component';
             FormsModule,
             CommonModule,
             ModalModule.forRoot(),
+            SeekersModule,
+            NgxPaginationModule,
             ],
   providers:[StudentService],
-  declarations: [AddStudentComponent, FormStudentComponent, ListStudentComponent]
+  declarations: [AddStudentComponent, FormStudentComponent, ListStudentComponent, EditStudentComponent]
 })
 export class StudentModule { }

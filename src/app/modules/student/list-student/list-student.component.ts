@@ -13,6 +13,7 @@ export class ListStudentComponent implements OnInit {
   /*************************VARIABLES LOCALES ************/
   @ViewChild('successModal') viewModalOk: any ;
   optionsDataStudents: Array<string>;
+  searchTerm: string;
 
   /************************VARIABLES DE INSTANCIA ********/
   studentShow: Student;
@@ -24,6 +25,7 @@ export class ListStudentComponent implements OnInit {
     this.studentShow = new Student();
     this.optionsDataStudents = [];
     this.getAllStudents();
+    this.searchTerm = '';
   }
 
   getAllStudents()
@@ -59,7 +61,12 @@ export class ListStudentComponent implements OnInit {
 
   sendInfoToEditStudentComponent(aux: any)
   {
-    this.route.navigate(['/student/editStudent', aux['nombres']]);
+    this.route.navigate(['/student/editStudent', aux['codigo']]);
+  }
+
+  navigateToAddStudent()
+  {
+    this.route.navigate(['/student/addStudent']);
   }
 
 

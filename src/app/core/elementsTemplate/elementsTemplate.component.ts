@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { navItems } from './_nav';
+import { Route, Router } from '@angular/router';
 
 
 @Component({
@@ -11,7 +12,7 @@ export class ElementsTemplateComponent {
   public sidebarMinimized = true;
   private changes: MutationObserver;
   public element: HTMLElement = document.body;
-  constructor() {
+  constructor(private route: Router) {
 
     this.changes = new MutationObserver((mutations) => {
       this.sidebarMinimized = document.body.classList.contains('sidebar-minimized');
@@ -21,4 +22,12 @@ export class ElementsTemplateComponent {
       attributes: true
     });
   }
+
+  redirectToLogin()
+  {
+    localStorage.removeItem('token');
+    this.route.navigate(['/login']);
+  }
+
+
 }

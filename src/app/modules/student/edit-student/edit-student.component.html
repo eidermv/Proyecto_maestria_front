@@ -1,1 +1,64 @@
-<app-student-search></app-student-search>
+
+<app-form-student [titleForm]="titleForm" [subtitleForm]="subTitleForm" [buttonAction]="titleBtnForm" [resetForm]="resetForm"
+[isFormAddStudent]="isFormAddStudent" [studenEdit]="studentEdit" *ngIf="showFormEdit" (getStudent)="getDataFormStudent($event)"></app-form-student>
+
+<div bsModal #successModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+aria-hidden="true">
+<div class="modal-dialog modal-primary" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title"> Estudiante Registrado con Exito</h4>
+      <button type="button" class="close" (click)="successModal.hide()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>El estudiante ha sido registrado exitosamente en el sistema</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary" (click)="successModal.hide()">Seguir Editando estudiantes</button>
+      <button type="button" class="btn btn-success" (click)="redirectToListStudent()">Ver Listado de estudiantes</button>
+    </div>
+  </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div bsModal #dangerModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+aria-hidden="true">
+<div class="modal-dialog modal-danger" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title">Error al registrar el estudiante</h4>
+      <button type="button" class="close" (click)="dangerModal.hide()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p><strong>{{textErrorService}}</strong></p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-danger" (click)="dangerModal.hide()">Cerrar</button>
+    </div>
+  </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div bsModal #warningModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+aria-hidden="true">
+<div class="modal-dialog modal-dark" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title">No realizo cambios</h4>
+      <button type="button" class="close" (click)="warningModal.hide()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p><strong>No realizo ningun cambio en el estudiante</strong></p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-dark" (click)="warningModal.hide()">Cerrar</button>
+    </div>
+  </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

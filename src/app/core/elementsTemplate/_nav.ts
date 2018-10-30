@@ -15,11 +15,6 @@ export const navItems = [
         icon: 'fa fa-plus'
       },
       {
-        name: 'Editar Estudiante',
-        url: '/student/editStudent',
-        icon: 'fa fa-pencil'
-      },
-      {
         name: 'Listar Estudiantes',
         url: '/student/listStudent',
         icon: 'fa fa-list-ol'

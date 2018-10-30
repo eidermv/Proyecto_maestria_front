@@ -11,6 +11,8 @@ export class FormStudentComponent implements OnInit, OnChanges {
 
   /*************************VARIABLES GLOBALES************* */
   YEAR_END_COHORTE: number;
+  IS_TUTOR: boolean;
+  IS_NOT_TUTOR: boolean;
   /*************************STRINGS APP********************* */
   stringValidation: StringValidation;
 
@@ -43,6 +45,8 @@ export class FormStudentComponent implements OnInit, OnChanges {
   constructor(private formBuilder: FormBuilder, private studentService: StudentService) {
     this.stringValidation = new StringValidation();
     this.YEAR_END_COHORTE = 2000;
+    this.IS_NOT_TUTOR = false;
+    this.IS_TUTOR = true;
     this.optionsCohorte = [];
     this.optionsState = ['Activo', 'Graduado', 'Inactivo'];
     this.optionsEnteredSemester = ['1', '2'];
@@ -64,6 +68,10 @@ export class FormStudentComponent implements OnInit, OnChanges {
    private proccessResponseTutors(data: Array<any>)
   {
     this.optionsTutor = data;
+    if(!this.isFormAddStudent)
+    {
+      this.setTutor();
+    }
   }
 
 
@@ -119,6 +127,74 @@ export class FormStudentComponent implements OnInit, OnChanges {
                           ]
                         ],
         });
+
+        if(!this.isFormAddStudent)
+        {
+
+          this.fieldsForm.get('idStudent').setValue(this.studenEdit.id);
+          this.fieldsForm.get('nameStudent').setValue(this.studenEdit.name);
+          this.fieldsForm.get('surnameStudent').setValue(this.studenEdit.surname);
+          this.fieldsForm.get('emailStudent').setValue(this.studenEdit.email);
+          this.setCohorte();
+          this.setState();
+          this.setEnteredBy();
+          this.setSemesterEntered();
+        }
+    }
+
+    setCohorte()
+    {
+      this.optionsCohorte = this.organizateOptions(this.optionsCohorte, this.studenEdit.cohorte, this.IS_NOT_TUTOR);
+    }
+
+    setTutor()
+    {
+      this.optionsTutor = this.organizateOptions (this.optionsTutor, this.studenEdit.tutor, this.IS_TUTOR);
+    }
+
+    setState()
+    {
+      this.optionsState = this.organizateOptions(this.optionsState, this.studenEdit.state, this.IS_NOT_TUTOR);
+    }
+
+    setEnteredBy()
+    {
+      this.optionsModeEntered = this.organizateOptions(this.optionsModeEntered, this.studenEdit.enteredBy, this.IS_NOT_TUTOR);
+    }
+
+    setSemesterEntered()
+    {
+      this.optionsEnteredSemester = this.organizateOptions(this.optionsEnteredSemester, this.studenEdit.semesterEntered, this.IS_NOT_TUTOR);
+    }
+
+    organizateOptions(optionsOrganizate: Array<string>, dataSetFirst: string, isTutor: boolean)
+    {
+      const optionTypeAux = [];
+      if(isTutor)
+      {
+        optionTypeAux.push({nombre: dataSetFirst});
+      }
+      else{
+        optionTypeAux.push(dataSetFirst);
+      }
+      for(let i=0; i < optionsOrganizate.length; i++)
+      {
+
+        if(isTutor)
+        {
+          if(optionsOrganizate[i]['nombre'] != optionTypeAux[0]['nombre'])
+          {
+            optionTypeAux.push(optionsOrganizate[i]);
+          }
+        }else
+        {
+          if(optionsOrganizate[i] != optionTypeAux[0])
+          {
+            optionTypeAux.push(optionsOrganizate[i]);
+          }
+        }
+      }
+      return optionTypeAux;
     }
 
     onSubmit()

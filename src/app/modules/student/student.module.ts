@@ -10,6 +10,7 @@ import { ListStudentComponent } from './list-student/list-student.component';
 import { EditStudentComponent } from './edit-student/edit-student.component';
 import { SeekersModule } from '../seekers/seekers.module';
 import { NgxPaginationModule} from 'ngx-pagination'
+import { StudentFilterPipe } from './list-student/studentFilter.pipe';
 
 
 @NgModule({
@@ -24,6 +25,10 @@ import { NgxPaginationModule} from 'ngx-pagination'
             NgxPaginationModule,
             ],
   providers:[StudentService],
-  declarations: [AddStudentComponent, FormStudentComponent, ListStudentComponent, EditStudentComponent]
+  declarations: [AddStudentComponent,
+                FormStudentComponent,
+                ListStudentComponent,
+                EditStudentComponent,
+                StudentFilterPipe]
 })
 export class StudentModule { }

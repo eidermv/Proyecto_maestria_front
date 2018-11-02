@@ -7,7 +7,7 @@
           <div class="card-header  bg-info  ">
               <i class="fa fa-align-justify "></i> <strong> Estudiantes de maestria </strong>
               <div class="input-group mb-4 input-group">
-                <input type="text" class="form-control" placeholder="Buscar por Identificación" [(ngModel)]="searchTerm">
+                <input type="text" class="form-control" placeholder="Buscar por Codigo" [(ngModel)]="searchTerm">
                 <span class="input-group-prepend">
                     <button type="submit" class="btn btn-light" ><i class="fa fa-search"></i>  </button>
                 </span>
@@ -74,7 +74,6 @@
         <p><strong>Identificación: </strong>{{studentShow.getId()}}</p>
         <p><strong>Correo: </strong>{{studentShow.getEmail()}}</p>
         <p><strong>Cohorte: </strong>{{studentShow.getCohorte()}}</p>
-        <p><strong>Semestre Ingreso: </strong>{{studentShow.getEnteredSemester()}}</p>
         <p><strong>Ingresó por: </strong>{{studentShow.getEnteredBy()}}</p>
         <p><strong>Estado: </strong>{{studentShow.getState()}}</p>
         <p><strong>Tutor: </strong>{{studentShow.getTutor()}}</p>

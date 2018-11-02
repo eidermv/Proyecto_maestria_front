@@ -24,7 +24,7 @@ export class AddStudentComponent implements OnInit {
   constructor( private studentService: StudentService, private router: Router)
   {
     this.titleForm = 'Registrar Estudiante';
-    this.subTitleForm = 'En este formulario podrá registrar a los estudiantes de maestría';
+    this.subTitleForm = 'En este formulario podrá registrar a los estudiantes de maestría. Los campos con * son obligatorios';
     this.titleBtnForm = 'Registrar';
     this.resetForm = 'ok';
     this.isFormAddStudent = true;

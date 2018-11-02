@@ -28,6 +28,4 @@ export class ElementsTemplateComponent {
     localStorage.removeItem('token');
     this.route.navigate(['/login']);
   }
-
-
 }

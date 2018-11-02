@@ -21,9 +21,9 @@ export class EditStudentComponent implements OnInit {
   isFormAddStudent: boolean;
   showFormEdit: boolean;
   textErrorService: string;
-  studentEdit: {id: string, name: string, surname: string, tutor: string, email: string,
+  studentEdit: {code: string, name: string, surname: string, tutor: string, email: string,
                 cohorte: string,state: string, semesterEntered: string, enteredBy: string};
-  studentOldEdit:{id: string, name: string, surname: string, tutor: string, email: string,
+  studentOldEdit:{code: string, id: string, name: string, surname: string, tutor: string, email: string,
                   cohorte: string,state: string, semesterEntered: string, enteredBy: string};
 
    /*************************VARIABLES DE INSTANCIA************* */
@@ -66,7 +66,7 @@ export class EditStudentComponent implements OnInit {
   proccessResponseStudent(dateStudentEdit: Array<string>)
   {
     this.studentEdit = {
-                          id: dateStudentEdit['codigo'],
+                          code: dateStudentEdit['codigo'],
                           name: dateStudentEdit ['nombres'],
                           surname: dateStudentEdit['apellidos'],
                           tutor: dateStudentEdit['tutor']['nombre'],
@@ -76,27 +76,40 @@ export class EditStudentComponent implements OnInit {
                           semesterEntered: dateStudentEdit['semestre'],
                           enteredBy: dateStudentEdit['pertenece'],
                       };
-   this.studentOldEdit = this.studentEdit;
+    this.studentOldEdit =
+                      {
+                        id: dateStudentEdit['id'],
+                        code: dateStudentEdit['codigo'],
+                        name: dateStudentEdit ['nombres'],
+                        surname: dateStudentEdit['apellidos'],
+                        tutor: dateStudentEdit['tutor']['nombre'],
+                        email: dateStudentEdit['correo'],
+                        cohorte: dateStudentEdit['cohorte'],
+                        state: dateStudentEdit['estado'],
+                        semesterEntered: dateStudentEdit['semestre'],
+                        enteredBy: dateStudentEdit['pertenece']
+                      };
    this.showFormEdit = true;
   }
 
-  getDataFormStudent(dateFormAdd: {id: string, name: string, surname: string, tutor: string, email: string,
+  getDataFormStudent(dateFormEdit: {id: string, name: string, surname: string, tutor: string, email: string,
     cohorte: string,state: string, semesterEntered: string, enteredBy: string})
     {
 
-      if(this.verifyChangesOnEdit(dateFormAdd))
+      if(this.verifyChangesOnEdit(dateFormEdit))
       {
-        this.student.setId(dateFormAdd.id);
-        this.student.setName(dateFormAdd.name);
-        this.student.setSurname(dateFormAdd.surname);
-        this.student.setTutor(dateFormAdd.tutor);
-        this.student.setEmail(dateFormAdd.email);
-        this.student.setEnteredSemester(dateFormAdd.semesterEntered);
-        this.student.setEnteredBy(dateFormAdd.enteredBy);
-        this.student.setCohorte(dateFormAdd.cohorte);
-        this.student.setState(dateFormAdd.state);
+        this.student.setId(this.studentOldEdit.id);
+        this.student.setCodigo(dateFormEdit.id);
+        this.student.setName(dateFormEdit.name);
+        this.student.setSurname(dateFormEdit.surname);
+        this.student.setTutor(dateFormEdit.tutor);
+        this.student.setEmail(dateFormEdit.email);
+        this.student.setEnteredSemester(dateFormEdit.semesterEntered);
+        this.student.setEnteredBy(dateFormEdit.enteredBy);
+        this.student.setCohorte(dateFormEdit.cohorte);
+        this.student.setState(dateFormEdit.state);
 
-        this.studentService.updateStudent(this.student, this.studentOldEdit.id)
+        this.studentService.updateStudent(this.student)
         .subscribe(data =>
           {
             this.showModalOk();
@@ -121,11 +134,12 @@ export class EditStudentComponent implements OnInit {
 
   verifyChangesOnEdit(newDateStudent: any)
   {
-    if(this.studentOldEdit.id == newDateStudent.id && this.studentOldEdit.name == newDateStudent.name &&
+    console.log();
+    if(this.studentOldEdit.code == newDateStudent.id && this.studentOldEdit.name == newDateStudent.name &&
       this.studentOldEdit.surname == newDateStudent.surname && this.studentOldEdit.tutor == newDateStudent.tutor &&
       this.studentOldEdit.email == newDateStudent.email && this.studentOldEdit.cohorte == newDateStudent.cohorte &&
-      this.studentOldEdit.cohorte == newDateStudent.cohorte && this.studentOldEdit.semesterEntered == newDateStudent.semesterEntered &&
-      this.studentOldEdit.enteredBy == newDateStudent.enteredBy
+      this.studentOldEdit.cohorte == newDateStudent.cohorte && this.studentOldEdit.enteredBy == newDateStudent.enteredBy &&
+      this.studentOldEdit.state == newDateStudent.state
       )
     {
      return false;

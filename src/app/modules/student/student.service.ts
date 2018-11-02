@@ -66,16 +66,17 @@ export class StudentService
     return this.httpClient.get<Array<any>>(this.stringApp.URL_SERVICIO_SEARCH_STUDENT_BY_CODE + code, httpOptions);
   }
 
-  updateStudent(student: Student, oldIdStudent: string)
+  updateStudent(student: Student)
   {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json',
                                 'Authorization': localStorage.getItem('token')})
     };
+    console.log(student);
     const updateStudent = JSON.stringify(
       {
-        codigoAnterior: oldIdStudent,
-        codigo: student.getId(),
+        id: student.getId(),
+        codigo: student.getCodigo(),
         nombres: student.getName(),
         apellidos: student.getSurname(),
         correo: student.getEmail(),

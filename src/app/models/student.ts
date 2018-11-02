@@ -1,6 +1,7 @@
 export class Student
 {
   private id: string;
+  private codigo: string;
   private name: string;
   private surname: string;
   private email: string;
@@ -89,6 +90,16 @@ export class Student
   public setEnteredBy(enteredBy: string)
   {
     this.enteredBy = enteredBy;
+  }
+
+  public getCodigo()
+  {
+    return this.codigo;
+  }
+
+  public setCodigo(code: string)
+  {
+    this.codigo = code;
   }
 
 

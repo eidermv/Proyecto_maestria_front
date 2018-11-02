@@ -4,7 +4,7 @@
 
 <div bsModal #successModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
 aria-hidden="true">
-<div class="modal-dialog modal-success" role="document">
+<div class="modal-dialog modal-primary" role="document">
   <div class="modal-content">
     <div class="modal-header">
       <h4 class="modal-title"> Estudiante Registrado con Exito</h4>
@@ -16,8 +16,8 @@ aria-hidden="true">
       <p>El estudiante ha sido registrado exitosamente en el sistema</p>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-primary" (click)="successModal.hide()">Seguir Registrando estudiantes</button>
-      <button type="button" class="btn btn-success" (click)="redirectToListStudent()">Ver Listado de estudiantes</button>
+      <button type="button" class="btn btn-dark" (click)="successModal.hide()">Seguir Registrando estudiantes</button>
+      <button type="button" class="btn btn-primary" (click)="redirectToListStudent()">Ver Listado de estudiantes</button>
     </div>
   </div><!-- /.modal-content -->
 </div><!-- /.modal-dialog -->

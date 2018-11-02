@@ -11,13 +11,15 @@ export class FormStudentComponent implements OnInit, OnChanges {
 
   /*************************VARIABLES GLOBALES************* */
   YEAR_END_COHORTE: number;
+  DEFAULT_dATE: string; // esta variable se inicializa en 1 por que el semestre no se va a utilizar por ahora,
+                        // pero para otras maestrias puede ser de gran ayuda
   IS_TUTOR: boolean;
   IS_NOT_TUTOR: boolean;
   /*************************STRINGS APP********************* */
   stringValidation: StringValidation;
 
   /***********************VARIABLES LOCALES***************** */
-  @Input() studenEdit: {id: string, name: string, surname: string, tutor: string, email: string, cohorte: string,
+  @Input() studenEdit: {code: string, name: string, surname: string, tutor: string, email: string, cohorte: string,
                         state: string, semesterEntered: string, enteredBy: string};
   @Input() titleForm: {titleForm: string};
   @Input() subtitleForm: {subtitleForm: string};
@@ -44,12 +46,12 @@ export class FormStudentComponent implements OnInit, OnChanges {
 
   constructor(private formBuilder: FormBuilder, private studentService: StudentService) {
     this.stringValidation = new StringValidation();
-    this.YEAR_END_COHORTE = 2000;
+    this.YEAR_END_COHORTE = 2008;
+    this.DEFAULT_dATE = '1';
     this.IS_NOT_TUTOR = false;
     this.IS_TUTOR = true;
     this.optionsCohorte = [];
     this.optionsState = ['Activo', 'Graduado', 'Inactivo'];
-    this.optionsEnteredSemester = ['1', '2'];
     this.optionsModeEntered = ['Maestría', 'Doctorado'];
     this.optionsTutor = [];
     this.getAllCohorte();
@@ -106,7 +108,8 @@ export class FormStudentComponent implements OnInit, OnChanges {
         {
           idStudent:    ['', [Validators.required,
                             Validators.maxLength(this.stringValidation.MAX_LONG_ID),
-                            Validators.minLength(this.stringValidation.MIN_LONG_TEX)
+                            Validators.minLength(this.stringValidation.MIN_LONG_TEX),
+                            Validators.pattern('^([0-9])*$'),
                           ]
                       ],
           nameStudent:  ['',[Validators.required,
@@ -131,14 +134,13 @@ export class FormStudentComponent implements OnInit, OnChanges {
         if(!this.isFormAddStudent)
         {
 
-          this.fieldsForm.get('idStudent').setValue(this.studenEdit.id);
+          this.fieldsForm.get('idStudent').setValue(this.studenEdit.code);
           this.fieldsForm.get('nameStudent').setValue(this.studenEdit.name);
           this.fieldsForm.get('surnameStudent').setValue(this.studenEdit.surname);
           this.fieldsForm.get('emailStudent').setValue(this.studenEdit.email);
           this.setCohorte();
           this.setState();
           this.setEnteredBy();
-          this.setSemesterEntered();
         }
     }
 
@@ -162,10 +164,6 @@ export class FormStudentComponent implements OnInit, OnChanges {
       this.optionsModeEntered = this.organizateOptions(this.optionsModeEntered, this.studenEdit.enteredBy, this.IS_NOT_TUTOR);
     }
 
-    setSemesterEntered()
-    {
-      this.optionsEnteredSemester = this.organizateOptions(this.optionsEnteredSemester, this.studenEdit.semesterEntered, this.IS_NOT_TUTOR);
-    }
 
     organizateOptions(optionsOrganizate: Array<string>, dataSetFirst: string, isTutor: boolean)
     {
@@ -213,12 +211,10 @@ export class FormStudentComponent implements OnInit, OnChanges {
                               email: this.fieldsForm.get('emailStudent').value,
                               cohorte: this.cbx_cohorteStudent.nativeElement.value,
                               state: this.cbx_stateStudent.nativeElement.value,
-                              semesterEntered: this.cbx_semesterStudent.nativeElement.value,
+                              semesterEntered: this.DEFAULT_dATE,
                               enteredBy: this.cbx_enteredByStudent.nativeElement.value
                             }
                           );
     }
-
-
 
 }

@@ -56,25 +56,20 @@ export class LoginComponent implements OnInit {
       this.authService.login(user, pass)
       .subscribe( data =>
         {
-          console.log('registre: ' + JSON.stringify(data));
-        },
-        err =>
-        {
-        if(err.status == 200)
-        {
           this.showErrorDates = false;
           this.showErrorPass = false;
           this.showErrorUser = false;
-          this.authService.setSession(err.error.text);
-          this.router.navigate(['/student/addStudent']);
-        }
+          this.authService.setSession(data['token']);
+          this.router.navigate(['/student/listStudent']);
+        },
+        err =>
+        {
         if(err.status == 403)
         {
           this.showErrorDates = true;
         }
         });
     }
-
   }
 
   validateField(user: string, pass: string)

@@ -18,6 +18,11 @@ export const navItems = [
         name: 'Listar Estudiantes',
         url: '/student/listStudent',
         icon: 'fa fa-list-ol'
+      },
+      {
+        name: 'publicar prueba',
+        url: '/publication/addPublications',
+        icon: 'fa fa-list-ol'
       }
     ]
   },

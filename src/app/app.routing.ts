@@ -55,6 +55,11 @@ export const routes: Routes = [
         path: 'student',
         canActivate: [AuthGuard],
         loadChildren: './modules/student/student.module#StudentModule'
+      },
+      {
+        path: 'publication',
+        canActivate: [AuthGuard],
+        loadChildren: './modules/publications/publications.module#PublicationModule'
       }
     ]
   }

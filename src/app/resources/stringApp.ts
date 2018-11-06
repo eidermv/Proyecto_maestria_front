@@ -30,5 +30,9 @@ export class StringApp
 
   public URL_SERVICIO_REGISTRY_PUBLICATIONS = this.URL_SERVICIO + 'publicacion/revista/registrar';
 
+  /******** ROLES DE LA APP */
+
+  public COORDINATOR =  'Coordinador';
+  public STUDENT = 'Estudiante';
 }
 

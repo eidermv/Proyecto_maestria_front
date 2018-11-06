@@ -59,7 +59,7 @@ export class LoginComponent implements OnInit {
           this.showErrorDates = false;
           this.showErrorPass = false;
           this.showErrorUser = false;
-          this.authService.setSession(data['token']);
+          this.authService.setSession(data);
           this.router.navigate(['/student/listStudent']);
         },
         err =>

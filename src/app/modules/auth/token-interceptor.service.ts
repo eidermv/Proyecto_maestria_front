@@ -12,12 +12,6 @@ export class TokenInterceptorService implements HttpInterceptor {
 
   intercept(req, next) : Observable<HttpHeaderResponse>
   {
-    let authService = this.injector.get(AuthService)
-    let tokenizedReq = req.clone(
-      {
-        headers: req.headers.set('Authorization', 'x-auth ' + authService.getToken())
-      }
-    )
-    return next.handle(tokenizedReq);
-}
+    return next.handle(req);
+  }
 }

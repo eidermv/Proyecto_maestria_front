@@ -1,12 +1,11 @@
-export const navItems = [
-
+export const navAdministrator = [
   {
     title: true,
     name: 'Administrador'
   },
   {
     name: 'Estudiante',
-    url: '/linea',
+    url: '/student',
     icon: 'icon-layers',
     children: [
       {
@@ -19,11 +18,7 @@ export const navItems = [
         url: '/student/listStudent',
         icon: 'fa fa-list-ol'
       },
-      {
-        name: 'publicar prueba',
-        url: '/publication/addPublications',
-        icon: 'fa fa-list-ol'
-      }
+
     ]
   },
 

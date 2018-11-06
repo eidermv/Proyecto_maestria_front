@@ -1,18 +1,28 @@
 import { Component, Input } from '@angular/core';
-import { navItems } from './_nav';
+import { navAdministrator } from './_navAdministrator';
+import { navStudent} from './_navStudent';
 import { Route, Router } from '@angular/router';
-
+import { StringApp } from '../../resources/stringApp';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './elementsTemplate.component.html'
 })
 export class ElementsTemplateComponent {
-  public navItems = navItems;
+
+  public navItems;
   public sidebarMinimized = true;
   private changes: MutationObserver;
   public element: HTMLElement = document.body;
+  private stringApp: StringApp = new StringApp();
   constructor(private route: Router) {
+
+    if(sessionStorage.getItem('rol') == this.stringApp.COORDINATOR)
+    {
+      this.navItems = navAdministrator;
+    }else{
+      this.navItems = navStudent;
+    }
 
     this.changes = new MutationObserver((mutations) => {
       this.sidebarMinimized = document.body.classList.contains('sidebar-minimized');
@@ -25,7 +35,10 @@ export class ElementsTemplateComponent {
 
   redirectToLogin()
   {
-    localStorage.removeItem('token');
+    sessionStorage.removeItem('token');
     this.route.navigate(['/login']);
   }
+
+
+
 }

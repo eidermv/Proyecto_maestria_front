@@ -29,13 +29,11 @@ export class AuthService
     const newStudent = JSON.stringify({usuario: user,
                                      contrasena: password});
     return this.httpClient.post<any>(this.stringApp.URL_SERVICIO_LOGIN,newStudent );
-
-    //this.saveLocalStorage();
-    //return true;
   }
 
    setSession(authResult) {
-    localStorage.setItem('token', authResult);
+    sessionStorage.setItem('token', authResult['token']);
+    sessionStorage.setItem('rol', authResult['roles']);
   }
 
   autorizationView()
@@ -43,20 +41,5 @@ export class AuthService
     return true;
   }
 
-  saveLocalStorage()
-  {
-    let auth1 =
-    {
-      token: 'aksdjfalksdjfkasdf----',
-      tipoUsuario: 'bueno'
-    }
-
-    localStorage.setItem('sesion', JSON.stringify(auth1));
-  }
-
-  getToken()
-  {
-    return localStorage.getItem('token');
-  }
 
 }

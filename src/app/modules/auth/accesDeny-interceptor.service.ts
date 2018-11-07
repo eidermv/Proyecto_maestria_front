@@ -19,7 +19,9 @@ export class AccesDenyInterceptorService implements HttpInterceptor {
                     {
                       if(error.status == 403)
                       {
-                        if(error.url != 'http://localhost:8080/login')
+                        let aux = error.url.split('/');// tomo el nombre del servicio para no usarlo en el login
+                        console.log(aux[3]);
+                        if(aux[3] != 'login')
                         {
                           sessionStorage.clear();
                           this.route.navigate(['/login']);

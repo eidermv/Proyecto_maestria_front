@@ -2,6 +2,7 @@ import { Injectable, Injector } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpResponse, HttpHeaderResponse} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/do';
+import { url } from 'inspector';
 
 
 
@@ -13,7 +14,12 @@ export class TokenInterceptorService implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler) : Observable<HttpEvent<any>>
   {
     const idToken = sessionStorage.getItem('token');
-    if (idToken)
+
+    let aux = req.url.split('.');
+    if(aux[1] == 'geonames' )
+    {
+      return next.handle(req);
+    }else if (idToken)
     {
       const reqClone = req.clone(
         {
@@ -24,6 +30,8 @@ export class TokenInterceptorService implements HttpInterceptor {
     }
     else{
       return next.handle(req);
+
     }
+    /**/
   }
 }

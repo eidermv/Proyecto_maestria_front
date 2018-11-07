@@ -5,12 +5,14 @@ import {MatFormFieldModule, MatInputModule, MatAutocompleteModule} from '@angula
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { SeekersService } from './seekers.service';
 import { SearchStudentComponent } from './student/search-student.component';
+import { CitysAndCountriesComponent } from './citys-and-countries/citys-and-countries.component';
 
 
 @NgModule({
 declarations:
       [
         SearchStudentComponent,
+        CitysAndCountriesComponent,
       ],
 imports:
       [
@@ -28,6 +30,7 @@ providers:
 exports:
       [
         SearchStudentComponent,
+        CitysAndCountriesComponent,
       ]
 })
 export class SeekersModule { }

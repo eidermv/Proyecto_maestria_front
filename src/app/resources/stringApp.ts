@@ -34,5 +34,16 @@ export class StringApp
 
   public COORDINATOR =  'Coordinador';
   public STUDENT = 'Estudiante';
+
+
+  /***************CONSTANTES DEL SERVICIO DE LOCALIZACION**********/
+
+  public API_CITIES= 'http://api.geonames.org/';
+  public API_SERVICE_SEARCH = 'search?q=';
+  public API_PARAMS_REQUEST = '&maxRows=10&fuzzy=0.8&username=mundialrusia2018';
+
+  // url_cadena = URL_SERVICIO + NOMBRE_SERVICIO + this.ciudadConsultar + PARAMETROS_PETICION;
+  // http://api.geonames.org/search?q=popayan&maxRows=10&fuzzy=0.8&username=mundialrusia2018}
+
 }
 

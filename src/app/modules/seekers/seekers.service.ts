@@ -21,7 +21,13 @@ export class SeekersService
 
   searchStudent(student: string)
   {
-    return this.httpClient.get<Array<any>>(this.stringApp.URL_SERVICIO_SEARCH_STUDENT + student, httpOptions);
+    return this.httpClient.get<Array<any>>(this.stringApp.URL_SERVICIO_SEARCH_STUDENT + student);
+  }
+
+  searchCity(city: string)
+  {
+    return this.httpClient.get<Array<any>>(this.stringApp.API_CITIES + this.stringApp.API_SERVICE_SEARCH
+                               + city + this.stringApp.API_PARAMS_REQUEST);
   }
 
 }

@@ -19,19 +19,11 @@ export class StudentService
 
   getAllTutors()
   {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json',
-                                'Authorization': localStorage.getItem('token')})
-    };
-    return this.httpClient.get<Array<any>>(this.stringApp.URL_SERVICIO_GET_ALL_TUTORS,httpOptions);
+    return this.httpClient.get<Array<any>>(this.stringApp.URL_SERVICIO_GET_ALL_TUTORS);
   }
 
   createStudent(student: Student)
   {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json',
-                                'Authorization': localStorage.getItem('token')})
-    };
     const newStudent = JSON.stringify(
       {
         codigo: student.getId(),
@@ -45,34 +37,22 @@ export class StudentService
         tutor: student.getTutor()
       }
     );
-    return this.httpClient.post(this.stringApp.URL_SERVICIO_CREATE_STUDENT, newStudent, httpOptions);
+    return this.httpClient.post(this.stringApp.URL_SERVICIO_CREATE_STUDENT, newStudent);
   }
 
   getAllStudents()
   {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json',
-                                'Authorization': localStorage.getItem('token')})
-    };
-    return this.httpClient.get<Array<any>>(this.stringApp.URL_SERVICIO_GET_ALL_STUDENTS, httpOptions );
+
+    return this.httpClient.get<Array<any>>(this.stringApp.URL_SERVICIO_GET_ALL_STUDENTS );
   }
 
   getStudentByCode(code: string)
   {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json',
-                                'Authorization': localStorage.getItem('token')})
-    };
-    return this.httpClient.get<Array<any>>(this.stringApp.URL_SERVICIO_SEARCH_STUDENT_BY_CODE + code, httpOptions);
+    return this.httpClient.get<Array<any>>(this.stringApp.URL_SERVICIO_SEARCH_STUDENT_BY_CODE + code);
   }
 
   updateStudent(student: Student)
   {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json',
-                                'Authorization': localStorage.getItem('token')})
-    };
-    console.log(student);
     const updateStudent = JSON.stringify(
       {
         id: student.getId(),
@@ -87,7 +67,6 @@ export class StudentService
         tutor: student.getTutor()
       }
     );
-    return this.httpClient.post(this.stringApp.URL_SERVICIO_UPDATE_STUDENT, updateStudent, httpOptions);
+    return this.httpClient.post(this.stringApp.URL_SERVICIO_UPDATE_STUDENT, updateStudent);
   }
-
 }

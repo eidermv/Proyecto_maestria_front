@@ -52,7 +52,7 @@ import { TokenInterceptorService } from './modules/auth/token-interceptor.servic
   ],
   providers: [{
     provide: LocationStrategy,
-    useClass: HashLocationStrategy
+    useClass: HashLocationStrategy,
   }],
   bootstrap: [ AppComponent ]
 })

@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { StringValidation } from '../../../resources/stringValidation';
 import { HttpHeaders, HttpHeaderResponse, HttpResponse, HttpEventType, HttpEvent } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { StringApp } from '../../../resources/stringApp';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,6 +13,7 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   /*************************STRINGS APP********************* */
   stringValidation: StringValidation;
+  stringApp: StringApp;
 
   /************************VARIABLES DE INSTANCIA********** */
   fieldsForm: FormGroup;
@@ -24,6 +26,7 @@ export class LoginComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router)
   {
     this.stringValidation = new StringValidation();
+    this.stringApp = new StringApp();
     this.showErrorPass = false;
     this.showErrorUser = false;
     this.showErrorDates = false;
@@ -60,7 +63,13 @@ export class LoginComponent implements OnInit {
           this.showErrorPass = false;
           this.showErrorUser = false;
           this.authService.setSession(data);
-          this.router.navigate(['/student/listStudent']);
+          if(sessionStorage.getItem('rol') == this.stringApp.COORDINATOR)
+          {
+            this.router.navigate(['/student/listStudent']);
+          }
+          else{
+            this.router.navigate(['/publication/addPublications']);
+          }
         },
         err =>
         {

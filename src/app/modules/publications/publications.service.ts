@@ -26,7 +26,11 @@ export class PublicationService
                                 'Authorization': localStorage.getItem('token')})
     };
     const formData: FormData = new FormData();
+    const nn = JSON.stringify({
+                               nn: 'juantio'
+                             });
     formData.append('File', fileSend);
+    formData.append('datos', nn);
     return this.httpClient.post(this.stringApp.URL_SERVICIO_REGISTRY_PUBLICATIONS, formData, httpOptions);
     }
 

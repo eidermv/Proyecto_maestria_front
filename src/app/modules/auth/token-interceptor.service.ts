@@ -1,5 +1,5 @@
 import { Injectable, Injector } from '@angular/core';
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpResponse, HttpHeaderResponse} from '@angular/common/http';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpResponse, HttpHeaderResponse, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/do';
 import { url } from 'inspector';
@@ -23,7 +23,7 @@ export class TokenInterceptorService implements HttpInterceptor {
     {
       const reqClone = req.clone(
         {
-          headers: req.headers.set('Authorization', sessionStorage.getItem('token'))
+          headers: req.headers.set('Authorization', sessionStorage.getItem('token')),
         }
       ) ;
       return next.handle(reqClone);

@@ -4,6 +4,10 @@ import { Observable } from 'rxjs';
 import { StringApp } from '../../resources/stringApp';
 import { Student } from '../../models/student';
 
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json'})
+};
+
 
 @Injectable()
 export class StudentService
@@ -37,7 +41,7 @@ export class StudentService
         tutor: student.getTutor()
       }
     );
-    return this.httpClient.post(this.stringApp.URL_SERVICIO_CREATE_STUDENT, newStudent);
+    return this.httpClient.post(this.stringApp.URL_SERVICIO_CREATE_STUDENT, newStudent, httpOptions);
   }
 
   getAllStudents()
@@ -67,6 +71,6 @@ export class StudentService
         tutor: student.getTutor()
       }
     );
-    return this.httpClient.post(this.stringApp.URL_SERVICIO_UPDATE_STUDENT, updateStudent);
+    return this.httpClient.post(this.stringApp.URL_SERVICIO_UPDATE_STUDENT, updateStudent , httpOptions);
   }
 }

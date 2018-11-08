@@ -11,4 +11,12 @@ export class StringValidation
   public MAX_LONG_SURNAME: number = 40;
   public MAX_LONG_EMAIL: number = 40;
   public MAX_LONG_COHORTE: number= 4;
+
+  /*********VARIABLES PARA VALIDACION MODULEO PUBLICACIONES */
+  public MAX_LONG_DOI: number = 40;
+  public MAX_LONG_TITLE_ARTICLE: number = 300;
+  public MAX_LONG_NAME_MAGAZINE: number = 100;
+  public MAX_LONG_SECONDARY_AUTHORS: number = 250;
+
+
 }

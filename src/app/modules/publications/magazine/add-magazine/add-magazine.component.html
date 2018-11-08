@@ -1,0 +1,126 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-lg-12 ">
+      <div class="card ">
+        <div class="card-header bg-primary">
+          <strong>{{titleForm}}</strong>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="fieldsForm" (ngSubmit)="onSubmit()" #f="ngForm">
+            <h1 class="title text-center">{{titleForm}}</h1>
+            <p class="text-muted text-center">{{subtitleForm}}</p>
+
+            <div class="row">
+              <div class="formGroup col-6">
+                <i class="fa fa-exclamation-circle uncheck" *ngIf="(fieldsForm.controls.doiMagazine.invalid && fieldsForm.controls.doiMagazine.touched ) ">
+                  DOI vacio o digitó mas de 20 caracteres
+                </i>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fa fa-id-card-o"></i><small>&nbsp;DOI</small></span>
+                  </div>
+                  <input type="text" class="form-control" placeholder="* Digite el DOI" formControlName="doiMagazine">
+                </div>
+              </div>
+
+              <div class="formGroup col-6">
+                <i class="fa fa-exclamation-circle uncheck" *ngIf="(fieldsForm.controls.tittleArticle.invalid && fieldsForm.controls.tittleArticle.touched)">
+                  Titulo del articulo vacio o digitó mas de 40 caracteres
+                </i>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fa fa-text-height"></i><small>&nbsp; Titulo Articulo</small></span>
+                  </div>
+                  <input type="text" class="form-control" placeholder="* Digite el titulo del articulo" formControlName="tittleArticle">
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="formGroup col-6">
+                <i class="fa fa-exclamation-circle uncheck" *ngIf="showErrorArticle">
+                  {{msjErrorArticle}}
+                </i>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fa fa-folder-o"></i><small>&nbsp;Articulo</small></span>
+                  </div>
+                  <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="inputArticle" (change)="handleFileInputArticle($event)"
+                           accept="application/pdf">
+                    <label class="custom-file-label" for="inputArticle">{{placeholderScreenShotArticle}}</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="formGroup col-6">
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fa fa-list-alt"> <small>&nbsp; Categoria Revista</small></i></span>
+                  </div>
+                  <select type="text" class="form-control" #categoryMagazine>
+                    <option [ngValue]="categories" *ngFor="let categories of optionCategoyMagazine">{{categories}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="formGroup col-6">
+                <i class="fa fa-exclamation-circle uncheck" *ngIf="(fieldsForm.controls.nameMagazine.invalid && fieldsForm.controls.nameMagazine.touched)">
+                  Nombre de revista vacio o digitó mas de 40 caracteres
+                </i>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fa fa-user-circle"></i> <small>&nbsp; Nombre Revista</small></span>
+                  </div>
+                  <input type="text" class="form-control" placeholder="* Digite el nombre de la revista"
+                    formControlName="nameMagazine">
+                </div>
+              </div>
+
+              <div class="formGroup col-6">
+                <i class="fa fa-exclamation-circle uncheck" *ngIf="showErrorScreenShotEmail">
+                  {{msjErrorScreenShotEmail}}
+                </i>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fa fa-desktop"></i><small>&nbsp; Pantallazo Correo</small></span>
+                  </div>
+                  <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="inputScrenShot"  (change)="handleFileInputScrenShotEmail($event)"
+                    accept="image/jpeg, image/png ">
+                    <label class="custom-file-label" for="inputScrenShot">{{placeholderScreenShotEmail}}</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="formGroup col-6">
+                  <i class="fa fa-exclamation-circle uncheck" *ngIf="showErrorScreenShotClasification">
+                      {{msjErrorScreenShotClasification}}
+                    </i>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fa fa-desktop"></i><small>&nbsp; Pantallazo Clasificación</small>
+                    </span>
+                  </div>
+                  <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="inputScrenShot"  (change)="handleFileInputScreenShotClasification($event)">
+                    <label class="custom-file-label" for="inputScrenShot">{{placeholderScreenShotClasification}}</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div style="text-align:right">
+              <button type="submit" class="btn btn-lg  btn-primary" [disabled]="fieldsForm.invalid">{{buttonAction}}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

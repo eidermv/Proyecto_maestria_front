@@ -7,6 +7,7 @@ import { SeekersModule } from '../seekers/seekers.module';
 import { AddMagazineComponent } from './magazine/add-magazine/add-magazine.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BookFormComponent } from './book/book-form/book-form.component';
+import { AddBookComponent } from './book/add-book/add-book.component';
 
 @NgModule({
   imports: [
@@ -16,7 +17,7 @@ import { BookFormComponent } from './book/book-form/book-form.component';
     PublicationRoutingModule,
     SeekersModule
   ],
-  declarations: [AddPublicationsComponent, AddMagazineComponent, BookFormComponent],
+  declarations: [AddPublicationsComponent, AddMagazineComponent, BookFormComponent, AddBookComponent],
   providers: [PublicationService]
 })
 export class PublicationModule { }

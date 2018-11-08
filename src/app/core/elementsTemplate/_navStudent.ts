@@ -5,12 +5,12 @@ export const navStudent = [
     name: 'Estudiante'
   },
   {
-    name: 'Estudiante',
+    name: 'Publicaciones',
     url: '/publication',
     icon: 'icon-layers',
     children: [
       {
-        name: 'publicar prueba',
+        name: 'Agregar Publicaciones',
         url: '/publication/addPublications',
         icon: 'fa fa-list-ol'
       }

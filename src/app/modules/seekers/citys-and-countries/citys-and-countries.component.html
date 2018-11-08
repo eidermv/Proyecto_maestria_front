@@ -1,17 +1,20 @@
-<form [formGroup]="fieldsForm"  #f="ngForm" (ngSubmit)="getDataStudent()">
+<form [formGroup]="fieldsForm"  #f="ngForm" (ngSubmit)="getDataCity()">
   <div class="input-group">
     <i class="fa fa-exclamation-circle uncheck"
-    *ngIf="studentNotFound">
-     El estudiante no se encuentra registrado en el sistema
+    *ngIf="cityNotFound">
+     La ciudad no se encuentra en nuestra base de datos
     </i>
     <i class="fa fa-exclamation-circle uncheck"
-    *ngIf="fielstudentEmpty">
-     No ha digitado un nombre, apellido o identificacion para el estudiante
+    *ngIf="fieldCityEmpty">
+     No ha digitado una ciudad
     </i>
-    <div class="input-group mb-3 input-group-lg">
-      <input type="text" placeholder="Didite nombre, apellido o identificacion del estudiante a buscar" aria-label="Number"
+    <div class="input-group mb-3 input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fa fa-id-card-o"></i><small>&nbsp;Localizacion</small></span>
+          </div>
+      <input type="text" placeholder="Didite ciudad de publicacion" aria-label="Number"
               [matAutocomplete]="auto" class="form-control"  (keyup)="determineAction($event)"
-              formControlName="nameStudent"  >
+              formControlName="nameCity"  >
       <span class="input-group-prepend">
           <button type="submit" class="btn btn-primary" ><i class="fa fa-search"></i>  </button>
       </span>

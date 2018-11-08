@@ -5,8 +5,7 @@ import {Line} from '../../models/line';
 import { Observable } from 'rxjs';
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json',
-                            'Authorization': localStorage.getItem('token')})
+  headers: new HttpHeaders({ 'Content-Type': 'application/json'})
 };
 
 @Injectable()

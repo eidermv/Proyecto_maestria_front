@@ -1,0 +1,112 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-lg-12 ">
+      <div class="card ">
+        <div class="card-header bg-primary">
+          <strong>{{titleForm}}</strong>
+        </div>
+        <div class="card-body">
+
+            <form [formGroup]="fieldsForm" (ngSubmit)="onSubmit()" #f="ngForm">
+                <h1 class="title text-center">{{titleForm}}</h1>
+                <p class="text-muted text-center">{{subtitleForm}}</p>
+
+                <div class="row">
+                  <div class="formGroup col-6">
+                    <i class="fa fa-exclamation-circle uncheck" *ngIf="(fieldsForm.controls.isbnBook.invalid && fieldsForm.controls.isbnBook.touched ) ">
+                      ISBN vacio o digitó mas de 40 caracteres
+                    </i>
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-id-card-o"></i><small>&nbsp;ISBN</small></span>
+                      </div>
+                      <input type="text" class="form-control" placeholder="* Digite el ISBN ej: 123-45-687" formControlName="isbnBook">
+                    </div>
+                  </div>
+
+                  <div class="formGroup col-6">
+                    <i class="fa fa-exclamation-circle uncheck" *ngIf="(fieldsForm.controls.tittleBook.invalid && fieldsForm.controls.tittleBook.touched)">
+                      Titulo del libro vacio o digitó mas de 200 caracteres
+                    </i>
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-text-height"></i><small>&nbsp; Titulo Libro</small></span>
+                      </div>
+                      <input type="text" class="form-control" placeholder="* Digite el titulo del libro" formControlName="tittleBook">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                    <div class="formGroup col-6">
+                        <i class="fa fa-exclamation-circle uncheck" *ngIf="(fieldsForm.controls.capTitleBook.invalid && fieldsForm.controls.capTitleBook.touched ) ">
+                          Titulo capitulo libro vacio o digitó mas de 200 caracteres
+                        </i>
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-text-width"></i><small>&nbsp;Titulo Cap Libto</small></span>
+                          </div>
+                          <input type="text" class="form-control" placeholder="* Digite el titulo del capitulo del libro " formControlName="capTitleBook">
+                        </div>
+                    </div>
+                    <div class="formGroup col-6">
+                        <i class="fa fa-exclamation-circle uncheck" *ngIf="(fieldsForm.controls.editorial.invalid && fieldsForm.controls.editorial.touched ) ">
+                          Editorial del libro vacia o digitó mas de 50 caracteres
+                        </i>
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-book"></i><small>&nbsp;Editorial</small></span>
+                          </div>
+                          <input type="text" class="form-control" placeholder="* Digite el nombre de la editorial por ejemplo: Aguilar " formControlName="editorial">
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="formGroup col-6">
+                        <i class="fa fa-exclamation-circle uncheck" *ngIf="showErrorCapBook">
+                            {{msjErroBook}}
+                          </i>
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"><i class="fa fa-address-book"></i><small>&nbsp; Capitulo Libro PDF</small>
+                          </span>
+                        </div>
+                        <div class="custom-file">
+                          <input type="file" class="custom-file-input" id="inputScrenShot" (change)="handleFileInpuCapBook($event)"
+                           accept="application/pdf" >
+                          <label class="custom-file-label" for="inputScrenShot">{{placeholderCapBook}}</label>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="formGroup col-6">
+                        <i class="fa fa-exclamation-circle uncheck" *ngIf="showErrorCertificate">
+                            {{msjErrorCertificate}}
+                          </i>
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"><i class="fa fa-certificate"></i><small>&nbsp; Certificado Editorial</small>
+                          </span>
+                        </div>
+                        <div class="custom-file">
+                          <input type="file" class="custom-file-input" id="inputScrenShot" (change)="handleFileInputCertificate($event)"
+                          accept="image/jpeg, image/png, application/pdf " >
+                          <label class="custom-file-label" for="inputScrenShot">{{placeholderCertificate}}</label>
+                        </div>
+                      </div>
+                    </div>
+
+                </div>
+                <div style="text-align:right">
+                    <button type="submit" class="btn btn-lg  btn-primary" [disabled]="fieldsForm.invalid">{{buttonAction}}
+                    </button>
+                  </div>
+              </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

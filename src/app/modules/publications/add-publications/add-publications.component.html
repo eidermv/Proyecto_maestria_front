@@ -95,7 +95,8 @@
 
                   <app-add-magazine [titleForm]="titleFormAddMagazine" [subtitleForm]="subtitleFormAddMagazine" [buttonAction]="nameBtnAddMagazine"
                                     (getDateMagazine)="getDataMagazine($event)" *ngIf="showMagazine"></app-add-magazine>
-                  <app-add-book></app-add-book>
+                  <app-add-book (getDateBook)="getDataBook($event)" *ngIf="showBook"></app-add-book>
+                  <app-add-cap-book (getDateCapBook)="getDatePublicationCapBook($event)"></app-add-cap-book>
             </form>
         </div>
       </div>

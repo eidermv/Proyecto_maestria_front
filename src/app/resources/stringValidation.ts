@@ -17,6 +17,9 @@ export class StringValidation
   public MAX_LONG_TITLE_ARTICLE: number = 300;
   public MAX_LONG_NAME_MAGAZINE: number = 100;
   public MAX_LONG_SECONDARY_AUTHORS: number = 250;
-
+  public MAX_LONG_ISBN: number = 40;
+  public MAX_LONG_TITLE_BOOK: number = 200;
+  public MAX_LONG_EDITORIAL: number = 40;
+  public MAX_LONG_TITLE_CAP_BOOK: number = 200;
 
 }

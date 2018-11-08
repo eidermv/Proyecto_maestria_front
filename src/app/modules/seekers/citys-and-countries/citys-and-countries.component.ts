@@ -1,7 +1,9 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, Output, EventEmitter} from '@angular/core';
 import { FormGroup, FormBuilder, Validators, NgForm } from '@angular/forms';
 import { SeekersService } from '../seekers.service';
 import { StringValidation } from '../../../resources/stringValidation';
+import { Localization } from '../../../models/localization';
+
 
 
 @Component({
@@ -13,6 +15,7 @@ export class CitysAndCountriesComponent implements OnInit {
   stringValidation: StringValidation;
 
    /***********************VARIABLES LOCALES *****************/
+   @Output() getLocalization = new EventEmitter<{city: string, country: string}>();
    @Input() resetForm: {resetForm: string};
    @ViewChild('f') form: NgForm ;
    options = [];
@@ -22,10 +25,12 @@ export class CitysAndCountriesComponent implements OnInit {
     arrayCitys: Array<string>;
     /****************VARIABLES DE INSTANCIA********** */
     fieldsForm: FormGroup;
+    localization: Localization;
 
   constructor(private formBuilder: FormBuilder, private seekersServices: SeekersService)
   {
     this.stringValidation = new StringValidation();
+    this.localization = new Localization();
     this.fieldCityEmpty = false;
     this.cityNotFound = false;
   }
@@ -55,7 +60,7 @@ export class CitysAndCountriesComponent implements OnInit {
     this.fieldCityEmpty = false;
       if((eventField.key === 'Enter') || (eventField.type === 'click'))
         {
-          //this.getDataStudent();
+          this.getDataCity();
         }
         else {
           this.searchLocation();
@@ -74,19 +79,10 @@ export class CitysAndCountriesComponent implements OnInit {
       this.seekersServices.searchCity(this.txt_fieldSearchToCity).
       subscribe(data =>
         {
-          console.log('pedi');
-          //this.proccessResponse();
+          this.proccessResponse( data);
         },
         err =>
         {
-
-         /* var parse = require('xml2js').parseString;
-          parse(err.error.text,function (err, result)
-          {
-            console.log(result);
-            console.log(err);
-          });*/
-
           this.clearOptions();
           this.fieldCityEmpty = true;
         }
@@ -95,7 +91,7 @@ export class CitysAndCountriesComponent implements OnInit {
   }
   private proccessResponse(data: Array<any>)
   {
-    this.arrayCitys = data;
+    this.arrayCitys = data['geonames'];
     if(this.arrayCitys.length > 0)
       {
       this.loadOptions(this.arrayCitys);
@@ -108,18 +104,44 @@ export class CitysAndCountriesComponent implements OnInit {
       }
   }
 
-  private loadOptions(students: Array<string>)
+  private loadOptions(citys: Array<string>)
   {
     this.clearOptions();
-    for(let i = 0 ; i < students.length ; i++)
+    for(let i = 0 ; i < citys.length ; i++)
       {
-        this.options.push(students[i]['nombres'] + ' ' + students[i]['apellidos']);
+        this.options.push(citys[i]['name'] + '-' + citys[i]['countryName']);
       }
   }
 
   getDataCity()
   {
-
+    if(this.checkSelectedStudentValid())
+    {
+      this.selectedCity();
+      this.getLocalization.emit(
+                                {
+                                  city: this.localization.getCity(),
+                                  country: this.localization.getCountry()
+                                }
+                               );
+    }
   }
 
+  checkSelectedStudentValid()
+  {
+    return this.options.includes(this.fieldsForm.get('nameCity').value.trim());
+  }
+
+  selectedCity()
+  {
+    for(let i=0 ; i < this.arrayCitys.length ; i++)
+    {
+      const citySelected = this.fieldsForm.get('nameCity').value.split('-');
+      if(this.arrayCitys[i]['name'].includes(citySelected[0].trim()))
+      {
+        this.localization.setCity(this.arrayCitys[i]['name']);
+        this.localization.setCountry(this.arrayCitys[i]['countryName']);
+      }
+    }
+  }
 }

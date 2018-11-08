@@ -8,6 +8,8 @@ import { AddMagazineComponent } from './magazine/add-magazine/add-magazine.compo
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BookFormComponent } from './book/book-form/book-form.component';
 import { AddBookComponent } from './book/add-book/add-book.component';
+import { CapBookFormComponent } from './capBook/cap-book-form/cap-book-form.component';
+import { AddCapBookComponent } from './capBook/add-cap-book/add-cap-book.component';
 
 @NgModule({
   imports: [
@@ -17,7 +19,10 @@ import { AddBookComponent } from './book/add-book/add-book.component';
     PublicationRoutingModule,
     SeekersModule
   ],
-  declarations: [AddPublicationsComponent, AddMagazineComponent, BookFormComponent, AddBookComponent],
+  declarations: [AddPublicationsComponent,
+                  AddMagazineComponent, BookFormComponent,
+                  AddBookComponent, CapBookFormComponent,
+                  AddCapBookComponent],
   providers: [PublicationService]
 })
 export class PublicationModule { }

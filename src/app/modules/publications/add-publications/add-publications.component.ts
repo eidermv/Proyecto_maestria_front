@@ -10,6 +10,7 @@ import { StringValidation } from '../../../resources/stringValidation';
 export class AddPublicationsComponent implements OnInit {
   /***************************VARIABLES GLOBALES*********** */
   MAGAZINE: string = 'Revista';
+  BOOK: string = 'Libro';
   TAM_MAX_FILE : number = 10240;
    /*************************STRINGS APP********************* */
    stringValidation: StringValidation;
@@ -21,6 +22,7 @@ export class AddPublicationsComponent implements OnInit {
   nameBtnAddMagazine: string;
   optionTypePublication:Array<string>;
   showMagazine: boolean;
+  showBook: boolean;
   msjErroContentTable: string;
   showErrorContentTable: boolean;
   placeholderContentTable: string;
@@ -42,12 +44,13 @@ export class AddPublicationsComponent implements OnInit {
     this.subtitleFormAddMagazine = 'En este formulario ingrese los datos para la revista, recuerde los campos con * son obligatorios.'
                                   +' No olvide cargar los archivos necesarios';
     this.nameBtnAddMagazine = 'Registrar Revista';
-    this.optionTypePublication= ['Elija el tipo de publicacion', this.MAGAZINE, 'Evento', 'Libro', 'Capitulo Libro'];
+    this.optionTypePublication= ['Elija el tipo de publicacion', this.MAGAZINE, 'Evento', this.BOOK, 'Capitulo Libro'];
     this.msjErroContentTable = '';
     this.msjErrorDateApproved = '';
     this.msjErrorDatePublication = '';
     this.placeholderContentTable ='Seleccione un archivo PDF que contenga la tabla de contenido';
     this.showMagazine = false;
+    this.showBook = false;
     this.showErrorContentTable = false;
     this.showErrorDateApproved = false;
     this.showErrorDatePublication = false;
@@ -105,16 +108,27 @@ export class AddPublicationsComponent implements OnInit {
 
   handleTypePublication(event: any)
   {
-    if(event.target.value == this.MAGAZINE)
+    const elementSelected = event.target.value;
+    if(elementSelected == this.MAGAZINE)
     {
       if(this.verifySelectDates())
       {
         this.showMagazine = true;
-        this.verifySelectDates();
+        this.showBook = false;
       }
+    }
+    else if(elementSelected == this.BOOK)
+    {
+      if(this.verifySelectDates())
+      {
+        this.showMagazine = false;
+        this.showBook = true;
+      }
+
     }
     else{
       this.showMagazine = false;
+      this.showBook = false;
     }
   }
 
@@ -180,6 +194,18 @@ export class AddPublicationsComponent implements OnInit {
                   fileScreenShotEmail: File, fileScreenshotClasification: File })
   {
     console.log(dateMagazine.filePDFArticle.name);
+  }
+
+  getDataBook(dataBook: {isbn: string, title: string, editorial: string, city: string, country: string
+              fileBook: File, fileCertificate: File})
+  {
+    console.log('llegue con datos del libro'+ dataBook.editorial);
+  }
+
+  getDatePublicationCapBook(dataCapBook: {isbn: string, title: string, editorial: string, titleCapLibro: string
+    fileBook: File, fileCertificate: File})
+  {
+    console.log('llegue con cap ligro' + dataCapBook.isbn);
   }
 
 }

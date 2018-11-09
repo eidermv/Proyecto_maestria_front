@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { PublicationService } from '../publications.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { StringValidation } from '../../../resources/stringValidation';
@@ -18,6 +18,7 @@ export class AddPublicationsComponent implements OnInit {
    stringValidation: StringValidation;
 
   /*************************VARIABLES LOCALES**************** */
+  @ViewChild('categoryTypePublication') cbx_typePublication: any;
   fileToSend: null;
   titleFormAddMagazine: string;
   subtitleFormAddMagazine: string;
@@ -115,6 +116,11 @@ export class AddPublicationsComponent implements OnInit {
   handleTypePublication(event: any)
   {
     const elementSelected = event.target.value;
+    this.showOptionPublication(elementSelected);
+  }
+
+  showOptionPublication(elementSelected: string)
+  {
     if(elementSelected == this.MAGAZINE)
     {
       if(this.verifySelectDates())
@@ -157,6 +163,7 @@ export class AddPublicationsComponent implements OnInit {
       this.showCapBook = false;
       this.showEvent = false;
     }
+
   }
 
   verifySelectDates()
@@ -213,6 +220,11 @@ export class AddPublicationsComponent implements OnInit {
     else{
       this.showErrorDateApproved = false;
       this.showErrorDatePublication = false;
+      const valueOptionTypePublication = this.cbx_typePublication.nativeElement.value;
+      if (valueOptionTypePublication != 'Elija el tipo de publicacion' )
+      {
+        this.showOptionPublication(valueOptionTypePublication);
+      }
     }
   }
 

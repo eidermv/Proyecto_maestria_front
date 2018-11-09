@@ -86,7 +86,7 @@
                               <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-list-alt"> <small>&nbsp; Tipo de publicacion</small></i></span>
                               </div>
-                              <select type="text" class="form-control" #categoryMagazine (change)="handleTypePublication($event)">
+                              <select type="text" class="form-control" #categoryTypePublication (change)="handleTypePublication($event)">
                                 <option [ngValue]="categories" *ngFor="let categories of optionTypePublication">{{categories}}</option>
                               </select>
                             </div>

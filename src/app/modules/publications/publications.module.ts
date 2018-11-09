@@ -10,6 +10,8 @@ import { BookFormComponent } from './book/book-form/book-form.component';
 import { AddBookComponent } from './book/add-book/add-book.component';
 import { CapBookFormComponent } from './capBook/cap-book-form/cap-book-form.component';
 import { AddCapBookComponent } from './capBook/add-cap-book/add-cap-book.component';
+import { EventFormComponent } from './event/event-form/event-form.component';
+import { AddEventComponent } from './event/add-event/add-event.component';
 
 @NgModule({
   imports: [
@@ -22,7 +24,9 @@ import { AddCapBookComponent } from './capBook/add-cap-book/add-cap-book.compone
   declarations: [AddPublicationsComponent,
                   AddMagazineComponent, BookFormComponent,
                   AddBookComponent, CapBookFormComponent,
-                  AddCapBookComponent],
+                  AddCapBookComponent,
+                  EventFormComponent,
+                  AddEventComponent],
   providers: [PublicationService]
 })
 export class PublicationModule { }

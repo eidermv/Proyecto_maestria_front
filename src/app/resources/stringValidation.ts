@@ -21,5 +21,8 @@ export class StringValidation
   public MAX_LONG_TITLE_BOOK: number = 200;
   public MAX_LONG_EDITORIAL: number = 40;
   public MAX_LONG_TITLE_CAP_BOOK: number = 200;
+  public MAX_LONG_TITLE_PRESENTATION: number = 300;
+  public MAX_LONG_NAME_EVENT: number = 150;
+  public MAX_LONG_ISSN: number = 50;
 
 }

@@ -11,6 +11,8 @@ export class AddPublicationsComponent implements OnInit {
   /***************************VARIABLES GLOBALES*********** */
   MAGAZINE: string = 'Revista';
   BOOK: string = 'Libro';
+  CAP_BOK: string = 'Capitulo Libro';
+  EVENT: string = 'Evento';
   TAM_MAX_FILE : number = 10240;
    /*************************STRINGS APP********************* */
    stringValidation: StringValidation;
@@ -23,6 +25,8 @@ export class AddPublicationsComponent implements OnInit {
   optionTypePublication:Array<string>;
   showMagazine: boolean;
   showBook: boolean;
+  showCapBook: boolean;
+  showEvent: boolean;
   msjErroContentTable: string;
   showErrorContentTable: boolean;
   placeholderContentTable: string;
@@ -44,13 +48,15 @@ export class AddPublicationsComponent implements OnInit {
     this.subtitleFormAddMagazine = 'En este formulario ingrese los datos para la revista, recuerde los campos con * son obligatorios.'
                                   +' No olvide cargar los archivos necesarios';
     this.nameBtnAddMagazine = 'Registrar Revista';
-    this.optionTypePublication= ['Elija el tipo de publicacion', this.MAGAZINE, 'Evento', this.BOOK, 'Capitulo Libro'];
+    this.optionTypePublication= ['Elija el tipo de publicacion', this.MAGAZINE, 'Evento', this.BOOK, this.CAP_BOK, this.EVENT];
     this.msjErroContentTable = '';
     this.msjErrorDateApproved = '';
     this.msjErrorDatePublication = '';
     this.placeholderContentTable ='Seleccione un archivo PDF que contenga la tabla de contenido';
     this.showMagazine = false;
     this.showBook = false;
+    this.showCapBook = false;
+    this.showEvent = false;
     this.showErrorContentTable = false;
     this.showErrorDateApproved = false;
     this.showErrorDatePublication = false;
@@ -115,6 +121,7 @@ export class AddPublicationsComponent implements OnInit {
       {
         this.showMagazine = true;
         this.showBook = false;
+        this.showCapBook = false;
       }
     }
     else if(elementSelected == this.BOOK)
@@ -123,12 +130,32 @@ export class AddPublicationsComponent implements OnInit {
       {
         this.showMagazine = false;
         this.showBook = true;
+        this.showCapBook =false;
+        this.showEvent = false;
       }
-
+    }
+    else if(elementSelected == this.CAP_BOK)
+    {
+      if(this.verifySelectDates())
+      {
+        this.showMagazine = false;
+        this.showBook = false;
+        this.showCapBook = true;
+        this.showEvent = false;
+      }
+    }
+    else if(elementSelected == this.EVENT)
+    {
+      this.showMagazine = false;
+      this.showBook = false;
+      this.showCapBook = false;
+      this.showEvent = true;
     }
     else{
       this.showMagazine = false;
       this.showBook = false;
+      this.showCapBook = false;
+      this.showEvent = false;
     }
   }
 
@@ -206,6 +233,13 @@ export class AddPublicationsComponent implements OnInit {
     fileBook: File, fileCertificate: File})
   {
     console.log('llegue con cap ligro' + dataCapBook.isbn);
+  }
+
+  getDataaEvent(dataEvent: {doi: string, issn: string, typEvent: string, city: string, country: string
+    titlePresentation: string,nameEvent: string,dateStart: string,dateFinish: string,filePresentation: File,
+    fileCertificate: File})
+  {
+    console.log('llegue con datos del evento: '+ dataEvent.dateFinish);
   }
 
 }

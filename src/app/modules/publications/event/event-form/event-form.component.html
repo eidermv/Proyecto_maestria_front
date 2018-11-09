@@ -1,0 +1,167 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-lg-12 ">
+      <div class="card ">
+        <div class="card-header bg-primary">
+          <strong>{{titleForm}}</strong>
+        </div>
+        <div class="card-body">
+
+          <form [formGroup]="fieldsForm" (ngSubmit)="onSubmit()" #f="ngForm">
+            <h1 class="title text-center">{{titleForm}}</h1>
+            <p class="text-muted text-center">{{subtitleForm}}</p>
+
+            <div class="row">
+              <div class="formGroup col-6">
+                <i class="fa fa-exclamation-circle uncheck" *ngIf="(fieldsForm.controls.doiEvent.invalid && fieldsForm.controls.doiEvent.touched ) ">
+                  DOI vacio o digitó mas de 40 caracteres
+                </i>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fa fa-id-card-o"></i><small>&nbsp;DOI</small></span>
+                  </div>
+                  <input type="text" class="form-control" placeholder="* Digite el DOI ej: 123.000.45/687"
+                    formControlName="doiEvent">
+                </div>
+              </div>
+
+              <div class="formGroup col-6">
+                <i class="fa fa-exclamation-circle uncheck" *ngIf="(fieldsForm.controls.issnEvent.invalid && fieldsForm.controls.issnEvent.touched ) ">
+                  ISSN vacio o digitó mas de 50 caracteres
+                </i>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fa fa-book"></i><small>&nbsp;ISSN</small></span>
+                  </div>
+                  <input type="text" class="form-control" placeholder="* Digite el ISSN por ejemplo: 123-4564 "
+                    formControlName="issnEvent">
+                </div>
+              </div>
+            </div>
+
+
+            <div class="row">
+                <div class="formGroup col-6">
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-list-alt"> <small>&nbsp; Tipo de Evento</small></i></span>
+                      </div>
+                      <select type="text" class="form-control" #categoryEvent >
+                        <option [ngValue]="categories" *ngFor="let categories of optionEventType">{{categories}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="formGroup col-6">
+                      <i class="fa fa-exclamation-circle uncheck" *ngIf="showErrorLocalization">
+                      {{msjErrorLocalization}}
+                    </i>
+                    <app-citys-and-countries (getLocalization)="getLocalization($event)"></app-citys-and-countries>
+                  </div>
+            </div>
+
+            <div class="row">
+                <div class="formGroup col-6">
+                  <i class="fa fa-exclamation-circle uncheck" *ngIf="(fieldsForm.controls.tittlePresentation.invalid && fieldsForm.controls.tittlePresentation.touched ) ">
+                    Titulo ponencia  vacio o digitó mas de 300 caracteres
+                  </i>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fa fa-text-width"></i><small>&nbsp;Titulo Ponencia</small></span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="* Digite el titulo del capitulo del libro "
+                      formControlName="tittlePresentation">
+                  </div>
+                </div>
+
+                <div class="formGroup col-6">
+                  <i class="fa fa-exclamation-circle uncheck" *ngIf="(fieldsForm.controls.nameEvent.invalid && fieldsForm.controls.nameEvent.touched ) ">
+                    Nombre Evento vacio o digitó mas de 150 caracteres
+                  </i>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fa fa-text-width"></i><small>&nbsp;Nombre Evento</small></span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="* Digite el titulo del capitulo del libro "
+                      formControlName="nameEvent">
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="row">
+                  <div class="formGroup col-6">
+                      <i class="fa fa-exclamation-circle uncheck" *ngIf="showErrorDateStart">
+                        {{msjErrorDatePublication}}
+                      </i>
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"><i class="fa fa-id-card-o"></i><small>&nbsp;Fecha Inicio</small></span>
+                        </div>
+                        <input type="date" class="form-control" placeholder="* " max="{{max_date}}"
+                              formControlName="dateStartEvent" (change)="handleDateFinish($event)">
+                      </div>
+                  </div>
+
+                  <div class="formGroup col-6">
+                        <i class="fa fa-exclamation-circle uncheck" *ngIf="showErrorDateFinish">
+                          {{msjErrorDateFinish}}
+                        </i>
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-id-card-o"></i><small>&nbsp;Fecha Finalizacion</small></span>
+                          </div>
+                          <input type="date" class="form-control" placeholder="* " max="{{max_date}}"
+                                formControlName="dateEndEvent" (change)="handleDateFinish($event)">
+                        </div>
+                  </div>
+              </div>
+
+
+
+            <div class="row">
+              <div class="formGroup col-6">
+                <i class="fa fa-exclamation-circle uncheck" *ngIf="showErrorPresentation">
+                  {{msjErrorPresentation}}
+                </i>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fa fa-address-book"></i><small>&nbsp; Ponencia PDF</small>
+                    </span>
+                  </div>
+                  <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="inputScrenShot" (change)="handleFileInputPresentation($event)"
+                      accept="application/pdf">
+                    <label class="custom-file-label" for="inputScrenShot">{{placeholderPresentation}}</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="formGroup col-6">
+                <i class="fa fa-exclamation-circle uncheck" *ngIf="showErrorCertificate">
+                  {{msjErrorCertificate}}
+                </i>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fa fa-certificate"></i><small>&nbsp; Certificado Evento</small>
+                    </span>
+                  </div>
+                  <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="inputScrenShot" (change)="handleFileInputCertificate($event)"
+                      accept="image/jpeg, image/png, application/pdf ">
+                    <label class="custom-file-label" for="inputScrenShot">{{placeholderCertificate}}</label>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div style="text-align:right">
+              <button type="submit" class="btn btn-lg  btn-primary" [disabled]="fieldsForm.invalid">{{buttonAction}}
+              </button>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { PublicationService } from '../publications.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { StringValidation } from '../../../resources/stringValidation';
+import { Magazine } from '../../../models/publications/magazine';
+import { Book } from '../../../models/publications/book';
 
 @Component({
   selector: 'app-add-publications',
@@ -14,6 +16,7 @@ export class AddPublicationsComponent implements OnInit {
   CAP_BOK: string = 'Capitulo Libro';
   EVENT: string = 'Evento';
   TAM_MAX_FILE : number = 10240;
+  PLACEHOLDER_CONTENT_TABLE: string = 'Seleccione un archivo PDF que contenga la tabla de contenido';
    /*************************STRINGS APP********************* */
    stringValidation: StringValidation;
 
@@ -37,14 +40,24 @@ export class AddPublicationsComponent implements OnInit {
   msjErrorDateApproved: string;
   showErrorDatePublication: boolean;
   msjErrorDatePublication: string;
+  nameStudent: string;
+  codeStudent: string;
+  authorSecondary: string;
+  datePublication: string;
+  dateAproved: string;
+  elementSelect: string;
 
   /***********************VARIABLES DE INSTANCIA************* */
   fileToContentTable = null;
   fieldsForm: FormGroup;
+  magizine: Magazine;
+  book: Book;
 
   constructor(private publicationsService: PublicationService, private formBuilder: FormBuilder)
   {
     this.stringValidation = new StringValidation();
+    this.magizine = new Magazine();
+    this.book = new Book();
     this.titleFormAddMagazine = 'Datos Para la Revista';
     this.subtitleFormAddMagazine = 'En este formulario ingrese los datos para la revista, recuerde los campos con * son obligatorios.'
                                   +' No olvide cargar los archivos necesarios';
@@ -53,7 +66,13 @@ export class AddPublicationsComponent implements OnInit {
     this.msjErroContentTable = '';
     this.msjErrorDateApproved = '';
     this.msjErrorDatePublication = '';
-    this.placeholderContentTable ='Seleccione un archivo PDF que contenga la tabla de contenido';
+    this.nameStudent ='';
+    this.codeStudent = '';
+    this.authorSecondary = '';
+    this.dateAproved = '';
+    this.datePublication = '';
+    this.elementSelect = '';
+    this.placeholderContentTable =this.PLACEHOLDER_CONTENT_TABLE;
     this.showMagazine = false;
     this.showBook = false;
     this.showCapBook = false;
@@ -65,6 +84,14 @@ export class AddPublicationsComponent implements OnInit {
     this.setMaxDate();
   }
 
+  getStudent()
+  {
+    this.publicationsService.getStudent();
+    this.nameStudent = sessionStorage.getItem('nameStudent');
+    this.codeStudent = sessionStorage.getItem('code');
+    this.fieldsForm.get('author').setValue(this.nameStudent);
+    this.fieldsForm.get('author').disable();
+  }
   setMaxDate()
   {
     if(this.today.getDate() < 10)
@@ -87,7 +114,9 @@ export class AddPublicationsComponent implements OnInit {
                               Validators.maxLength(this.stringValidation.MAX_LONG_SECONDARY_AUTHORS),
                             ]
                           ] ,
+        author:['', Validators.required],
       });
+      this.getStudent();
   }
 
   handleContentTable(event: any)
@@ -105,6 +134,7 @@ export class AddPublicationsComponent implements OnInit {
         this.fileToContentTable = event.target.files[0];
         this.placeholderContentTable= event.target.files[0].name;
         this.showErrorContentTable = false;
+        this.showOptionPublication(this.elementSelect);
       }
     }
     else{
@@ -115,15 +145,15 @@ export class AddPublicationsComponent implements OnInit {
 
   handleTypePublication(event: any)
   {
-    const elementSelected = event.target.value;
-    this.showOptionPublication(elementSelected);
+    this.elementSelect = event.target.value;
+    this.showOptionPublication(this.elementSelect);
   }
 
   showOptionPublication(elementSelected: string)
   {
     if(elementSelected == this.MAGAZINE)
     {
-      if(this.verifySelectDates())
+      if(this.verifySelectDates() && this.verifyContentTable())
       {
         this.showMagazine = true;
         this.showBook = false;
@@ -132,7 +162,7 @@ export class AddPublicationsComponent implements OnInit {
     }
     else if(elementSelected == this.BOOK)
     {
-      if(this.verifySelectDates())
+      if(this.verifySelectDates()  && this.verifyContentTable())
       {
         this.showMagazine = false;
         this.showBook = true;
@@ -142,7 +172,7 @@ export class AddPublicationsComponent implements OnInit {
     }
     else if(elementSelected == this.CAP_BOK)
     {
-      if(this.verifySelectDates())
+      if(this.verifySelectDates()  && this.verifyContentTable())
       {
         this.showMagazine = false;
         this.showBook = false;
@@ -152,10 +182,13 @@ export class AddPublicationsComponent implements OnInit {
     }
     else if(elementSelected == this.EVENT)
     {
+      if(this.verifySelectDates()  && this.verifyContentTable())
+      {
       this.showMagazine = false;
       this.showBook = false;
       this.showCapBook = false;
       this.showEvent = true;
+      }
     }
     else{
       this.showMagazine = false;
@@ -200,7 +233,19 @@ export class AddPublicationsComponent implements OnInit {
       this.showErrorDatePublication = false;
       return true;
     }
+  }
 
+  verifyContentTable()
+  {
+    if(this.placeholderContentTable == this.PLACEHOLDER_CONTENT_TABLE)
+    {
+      this.showErrorContentTable= true;
+      this.msjErroContentTable = 'Este campo es obligatorio';
+      return false;
+    }
+    else{
+      return true;
+    }
   }
 
   handleDateapproved(event: any)
@@ -220,6 +265,7 @@ export class AddPublicationsComponent implements OnInit {
     else{
       this.showErrorDateApproved = false;
       this.showErrorDatePublication = false;
+      this.dateAproved = dateAprrov;
       const valueOptionTypePublication = this.cbx_typePublication.nativeElement.value;
       if (valueOptionTypePublication != 'Elija el tipo de publicacion' )
       {
@@ -232,13 +278,63 @@ export class AddPublicationsComponent implements OnInit {
   getDataMagazine(dateMagazine: {doi: string, title: string, name: string, category: string, filePDFArticle: File,
                   fileScreenShotEmail: File, fileScreenshotClasification: File })
   {
-    console.log(dateMagazine.filePDFArticle.name);
+    //console.log(dateMagazine.filePDFArticle.name);
+      this.getDefaultInfoPublication();
+      this.magizine.setAuthor(this.nameStudent);
+      this.magizine.setCode(this.codeStudent);
+      this.magizine.setSecondaryAuthors(this.authorSecondary);
+      this.magizine.setDateAproved(this.dateAproved);
+      this.magizine.setDatePublication(this.datePublication);
+      this.magizine.setContenTable(this.fileToContentTable);
+      this.magizine.setDoi(dateMagazine.doi);
+      this.magizine.setTitleArticle(dateMagazine.title);
+      this.magizine.setNameMagazine(dateMagazine.name);
+      this.magizine.setCategoryMagazine(dateMagazine.category);
+      this.magizine.setArticlePDF(dateMagazine.filePDFArticle);
+      this.magizine.setScreenShotEmail(dateMagazine.fileScreenShotEmail);
+      this.magizine.setScreenShotClasification(dateMagazine.fileScreenshotClasification);
+
+    this.publicationsService.registryMagazine(this.magizine)
+    .subscribe(data =>
+      {
+        console.log('registre', data);
+      },err =>
+      {
+        console.log('no registre');
+      });
+    //this.magizine.setSecondaryAuthors(this.);
+   /* this.magizine.setSecondaryAuthors();
+    this.magizine.setDatePublication();
+    this.magizine.setDateAproved(this.fi);*/
   }
 
   getDataBook(dataBook: {isbn: string, title: string, editorial: string, city: string, country: string
               fileBook: File, fileCertificate: File})
   {
     console.log('llegue con datos del libro'+ dataBook.editorial);
+    this.getDefaultInfoPublication();
+    this.book.setAuthor(this.nameStudent);
+    this.book.setCode(this.codeStudent);
+    this.book.setSecondaryAuthors(this.authorSecondary);
+    this.book.setDateAproved(this.dateAproved);
+    this.book.setDatePublication(this.datePublication);
+    this.book.setContenTable(this.fileToContentTable);
+    this.book.setIsbn(dataBook.isbn);
+    this.book.setTitleBook(dataBook.title);
+    this.book.setEditorial(dataBook.editorial);
+    this.book.setCounty(dataBook.country);
+    this.book.setCity(dataBook.city);
+    this.book.setBookPDF(dataBook.fileBook);
+    this.book.setCertificateEditorial(dataBook.fileCertificate);
+
+    this.publicationsService.registryBook(this.book)
+    .subscribe(event =>
+      {
+        console.log('registre', event);
+      },err =>
+      {
+        console.log('no registre');
+      });
   }
 
   getDatePublicationCapBook(dataCapBook: {isbn: string, title: string, editorial: string, titleCapLibro: string
@@ -252,6 +348,14 @@ export class AddPublicationsComponent implements OnInit {
     fileCertificate: File})
   {
     console.log('llegue con datos del evento: '+ dataEvent.dateFinish);
+  }
+
+  getDefaultInfoPublication()
+  {
+    this.authorSecondary = this.fieldsForm.get('secondaryAuthors').value;
+    this.dateAproved = this.fieldsForm.get('dateApproved').value;
+    this.datePublication = this.fieldsForm.get('datePublitaion').value;
+    return true;
   }
 
 }

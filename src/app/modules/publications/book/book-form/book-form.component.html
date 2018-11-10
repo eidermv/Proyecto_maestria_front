@@ -15,6 +15,9 @@
                 <i class="fa fa-exclamation-circle uncheck" *ngIf="(fieldsForm.controls.isbnBook.invalid && fieldsForm.controls.isbnBook.touched ) ">
                   ISBN vacio o digitó mas de 40 caracteres
                 </i>
+                <i class="fa fa-exclamation-circle uncheck" *ngIf="fieldsForm.controls.isbnBook.errors?.pattern">
+                  El Formato para ISBN debe ser numero seguidos de guion asi: ej: 123-56-1-56456
+                </i>
                 <div class="input-group mb-3">
                   <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-id-card-o"></i><small>&nbsp;ISBN</small></span>

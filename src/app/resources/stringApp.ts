@@ -27,8 +27,10 @@ export class StringApp
   public URL_SERVICIO_SEARCH_STUDENT = this.URL_SERVICIO + 'estudiante/buscar/match/';
   public URL_SERVICIO_SEARCH_STUDENT_BY_CODE = this.URL_SERVICIO +'estudiante/buscar/codigo/';
   public URL_SERVICIO_UPDATE_STUDENT = this.URL_SERVICIO + 'estudiante/actualizar';
+  public URL_SERVICIO_GET_STUDENT_WHIT_TOKEN = this.URL_SERVICIO + 'estudiante/buscar/token/';
 
   public URL_SERVICIO_REGISTRY_PUBLICATIONS = this.URL_SERVICIO + 'publicacion/revista/registrar';
+  public URL_SERVICIO_REGISTRY_BOOK = this.URL_SERVICIO + 'publicacion/libro/registrar';
 
   /******** ROLES DE LA APP */
 

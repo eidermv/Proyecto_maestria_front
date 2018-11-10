@@ -51,7 +51,7 @@ export class BookFormComponent implements OnInit {
       {
         isbnBook:    ['', [Validators.required,
                           Validators.maxLength(this.stringValidation.MAX_LONG_ISBN),
-                          Validators.minLength(this.stringValidation.MIN_LONG_TEX),
+                          Validators.pattern('^[0-9]+(-[0-9]+)+$'),
                         ]
                     ],
         tittleBook:  ['',[Validators.required,

@@ -4,6 +4,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { StringValidation } from '../../../resources/stringValidation';
 import { Magazine } from '../../../models/publications/magazine';
 import { Book } from '../../../models/publications/book';
+import { CapBook } from '../../../models/publications/capLibro';
+import { EventPublication } from '../../../models/publications/event';
+import {HttpEventType} from '@angular/common/http';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-add-publications',
@@ -16,11 +22,14 @@ export class AddPublicationsComponent implements OnInit {
   CAP_BOK: string = 'Capitulo Libro';
   EVENT: string = 'Evento';
   TAM_MAX_FILE : number = 10240;
-  PLACEHOLDER_CONTENT_TABLE: string = 'Seleccione un archivo PDF que contenga la tabla de contenido';
+  PLACEHOLDER_CONTENT_TABLE: string = 'Archivo PDF que contenga la tabla de contenido';
    /*************************STRINGS APP********************* */
    stringValidation: StringValidation;
 
   /*************************VARIABLES LOCALES**************** */
+  @ViewChild('successModal') viewModalOk: any ;
+  @ViewChild('dangerModal') viewModalFail: any ;
+  @ViewChild('progressModal') viewProgressRequest: any;
   @ViewChild('categoryTypePublication') cbx_typePublication: any;
   fileToSend: null;
   titleFormAddMagazine: string;
@@ -46,23 +55,34 @@ export class AddPublicationsComponent implements OnInit {
   datePublication: string;
   dateAproved: string;
   elementSelect: string;
+  progressRequest: string;
+  showProgressRequest: boolean;
+  titleModalSucces: string;
+  subtitleModalSucces: string;
+  titleModalError: string;
+  subtitleModaErro: string;
+
 
   /***********************VARIABLES DE INSTANCIA************* */
   fileToContentTable = null;
   fieldsForm: FormGroup;
   magizine: Magazine;
   book: Book;
+  capBook: CapBook;
+  event: EventPublication;
 
-  constructor(private publicationsService: PublicationService, private formBuilder: FormBuilder)
+  constructor(private publicationsService: PublicationService, private formBuilder: FormBuilder, private router: Router)
   {
     this.stringValidation = new StringValidation();
     this.magizine = new Magazine();
     this.book = new Book();
+    this.capBook = new CapBook();
+    this.event = new EventPublication();
     this.titleFormAddMagazine = 'Datos Para la Revista';
     this.subtitleFormAddMagazine = 'En este formulario ingrese los datos para la revista, recuerde los campos con * son obligatorios.'
                                   +' No olvide cargar los archivos necesarios';
     this.nameBtnAddMagazine = 'Registrar Revista';
-    this.optionTypePublication= ['Elija el tipo de publicacion', this.MAGAZINE, 'Evento', this.BOOK, this.CAP_BOK, this.EVENT];
+    this.optionTypePublication= ['Elija el tipo de publicacion', this.MAGAZINE, this.BOOK, this.CAP_BOK, this.EVENT];
     this.msjErroContentTable = '';
     this.msjErrorDateApproved = '';
     this.msjErrorDatePublication = '';
@@ -72,6 +92,7 @@ export class AddPublicationsComponent implements OnInit {
     this.dateAproved = '';
     this.datePublication = '';
     this.elementSelect = '';
+    this.progressRequest = '0%';
     this.placeholderContentTable =this.PLACEHOLDER_CONTENT_TABLE;
     this.showMagazine = false;
     this.showBook = false;
@@ -80,17 +101,25 @@ export class AddPublicationsComponent implements OnInit {
     this.showErrorContentTable = false;
     this.showErrorDateApproved = false;
     this.showErrorDatePublication = false;
+    this.showProgressRequest = false;
     this.today = new Date();
     this.setMaxDate();
   }
 
   getStudent()
   {
-    this.publicationsService.getStudent();
-    this.nameStudent = sessionStorage.getItem('nameStudent');
-    this.codeStudent = sessionStorage.getItem('code');
-    this.fieldsForm.get('author').setValue(this.nameStudent);
-    this.fieldsForm.get('author').disable();
+    this.publicationsService.getStudent()
+    .subscribe(data =>
+      {
+        this.nameStudent = data['nombres'] +' ' + data['apellidos'];
+        this.codeStudent = data['codigo'];
+        this.fieldsForm.get('author').setValue(this.nameStudent);
+        this.fieldsForm.get('author').disable();
+      },
+      err=>
+      {
+        this.router.navigate(['/login']);
+      });
   }
   setMaxDate()
   {
@@ -252,18 +281,18 @@ export class AddPublicationsComponent implements OnInit {
   {
     const dateAprrov = this.fieldsForm.get('dateApproved').value;
     const datePublic = this.fieldsForm.get('datePublitaion').value;
-    if (dateAprrov < datePublic)
+    if (dateAprrov > datePublic)
     {
-      this.showErrorDateApproved = true;
-      this.msjErrorDateApproved = 'La fecha de aceptacion no puede ser menor que la fecha de publicacion';
+      this.showErrorDatePublication = true;
+      this.msjErrorDatePublication = 'La fecha de publicacion no puede ser menor que la fecha de aceptacion';
     }
     else if(dateAprrov == datePublic)
     {
-      this.showErrorDateApproved = true;
-      this.msjErrorDateApproved = 'La fecha de aceptacion no puede ser igual que la fecha de publicacion';
+      this.showErrorDatePublication = true;
+      this.msjErrorDatePublication = 'La fecha de publicacion no puede ser igual que la fecha de aceptacion';
     }
     else{
-      this.showErrorDateApproved = false;
+      this.showErrorDatePublication = false;
       this.showErrorDatePublication = false;
       this.dateAproved = dateAprrov;
       const valueOptionTypePublication = this.cbx_typePublication.nativeElement.value;
@@ -278,7 +307,6 @@ export class AddPublicationsComponent implements OnInit {
   getDataMagazine(dateMagazine: {doi: string, title: string, name: string, category: string, filePDFArticle: File,
                   fileScreenShotEmail: File, fileScreenshotClasification: File })
   {
-    //console.log(dateMagazine.filePDFArticle.name);
       this.getDefaultInfoPublication();
       this.magizine.setAuthor(this.nameStudent);
       this.magizine.setCode(this.codeStudent);
@@ -295,23 +323,19 @@ export class AddPublicationsComponent implements OnInit {
       this.magizine.setScreenShotClasification(dateMagazine.fileScreenshotClasification);
 
     this.publicationsService.registryMagazine(this.magizine)
-    .subscribe(data =>
+    .subscribe(event =>
       {
-        console.log('registre', data);
+        this.proccesResponseRegistryPublicationOk(event, ' Revista Registrada con exito',
+                                                  'La revista ya se encuentra disponible para la revision');
       },err =>
       {
-        console.log('no registre');
+        this.showModalFail('No se pudo registrar la publicacion de revista');
       });
-    //this.magizine.setSecondaryAuthors(this.);
-   /* this.magizine.setSecondaryAuthors();
-    this.magizine.setDatePublication();
-    this.magizine.setDateAproved(this.fi);*/
   }
 
   getDataBook(dataBook: {isbn: string, title: string, editorial: string, city: string, country: string
               fileBook: File, fileCertificate: File})
   {
-    console.log('llegue con datos del libro'+ dataBook.editorial);
     this.getDefaultInfoPublication();
     this.book.setAuthor(this.nameStudent);
     this.book.setCode(this.codeStudent);
@@ -330,24 +354,111 @@ export class AddPublicationsComponent implements OnInit {
     this.publicationsService.registryBook(this.book)
     .subscribe(event =>
       {
-        console.log('registre', event);
+        this.proccesResponseRegistryPublicationOk(event, ' Libro Registrado con exito',
+                                                  'El libro ya se encuentra disponible para la revision');
       },err =>
       {
-        console.log('no registre');
+        this.showModalFail('No se pudo registrar la publicacion de libro');
       });
   }
 
   getDatePublicationCapBook(dataCapBook: {isbn: string, title: string, editorial: string, titleCapLibro: string
     fileBook: File, fileCertificate: File})
   {
-    console.log('llegue con cap ligro' + dataCapBook.isbn);
+    this.getDefaultInfoPublication();
+    this.capBook.setAuthor(this.nameStudent);
+    this.capBook.setCode(this.codeStudent);
+    this.capBook.setSecondaryAuthors(this.authorSecondary);
+    this.capBook.setDateAproved(this.dateAproved);
+    this.capBook.setDatePublication(this.datePublication);
+    this.capBook.setContenTable(this.fileToContentTable);
+    this.capBook.setIsbn(dataCapBook.isbn);
+    this.capBook.setTitleCapBook(dataCapBook.titleCapLibro);
+    this.capBook.setTitleBook(dataCapBook.title);
+    this.capBook.setEditorial(dataCapBook.editorial);
+    this.capBook.setCapBook(dataCapBook.fileBook);
+    this.capBook.setCertificateCapBook(dataCapBook.fileCertificate);
+
+    this.publicationsService.registyCapBook(this.capBook)
+    .subscribe(event =>
+      {
+        this.proccesResponseRegistryPublicationOk(event, 'Capitulo Libro Registrado con exito',
+                                                  'El capitulo libro ya se encuentra disponible para la revision');
+      },err =>
+      {
+        this.showModalFail('No se pudo registrar la publicacion de capitulo de libro');
+      });
   }
 
   getDataaEvent(dataEvent: {doi: string, issn: string, typEvent: string, city: string, country: string
     titlePresentation: string,nameEvent: string,dateStart: string,dateFinish: string,filePresentation: File,
     fileCertificate: File})
   {
-    console.log('llegue con datos del evento: '+ dataEvent.dateFinish);
+    this.getDefaultInfoPublication();
+    this.event.setAuthor(this.nameStudent);
+    this.event.setCode(this.codeStudent);
+    this.event.setSecondaryAuthors(this.authorSecondary);
+    this.event.setDateAproved(this.dateAproved);
+    this.event.setDatePublication(this.datePublication);
+    this.event.setContenTable(this.fileToContentTable);
+    this.event.setDoi(dataEvent.doi);
+    this.event.setDataStart(dataEvent.dateStart);
+    this.event.setDataFinish(dataEvent.dateFinish);
+    this.event.setISSN(dataEvent.issn);
+    this.event.setTittlePresentation(dataEvent.titlePresentation);
+    this.event.setNameEvent(dataEvent.nameEvent);
+    this.event.setTypeEvent(dataEvent.typEvent);
+    this.event.setCounty(dataEvent.country);
+    this.event.setCity(dataEvent.city);
+    this.event.setPresentationPDF(dataEvent.filePresentation);
+    this.event.setCertificateEvent(dataEvent.fileCertificate);
+
+    this.publicationsService.registryEvent(this.event)
+    .subscribe(event =>
+      {
+        this.proccesResponseRegistryPublicationOk(event,  'Evento Registrado con exito',
+                                                 'El evento ya se encuentra disponible para la revision'  );
+      },err =>
+      {
+        this.showModalFail('No se pudo registrar la publicacion de evento');
+      });
+  }
+
+  proccesResponseRegistryPublicationOk(event: any, msjOK: string, msjSubOk: string)
+  {
+    console.log('llegue con evento: '+ event.type + 'otro ' + HttpEventType.UploadProgress);
+    this.showProgressRequest= true;
+        if(event.type === HttpEventType.UploadProgress)
+        {
+          this.showModalProgressRequest();
+          this.progressRequest = (Math.round(event.loaded / event.total * 100 ) -1 )+ '%';
+        }
+        else{
+          if(event.type === HttpEventType.Response)
+          {
+            this.showProgressRequest = false;
+            this.viewProgressRequest.hide();
+            this.showModalOK();
+            this.titleModalSucces = msjOK;
+            this.subtitleModalSucces = msjSubOk;
+            this.showProgressRequest = false;
+          }
+        }
+  }
+  showModalOK()
+  {
+    this.viewModalOk.show();
+  }
+  showModalFail(titleModal: string)
+  {
+    this.titleModalError = titleModal;
+    this.subtitleModaErro = 'Error interno en el servidor';
+    this.viewModalFail.show();
+  }
+  showModalProgressRequest()
+  {
+    this.showProgressRequest= true;
+    this.viewProgressRequest.show();
   }
 
   getDefaultInfoPublication()

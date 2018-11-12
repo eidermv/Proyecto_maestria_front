@@ -114,12 +114,14 @@ export class FormStudentComponent implements OnInit, OnChanges {
                       ],
           nameStudent:  ['',[Validators.required,
                           Validators.maxLength(this.stringValidation.MAX_LONG_NAME),
-                          Validators.minLength(this.stringValidation.MIN_LONG_TEX)
+                          Validators.minLength(this.stringValidation.MIN_LONG_TEX),
+                          Validators.pattern('[ A-Za-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙñÑ.-]+$'),
                           ]
                   ],
           surnameStudent:  ['',[Validators.required,
                           Validators.maxLength(this.stringValidation.MAX_LONG_SURNAME),
-                          Validators.minLength(this.stringValidation.MIN_LONG_TEX)
+                          Validators.minLength(this.stringValidation.MIN_LONG_TEX),
+                          Validators.pattern('[ A-Za-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙñÑ.-]+$'),
                           ]
                         ],
           emailStudent:  ['',[

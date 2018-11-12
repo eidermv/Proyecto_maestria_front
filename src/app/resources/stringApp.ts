@@ -31,6 +31,9 @@ export class StringApp
 
   public URL_SERVICIO_REGISTRY_PUBLICATIONS = this.URL_SERVICIO + 'publicacion/revista/registrar';
   public URL_SERVICIO_REGISTRY_BOOK = this.URL_SERVICIO + 'publicacion/libro/registrar';
+  public URL_SERVICIO_REGISTRY_EVENT = this.URL_SERVICIO + 'publicacion/evento/registrar';
+  public URL_SERVICIO_REGISTRY_CAP_BOOK = this.URL_SERVICIO + 'publicacion/capituloLibro/registrar';
+
 
   /******** ROLES DE LA APP */
 

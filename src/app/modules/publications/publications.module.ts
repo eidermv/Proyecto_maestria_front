@@ -12,6 +12,7 @@ import { CapBookFormComponent } from './capBook/cap-book-form/cap-book-form.comp
 import { AddCapBookComponent } from './capBook/add-cap-book/add-cap-book.component';
 import { EventFormComponent } from './event/event-form/event-form.component';
 import { AddEventComponent } from './event/add-event/add-event.component';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { AddEventComponent } from './event/add-event/add-event.component';
     ReactiveFormsModule,
     FormsModule,
     PublicationRoutingModule,
-    SeekersModule
+    SeekersModule,
+    ModalModule.forRoot(),
   ],
   declarations: [AddPublicationsComponent,
                   AddMagazineComponent, BookFormComponent,

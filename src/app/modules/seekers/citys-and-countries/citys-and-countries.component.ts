@@ -120,12 +120,26 @@ export class CitysAndCountriesComponent implements OnInit {
       this.selectedCity();
       this.getLocalization.emit(
                                 {
-                                  city: this.localization.getCity(),
-                                  country: this.localization.getCountry()
+                                  city: this.reemplazarVocales(this.localization.getCity()),
+                                  country: this.reemplazarVocales(this.localization.getCountry()),
                                 }
                                );
     }
   }
+
+  reemplazarVocales(str: string) {
+    str = str.replace('á', 'a');
+    str = str.replace('é', 'e');
+    str = str.replace('í', 'i');
+    str = str.replace('ó', 'o');
+    str = str.replace('ú', 'u');
+    str = str.replace('Á', 'A');
+    str = str.replace('É', 'E');
+    str = str.replace('Í', 'I');
+    str = str.replace('Ó', 'O');
+    str = str.replace('Ú', 'U');
+    return str;
+    }
 
   checkSelectedStudentValid()
   {
@@ -137,7 +151,7 @@ export class CitysAndCountriesComponent implements OnInit {
     for(let i=0 ; i < this.arrayCitys.length ; i++)
     {
       const citySelected = this.fieldsForm.get('nameCity').value.split('-');
-      if(this.arrayCitys[i]['name'].includes(citySelected[0].trim()))
+      if(this.arrayCitys[i]['name'].includes(citySelected[0].trim()) && this.arrayCitys[i]['countryName'].includes(citySelected[1].trim()))
       {
         this.localization.setCity(this.arrayCitys[i]['name']);
         this.localization.setCountry(this.arrayCitys[i]['countryName']);

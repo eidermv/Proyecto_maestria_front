@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { StringApp } from '../../resources/stringApp';
-
-const token = 'x-auth eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwbWFnZSIsIkF1dGhvcml0aHkiOiJDb29yZGluYWRvciIsImV4cCI6MTU0MTU0NDQ2Mn0.6t7rrzeFgicflivcvnWNgbKXQPn93s5uYpl3tDx_27BmVz7M9YVGjJHjoQGa52j2-pF4GEAB0wAZoMvMAE6W5g';
-
+import { Router } from '@angular/router';
 const httpOptions = {
 
   observe: 'response' as 'response',
@@ -18,7 +16,7 @@ export class AuthService
 
   stringApp : StringApp;
 
-  constructor(private httpClient: HttpClient)
+  constructor(private httpClient: HttpClient, private router: Router)
   {
     this.stringApp = new StringApp();
   }
@@ -30,6 +28,21 @@ export class AuthService
                                      contrasena: password});
     return this.httpClient.post<any>(this.stringApp.URL_SERVICIO_LOGIN,newStudent );
   }
+
+  getStudent()
+  {
+    this.httpClient.get(this.stringApp.URL_SERVICIO_GET_STUDENT_WHIT_TOKEN + sessionStorage.getItem('token'))
+    .subscribe(data =>
+      {
+        sessionStorage.setItem('code', data['codigo']);
+        sessionStorage.setItem('nameStudent', data['nombres']+' '+ data['apellidos']);
+      },
+      err=>
+      {
+        this.router.navigate(['/404']);
+      });
+  }
+
 
    setSession(authResult) {
     sessionStorage.setItem('token', authResult['token']);

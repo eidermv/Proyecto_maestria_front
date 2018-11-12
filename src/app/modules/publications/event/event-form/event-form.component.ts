@@ -48,8 +48,8 @@ export class EventFormComponent implements OnInit {
   {
     this.stringValidation = new StringValidation();
     this.optionEventType = ['Congreso','Seminario','Simposio'];
-    this.placeholderPresentation = 'Seleccione un archivo PDF que contenga la ponencia';
-    this.placeholderCertificate = 'Seleccione un archivo PDF, PNG o JPG que contenga el certificado del evento';
+    this.placeholderPresentation = 'Archivo PDF que contenga la ponencia';
+    this.placeholderCertificate = 'Archivo PDF, PNG o JPG que contenga el certificado del evento';
     this.showErrorLocalization = false;
     this.city = '';
     this.contry = '';
@@ -74,14 +74,15 @@ export class EventFormComponent implements OnInit {
       {
         doiEvent:    ['', [Validators.required,
                           Validators.maxLength(this.stringValidation.MAX_LONG_DOI),
-                          Validators.minLength(this.stringValidation.MIN_LONG_TEX),
+                          Validators.minLength(this.stringValidation.MIN_LONG_TEX)
                         ]
                     ],
         dateStartEvent:  ['',[Validators.required]],
         dateEndEvent:  ['',[Validators.required]],
         issnEvent: ['',[Validators.required,
                         Validators.maxLength(this.stringValidation.MAX_LONG_ISSN),
-                        Validators.minLength(this.stringValidation.MIN_LONG_TEX)
+                        Validators.minLength(this.stringValidation.MIN_LONG_TEX),
+                        Validators.pattern('^([0-9]{4})+([-]{1})+([0-9]{3})+([0-9X]{1})$'),
                         ]
                       ],
         tittlePresentation: ['',[Validators.required,

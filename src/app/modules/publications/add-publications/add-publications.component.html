@@ -38,19 +38,6 @@
 
                   <div class="row">
                       <div class="formGroup col-6">
-                          <i class="fa fa-exclamation-circle uncheck" *ngIf="showErrorDatePublication">
-                            {{msjErrorDatePublication}}
-                          </i>
-                          <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                              <span class="input-group-text"><i class="fa fa-id-card-o"></i><small>&nbsp;Fecha Publicacion</small></span>
-                            </div>
-                            <input type="date" class="form-control" placeholder="* Nombre del autor principal del articulo" max="{{max_date}}"
-                                  formControlName="datePublitaion" (change)="handleDateapproved($event)">
-                          </div>
-                      </div>
-
-                      <div class="formGroup col-6">
                             <i class="fa fa-exclamation-circle uncheck" *ngIf="showErrorDateApproved">
                               {{msjErrorDateApproved}}
                             </i>
@@ -62,6 +49,18 @@
                                     formControlName="dateApproved" (change)="handleDateapproved($event)">
                             </div>
                       </div>
+                      <div class="formGroup col-6">
+                        <i class="fa fa-exclamation-circle uncheck" *ngIf="showErrorDatePublication">
+                          {{msjErrorDatePublication}}
+                        </i>
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-id-card-o"></i><small>&nbsp;Fecha Publicacion</small></span>
+                          </div>
+                          <input type="date" class="form-control" placeholder="* Nombre del autor principal del articulo" max="{{max_date}}"
+                                formControlName="datePublitaion" (change)="handleDateapproved($event)">
+                        </div>
+                    </div>
                   </div>
 
                   <div class="row">
@@ -98,12 +97,66 @@
                   <app-add-book (getDateBook)="getDataBook($event)" *ngIf="showBook"></app-add-book>
                   <app-add-cap-book (getDateCapBook)="getDatePublicationCapBook($event)" *ngIf="showCapBook"></app-add-cap-book>
                   <app-add-event (getDataEvent)="getDataaEvent($event)" *ngIf="showEvent"></app-add-event>
+
             </form>
+
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<div bsModal #successModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+aria-hidden="true">
+<div class="modal-dialog modal-primary" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title"> {{titleModalSucces}}</h4>
+      <button type="button" class="close" (click)="successModal.hide()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>{{subtitleModalSucces}}</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-dark" (click)="successModal.hide()">cerrar</button>
+    </div>
+  </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div bsModal #dangerModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+aria-hidden="true">
+<div class="modal-dialog modal-danger" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title">{{titleModalError}}</h4>
+      <button type="button" class="close" (click)="dangerModal.hide()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p><strong>{{subtitleModaErro}}</strong></p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-danger" (click)="dangerModal.hide()">Cerrar</button>
+    </div>
+  </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div bsModal #progressModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+aria-hidden="true">
+<div class="modal-dialog modal-danger" role="document">
+  <div class="modal-content">
+    <div class="aling-center" *ngIf="showProgressRequest">
+      <img src="../../../../assets/img/progress.gif" width="100px" height="100px" >
+      {{progressRequest}}
+     </div>
+  </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 
 

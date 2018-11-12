@@ -6,6 +6,8 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { Magazine } from '../../models/publications/magazine';
 import { Book } from '../../models/publications/book';
+import { EventPublication } from '../../models/publications/event';
+import { CapBook } from '../../models/publications/capLibro';
 
 
 
@@ -34,16 +36,7 @@ export class PublicationService
 
     getStudent()
     {
-      this.httpClient.get(this.stringApp.URL_SERVICIO_GET_STUDENT_WHIT_TOKEN + sessionStorage.getItem('token'))
-      .subscribe(data =>
-        {
-          sessionStorage.setItem('code', data['codigo']);
-          sessionStorage.setItem('nameStudent', data['nombres']+' '+ data['apellidos']);
-        },
-        err=>
-        {
-          this.router.navigate(['/404']);
-        });
+     return  this.httpClient.get(this.stringApp.URL_SERVICIO_GET_STUDENT_WHIT_TOKEN + sessionStorage.getItem('token'));
     }
 
     registryMagazine(magazine: Magazine)
@@ -101,6 +94,65 @@ export class PublicationService
       formData.append('certificadoEditorial', book.getCertificateEditorial());
 
       return this.httpClient.post(this.stringApp.URL_SERVICIO_REGISTRY_BOOK, formData, {reportProgress: true, observe: 'events'});
+    }
+
+    registryEvent(event: EventPublication)
+    {
+      const formData: FormData = new FormData();
+      const metaData = JSON.stringify(
+        {
+          codigoEstudiante: event.getCode(),
+          autor: event.getAuthor(),
+          autoresSecundarios: event.getSecondaryAuthors(),
+          fechaAceptacion: this.invertToDate(event.getDateAproved()),
+          fechaPublicacion: this.invertToDate(event.getDatePublication()),
+          doi: event.getDoi(),
+          fechaInicio: this.invertToDate(event.getDataStart()),
+          fechaFin: this.invertToDate(event.getDataFinish()),
+          issn: event.getISSN(),
+          tituloPonencia: event.getTittlePresentation(),
+          nombreEvento: event.getNameEvent(),
+          tipoEvento: event.getTypeEvent(),
+          pais: event.getCounty(),
+          ciudad: event.getCity(),
+          extensionIndice: this.determineTypeFile(event.getContenTable()),
+          extensionPonencia: this.determineTypeFile(event.getPresentationPDF()),
+          extensionCertificadoEvento: this.determineTypeFile(event.getCertificateEvent()),
+        });
+
+        formData.append('datos', metaData);
+        formData.append('indice', event.getContenTable());
+        formData.append('ponencia', event.getPresentationPDF());
+        formData.append('certificadoEvento', event.getCertificateEvent());
+
+        return this.httpClient.post(this.stringApp.URL_SERVICIO_REGISTRY_EVENT, formData, {reportProgress: true, observe: 'events'});
+    }
+
+    registyCapBook(capBook: CapBook)
+    {
+      console.log('llegue a la pet' + capBook.getCapBook().name);
+      const formData: FormData = new FormData();
+      const metaData = JSON.stringify(
+        {
+          codigoEstudiante: capBook.getCode(),
+          autor: capBook.getAuthor(),
+          autoresSecundarios: capBook.getSecondaryAuthors(),
+          fechaAceptacion: this.invertToDate(capBook.getDateAproved()),
+          fechaPublicacion: this.invertToDate(capBook.getDatePublication()),
+          isbn: capBook.getIsbn(),
+          tituloCapituloLibro: capBook.getTitleCapBook(),
+          tituloLibro: capBook.getTitleBook(),
+          editorial: capBook.getEditorial(),
+          extensionIndice: this.determineTypeFile(capBook.getContenTable()),
+          extensionCapituloLibro: this.determineTypeFile(capBook.getCapBook()),
+          extensionCertificadoEditorial: this.determineTypeFile(capBook.getCertificateCapBook())
+        });
+        formData.append('datos', metaData);
+
+        formData.append('capituloLibro', capBook.getCapBook());
+        formData.append('indice', capBook.getContenTable());
+        formData.append('certificadoEditorial', capBook.getCertificateCapBook());
+        return this.httpClient.post(this.stringApp.URL_SERVICIO_REGISTRY_CAP_BOOK, formData, {reportProgress: true, observe: 'events'});
     }
 
     determineTypeFile(file: File)

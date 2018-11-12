@@ -69,10 +69,11 @@ export class LoginComponent implements OnInit {
           }
           else if(sessionStorage.getItem('rol') == this.stringApp.STUDENT)
           {
+
             this.router.navigate(['/publication/addPublications']);
           }
           else{
-            this.router.navigate(['/404']);
+            this.router.navigate(['/login']);
           }
         },
         err =>

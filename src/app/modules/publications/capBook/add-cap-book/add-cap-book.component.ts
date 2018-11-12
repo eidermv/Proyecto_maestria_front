@@ -14,9 +14,9 @@ nameBtnAddBook: string;
   constructor()
   {
     this.titleAddBook = 'Datos capitulo de Libro';
-    this.subtitleAddBook = 'En este formulario ingrese los datos del libro, recuerde los campos con * son obligatorios.'
+    this.subtitleAddBook = 'En este formulario ingrese los datos del capitulo del libro, recuerde los campos con * son obligatorios.'
                                   +' No olvide cargar los archivos necesarios';
-    this.nameBtnAddBook = 'Registrar Libro';
+    this.nameBtnAddBook = 'Registrar Capitulo Libro';
    }
 
   ngOnInit() {

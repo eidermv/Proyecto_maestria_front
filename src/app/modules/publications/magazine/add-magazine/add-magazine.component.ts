@@ -42,9 +42,9 @@ export class AddMagazineComponent implements OnInit {
   {
     this.stringValidation = new StringValidation();
     this.optionCategoyMagazine = ['A1', 'A', 'B', 'C'];
-    this.placeholderScreenShotArticle = 'Seleccione un archivo PDF que contenga el articulo';
-    this.placeholderScreenShotClasification = 'Seleccione un archivo (PNG o JPG) que contenga la clasificacion de la revista';
-    this.placeholderScreenShotEmail = 'Seleccione un archivo (PNG o JPG) que contenga pantallazo de correo de aceptacion';
+    this.placeholderScreenShotArticle = 'Archivo PDF que contenga el articulo';
+    this.placeholderScreenShotClasification = 'Archivo (PNG o JPG) que contenga la clasificacion de la revista';
+    this.placeholderScreenShotEmail = 'Archivo (PNG o JPG) que contenga pantallazo de correo de aceptacion';
     this.showErrorArticle = false;
     this.showErrorScreenShotClasification = false;
     this.showErrorScreenShotEmail = false;
@@ -57,6 +57,7 @@ export class AddMagazineComponent implements OnInit {
         doiMagazine:    ['', [Validators.required,
                           Validators.maxLength(this.stringValidation.MAX_LONG_DOI),
                           Validators.minLength(this.stringValidation.MIN_LONG_TEX),
+
                         ]
                     ],
         tittleArticle:  ['',[Validators.required,
@@ -170,9 +171,9 @@ export class AddMagazineComponent implements OnInit {
   getDataMagazine()
   {
     this.getDateMagazine.emit({
-                               doi: this.fieldsForm.get('doiMagazine').value.trim,
-                               title: this.fieldsForm.get('tittleArticle').value.trim,
-                               name: this.fieldsForm.get('nameMagazine').value.trim,
+                               doi: this.fieldsForm.get('doiMagazine').value.trim(),
+                               title: this.fieldsForm.get('tittleArticle').value.trim(),
+                               name: this.fieldsForm.get('nameMagazine').value.trim(),
                                category: this.cbx_categoryMagazine.nativeElement.value,
                                filePDFArticle: this.fileToArticle,
                                fileScreenShotEmail : this.fileToScreenShotEmail,

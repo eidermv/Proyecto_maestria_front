@@ -32,8 +32,8 @@ export class CapBookFormComponent implements OnInit {
   constructor(private formBuilder: FormBuilder)
   {
     this.stringValidation = new StringValidation();
-    this.placeholderCapBook = 'Seleccione un archivo PDF que contenga el capitulo del libro';
-    this.placeholderCertificate = 'Seleccione un archivo PDF, JPG o PNG que contenga el Certificado';
+    this.placeholderCapBook = 'Archivo PDF que contenga el capitulo del libro';
+    this.placeholderCertificate = 'Archivo PDF, JPG o PNG que contenga el Certificado';
     this.showErrorCapBook = false;
     this.showErrorCertificate = false;
   }

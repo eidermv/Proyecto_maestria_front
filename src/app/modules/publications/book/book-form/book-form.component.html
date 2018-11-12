@@ -12,7 +12,8 @@
 
             <div class="row">
               <div class="formGroup col-6">
-                <i class="fa fa-exclamation-circle uncheck" *ngIf="(fieldsForm.controls.isbnBook.invalid && fieldsForm.controls.isbnBook.touched ) ">
+                <i class="fa fa-exclamation-circle uncheck" *ngIf="((fieldsForm.controls.isbnBook.errors?.maxlength  && fieldsForm.controls.isbnBook.dirty)
+                                                                  || (fieldsForm.controls.isbnBook.errors?.required && fieldsForm.controls.isbnBook.touched ))">
                   ISBN vacio o digitó mas de 40 caracteres
                 </i>
                 <i class="fa fa-exclamation-circle uncheck" *ngIf="fieldsForm.controls.isbnBook.errors?.pattern">

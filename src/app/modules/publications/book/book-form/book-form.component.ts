@@ -37,8 +37,8 @@ export class BookFormComponent implements OnInit {
   constructor(private formBuilder: FormBuilder)
   {
     this.stringValidation = new StringValidation();
-    this.placeholderBook = 'Seleccione un archivo PDF que contenga el Libro';
-    this.placeholderCertificate = 'Seleccione un archivo PDF, JPG o PNG que contenga el Certificado';
+    this.placeholderBook = 'Archivo PDF que contenga el Libro';
+    this.placeholderCertificate = 'Archivo PDF, JPG o PNG que contenga el Certificado';
     this.city = '';
     this.contry = '';
     this.showErrorBook = false;

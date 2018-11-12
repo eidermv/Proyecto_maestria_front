@@ -13,7 +13,8 @@
 
             <div class="row">
               <div class="formGroup col-6">
-                <i class="fa fa-exclamation-circle uncheck" *ngIf="(fieldsForm.controls.doiEvent.invalid && fieldsForm.controls.doiEvent.touched ) ">
+                <i class="fa fa-exclamation-circle uncheck" *ngIf="(
+                                                                    (fieldsForm.controls.doiEvent.errors?.required && fieldsForm.controls.doiEvent.touched )) ">
                   DOI vacio o digitó mas de 40 caracteres
                 </i>
                 <div class="input-group mb-3">
@@ -26,14 +27,18 @@
               </div>
 
               <div class="formGroup col-6">
-                <i class="fa fa-exclamation-circle uncheck" *ngIf="(fieldsForm.controls.issnEvent.invalid && fieldsForm.controls.issnEvent.touched ) ">
+                <i class="fa fa-exclamation-circle uncheck" *ngIf="(fieldsForm.controls.issnEvent.errors?.maxlength  && fieldsForm.controls.issnEvent.dirty)
+                                                            || (fieldsForm.controls.issnEvent.errors?.required && fieldsForm.controls.issnEvent.touched ) ">
                   ISSN vacio o digitó mas de 50 caracteres
+                </i>
+                <i class="fa fa-exclamation-circle uncheck" *ngIf="fieldsForm.controls.issnEvent.errors?.pattern">
+                  El Formato para ISSN debe ser numero seguido de guion asi: ej: 1234-1258 o  2547-254X la letra en mayuscula
                 </i>
                 <div class="input-group mb-3">
                   <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-book"></i><small>&nbsp;ISSN</small></span>
                   </div>
-                  <input type="text" class="form-control" placeholder="* Digite el ISSN por ejemplo: 123-4564 "
+                  <input type="text" class="form-control" placeholder="*  El Formato para ISSN debe ser numero seguido de guion asi: ej: 1234-1258 o  2547-254X la letra en mayuscula "
                     formControlName="issnEvent">
                 </div>
               </div>

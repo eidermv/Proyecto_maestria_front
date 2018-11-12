@@ -35,7 +35,7 @@ export class ElementsTemplateComponent {
 
   redirectToLogin()
   {
-    sessionStorage.removeItem('token');
+    sessionStorage.clear();
     this.route.navigate(['/login']);
   }
 

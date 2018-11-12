@@ -16,8 +16,7 @@ aria-hidden="true">
       <p>El estudiante ha sido registrado exitosamente en el sistema</p>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-dark" (click)="successModal.hide()">Seguir Registrando estudiantes</button>
-      <button type="button" class="btn btn-primary" (click)="redirectToListStudent()">Ver Listado de estudiantes</button>
+
     </div>
   </div><!-- /.modal-content -->
 </div><!-- /.modal-dialog -->
@@ -42,3 +41,16 @@ aria-hidden="true">
   </div><!-- /.modal-content -->
 </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+<div bsModal #progressModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+aria-hidden="true">
+<div class="modal-dialog modal-danger" role="document">
+  <div class="modal-content">
+    <div class="aling-center" >
+      <img src="../../../../assets/img/progress.gif" width="100px" height="100px" >
+      {{progressRequest}}
+     </div>
+  </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+

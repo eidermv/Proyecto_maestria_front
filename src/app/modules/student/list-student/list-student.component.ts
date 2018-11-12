@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { StudentService } from '../student.service';
 import { DataSource } from '@angular/cdk/table';
 import { Student } from '../../../models/student';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-list-student',
@@ -12,20 +12,33 @@ export class ListStudentComponent implements OnInit {
 
   /*************************VARIABLES LOCALES ************/
   @ViewChild('successModal') viewModalOk: any ;
+  @ViewChild('warningModal') viewModalMsjOk: any ;
   optionsDataStudents: Array<string>;
   searchTerm: string;
+  msjOk: string;
 
   /************************VARIABLES DE INSTANCIA ********/
   studentShow: Student;
 
 
 
-  constructor( private studentService: StudentService, private route: Router)
+  constructor( private studentService: StudentService, private route: ActivatedRoute,
+    private router: Router)
   {
     this.studentShow = new Student();
     this.optionsDataStudents = [];
     this.getAllStudents();
     this.searchTerm = '';
+
+
+  }
+
+  showMSJ()
+  {
+    if(this.msjOk != null)
+    {
+      this.viewModalMsjOk.show();
+    }
   }
 
   getAllStudents()
@@ -34,6 +47,7 @@ export class ListStudentComponent implements OnInit {
     .subscribe(data =>
       {
         this.optionsDataStudents = data;
+        this.showMSJ();
       },
       err =>
       {
@@ -43,6 +57,12 @@ export class ListStudentComponent implements OnInit {
   }
 
   ngOnInit() {
+    const msj: string = this.route.snapshot.params['msj'];
+    console.log('llegue con el mensaje');
+    if(msj != null)
+    {
+      this.msjOk = msj;
+    }
   }
 
   showModalOk(aux: any)
@@ -61,12 +81,12 @@ export class ListStudentComponent implements OnInit {
 
   sendInfoToEditStudentComponent(aux: any)
   {
-    this.route.navigate(['/student/editStudent', aux['codigo']]);
+    this.router.navigate(['/student/editStudent', aux['codigo']]);
   }
 
   navigateToAddStudent()
   {
-    this.route.navigate(['/student/addStudent']);
+    this.router.navigate(['/student/addStudent']);
   }
 
 

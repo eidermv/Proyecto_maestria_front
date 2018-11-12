@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { StudentService } from '../student.service';
 import { Router, ActivatedRoute, Params} from '@angular/router';
 import { Student } from '../../../models/student';
+import {HttpEventType} from '@angular/common/http';
 
 @Component({
   selector: 'app-edit-student',
@@ -14,6 +15,7 @@ export class EditStudentComponent implements OnInit {
   @ViewChild('successModal') viewModalOk: any ;
   @ViewChild('dangerModal') viewModalFail: any ;
   @ViewChild('warningModal') viewModalWarning: any;
+  @ViewChild('progressModal') viewProgressRequest: any;
   titleForm: string;
   titleBtnForm: string;
   subTitleForm: string;
@@ -25,7 +27,9 @@ export class EditStudentComponent implements OnInit {
                 cohorte: string,state: string, semesterEntered: string, enteredBy: string};
   studentOldEdit:{code: string, id: string, name: string, surname: string, tutor: string, email: string,
                   cohorte: string,state: string, semesterEntered: string, enteredBy: string};
-
+  progressRequest: string;
+  titleModalSucces: string;
+  subtitleModalSucces: string;
    /*************************VARIABLES DE INSTANCIA************* */
    student: Student;
 
@@ -59,7 +63,8 @@ export class EditStudentComponent implements OnInit {
       },
       err =>
       {
-
+        this.textErrorService = 'ocurrio un error en el servidor comunicate con el personal de mantenimiento';
+        this.showModalFail();
       });
   }
 
@@ -110,15 +115,16 @@ export class EditStudentComponent implements OnInit {
         this.student.setState(dateFormEdit.state);
 
         this.studentService.updateStudent(this.student)
-        .subscribe(data =>
+        .subscribe(event =>
           {
-            this.showModalOk();
+            this.proccesResponseEditStudentOk(event);
           },
           err =>
           {
+            this.viewProgressRequest.hide();
             if(err.error['error'] == '102' && err.error['campo'] == '100')
             {
-              this.textErrorService = 'La identificación digitada ya existe en el sistema';
+              this.textErrorService = 'El codigo digitado ya existe en el sistema';
             }
             if(err.error['error'] == '102' && err.error['campo'] == '103')
             {
@@ -149,10 +155,43 @@ export class EditStudentComponent implements OnInit {
     }
   }
 
+
+  proccesResponseEditStudentOk(event: any)
+  {
+        if(event.type === HttpEventType.UploadProgress)
+        {
+          this.showModalProgressRequest();
+          this.progressRequest = (Math.round(event.loaded / event.total * 100 ) -1 )+ '%';
+        }
+        else{
+          if(event.type === HttpEventType.Response)
+          {
+            this.viewProgressRequest.hide();
+            this.showModalOk();
+              this.redirectToListStudent();
+          }
+        }
+  }
+
+  showModalProgressRequest()
+  {
+    this.viewProgressRequest.show();
+  }
+
   private showModalOk()
   {
       this.viewModalOk.show();
       this.resetForm = this.resetForm + 'ok';
+  }
+
+  sleep(milliseconds)
+  {
+    const start = new Date().getTime();
+    for (let i = 0; i < 1e7; i++) {
+      if ((new Date().getTime() - start) > milliseconds) {
+      break;
+      }
+    }
   }
 
   private showModalFail()
@@ -167,9 +206,6 @@ export class EditStudentComponent implements OnInit {
 
   redirectToListStudent()
   {
-    this.router.navigate(['/student/listStudent']);
+    this.router.navigate(['/student/listStudent' , 'Estudiante editado exitosamente']);
   }
-
-
-
 }

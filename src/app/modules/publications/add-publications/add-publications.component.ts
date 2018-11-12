@@ -426,7 +426,6 @@ export class AddPublicationsComponent implements OnInit {
 
   proccesResponseRegistryPublicationOk(event: any, msjOK: string, msjSubOk: string)
   {
-    console.log('llegue con evento: '+ event.type + 'otro ' + HttpEventType.UploadProgress);
     this.showProgressRequest= true;
         if(event.type === HttpEventType.UploadProgress)
         {

@@ -42,6 +42,14 @@ const studentRoutes: Routes = [
         {
           title: 'Listar Estudiante'
         }
+      },
+      {
+        path: 'listStudent/:msj',
+        component: ListStudentComponent,
+        data:
+        {
+          title: 'Listar Estudiante'
+        }
       }
     ]
   }

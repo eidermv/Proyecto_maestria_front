@@ -4,9 +4,8 @@ import { Observable } from 'rxjs';
 import { StringApp } from '../../resources/stringApp';
 import { Student } from '../../models/student';
 
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json'})
-};
+const httpOptions = new HttpHeaders({ 'Content-Type': 'application/json'});
+
 
 
 @Injectable()
@@ -41,7 +40,9 @@ export class StudentService
         tutor: student.getTutor()
       }
     );
-    return this.httpClient.post(this.stringApp.URL_SERVICIO_CREATE_STUDENT, newStudent, httpOptions);
+    return this.httpClient.post(this.stringApp.URL_SERVICIO_CREATE_STUDENT, newStudent,
+                              {headers : new HttpHeaders({ 'Content-Type': 'application/json'}) ,
+                                 reportProgress: true, observe: 'events'});
   }
 
   getAllStudents()
@@ -71,6 +72,8 @@ export class StudentService
         tutor: student.getTutor()
       }
     );
-    return this.httpClient.post(this.stringApp.URL_SERVICIO_UPDATE_STUDENT, updateStudent , httpOptions);
+    return this.httpClient.post(this.stringApp.URL_SERVICIO_UPDATE_STUDENT, updateStudent ,
+                                {headers : new HttpHeaders({ 'Content-Type': 'application/json'}) ,
+                                reportProgress: true, observe: 'events'});
   }
 }

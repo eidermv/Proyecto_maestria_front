@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { PublicationService } from '../publications.service';
 
 @Component({
@@ -9,6 +9,7 @@ export class ListPublicationForStudentComponent implements OnInit {
 
 
   /**********************************VARIABLES LOCALES**************** */
+  @ViewChild('dangerModal') viewErroServer: any;
   codeStudent: string;
   optionsPublicationsStudent: Array<string>;
   typePublication: string;
@@ -36,6 +37,7 @@ export class ListPublicationForStudentComponent implements OnInit {
         this.getAllPublicationsStudent();
       },err =>
       {
+        this.viewErroServer.show();
       });
   }
 
@@ -47,7 +49,7 @@ export class ListPublicationForStudentComponent implements OnInit {
          this.optionsPublicationsStudent = data;
       },err =>
       {
-        console.log(err);
+        this.viewErroServer.show();
       });
   }
 
@@ -60,7 +62,6 @@ export class ListPublicationForStudentComponent implements OnInit {
 
   destroyModal(destruir: {cerrar: boolean})
   {
-    console.log('llgue a desturi');
     this.showModalPublication = false;
   }
 
@@ -69,11 +70,10 @@ export class ListPublicationForStudentComponent implements OnInit {
     this.publicationsService.deletePublication(idPublication['id'])
     .subscribe(data =>
       {
-        console.log('elimine');
         this.getAllPublicationsStudent();
       }, err =>
       {
-        console.log('no elimine');
+        this.viewErroServer.show();
       });
   }
 

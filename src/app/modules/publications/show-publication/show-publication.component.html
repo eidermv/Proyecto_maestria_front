@@ -15,6 +15,7 @@
         <p><strong>Titulo del Articulo: </strong>{{magazine.getTitleArticle()}}</p>
         <p><strong>Nombre de la Revista: </strong>{{magazine.getNameMagazine()}}</p>
         <p><strong>Categoria: </strong>{{magazine.getCategoryMagazine()}}</p>
+        <p><strong>Creditos: </strong>{{magazine.getCredits()}}</p>
         <p><strong>Estado: </strong>{{state}}</p>
         <p><strong>Tabla Contenido: </strong><button type="button" class="btn btn-link" (click)="showFilesMagazine('indice')">Ver</button></p>
         <p><strong>Articulo: </strong><button type="button" class="btn btn-link" (click)="showFilesMagazine('articulo')">Ver</button></p>
@@ -47,6 +48,7 @@
         <p><strong>Pais: </strong>{{book.getCounty()}}</p>
         <p><strong>Ciudad: </strong>{{book.getCity()}}</p>
         <p><strong>Editorial: </strong>{{book.getEditorial()}}</p>
+        <p><strong>Creditos: </strong>{{book.getCredits()}}</p>
         <p><strong>Estado: </strong>{{state}}</p>
         <p><strong>Tabla Contenido: </strong><button type="button" class="btn btn-link" (click)="showFilesBook('indice')">Ver</button></p>
         <p><strong>Libro: </strong><button type="button" class="btn btn-link" (click)="showFilesBook('libro')">Ver</button></p>
@@ -78,6 +80,7 @@
           <p><strong>Titulo Libro: </strong>{{capBook.getTitleBook()}}</p>
           <p><strong>Titulo Capitulo: </strong>{{capBook.getTitleBook()}}</p>
           <p><strong>Editorial: </strong>{{capBook.getEditorial()}}</p>
+          <p><strong>Creditos: </strong>{{capBook.getCredits()}}</p>
           <p><strong>Estado: </strong>{{state}}</p>
           <p><strong>Tabla Contenido: </strong><button type="button" class="btn btn-link" (click)="showFilesCapBook('indice')">Ver</button></p>
           <p><strong>Capitulo Libro: </strong><button type="button" class="btn btn-link" (click)="showFilesCapBook('capituloLibro')">Ver</button></p>
@@ -114,6 +117,7 @@
           <p><strong>Titulo Ponencia: </strong>{{eventt.getTittlePresentation()}}</p>
           <p><strong>Pais: </strong>{{eventt.getCounty()}}</p>
           <p><strong>Ciudad: </strong>{{eventt.getCity()}}</p>
+          <p><strong>Creditos: </strong>{{eventt.getCredits()}}</p>
           <p><strong>Estado: </strong>{{state}}</p>
           <p><strong>Tabla Contenido: </strong><button type="button" class="btn btn-link" (click)="showFilesEvent('indice')">Ver</button></p>
           <p><strong>Ponencia: </strong><button type="button" class="btn btn-link" (click)="showFilesEvent('ponencia')">Ver</button></p>

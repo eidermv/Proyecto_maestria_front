@@ -1,5 +1,7 @@
 export class Publication
 {
+  private _credits: string;
+
   public code: string;
   public author: string;
   public secondaryAuthors: string;
@@ -7,6 +9,13 @@ export class Publication
   public dateAproved: string;
   public contendTable: File;
   public typePublicaton: string;
+
+  public getCredits(): string {
+    return this._credits;
+  }
+  public setCredits(value: string) {
+    this._credits = value;
+  }
 
   public getAuthor()
   {

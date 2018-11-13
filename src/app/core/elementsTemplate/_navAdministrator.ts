@@ -18,6 +18,11 @@ export const navAdministrator = [
         url: '/student/listStudent',
         icon: 'fa fa-list-ol'
       },
+      {
+        name: 'Publicaciones',
+        url: '/publication/listPublicationsAdmin',
+        icon: 'fa fa-list-ol'
+      },
 
     ]
   },

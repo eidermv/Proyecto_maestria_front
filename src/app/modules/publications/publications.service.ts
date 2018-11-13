@@ -15,6 +15,11 @@ const BOOK: string = 'Libro';
 const CAP_BOK: string = 'Capítulo de libro';
 const EVENT: string = 'Evento';
 
+const httpOptions =
+{
+  headers : new HttpHeaders({ 'Content-Type': 'application/json'})
+}
+
 
 @Injectable()
 export class PublicationService
@@ -34,6 +39,23 @@ export class PublicationService
     getPublicationStudent(studentCode: string)
     {
       return this.httpClient.get<Array<any>>(this.stringApp.URL_SERVICIO_GETPUBLICATIONS_STUDENT + studentCode);
+    }
+
+    getAllPublications()
+    {
+      return this.httpClient.get<Array<any>>(this.stringApp.URL_SERVICIO_GETALL_PUBLICATION, httpOptions);
+    }
+
+    updateStatePublication(id: string, credits: string, state: string)
+    {
+      const data = JSON.stringify(
+                                  {
+                                    idPublicacion: id,
+                                    creditos: credits,
+                                    estado: state
+                                  }
+                                 );
+      return this.httpClient.post(this.stringApp.URL_SERVICIO_UPDATE_STATE, data, httpOptions);
     }
 
     getPublication(typePublication: string, idPublication: string)

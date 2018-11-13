@@ -1,3 +1,126 @@
-<p>
-  list-publication-for-admin works!
-</p>
+<div class="container-fluid">
+  <div class="animated fadeIn">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-header  bg-info  ">
+              <i class="fa fa-align-justify "></i> <strong> Publicaciones realizadas por el estudiante </strong>
+              <div class="input-group mb-4 input-group">
+                <input type="text" class="form-control" placeholder="Buscar por Codigo" [(ngModel)]="searchTerm">
+                <span class="input-group-prepend">
+                    <button type="submit" class="btn btn-light" ><i class="fa fa-search"></i>  </button>
+                </span>
+              </div>
+
+          </div>
+          <div class="card-body">
+
+            <table class="table  table-responsive-sm">
+              <thead >
+                <tr>
+                  <td>Codigo</td>
+                  <td>Nombres</td>
+                  <td>Apellidos</td>
+                  <th>Tipo</th>
+                  <th>Fecha</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let publication of optionsPublicationsStudents | paginate: {itemsPerPage: 8, currentPage: p}">
+                  <td>{{publication['estudiante']['codigo']}}</td>
+                  <td>{{publication['estudiante']['nombres']}}</td>
+                  <td>{{publication['estudiante']['apellidos']}}</td>
+                  <td>{{publication['tipoDocumento']}} </td>
+                  <td>{{publication['fechaPublicacion']}}</td>
+                  <td>
+                    <span class="badge badge-dark" *ngIf="publication['estado'] == 'Por verificar'">Por verificar</span>
+                    <span class="badge badge-success" *ngIf="publication['estado'] == 'Aprobado'">Aprobado</span>
+                    <span class="badge badge-secondary" *ngIf="publication['estado'] == 'Rechazado'">Rechazado</span>
+                  </td>
+                  <td>
+                    <div class="col-lg-12">
+                      <button class="btn btn-primary col-lg-4" (click)="showPublication(publication)">Ver</button>
+                      <button class="btn btn-danger col-lg-4" (click)="editState(publication)">Cambiar Estado</button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <pagination-controls (pageChange)="p =$event"></pagination-controls>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-show-publication [typePublication]="typePublication" [idPublication]="idPublication"  *ngIf="showModalPublication"
+                      (cerrar)="destroyModal($event)" ></app-show-publication>
+
+  <div bsModal #showEditState="bs-modal" class="modal fade" tabindex="-1">
+      <div class="modal-dialog modal-primary" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title"> Informacion del estudiante</h4>
+            <button type="button" class="close" (click)="showEditState.hide()" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p><strong>Autor: </strong>juanito</p>
+            <p><strong>Codigo: </strong>perez</p>
+            <div class="row">
+            <div class="formGroup col-6">
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fa fa-list-alt"> <small>&nbsp; Estado</small></i></span>
+                  </div>
+                  <select type="text" class="form-control" #state (change)="handleState($event)">
+                    <option [ngValue]="categories" *ngFor="let categories of optionState">{{categories}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="formGroup col-6" *ngIf="showCredits">
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fa fa-list-alt"> <small>&nbsp; Creditos</small></i></span>
+                    </div>
+                    <select type="text" class="form-control" #credits (change)="handleCredits($event)">
+                      <option [ngValue]="credits" *ngFor="let credits of optionsCredits">{{credits}}</option>
+                    </select>
+                  </div>
+                </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-primary" (click)="updateState()">Guardar</button>
+            </div>
+
+          </div>
+
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+
+
+      <div bsModal #dangerModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-danger" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Error en el servidor</h4>
+            <button type="button" class="close" (click)="dangerModal.hide()" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p><strong>Comunicate con el personal de mantenimiento</strong></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" (click)="dangerModal.hide()">Cerrar</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+

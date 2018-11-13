@@ -1,3 +1,4 @@
+import { ThrowStmt } from "@angular/compiler";
 
 export class StringApp
 {
@@ -45,6 +46,8 @@ export class StringApp
   public URL_SERVICIO_GETFILES_CAPBOKK = this.URL_SERVICIO + 'publicacion/capituloLibro/descargar/';
   public URL_SERVICIO_GETFILES_EVENT = this.URL_SERVICIO + 'publicacion/evento/descargar/';
   public URL_sERVICIO_DELETE_PUBLICATION = this.URL_SERVICIO + 'publicacion/eliminar';
+  public URL_SERVICIO_GETALL_PUBLICATION = this.URL_SERVICIO + 'publicacion/buscar/todo';
+  public URL_SERVICIO_UPDATE_STATE = this.URL_SERVICIO + 'publicacion/actualizar/estado';
 
   /******** ROLES DE LA APP */
 

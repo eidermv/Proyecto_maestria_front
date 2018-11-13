@@ -67,7 +67,8 @@ export class ShowPublicationComponent implements OnInit {
     switch (this.typePublication)
     {
       case MAGAZINE:
-          this.magazine.setAuthor(data['publicacion']['estudiante']['nombres'] +
+          this.magazine.setCredits(data['publicacion']['creditos']);
+          this.magazine.setAuthor(data['publicacion']['estudiante']['nombres']+ ' ' +
                                   data['publicacion']['estudiante']['apellidos']);
           this.magazine.setCode(data['publicacion']['estudiante']['codigo']);
           this.magazine.setSecondaryAuthors(data['publicacion']['autoresSecundarios']);
@@ -80,7 +81,8 @@ export class ShowPublicationComponent implements OnInit {
       break;
 
       case BOOK:
-          this.book.setAuthor(data['publicacion']['estudiante']['nombres'] +
+          this.book.setCredits(data['publicacion']['creditos']);
+          this.book.setAuthor(data['publicacion']['estudiante']['nombres'] + ' ' +
                                   data['publicacion']['estudiante']['apellidos']);
           this.book.setCode(data['publicacion']['estudiante']['codigo']);
           this.book.setSecondaryAuthors(data['publicacion']['autoresSecundarios']);
@@ -94,7 +96,8 @@ export class ShowPublicationComponent implements OnInit {
       break;
 
       case CAP_BOK:
-          this.capBook.setAuthor(data['publicacion']['estudiante']['nombres'] +
+          this.capBook.setCredits(data['publicacion']['creditos']);
+          this.capBook.setAuthor(data['publicacion']['estudiante']['nombres'] + ' ' +
           data['publicacion']['estudiante']['apellidos']);
           this.capBook.setCode(data['publicacion']['estudiante']['codigo']);
           this.capBook.setSecondaryAuthors(data['publicacion']['autoresSecundarios']);
@@ -107,7 +110,8 @@ export class ShowPublicationComponent implements OnInit {
       break;
 
       case EVENT:
-          this.eventt.setAuthor(data['publicacion']['estudiante']['nombres'] +
+          this.eventt.setCredits(data['publicacion']['creditos']);
+          this.eventt.setAuthor(data['publicacion']['estudiante']['nombres'] + ' ' +
           data['publicacion']['estudiante']['apellidos']);
           this.eventt.setCode(data['publicacion']['estudiante']['codigo']);
           this.eventt.setSecondaryAuthors(data['publicacion']['autoresSecundarios']);

@@ -16,7 +16,7 @@ export const navStudent = [
       },
       {
         name: 'Listar Publicaciones',
-        url: '/publication/listPublications',
+        url: '/publication/listPublicationsEstudent',
         icon: 'fa fa-list-ol'
       }
     ]

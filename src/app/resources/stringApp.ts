@@ -34,6 +34,17 @@ export class StringApp
   public URL_SERVICIO_REGISTRY_EVENT = this.URL_SERVICIO + 'publicacion/evento/registrar';
   public URL_SERVICIO_REGISTRY_CAP_BOOK = this.URL_SERVICIO + 'publicacion/capituloLibro/registrar';
 
+  public URL_SERVICIO_GETPUBLICATIONS_STUDENT = this.URL_SERVICIO + 'publicacion/buscar/codigoEstudiante/';
+
+  public URL_SERVICIO_GETPUBLICATION_EVENT = this.URL_SERVICIO + 'publicacion/evento/buscar/idPublicacion/';
+  public URL_SERVICIO_GETPUBLICATION_BOOK = this.URL_SERVICIO + 'publicacion/libro/buscar/idPublicacion/';
+  public URL_SERVICIO_GETPUBLICATION_CAPBOOK = this.URL_SERVICIO + 'publicacion/capituloLibro/buscar/idPublicacion/';
+  public URL_SERVICIO_GETPUBLICATION_MAGAZINE = this.URL_SERVICIO + 'publicacion/revista/buscar/idPublicacion/';
+  public URL_SERVICIO_GETFILES_MAGAZINE = this.URL_SERVICIO + 'publicacion/revista/descargar/';
+  public URL_SERVICIO_GETFILES_BOOK = this.URL_SERVICIO + 'publicacion/libro/descargar/';
+  public URL_SERVICIO_GETFILES_CAPBOKK = this.URL_SERVICIO + 'publicacion/capituloLibro/descargar/';
+  public URL_SERVICIO_GETFILES_EVENT = this.URL_SERVICIO + 'publicacion/evento/descargar/';
+  public URL_sERVICIO_DELETE_PUBLICATION = this.URL_SERVICIO + 'publicacion/eliminar';
 
   /******** ROLES DE LA APP */
 

@@ -27,6 +27,11 @@ export class AccesDenyInterceptorService implements HttpInterceptor {
                           this.route.navigate(['/login']);
                         }
                       }
+                      if(error.status == 401)
+                      {
+                        sessionStorage.clear();
+                        this.route.navigate(['404']);
+                      }
                     }
     );
   }

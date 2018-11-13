@@ -13,6 +13,10 @@ import { AddCapBookComponent } from './capBook/add-cap-book/add-cap-book.compone
 import { EventFormComponent } from './event/event-form/event-form.component';
 import { AddEventComponent } from './event/add-event/add-event.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { ListPublicationForStudentComponent } from './list-publication-for-student/list-publication-for-student.component';
+import { ListPublicationForAdminComponent } from './list-publication-for-admin/list-publication-for-admin.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { ShowPublicationComponent } from './show-publication/show-publication.component';
 
 @NgModule({
   imports: [
@@ -21,6 +25,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     FormsModule,
     PublicationRoutingModule,
     SeekersModule,
+    NgxPaginationModule,
     ModalModule.forRoot(),
   ],
   declarations: [AddPublicationsComponent,
@@ -28,7 +33,10 @@ import { ModalModule } from 'ngx-bootstrap/modal';
                   AddBookComponent, CapBookFormComponent,
                   AddCapBookComponent,
                   EventFormComponent,
-                  AddEventComponent],
+                  AddEventComponent,
+                  ListPublicationForStudentComponent,
+                  ListPublicationForAdminComponent,
+                  ShowPublicationComponent],
   providers: [PublicationService]
 })
 export class PublicationModule { }

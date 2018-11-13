@@ -1,0 +1,131 @@
+<div bsModal #showMagazime="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-primary" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title"> Informacion del estudiante</h4>
+        <button type="button" class="close" (click)="destroyModal()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Autor: </strong>{{magazine.getAuthor()}}</p>
+        <p><strong>Codigo: </strong>{{magazine.getCode()}}</p>
+        <p><strong>Autores Secundarios: </strong>{{magazine.getSecondaryAuthors()}}</p>
+        <p><strong>DOI: </strong>{{magazine.getDoi()}}</p>
+        <p><strong>Titulo del Articulo: </strong>{{magazine.getTitleArticle()}}</p>
+        <p><strong>Nombre de la Revista: </strong>{{magazine.getNameMagazine()}}</p>
+        <p><strong>Categoria: </strong>{{magazine.getCategoryMagazine()}}</p>
+        <p><strong>Estado: </strong>{{state}}</p>
+        <p><strong>Tabla Contenido: </strong><button type="button" class="btn btn-link" (click)="showFilesMagazine('indice')">Ver</button></p>
+        <p><strong>Articulo: </strong><button type="button" class="btn btn-link" (click)="showFilesMagazine('articulo')">Ver</button></p>
+        <p><strong>Pantallazo Correo Aceptacion: </strong><button type="button" class="btn btn-link" (click)="showFilesMagazine('correoAceptacion')">Ver</button></p>
+        <p><strong>Pantallazo Categoria revista: </strong><button type="button" class="btn btn-link" (click)="showFilesMagazine('clasificacionRevista')">Ver</button></p>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="destroyModal()">Cerrar</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div bsModal #showBook="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-primary" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title"> Informacion del estudiante</h4>
+        <button type="button" class="close" (click)="destroyModal()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Autor: </strong>{{book.getAuthor()}}</p>
+        <p><strong>Codigo: </strong>{{book.getCode()}}</p>
+        <p><strong>Autores Secundarios: </strong>{{book.getSecondaryAuthors()}}</p>
+        <p><strong>ISBN: </strong>{{book.getIsbn()}}</p>
+        <p><strong>Titulo Libro: </strong>{{book.getTitleBook()}}</p>
+        <p><strong>Pais: </strong>{{book.getCounty()}}</p>
+        <p><strong>Ciudad: </strong>{{book.getCity()}}</p>
+        <p><strong>Editorial: </strong>{{book.getEditorial()}}</p>
+        <p><strong>Estado: </strong>{{state}}</p>
+        <p><strong>Tabla Contenido: </strong><button type="button" class="btn btn-link" (click)="showFilesBook('indice')">Ver</button></p>
+        <p><strong>Libro: </strong><button type="button" class="btn btn-link" (click)="showFilesBook('libro')">Ver</button></p>
+        <p><strong>Certificado Editorial: </strong><button type="button" class="btn btn-link" (click)="showFilesBook('certificadoEditorial')">Ver</button></p>
+        <p><strong></strong></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="destroyModal()">Cerrar</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div bsModal #showCapBook="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-primary" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title"> Informacion del estudiante</h4>
+        <button type="button" class="close" (click)="destroyModal()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <p><strong>Autor: </strong>{{capBook.getAuthor()}}</p>
+          <p><strong>Codigo: </strong>{{capBook.getCode()}}</p>
+          <p><strong>Autores Secundarios: </strong>{{capBook.getSecondaryAuthors()}}</p>
+          <p><strong>ISBN: </strong>{{capBook.getIsbn()}}</p>
+          <p><strong>Titulo Libro: </strong>{{capBook.getTitleBook()}}</p>
+          <p><strong>Titulo Capitulo: </strong>{{capBook.getTitleBook()}}</p>
+          <p><strong>Editorial: </strong>{{capBook.getEditorial()}}</p>
+          <p><strong>Estado: </strong>{{state}}</p>
+          <p><strong>Tabla Contenido: </strong><button type="button" class="btn btn-link" (click)="showFilesCapBook('indice')">Ver</button></p>
+          <p><strong>Capitulo Libro: </strong><button type="button" class="btn btn-link" (click)="showFilesCapBook('capituloLibro')">Ver</button></p>
+          <p><strong>Certificado Editorial: </strong><button type="button" class="btn btn-link" (click)="showFilesCapBook('certificadoEditorial')">Ver</button></p>
+          <p><strong></strong></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="destroyModal()">Cerrar</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div bsModal #showEvent="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-primary" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title"> Informacion del estudiante</h4>
+        <button type="button" class="close" (click)="destroyModal()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <p><strong>Autor: </strong>{{eventt.getAuthor()}}</p>
+          <p><strong>Codigo: </strong>{{eventt.getCode()}}</p>
+          <p><strong>Autores Secundarios: </strong>{{eventt.getSecondaryAuthors()}}</p>
+          <p><strong>Nombre evento: </strong>{{eventt.getNameEvent()}}</p>
+          <p><strong>Tipo de evento: </strong>{{eventt.getTypeEvent()}}</p>
+          <p><strong>DOI: </strong>{{eventt.getDoi()}}</p>
+          <p><strong>Fecha Inicio: </strong>{{eventt.getDataStart()}}</p>
+          <p><strong>Fecha Fin: </strong>{{eventt.getDataFinish()}}</p>
+          <p><strong>ISSN: </strong>{{eventt.getISSN()}}</p>
+          <p><strong>Titulo Ponencia: </strong>{{eventt.getTittlePresentation()}}</p>
+          <p><strong>Pais: </strong>{{eventt.getCounty()}}</p>
+          <p><strong>Ciudad: </strong>{{eventt.getCity()}}</p>
+          <p><strong>Estado: </strong>{{state}}</p>
+          <p><strong>Tabla Contenido: </strong><button type="button" class="btn btn-link" (click)="showFilesEvent('indice')">Ver</button></p>
+          <p><strong>Ponencia: </strong><button type="button" class="btn btn-link" (click)="showFilesEvent('ponencia')">Ver</button></p>
+          <p><strong>Certificado Evento: </strong><button type="button" class="btn btn-link" (click)="showFilesEvent('certificadoEvento')">Ver</button></p>
+        <p><strong></strong></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="destroyModal()">Cerrar</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+

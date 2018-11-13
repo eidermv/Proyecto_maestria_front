@@ -30,7 +30,6 @@ export class ListStudentComponent implements OnInit {
     this.getAllStudents();
     this.searchTerm = '';
 
-
   }
 
   showMSJ()

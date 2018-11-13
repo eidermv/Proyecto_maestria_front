@@ -9,6 +9,11 @@ import { Book } from '../../models/publications/book';
 import { EventPublication } from '../../models/publications/event';
 import { CapBook } from '../../models/publications/capLibro';
 
+/***************************VARIABLES GLOBALES*********** */
+const MAGAZINE: string = 'Revista';
+const BOOK: string = 'Libro';
+const CAP_BOK: string = 'Capítulo de libro';
+const EVENT: string = 'Evento';
 
 
 @Injectable()
@@ -21,22 +26,58 @@ export class PublicationService
 
   }
 
-
-   sentFile(fileSend: File){
-    console.log('llegue');
-
-    const formData: FormData = new FormData();
-    const nn = JSON.stringify({
-                               nn: 'juantio'
-                             });
-    formData.append('File', fileSend);
-    formData.append('datos', nn);
-    return this.httpClient.post(this.stringApp.URL_SERVICIO_REGISTRY_PUBLICATIONS, formData);
-    }
-
     getStudent()
     {
      return  this.httpClient.get(this.stringApp.URL_SERVICIO_GET_STUDENT_WHIT_TOKEN + sessionStorage.getItem('token'));
+    }
+
+    getPublicationStudent(studentCode: string)
+    {
+      return this.httpClient.get<Array<any>>(this.stringApp.URL_SERVICIO_GETPUBLICATIONS_STUDENT + studentCode);
+    }
+
+    getPublication(typePublication: string, idPublication: string)
+    {
+      switch (typePublication)
+      {
+        case MAGAZINE:
+            return this.httpClient.get<Array<any>>(this.stringApp.URL_SERVICIO_GETPUBLICATION_MAGAZINE + idPublication);
+
+        case BOOK:
+            return this.httpClient.get<Array<any>>(this.stringApp.URL_SERVICIO_GETPUBLICATION_BOOK + idPublication);
+
+        case CAP_BOK:
+            return this.httpClient.get<Array<any>>(this.stringApp.URL_SERVICIO_GETPUBLICATION_CAPBOOK + idPublication);
+        case EVENT:
+          return this.httpClient.get<Array<any>>(this.stringApp.URL_SERVICIO_GETPUBLICATION_EVENT + idPublication);
+      }
+    }
+
+    getFile(typePublication: string, typeFile: string, idPublication: string)
+    {
+      switch (typePublication)
+      {
+        case MAGAZINE:
+            return this.httpClient.get(this.stringApp.URL_SERVICIO_GETFILES_MAGAZINE + idPublication+ '/' + typeFile);
+
+        case BOOK:
+            return this.httpClient.get(this.stringApp.URL_SERVICIO_GETFILES_BOOK+ idPublication + '/' + typeFile);
+
+        case CAP_BOK:
+            return this.httpClient.get(this.stringApp.URL_SERVICIO_GETFILES_CAPBOKK + idPublication + '/' + typeFile);
+
+        case EVENT:
+          return this.httpClient.get(this.stringApp.URL_SERVICIO_GETFILES_EVENT + idPublication + '/' + typeFile);
+      }
+    }
+
+    deletePublication(id: string)
+    {
+      const data = JSON.stringify(
+        {
+          idPublicacion: id
+        });
+      return this.httpClient.post(this.stringApp.URL_sERVICIO_DELETE_PUBLICATION, data,{reportProgress: true, observe: 'events'});
     }
 
     registryMagazine(magazine: Magazine)

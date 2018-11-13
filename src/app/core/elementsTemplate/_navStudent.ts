@@ -10,8 +10,13 @@ export const navStudent = [
     icon: 'icon-layers',
     children: [
       {
-        name: 'Agregar Publicaciones',
+        name: 'Agregar Publicacion',
         url: '/publication/addPublications',
+        icon: 'fa fa-list-ol'
+      },
+      {
+        name: 'Listar Publicaciones',
+        url: '/publication/listPublications',
         icon: 'fa fa-list-ol'
       }
     ]

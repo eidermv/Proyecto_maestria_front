@@ -44,6 +44,7 @@ export class ShowPublicationComponent implements OnInit {
     this.book = new Book();
     this.capBook = new CapBook();
     this.eventt = new EventPublication();
+
   }
 
   ngOnInit(): void {
@@ -75,7 +76,7 @@ export class ShowPublicationComponent implements OnInit {
           this.magazine.setNameMagazine(data['nombreRevista']);
           this.magazine.setCategoryMagazine(data['categoria']);
           this.state = data['publicacion']['estado'];
-          this.viewMagazine.show();
+          this.viewMagazine.show({ backdrop: 'static', keyboard: false });
       break;
 
       case BOOK:
@@ -177,7 +178,4 @@ export class ShowPublicationComponent implements OnInit {
         console.log(err);
       });
   }
-
-
-
 }

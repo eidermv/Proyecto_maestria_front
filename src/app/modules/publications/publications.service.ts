@@ -58,16 +58,20 @@ export class PublicationService
       switch (typePublication)
       {
         case MAGAZINE:
-            return this.httpClient.get(this.stringApp.URL_SERVICIO_GETFILES_MAGAZINE + idPublication+ '/' + typeFile);
+            return this.httpClient.get(this.stringApp.URL_SERVICIO_GETFILES_MAGAZINE + idPublication+ '/' + typeFile,
+            { headers : new HttpHeaders({ 'Content-Type': 'application/json'}) ,reportProgress: true, observe: 'events'});
 
         case BOOK:
-            return this.httpClient.get(this.stringApp.URL_SERVICIO_GETFILES_BOOK+ idPublication + '/' + typeFile);
+            return this.httpClient.get(this.stringApp.URL_SERVICIO_GETFILES_BOOK+ idPublication + '/' + typeFile,
+            { headers : new HttpHeaders({ 'Content-Type': 'application/json'}) ,reportProgress: true, observe: 'events'});
 
         case CAP_BOK:
-            return this.httpClient.get(this.stringApp.URL_SERVICIO_GETFILES_CAPBOKK + idPublication + '/' + typeFile);
+            return this.httpClient.get(this.stringApp.URL_SERVICIO_GETFILES_CAPBOKK + idPublication + '/' + typeFile,
+            { headers : new HttpHeaders({ 'Content-Type': 'application/json'}) ,reportProgress: true, observe: 'events'});
 
         case EVENT:
-          return this.httpClient.get(this.stringApp.URL_SERVICIO_GETFILES_EVENT + idPublication + '/' + typeFile);
+          return this.httpClient.get(this.stringApp.URL_SERVICIO_GETFILES_EVENT + idPublication + '/' + typeFile,
+          { headers : new HttpHeaders({ 'Content-Type': 'application/json'}) ,reportProgress: true, observe: 'events'});
       }
     }
 
@@ -77,7 +81,8 @@ export class PublicationService
         {
           idPublicacion: id
         });
-      return this.httpClient.post(this.stringApp.URL_sERVICIO_DELETE_PUBLICATION, data,{reportProgress: true, observe: 'events'});
+      return this.httpClient.post(this.stringApp.URL_sERVICIO_DELETE_PUBLICATION, data,
+       { headers : new HttpHeaders({ 'Content-Type': 'application/json'}) ,reportProgress: true, observe: 'events'});
     }
 
     registryMagazine(magazine: Magazine)

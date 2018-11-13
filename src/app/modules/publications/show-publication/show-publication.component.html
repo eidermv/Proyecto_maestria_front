@@ -1,5 +1,4 @@
-<div bsModal #showMagazime="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-  aria-hidden="true">
+<div bsModal #showMagazime="bs-modal" class="modal fade" tabindex="-1">
   <div class="modal-dialog modal-primary" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -21,7 +20,6 @@
         <p><strong>Articulo: </strong><button type="button" class="btn btn-link" (click)="showFilesMagazine('articulo')">Ver</button></p>
         <p><strong>Pantallazo Correo Aceptacion: </strong><button type="button" class="btn btn-link" (click)="showFilesMagazine('correoAceptacion')">Ver</button></p>
         <p><strong>Pantallazo Categoria revista: </strong><button type="button" class="btn btn-link" (click)="showFilesMagazine('clasificacionRevista')">Ver</button></p>
-
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" (click)="destroyModal()">Cerrar</button>
@@ -63,7 +61,7 @@
 </div><!-- /.modal -->
 
 <div bsModal #showCapBook="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-  aria-hidden="true">
+  aria-hidden="true" data-backdrop="static">
   <div class="modal-dialog modal-primary" role="document">
     <div class="modal-content">
       <div class="modal-header">

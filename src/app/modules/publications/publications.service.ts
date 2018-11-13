@@ -8,6 +8,8 @@ import { Magazine } from '../../models/publications/magazine';
 import { Book } from '../../models/publications/book';
 import { EventPublication } from '../../models/publications/event';
 import { CapBook } from '../../models/publications/capLibro';
+import { DomSanitizer } from '@angular/platform-browser';
+import 'rxjs/Rx';
 
 /***************************VARIABLES GLOBALES*********** */
 const MAGAZINE: string = 'Revista';
@@ -15,10 +17,16 @@ const BOOK: string = 'Libro';
 const CAP_BOK: string = 'Capítulo de libro';
 const EVENT: string = 'Evento';
 
+
+//{ headers : new HttpHeaders({ 'Acept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8'})
+//,reportProgress: true, observe: 'events'});
+
 const httpOptions =
 {
   headers : new HttpHeaders({ 'Content-Type': 'application/json'})
 }
+
+
 
 
 @Injectable()
@@ -26,7 +34,7 @@ export class PublicationService
 {
   stringApp: StringApp = new StringApp();
 
-  constructor(private httpClient: HttpClient,  private router: Router)
+  constructor(private httpClient: HttpClient,  private router: Router, private sanitizer: DomSanitizer)
   {
 
   }
@@ -80,20 +88,37 @@ export class PublicationService
       switch (typePublication)
       {
         case MAGAZINE:
-            return this.httpClient.get(this.stringApp.URL_SERVICIO_GETFILES_MAGAZINE + idPublication+ '/' + typeFile,
-            { headers : new HttpHeaders({ 'Content-Type': 'application/json'}) ,reportProgress: true, observe: 'events'});
+             this.httpClient.get(this.stringApp.URL_SERVICIO_GETFILES_MAGAZINE + idPublication+ '/' + typeFile,
+             {responseType: 'blob'})
+             .subscribe(data =>
+             {
+               this.showFile(data);
+             });
+            break;
 
         case BOOK:
-            return this.httpClient.get(this.stringApp.URL_SERVICIO_GETFILES_BOOK+ idPublication + '/' + typeFile,
-            { headers : new HttpHeaders({ 'Content-Type': 'application/json'}) ,reportProgress: true, observe: 'events'});
+             this.httpClient.get(this.stringApp.URL_SERVICIO_GETFILES_BOOK+ idPublication + '/' + typeFile,{responseType: 'blob'})
+             .subscribe(data =>
+              {
+                this.showFile(data);
+              });
+            break;
 
         case CAP_BOK:
-            return this.httpClient.get(this.stringApp.URL_SERVICIO_GETFILES_CAPBOKK + idPublication + '/' + typeFile,
-            { headers : new HttpHeaders({ 'Content-Type': 'application/json'}) ,reportProgress: true, observe: 'events'});
+             this.httpClient.get(this.stringApp.URL_SERVICIO_GETFILES_CAPBOKK + idPublication + '/' + typeFile,{responseType: 'blob'})
+             .subscribe(data =>
+              {
+                this.showFile(data);
+              });
+            break;
 
         case EVENT:
-          return this.httpClient.get(this.stringApp.URL_SERVICIO_GETFILES_EVENT + idPublication + '/' + typeFile,
-          { headers : new HttpHeaders({ 'Content-Type': 'application/json'}) ,reportProgress: true, observe: 'events'});
+           this.httpClient.get(this.stringApp.URL_SERVICIO_GETFILES_EVENT + idPublication + '/' + typeFile,{responseType: 'blob'})
+           .subscribe(data =>
+            {
+              this.showFile(data);
+            });
+          break;
       }
     }
 
@@ -250,6 +275,12 @@ export class PublicationService
         }
       }
       return dateReturn;
+    }
+
+    showFile(data : any)
+    {
+      let fileUrl = window.URL.createObjectURL(data);
+      window.open(fileUrl);
     }
 
   }

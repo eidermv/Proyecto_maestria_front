@@ -137,49 +137,49 @@ export class ShowPublicationComponent implements OnInit {
 
   showFilesMagazine(typeFile: string)
   {
-    this.publicationsService.getFile(MAGAZINE, typeFile , this.idPublication)
-    .subscribe(data=>
+    this.publicationsService.getFile(MAGAZINE, typeFile , this.idPublication);
+    /*.subscribe(data=>
       {
         console.log(data);
       }, err =>
       {
         console.log(err);
-      });
+      });*/
   }
 
   showFilesBook(typeFile: string)
   {
-    this.publicationsService.getFile(BOOK, typeFile , this.idPublication)
-    .subscribe(data=>
+    this.publicationsService.getFile(BOOK, typeFile , this.idPublication);
+    /*.subscribe(data=>
       {
         console.log(data);
       }, err =>
       {
         console.log(err);
-      });
+      });*/
   }
 
   showFilesCapBook(typeFile: string)
   {
-    this.publicationsService.getFile(CAP_BOK, typeFile , this.idPublication)
-    .subscribe(data=>
+    this.publicationsService.getFile(CAP_BOK, typeFile , this.idPublication);
+    /*.subscribe(data=>
       {
         console.log(data);
       }, err =>
       {
         console.log(err);
-      });
+      });*/
   }
 
   showFilesEvent(typeFile: string)
   {
-    this.publicationsService.getFile(EVENT, typeFile , this.idPublication)
-    .subscribe(data=>
+    this.publicationsService.getFile(EVENT, typeFile , this.idPublication);
+   /* .subscribe(data=>
       {
         console.log(data);
       }, err =>
       {
         console.log(err);
-      });
+      });*/
   }
 }

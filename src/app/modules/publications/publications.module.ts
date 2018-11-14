@@ -17,6 +17,7 @@ import { ListPublicationForStudentComponent } from './list-publication-for-stude
 import { ListPublicationForAdminComponent } from './list-publication-for-admin/list-publication-for-admin.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ShowPublicationComponent } from './show-publication/show-publication.component';
+import { PublicationFilterPipe } from './list-publication-for-admin/publicationFilter.pipe';
 
 @NgModule({
   imports: [
@@ -36,7 +37,8 @@ import { ShowPublicationComponent } from './show-publication/show-publication.co
                   AddEventComponent,
                   ListPublicationForStudentComponent,
                   ListPublicationForAdminComponent,
-                  ShowPublicationComponent],
+                  ShowPublicationComponent,
+                  PublicationFilterPipe],
   providers: [PublicationService]
 })
 export class PublicationModule { }

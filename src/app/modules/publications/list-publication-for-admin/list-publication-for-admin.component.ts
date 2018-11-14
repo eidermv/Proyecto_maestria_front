@@ -25,6 +25,7 @@ export class ListPublicationForAdminComponent implements OnInit {
   totalCredits: string;
   showModalPublication: boolean;
   showCredits: boolean;
+  searchTerm: string;
 
   constructor(private publicationsService: PublicationService)
   {
@@ -35,6 +36,7 @@ export class ListPublicationForAdminComponent implements OnInit {
     this.showCredits = false;
     this.idPublication = '';
     this.typePublication = '';
+    this.searchTerm = '';
     this.selectedState = POR_VERIFICAR;
     this.getAllStudent();
   }

@@ -30,13 +30,13 @@
                   <td>{{publication['fechaPublicacion']}}</td>
                   <td>
                     <span class="badge badge-warning" *ngIf="publication['estado'] == 'Por verificar'">Por verificar</span>
-                    <span class="badge badge-succes" *ngIf="publication['estado'] == 'Aprobado'">Aprobada</span>
+                    <span class="badge badge-success" *ngIf="publication['estado'] == 'Aprobado'">Aprobada</span>
                     <span class="badge badge-secondary" *ngIf="publication['estado'] == 'Rechazado'">Rechazada</span>
                   </td>
                   <td>
                     <div class="col-lg-12">
-                      <button class="btn btn-primary col-lg-5" (click)="showPublication(publication)">Ver</button>
-                      <button class="btn btn-danger col-lg-5" (click)="deletePublication(publication)">Eliminar</button>
+                      <button class="btn btn-primary col-lg-3" (click)="showPublication(publication)">Ver</button>
+                      <button class="btn btn-danger col-lg-3" (click)="deletePublication(publication)">Eliminar</button>
                     </div>
                   </td>
                 </tr>
@@ -72,4 +72,46 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
+
+
+  <div bsModal #errDeletePublication="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-danger" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Error al eliminar la publicacion</h4>
+        <button type="button" class="close" (click)="errDeletePublication.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p><strong>La publicacion solo se puede eliminar cuando su estado es: Por verificar</strong></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="errDeletePublication.hide()">Cerrar</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+  <div bsModal #warningModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+aria-hidden="true">
+<div class="modal-dialog modal-primary" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title">{{msjOk}}</h4>
+      <button type="button" class="close" (click)="warningModal.hide()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p><strong>Accion exitosa</strong></p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-dark" (click)="warningModal.hide()">Cerrar</button>
+    </div>
+  </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 

@@ -6,7 +6,7 @@
           <div class="card-header  bg-info  ">
               <i class="fa fa-align-justify "></i> <strong> Publicaciones realizadas por el estudiante </strong>
               <div class="input-group mb-4 input-group">
-                <input type="text" class="form-control" placeholder="Buscar por Codigo" [(ngModel)]="searchTerm">
+                <input type="text" class="form-control" placeholder="Buscar por Codigo, nombres, apellidos, tipo ó estado" [(ngModel)]="searchTerm">
                 <span class="input-group-prepend">
                     <button type="submit" class="btn btn-light" ><i class="fa fa-search"></i>  </button>
                 </span>
@@ -28,7 +28,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let publication of optionsPublicationsStudents | paginate: {itemsPerPage: 8, currentPage: p}">
+                <tr *ngFor="let publication of optionsPublicationsStudents | paginate: {itemsPerPage: 8, currentPage: p} | publicationFilter:searchTerm">
                   <td>{{publication['estudiante']['codigo']}}</td>
                   <td>{{publication['estudiante']['nombres']}}</td>
                   <td>{{publication['estudiante']['apellidos']}}</td>

@@ -29,7 +29,6 @@ export class ListStudentComponent implements OnInit {
     this.optionsDataStudents = [];
     this.getAllStudents();
     this.searchTerm = '';
-
   }
 
   showMSJ()
@@ -57,7 +56,6 @@ export class ListStudentComponent implements OnInit {
 
   ngOnInit() {
     const msj: string = this.route.snapshot.params['msj'];
-    console.log('llegue con el mensaje');
     if(msj != null)
     {
       this.msjOk = msj;

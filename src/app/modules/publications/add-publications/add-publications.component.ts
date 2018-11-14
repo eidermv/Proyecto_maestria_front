@@ -382,7 +382,7 @@ export class AddPublicationsComponent implements OnInit {
     this.publicationsService.registyCapBook(this.capBook)
     .subscribe(event =>
       {
-        this.proccesResponseRegistryPublicationOk(event, 'Capitulo Libro Registrado con exito',
+       this.proccesResponseRegistryPublicationOk(event, 'Capitulo Libro Registrado con exito',
                                                   'El capitulo libro ya se encuentra disponible para la revision');
       },err =>
       {
@@ -416,7 +416,7 @@ export class AddPublicationsComponent implements OnInit {
     this.publicationsService.registryEvent(this.event)
     .subscribe(event =>
       {
-        this.proccesResponseRegistryPublicationOk(event,  'Evento Registrado con exito',
+       this.proccesResponseRegistryPublicationOk(event,  'Evento Registrado con exito',
                                                  'El evento ya se encuentra disponible para la revision'  );
       },err =>
       {
@@ -441,6 +441,7 @@ export class AddPublicationsComponent implements OnInit {
             this.titleModalSucces = msjOK;
             this.subtitleModalSucces = msjSubOk;
             this.showProgressRequest = false;
+            this.redirectToListPublications();
           }
         }
   }
@@ -466,6 +467,11 @@ export class AddPublicationsComponent implements OnInit {
     this.dateAproved = this.fieldsForm.get('dateApproved').value;
     this.datePublication = this.fieldsForm.get('datePublitaion').value;
     return true;
+  }
+
+  redirectToListPublications()
+  {
+    this.router.navigate(['/publication/listPublicationsEstudent', 'Publicacion Registrada exitosamente']);
   }
 
 }

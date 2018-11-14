@@ -28,6 +28,14 @@ const publicationsRoutes: Routes = [
         }
       },
       {
+        path: 'listPublicationsEstudent/:msj',
+        component: ListPublicationForStudentComponent,
+        data:
+        {
+          title: 'Listar Publicaciónes'
+        }
+      },
+      {
         path: 'listPublicationsAdmin',
         component: ListPublicationForAdminComponent,
         data:
@@ -35,7 +43,6 @@ const publicationsRoutes: Routes = [
           title: 'Listar Todas Las Publicaciónes'
         }
       }
-
     ]
   }
 ];

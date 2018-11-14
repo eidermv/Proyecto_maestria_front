@@ -128,8 +128,7 @@ export class PublicationService
         {
           idPublicacion: id
         });
-      return this.httpClient.post(this.stringApp.URL_sERVICIO_DELETE_PUBLICATION, data,
-       { headers : new HttpHeaders({ 'Content-Type': 'application/json'}) ,reportProgress: true, observe: 'events'});
+      return this.httpClient.post(this.stringApp.URL_sERVICIO_DELETE_PUBLICATION, data,httpOptions);
     }
 
     registryMagazine(magazine: Magazine)

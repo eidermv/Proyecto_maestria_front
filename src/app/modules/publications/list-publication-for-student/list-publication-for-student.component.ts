@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { PublicationService } from '../publications.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-list-publication-for-student',
@@ -10,15 +11,19 @@ export class ListPublicationForStudentComponent implements OnInit {
 
   /**********************************VARIABLES LOCALES**************** */
   @ViewChild('dangerModal') viewErroServer: any;
+  @ViewChild('errDeletePublication') viewErrorDeletePublication: any;
+  @ViewChild('warningModal') viewModalMsjOk: any ;
   codeStudent: string;
   optionsPublicationsStudent: Array<string>;
   typePublication: string;
   idPublication: string;
   showModalPublication: boolean;
+  msjOk: string;
 
-  constructor(private publicationsService: PublicationService)
+  constructor(private publicationsService: PublicationService, private route: ActivatedRoute,
+    private router: Router)
   {
-    this.getDateStudent();
+
     this.optionsPublicationsStudent = [];
     this.showModalPublication = false;
     this.idPublication = '';
@@ -26,6 +31,12 @@ export class ListPublicationForStudentComponent implements OnInit {
   }
 
   ngOnInit() {
+    const msj: string = this.route.snapshot.params['msj'];
+    if(msj != null)
+    {
+      this.msjOk = msj;
+    }
+    this.getDateStudent();
   }
 
   getDateStudent()
@@ -47,10 +58,19 @@ export class ListPublicationForStudentComponent implements OnInit {
     .subscribe(data =>
       {
          this.optionsPublicationsStudent = data;
+         this.showMSJ();
       },err =>
       {
         this.viewErroServer.show();
       });
+  }
+
+  showMSJ()
+  {
+    if(this.msjOk != null)
+    {
+      this.viewModalMsjOk.show();
+    }
   }
 
   showPublication(aux: any)
@@ -65,9 +85,11 @@ export class ListPublicationForStudentComponent implements OnInit {
     this.showModalPublication = false;
   }
 
-  deletePublication(idPublication: string)
+  deletePublication(publication)
   {
-    this.publicationsService.deletePublication(idPublication['id'])
+    if(publication['estado'] === 'Por verificar')
+    {
+      this.publicationsService.deletePublication(publication['id'])
     .subscribe(data =>
       {
         this.getAllPublicationsStudent();
@@ -75,6 +97,10 @@ export class ListPublicationForStudentComponent implements OnInit {
       {
         this.viewErroServer.show();
       });
+    }
+    else{
+      this.viewErrorDeletePublication.show();
+    }
   }
 
 

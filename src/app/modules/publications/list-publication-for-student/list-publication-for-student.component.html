@@ -5,12 +5,12 @@
         <div class="card">
           <div class="card-header  bg-info  ">
               <i class="fa fa-align-justify "></i> <strong> Publicaciones realizadas por el estudiante </strong>
-              <div class="input-group mb-4 input-group">
+              <!--<div class="input-group mb-4 input-group">
                 <input type="text" class="form-control" placeholder="Buscar por Codigo" [(ngModel)]="searchTerm">
                 <span class="input-group-prepend">
                     <button type="submit" class="btn btn-light" ><i class="fa fa-search"></i>  </button>
                 </span>
-              </div>
+              </div>-->
 
           </div>
           <div class="card-body">
@@ -29,7 +29,7 @@
                   <td>{{publication['tipoDocumento']}} </td>
                   <td>{{publication['fechaPublicacion']}}</td>
                   <td>
-                    <span class="badge badge-warning" *ngIf="publication['estado'] == 'Por verificar'">Por verificar</span>
+                    <span class="badge badge-dark" *ngIf="publication['estado'] == 'Por verificar'">Por verificar</span>
                     <span class="badge badge-success" *ngIf="publication['estado'] == 'Aprobado'">Aprobada</span>
                     <span class="badge badge-secondary" *ngIf="publication['estado'] == 'Rechazado'">Rechazada</span>
                   </td>

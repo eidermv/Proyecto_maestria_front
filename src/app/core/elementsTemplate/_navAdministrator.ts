@@ -6,22 +6,22 @@ export const navAdministrator = [
   {
     name: 'Estudiante',
     url: '/student',
-    icon: 'icon-layers',
+    icon: 'fa fa-graduation-cap',
     children: [
       {
         name: 'Registrar Estudiante',
         url: '/student/addStudent',
-        icon: 'fa fa-plus'
+        icon: 'fa fa-cloud-upload'
       },
       {
         name: 'Listar Estudiantes',
         url: '/student/listStudent',
-        icon: 'fa fa-list-ol'
+        icon: 'fa fa-list-alt'
       },
       {
-        name: 'Publicaciones',
+        name: 'Listar Publicaciones',
         url: '/publication/listPublicationsAdmin',
-        icon: 'fa fa-list-ol'
+        icon: 'fa fa-list-alt'
       },
 
     ]

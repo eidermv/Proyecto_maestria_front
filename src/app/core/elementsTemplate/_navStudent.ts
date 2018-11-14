@@ -7,17 +7,17 @@ export const navStudent = [
   {
     name: 'Publicaciones',
     url: '/publication',
-    icon: 'icon-layers',
+    icon: 'fa fa-database',
     children: [
       {
         name: 'Agregar Publicacion',
         url: '/publication/addPublications',
-        icon: 'fa fa-list-ol'
+        icon: 'fa fa-cloud-upload'
       },
       {
         name: 'Listar Publicaciones',
         url: '/publication/listPublicationsEstudent',
-        icon: 'fa fa-list-ol'
+        icon: 'fa fa-list-alt'
       }
     ]
   },

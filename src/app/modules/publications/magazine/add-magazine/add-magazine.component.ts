@@ -41,7 +41,7 @@ export class AddMagazineComponent implements OnInit {
   constructor(private formBuilder: FormBuilder)
   {
     this.stringValidation = new StringValidation();
-    this.optionCategoyMagazine = ['A1', 'A', 'B', 'C'];
+    this.optionCategoyMagazine = ['A1', 'A2', 'B', 'C'];
     this.placeholderScreenShotArticle = 'Archivo PDF que contenga el articulo';
     this.placeholderScreenShotClasification = 'Archivo (PNG o JPG) que contenga la clasificacion de la revista';
     this.placeholderScreenShotEmail = 'Archivo (PNG o JPG) que contenga pantallazo de correo de aceptacion';

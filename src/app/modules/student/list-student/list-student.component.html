@@ -30,7 +30,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let student of optionsDataStudents | paginate: {itemsPerPage: 8, currentPage: p} | studentFilter:searchTerm">
+                <tr *ngFor="let student of optionsDataStudents | studentFilter:searchTerm | paginate: {itemsPerPage: 8, currentPage: p} ">
                   <td>{{student['nombres']}} {{ student['apellidos']}}</td>
                   <td>{{student['codigo']}}</td>
                   <td>{{student['tutor']['nombre']}}</td>

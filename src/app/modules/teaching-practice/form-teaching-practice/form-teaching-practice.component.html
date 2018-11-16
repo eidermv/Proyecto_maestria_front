@@ -1,0 +1,94 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-lg-12 ">
+      <div class="card ">
+        <div class="card-header bg-primary">
+          <strong>{{titleForm}}</strong>
+        </div>
+        <div class="card-body">
+            <form [formGroup]="fieldsForm" (ngSubmit)="onSubmit()" #f="ngForm">
+                <h1 class="title text-center">{{titleForm}}</h1>
+                <p class="text-muted text-center">{{subtitleForm}}</p>
+
+                <div class="row">
+                    <div class="formGroup col-6">
+                      <i class="fa fa-exclamation-circle uncheck" *ngIf="false">
+                        Identificacion de usuario vacio o digitó mas de 20 caracteres
+                      </i>
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"><i class="fa fa-id-card-o"></i><small>&nbsp;Autor</small></span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="* Nombre del autor principal del articulo" formControlName="author" >
+                      </div>
+                    </div>
+                    <div class="formGroup col-6">
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-list-alt"> <small>&nbsp; Tipo de practica</small></i></span>
+                          </div>
+                          <select type="text" class="form-control" #categoryTypePractice (change)="handleTypePractice($event)">
+                            <option [ngValue]="categories" *ngFor="let categories of optionsTypeTeachingPractice">{{categories}}</option>
+                          </select>
+                        </div>
+                      </div>
+                </div>
+
+                <div class="row" *ngIf="showDatesStartAndEnd">
+                    <div class="formGroup col-6">
+                        <i class="fa fa-exclamation-circle uncheck" *ngIf="showErrorDateStart">
+                            {{msjErrorDateFinish}}
+                        </i>
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-id-card-o"></i><small>&nbsp;Fecha Inicio</small></span>
+                          </div>
+                          <input type="date" class="form-control" placeholder="* " max="{{max_date}}"
+                                formControlName="dateActivityStart" (change)="handleDateFinish($event)">
+                        </div>
+                    </div>
+
+                    <div class="formGroup col-6">
+                          <i class="fa fa-exclamation-circle uncheck" *ngIf="showErrorDateFinish">
+                            {{msjErrorDateFinish}}
+                          </i>
+                          <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text"><i class="fa fa-id-card-o"></i><small>&nbsp;Fecha Finalizacion</small></span>
+                            </div>
+                            <input type="date" class="form-control" placeholder="* " max="{{max_date}}"
+                                  formControlName="dateActivityEnd" (change)="handleDateFinish($event)">
+                          </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="formGroup col-6">
+                        <i class="fa fa-exclamation-circle uncheck" *ngIf="showErrorCertificate">
+                          {{msjErrorCertificate}}
+                        </i>
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-certificate"></i><small>&nbsp; Certificado Practica</small>
+                            </span>
+                          </div>
+                          <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="inputScrenShot" (change)="handleFileInputCertificate($event)"
+                              accept="image/jpeg, image/png, application/pdf ">
+                            <label class="custom-file-label" for="inputScrenShot">{{placeholderCertificate}}</label>
+                          </div>
+                        </div>
+                      </div>
+                </div>
+
+                <div style="text-align:right">
+                    <button type="submit" class="btn btn-lg  btn-primary" [disabled]="fieldsForm.invalid">{{buttonAction}}
+                    </button>
+                  </div>
+
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

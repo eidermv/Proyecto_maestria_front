@@ -34,7 +34,7 @@ export class PublicationService
 {
   stringApp: StringApp = new StringApp();
 
-  constructor(private httpClient: HttpClient,  private router: Router, private sanitizer: DomSanitizer)
+  constructor(private httpClient: HttpClient,  private router: Router)
   {
 
   }
@@ -163,7 +163,6 @@ export class PublicationService
     registryBook(book: Book)
     {
       const formData: FormData = new FormData();
-      console.log('hasta antes de aca funciona'+ book.getDatePublication());
       const metaData= JSON.stringify(
         {
           codigoEstudiante: book.getCode(),
@@ -223,7 +222,6 @@ export class PublicationService
 
     registyCapBook(capBook: CapBook)
     {
-      console.log('llegue a la pet' + capBook.getCapBook().name);
       const formData: FormData = new FormData();
       const metaData = JSON.stringify(
         {
@@ -241,7 +239,6 @@ export class PublicationService
           extensionCertificadoEditorial: this.determineTypeFile(capBook.getCertificateCapBook())
         });
         formData.append('datos', metaData);
-
         formData.append('capituloLibro', capBook.getCapBook());
         formData.append('indice', capBook.getContenTable());
         formData.append('certificadoEditorial', capBook.getCertificateCapBook());

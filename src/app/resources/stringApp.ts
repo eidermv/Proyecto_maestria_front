@@ -49,6 +49,8 @@ export class StringApp
   public URL_SERVICIO_GETALL_PUBLICATION = this.URL_SERVICIO + 'publicacion/buscar/todo';
   public URL_SERVICIO_UPDATE_STATE = this.URL_SERVICIO + 'publicacion/actualizar/estado';
 
+  public URL_SERVICIO_REGISTRY_TEACHING_PRACTICE = this.URL_SERVICIO + 'practicaDocente/registrar';
+
   /******** ROLES DE LA APP */
 
   public COORDINATOR =  'Coordinador';

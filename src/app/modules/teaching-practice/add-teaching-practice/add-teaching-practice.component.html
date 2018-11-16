@@ -1,0 +1,35 @@
+<app-form-teaching-practice [titleForm]="titleForm" [subtitleForm]="subTitleForm" [buttonAction]="buttonAction"
+                           (getDataTeachingP)="getDataTeachingPractice($event)">
+</app-form-teaching-practice>
+
+<div bsModal #dangerModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+aria-hidden="true">
+<div class="modal-dialog modal-danger" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title">Eroor al registrar Practica Docente</h4>
+      <button type="button" class="close" (click)="dangerModal.hide()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p><strong>Error Interno en el servidor comunicate con el personal de mantenimiento</strong></p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-danger" (click)="dangerModal.hide()">Cerrar</button>
+    </div>
+  </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div bsModal #progressModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+aria-hidden="true">
+<div class="modal-dialog modal-danger" role="document">
+  <div class="modal-content">
+    <div class="aling-center" *ngIf="showProgressRequest">
+      <img src="../../../../assets/img/progress.gif" width="100px" height="100px" >
+      {{progressRequest}}
+     </div>
+  </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

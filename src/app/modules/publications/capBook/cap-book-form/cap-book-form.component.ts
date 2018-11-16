@@ -26,9 +26,9 @@ export class CapBookFormComponent implements OnInit {
    /************************VARIABLES DE INSTANCIA********** */
    @Output() getDateCapBook = new EventEmitter<{isbn: string, title: string, editorial: string, titleCapLibro: string
     fileBook: File, fileCertificate: File}>();
-  fieldsForm: FormGroup;
-  fileToBook: null;
-  fileToCertificate: null;
+    fieldsForm: FormGroup;
+    fileToBook: null;
+    fileToCertificate: null;
   constructor(private formBuilder: FormBuilder)
   {
     this.stringValidation = new StringValidation();

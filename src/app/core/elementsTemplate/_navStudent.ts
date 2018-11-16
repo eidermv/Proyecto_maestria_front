@@ -21,4 +21,21 @@ export const navStudent = [
       }
     ]
   },
+  {
+    name: 'Practica Docente',
+    url: '/teachingPractice',
+    icon: 'fa fa-database',
+    children: [
+      {
+        name: 'Agregar Practica',
+        url: '/teachingPractice/addTeachingPractice',
+        icon: 'fa fa-cloud-upload'
+      },
+      {
+        name: 'Mis Practicas',
+        url: '/teachingPractice/addTeachingPractice',
+        icon: 'fa fa-list-alt'
+      }
+    ]
+  }
 ];

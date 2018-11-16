@@ -60,7 +60,12 @@ export const routes: Routes = [
         path: 'publication',
         canActivate: [AuthGuard],
         loadChildren: './modules/publications/publications.module#PublicationModule'
-      }
+      },
+      {
+        path: 'teachingPractice',
+        canActivate: [AuthGuard],
+        loadChildren: './modules/teaching-practice/teachingPractice.module#TeachingPracticeModule'
+      },
     ]
   }
 ];

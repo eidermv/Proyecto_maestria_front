@@ -15,7 +15,7 @@ export const navStudent = [
         icon: 'fa fa-cloud-upload'
       },
       {
-        name: 'Listar Publicaciones',
+        name: 'Mis Publicaciones',
         url: '/publication/listPublicationsEstudent',
         icon: 'fa fa-list-alt'
       }

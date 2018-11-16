@@ -46,11 +46,11 @@
                                 <span class="input-group-text"><i class="fa fa-id-card-o"></i><small>&nbsp;Fecha Aceptacion</small></span>
                               </div>
                               <input type="date" class="form-control" placeholder="* Nombre del autor principal del articulo" max="{{max_date}}"
-                                    formControlName="dateApproved" (change)="handleDateapproved($event)">
+                                    formControlName="dateApproved" (change)="handleApproved($event)">
                             </div>
                       </div>
                       <div class="formGroup col-6">
-                        <i class="fa fa-exclamation-circle uncheck" *ngIf="showErrorDatePublication">
+                        <i class="fa fa-exclamation-circle check" *ngIf="showErrorDatePublication">
                           {{msjErrorDatePublication}}
                         </i>
                         <div class="input-group mb-3">

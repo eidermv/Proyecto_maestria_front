@@ -9,6 +9,7 @@ import { EventPublication } from '../../../models/publications/event';
 import {HttpEventType} from '@angular/common/http';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Router } from '@angular/router';
+import { UtilitiesDate } from '../../../models/utilities/utilitiesDate';
 
 
 @Component({
@@ -43,7 +44,6 @@ export class AddPublicationsComponent implements OnInit {
   msjErroContentTable: string;
   showErrorContentTable: boolean;
   placeholderContentTable: string;
-  today: Date;
   max_date: string;
   showErrorDateApproved: boolean;
   msjErrorDateApproved: string;
@@ -65,6 +65,7 @@ export class AddPublicationsComponent implements OnInit {
 
   /***********************VARIABLES DE INSTANCIA************* */
   fileToContentTable = null;
+  utilitiesDate: UtilitiesDate;
   fieldsForm: FormGroup;
   magizine: Magazine;
   book: Book;
@@ -74,6 +75,7 @@ export class AddPublicationsComponent implements OnInit {
   constructor(private publicationsService: PublicationService, private formBuilder: FormBuilder, private router: Router)
   {
     this.stringValidation = new StringValidation();
+    this.utilitiesDate = new UtilitiesDate();
     this.magizine = new Magazine();
     this.book = new Book();
     this.capBook = new CapBook();
@@ -102,8 +104,7 @@ export class AddPublicationsComponent implements OnInit {
     this.showErrorDateApproved = false;
     this.showErrorDatePublication = false;
     this.showProgressRequest = false;
-    this.today = new Date();
-    this.setMaxDate();
+    this.max_date = this.utilitiesDate.getMaxDate();
   }
 
   getStudent()
@@ -121,21 +122,11 @@ export class AddPublicationsComponent implements OnInit {
         this.router.navigate(['/login']);
       });
   }
-  setMaxDate()
-  {
-    if(this.today.getDate() < 10)
-    {
-      this.max_date = this.today.getFullYear() + '-' + (this.today.getMonth()+ 1) + '-' +'0'+ this.today.getDate();
-    }
-    else{
-      this.max_date = this.today.getFullYear() + '-' + (this.today.getMonth()+ 1) + '-' + this.today.getDate();
-    }
-  }
 
   ngOnInit() {
     this.fieldsForm = this.formBuilder.group(
       {
-        datePublitaion: ['', Validators.required
+        datePublitaion: [''
                         ],
         dateApproved: ['' , Validators.required],
         secondaryAuthors: ['',
@@ -220,32 +211,18 @@ export class AddPublicationsComponent implements OnInit {
       }
     }
     else{
-      this.showMagazine = false;
-      this.showBook = false;
-      this.showCapBook = false;
-      this.showEvent = false;
+      this.closeTypePublication();
     }
 
   }
 
   verifySelectDates()
   {
-
-    if((this.fieldsForm.get('datePublitaion').value.length == 0) || this.showErrorDatePublication)
+    if((this.fieldsForm.get('datePublitaion').value.length > 0) || this.showErrorDatePublication)
     {
-
-      if(this.showErrorDatePublication)
-      {
-        this.showErrorDatePublication = true;
-        this.msjErrorDatePublication = 'Este campo es obligatorio y presenta un error';
-      }
-      else{
-        this.showErrorDatePublication = true;
-        this.msjErrorDatePublication = 'Este campo es obligatorio';
-      }
       return false;
     }
-    else if((this.fieldsForm.get('dateApproved').value.length == 0) || this.showErrorDateApproved)
+    if((this.fieldsForm.get('dateApproved').value.length == 0) || this.showErrorDateApproved)
     {
       if( this.showErrorDateApproved)
       {
@@ -279,29 +256,69 @@ export class AddPublicationsComponent implements OnInit {
 
   handleDateapproved(event: any)
   {
+    const valueOptionTypePublication = this.cbx_typePublication.nativeElement.value;
     const dateAprrov = this.fieldsForm.get('dateApproved').value;
     const datePublic = this.fieldsForm.get('datePublitaion').value;
-    if (dateAprrov > datePublic)
+
+    if(datePublic.length == 0)
+    {
+      this.showErrorDatePublication = false;
+      this.showErrorDateApproved = false;
+      this.msjErrorDatePublication = 'Campo opcional';
+      if (valueOptionTypePublication != 'Elija el tipo de publicacion' )
+      {
+        this.showOptionPublication(valueOptionTypePublication);
+      }
+    }
+    else if (dateAprrov > datePublic)
     {
       this.showErrorDatePublication = true;
-      this.msjErrorDatePublication = 'La fecha de publicacion no puede ser menor que la fecha de aceptacion';
+      this.msjErrorDatePublication = 'La fecha de publicacion no puede ser menor que la fecha de aceptacion. Campo opcional';
+      this.closeTypePublication();
     }
     else if(dateAprrov == datePublic)
     {
       this.showErrorDatePublication = true;
-      this.msjErrorDatePublication = 'La fecha de publicacion no puede ser igual que la fecha de aceptacion';
+      this.msjErrorDatePublication = 'La fecha de publicacion no puede ser igual que la fecha de aceptacion. Campo opcional';
+      this.closeTypePublication();
     }
     else{
       this.showErrorDatePublication = false;
-      this.showErrorDatePublication = false;
-      this.dateAproved = dateAprrov;
-      const valueOptionTypePublication = this.cbx_typePublication.nativeElement.value;
+      this.showErrorDateApproved = false;
       if (valueOptionTypePublication != 'Elija el tipo de publicacion' )
       {
         this.showOptionPublication(valueOptionTypePublication);
       }
     }
   }
+
+  handleApproved(event: any)
+  {
+    const valueOptionTypePublication = this.cbx_typePublication.nativeElement.value;
+    const dateAprrov = this.fieldsForm.get('dateApproved').value;
+    if(dateAprrov.length == 0)
+    {
+      this.verifySelectDates();
+      this.closeTypePublication();
+    }
+    else{
+      this.showErrorDateApproved = false;
+      if (valueOptionTypePublication != 'Elija el tipo de publicacion' )
+      {
+        this.showOptionPublication(valueOptionTypePublication);
+      }
+    }
+  }
+
+  closeTypePublication()
+  {
+    this.showBook = false;
+    this.showCapBook = false;
+    this.showEvent = false;
+    this.showMagazine = false;
+  }
+
+
 
 
   getDataMagazine(dateMagazine: {doi: string, title: string, name: string, category: string, filePDFArticle: File,
@@ -466,7 +483,6 @@ export class AddPublicationsComponent implements OnInit {
     this.authorSecondary = this.fieldsForm.get('secondaryAuthors').value;
     this.dateAproved = this.fieldsForm.get('dateApproved').value;
     this.datePublication = this.fieldsForm.get('datePublitaion').value;
-    return true;
   }
 
   redirectToListPublications()

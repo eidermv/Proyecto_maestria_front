@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { StringValidation } from '../../../../resources/stringValidation';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UtilitiesDate } from '../../../../models/utilities/utilitiesDate';
 
 @Component({
   selector: 'app-event-form',
@@ -42,11 +43,11 @@ export class EventFormComponent implements OnInit {
    fieldsForm: FormGroup;
    fileToCertificate: null;
    fileToPresentation: null;
-   today: Date;
-
+   utilitiesDate: UtilitiesDate;
   constructor(private formBuilder: FormBuilder)
   {
     this.stringValidation = new StringValidation();
+    this.utilitiesDate = new UtilitiesDate();
     this.optionEventType = ['Congreso','Seminario','Simposio'];
     this.placeholderPresentation = 'Archivo PDF que contenga la ponencia';
     this.placeholderCertificate = 'Archivo PDF, PNG o JPG que contenga el certificado del evento';
@@ -55,18 +56,7 @@ export class EventFormComponent implements OnInit {
     this.contry = '';
     this.showErrorDateFinish = false;
     this.showErrorDateStart = false;
-    this.today = new Date();
-    this.setMaxDate();
-  }
-  setMaxDate()
-  {
-    if(this.today.getDate() < 10)
-    {
-      this.max_date = this.today.getFullYear() + '-' + (this.today.getMonth()+ 1) + '-' +'0'+ this.today.getDate();
-    }
-    else{
-      this.max_date = this.today.getFullYear() + '-' + (this.today.getMonth()+ 1) + '-' + this.today.getDate();
-    }
+    this.max_date = this.utilitiesDate.getMaxDate();
   }
 
   ngOnInit() {
@@ -184,7 +174,6 @@ export class EventFormComponent implements OnInit {
 
     if((this.fieldsForm.get('dateStartEvent').value.length == 0) || this.showErrorDateStart)
     {
-
       if(this.showErrorDateStart)
       {
         this.showErrorDateFinish = true;

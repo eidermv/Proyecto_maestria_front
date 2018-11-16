@@ -58,6 +58,49 @@ export class FormStudentComponent implements OnInit, OnChanges {
     this.getTutors();
    }
 
+   ngOnInit() {
+    this.fieldsForm = this.formBuilder.group(
+      {
+        idStudent:    ['', [Validators.required,
+                          Validators.maxLength(this.stringValidation.MAX_LONG_ID),
+                          Validators.minLength(this.stringValidation.MIN_LONG_TEX),
+                          Validators.pattern('^([0-9])*$'),
+                        ]
+                    ],
+        nameStudent:  ['',[Validators.required,
+                        Validators.maxLength(this.stringValidation.MAX_LONG_NAME),
+                        Validators.minLength(this.stringValidation.MIN_LONG_TEX),
+                        Validators.pattern('[ A-Za-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙñÑ.-]+$'),
+                        ]
+                ],
+        surnameStudent:  ['',[Validators.required,
+                        Validators.maxLength(this.stringValidation.MAX_LONG_SURNAME),
+                        Validators.minLength(this.stringValidation.MIN_LONG_TEX),
+                        Validators.pattern('[ A-Za-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙñÑ.-]+$'),
+                        ]
+                      ],
+        emailStudent:  ['',[
+                        Validators.required,
+                        Validators.maxLength(this.stringValidation.MAX_LONG_EMAIL),
+                        Validators.pattern('^[a-z0-9._%+-]+@unicauca.edu.co$'),
+                        Validators.minLength(this.stringValidation.MIN_LONG_TEX),
+                        ]
+                      ],
+      });
+
+      if(!this.isFormAddStudent)
+      {
+
+        this.fieldsForm.get('idStudent').setValue(this.studenEdit.code);
+        this.fieldsForm.get('nameStudent').setValue(this.studenEdit.name);
+        this.fieldsForm.get('surnameStudent').setValue(this.studenEdit.surname);
+        this.fieldsForm.get('emailStudent').setValue(this.studenEdit.email);
+        this.setCohorte();
+        this.setState();
+        this.setEnteredBy();
+      }
+  }
+
    getTutors()
    {
      this.studentService.getAllTutors()
@@ -102,70 +145,22 @@ export class FormStudentComponent implements OnInit, OnChanges {
     {
       this.form.reset();
     }
-
-    ngOnInit() {
-      this.fieldsForm = this.formBuilder.group(
-        {
-          idStudent:    ['', [Validators.required,
-                            Validators.maxLength(this.stringValidation.MAX_LONG_ID),
-                            Validators.minLength(this.stringValidation.MIN_LONG_TEX),
-                            Validators.pattern('^([0-9])*$'),
-                          ]
-                      ],
-          nameStudent:  ['',[Validators.required,
-                          Validators.maxLength(this.stringValidation.MAX_LONG_NAME),
-                          Validators.minLength(this.stringValidation.MIN_LONG_TEX),
-                          Validators.pattern('[ A-Za-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙñÑ.-]+$'),
-                          ]
-                  ],
-          surnameStudent:  ['',[Validators.required,
-                          Validators.maxLength(this.stringValidation.MAX_LONG_SURNAME),
-                          Validators.minLength(this.stringValidation.MIN_LONG_TEX),
-                          Validators.pattern('[ A-Za-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙñÑ.-]+$'),
-                          ]
-                        ],
-          emailStudent:  ['',[
-                          Validators.required,
-                          Validators.maxLength(this.stringValidation.MAX_LONG_EMAIL),
-                          Validators.pattern('^[a-z0-9._%+-]+@unicauca.edu.co$'),
-                          Validators.minLength(this.stringValidation.MIN_LONG_TEX),
-                          ]
-                        ],
-        });
-
-        if(!this.isFormAddStudent)
-        {
-
-          this.fieldsForm.get('idStudent').setValue(this.studenEdit.code);
-          this.fieldsForm.get('nameStudent').setValue(this.studenEdit.name);
-          this.fieldsForm.get('surnameStudent').setValue(this.studenEdit.surname);
-          this.fieldsForm.get('emailStudent').setValue(this.studenEdit.email);
-          this.setCohorte();
-          this.setState();
-          this.setEnteredBy();
-        }
-    }
-
     setCohorte()
     {
       this.optionsCohorte = this.organizateOptions(this.optionsCohorte, this.studenEdit.cohorte, this.IS_NOT_TUTOR);
     }
-
     setTutor()
     {
       this.optionsTutor = this.organizateOptions (this.optionsTutor, this.studenEdit.tutor, this.IS_TUTOR);
     }
-
     setState()
     {
       this.optionsState = this.organizateOptions(this.optionsState, this.studenEdit.state, this.IS_NOT_TUTOR);
     }
-
     setEnteredBy()
     {
       this.optionsModeEntered = this.organizateOptions(this.optionsModeEntered, this.studenEdit.enteredBy, this.IS_NOT_TUTOR);
     }
-
 
     organizateOptions(optionsOrganizate: Array<string>, dataSetFirst: string, isTutor: boolean)
     {

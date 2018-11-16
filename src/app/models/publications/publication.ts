@@ -9,6 +9,14 @@ export class Publication
   public dateAproved: string;
   public contendTable: File;
   public typePublicaton: string;
+  private _comentary: string;
+
+  public getComentary(): string {
+    return this._comentary;
+  }
+  public setComentary(value: string) {
+    this._comentary = value;
+  }
 
   public getCredits(): string {
     return this._credits;

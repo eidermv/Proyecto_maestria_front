@@ -23,6 +23,9 @@ export class ListPublicationForAdminComponent implements OnInit {
   idPublication: string;
   selectedState: string;
   totalCredits: string;
+  comentary: string;
+  nameStudent: string;
+  codeStudent: string;
   showModalPublication: boolean;
   showCredits: boolean;
   searchTerm: string;
@@ -37,6 +40,7 @@ export class ListPublicationForAdminComponent implements OnInit {
     this.idPublication = '';
     this.typePublication = '';
     this.searchTerm = '';
+    this.comentary = '';
     this.selectedState = POR_VERIFICAR;
     this.getAllStudent();
   }
@@ -87,6 +91,8 @@ export class ListPublicationForAdminComponent implements OnInit {
 
   editState(aux: any)
   {
+    this.nameStudent = aux['estudiante']['nombres'] + ' ' + aux['estudiante']['apellidos'];
+    this.codeStudent = aux['estudiante']['codigo'];
     this.idPublication = aux['id'];
     this.optionState = this.organizateOptions(aux['estado']);
     if(aux['estado'] === APROBADA)
@@ -119,11 +125,12 @@ export class ListPublicationForAdminComponent implements OnInit {
     {
       this.totalCredits = '0';
     }
-    this.publicationsService.updateStatePublication(this.idPublication, this.totalCredits , this.selectedState)
+    this.publicationsService.updateStatePublication(this.idPublication, this.totalCredits , this.selectedState, this.comentary)
     .subscribe(data =>
               {
                 this.viewEditState.hide();
                 this.getAllStudent();
+                this.comentary = '';
               }, err =>
               {
                 this.viewErroServer.show();

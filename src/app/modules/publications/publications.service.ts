@@ -54,13 +54,14 @@ export class PublicationService
       return this.httpClient.get<Array<any>>(this.stringApp.URL_SERVICIO_GETALL_PUBLICATION, httpOptions);
     }
 
-    updateStatePublication(id: string, credits: string, state: string)
+    updateStatePublication(id: string, credits: string, state: string, commentary: string)
     {
       const data = JSON.stringify(
                                   {
                                     idPublicacion: id,
                                     creditos: credits,
-                                    estado: state
+                                    estado: state,
+                                    comentario: commentary
                                   }
                                  );
       return this.httpClient.post(this.stringApp.URL_SERVICIO_UPDATE_STATE, data, httpOptions);

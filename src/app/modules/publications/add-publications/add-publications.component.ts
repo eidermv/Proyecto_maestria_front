@@ -169,6 +169,70 @@ export class AddPublicationsComponent implements OnInit {
     this.showOptionPublication(this.elementSelect);
   }
 
+  handleDateapproved(event: any)
+  {
+    const valueOptionTypePublication = this.cbx_typePublication.nativeElement.value;
+    const dateAprrov = this.fieldsForm.get('dateApproved').value;
+    const datePublic = this.fieldsForm.get('datePublitaion').value;
+
+    if(datePublic.length == 0)
+    {
+      this.showErrorDatePublication = false;
+      this.showErrorDateApproved = false;
+      this.msjErrorDatePublication = 'Campo opcional';
+      if (valueOptionTypePublication != 'Elija el tipo de publicacion' )
+      {
+        this.showOptionPublication(valueOptionTypePublication);
+      }
+    }
+    else if (dateAprrov > datePublic)
+    {
+      this.showErrorDatePublication = true;
+      this.msjErrorDatePublication = 'La fecha de publicacion no puede ser menor que la fecha de aceptacion. Campo opcional';
+      this.closeTypePublication();
+    }
+    else if(dateAprrov == datePublic)
+    {
+      this.showErrorDatePublication = true;
+      this.msjErrorDatePublication = 'La fecha de publicacion no puede ser igual que la fecha de aceptacion. Campo opcional';
+      this.closeTypePublication();
+    }
+    else{
+      this.showErrorDatePublication = false;
+      this.showErrorDateApproved = false;
+      if (valueOptionTypePublication != 'Elija el tipo de publicacion' )
+      {
+        this.showOptionPublication(valueOptionTypePublication);
+      }
+    }
+  }
+
+  handleApproved(event: any)
+  {
+    const valueOptionTypePublication = this.cbx_typePublication.nativeElement.value;
+    const dateAprrov = this.fieldsForm.get('dateApproved').value;
+    if(dateAprrov.length == 0)
+    {
+      this.verifySelectDates();
+      this.closeTypePublication();
+    }
+    else{
+      this.showErrorDateApproved = false;
+      if (valueOptionTypePublication != 'Elija el tipo de publicacion' )
+      {
+        this.showOptionPublication(valueOptionTypePublication);
+      }
+    }
+  }
+
+  closeTypePublication()
+  {
+    this.showBook = false;
+    this.showCapBook = false;
+    this.showEvent = false;
+    this.showMagazine = false;
+  }
+
   showOptionPublication(elementSelected: string)
   {
     if(elementSelected == this.MAGAZINE)
@@ -253,73 +317,6 @@ export class AddPublicationsComponent implements OnInit {
       return true;
     }
   }
-
-  handleDateapproved(event: any)
-  {
-    const valueOptionTypePublication = this.cbx_typePublication.nativeElement.value;
-    const dateAprrov = this.fieldsForm.get('dateApproved').value;
-    const datePublic = this.fieldsForm.get('datePublitaion').value;
-
-    if(datePublic.length == 0)
-    {
-      this.showErrorDatePublication = false;
-      this.showErrorDateApproved = false;
-      this.msjErrorDatePublication = 'Campo opcional';
-      if (valueOptionTypePublication != 'Elija el tipo de publicacion' )
-      {
-        this.showOptionPublication(valueOptionTypePublication);
-      }
-    }
-    else if (dateAprrov > datePublic)
-    {
-      this.showErrorDatePublication = true;
-      this.msjErrorDatePublication = 'La fecha de publicacion no puede ser menor que la fecha de aceptacion. Campo opcional';
-      this.closeTypePublication();
-    }
-    else if(dateAprrov == datePublic)
-    {
-      this.showErrorDatePublication = true;
-      this.msjErrorDatePublication = 'La fecha de publicacion no puede ser igual que la fecha de aceptacion. Campo opcional';
-      this.closeTypePublication();
-    }
-    else{
-      this.showErrorDatePublication = false;
-      this.showErrorDateApproved = false;
-      if (valueOptionTypePublication != 'Elija el tipo de publicacion' )
-      {
-        this.showOptionPublication(valueOptionTypePublication);
-      }
-    }
-  }
-
-  handleApproved(event: any)
-  {
-    const valueOptionTypePublication = this.cbx_typePublication.nativeElement.value;
-    const dateAprrov = this.fieldsForm.get('dateApproved').value;
-    if(dateAprrov.length == 0)
-    {
-      this.verifySelectDates();
-      this.closeTypePublication();
-    }
-    else{
-      this.showErrorDateApproved = false;
-      if (valueOptionTypePublication != 'Elija el tipo de publicacion' )
-      {
-        this.showOptionPublication(valueOptionTypePublication);
-      }
-    }
-  }
-
-  closeTypePublication()
-  {
-    this.showBook = false;
-    this.showCapBook = false;
-    this.showEvent = false;
-    this.showMagazine = false;
-  }
-
-
-
 
   getDataMagazine(dateMagazine: {doi: string, title: string, name: string, category: string, filePDFArticle: File,
                   fileScreenShotEmail: File, fileScreenshotClasification: File })
@@ -468,6 +465,7 @@ export class AddPublicationsComponent implements OnInit {
   }
   showModalFail(titleModal: string)
   {
+    this.showProgressRequest = false;
     this.titleModalError = titleModal;
     this.subtitleModaErro = 'Error interno en el servidor';
     this.viewModalFail.show();

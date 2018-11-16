@@ -68,6 +68,7 @@ export class ShowPublicationComponent implements OnInit {
     {
       case MAGAZINE:
           this.magazine.setCredits(data['publicacion']['creditos']);
+          this.magazine.setComentary(data['publicacion']['comentario']);
           this.magazine.setAuthor(data['publicacion']['estudiante']['nombres']+ ' ' +
                                   data['publicacion']['estudiante']['apellidos']);
           this.magazine.setCode(data['publicacion']['estudiante']['codigo']);
@@ -82,6 +83,7 @@ export class ShowPublicationComponent implements OnInit {
 
       case BOOK:
           this.book.setCredits(data['publicacion']['creditos']);
+          this.book.setComentary(data['publicacion']['comentario']);
           this.book.setAuthor(data['publicacion']['estudiante']['nombres'] + ' ' +
                                   data['publicacion']['estudiante']['apellidos']);
           this.book.setCode(data['publicacion']['estudiante']['codigo']);
@@ -97,6 +99,7 @@ export class ShowPublicationComponent implements OnInit {
 
       case CAP_BOK:
           this.capBook.setCredits(data['publicacion']['creditos']);
+          this.capBook.setComentary(data['publicacion']['comentario']);
           this.capBook.setAuthor(data['publicacion']['estudiante']['nombres'] + ' ' +
           data['publicacion']['estudiante']['apellidos']);
           this.capBook.setCode(data['publicacion']['estudiante']['codigo']);
@@ -111,6 +114,7 @@ export class ShowPublicationComponent implements OnInit {
 
       case EVENT:
           this.eventt.setCredits(data['publicacion']['creditos']);
+          this.eventt.setComentary(data['publicacion']['comentario']);
           this.eventt.setAuthor(data['publicacion']['estudiante']['nombres'] + ' ' +
           data['publicacion']['estudiante']['apellidos']);
           this.eventt.setCode(data['publicacion']['estudiante']['codigo']);
@@ -138,48 +142,20 @@ export class ShowPublicationComponent implements OnInit {
   showFilesMagazine(typeFile: string)
   {
     this.publicationsService.getFile(MAGAZINE, typeFile , this.idPublication);
-    /*.subscribe(data=>
-      {
-        console.log(data);
-      }, err =>
-      {
-        console.log(err);
-      });*/
   }
 
   showFilesBook(typeFile: string)
   {
     this.publicationsService.getFile(BOOK, typeFile , this.idPublication);
-    /*.subscribe(data=>
-      {
-        console.log(data);
-      }, err =>
-      {
-        console.log(err);
-      });*/
   }
 
   showFilesCapBook(typeFile: string)
   {
     this.publicationsService.getFile(CAP_BOK, typeFile , this.idPublication);
-    /*.subscribe(data=>
-      {
-        console.log(data);
-      }, err =>
-      {
-        console.log(err);
-      });*/
   }
 
   showFilesEvent(typeFile: string)
   {
     this.publicationsService.getFile(EVENT, typeFile , this.idPublication);
-   /* .subscribe(data=>
-      {
-        console.log(data);
-      }, err =>
-      {
-        console.log(err);
-      });*/
   }
 }

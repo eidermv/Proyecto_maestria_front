@@ -22,7 +22,7 @@
                   <td>Nombres</td>
                   <td>Apellidos</td>
                   <th>Tipo</th>
-                  <th>Fecha</th>
+                  <th>Fecha de Subida al Sistema</th>
                   <th>Estado</th>
                   <th>Acciones</th>
                 </tr>
@@ -33,7 +33,7 @@
                   <td>{{publication['estudiante']['nombres']}}</td>
                   <td>{{publication['estudiante']['apellidos']}}</td>
                   <td>{{publication['tipoDocumento']}} </td>
-                  <td>{{publication['fechaPublicacion']}}</td>
+                  <td>{{publication['fechaRegistro']}}</td>
                   <td>
                     <span class="badge badge-dark" *ngIf="publication['estado'] == 'Por verificar'">Por verificar</span>
                     <span class="badge badge-success" *ngIf="publication['estado'] == 'Aprobado'">Aprobado</span>
@@ -63,14 +63,14 @@
       <div class="modal-dialog modal-primary" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h4 class="modal-title"> Informacion del estudiante</h4>
+            <h4 class="modal-title"> Cambiar Estado a Publicacion</h4>
             <button type="button" class="close" (click)="showEditState.hide()" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            <p><strong>Autor: </strong>juanito</p>
-            <p><strong>Codigo: </strong>perez</p>
+            <p><strong>Autor: </strong>{{nameStudent}}</p>
+            <p><strong>Codigo: </strong>{{codeStudent}}</p>
             <div class="row">
             <div class="formGroup col-6">
                 <div class="input-group mb-3">
@@ -92,6 +92,19 @@
                     </select>
                   </div>
                 </div>
+
+            </div>
+            <div class="row">
+              <div class="formGroup col-12" >
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fa fa-list-alt"> <small>&nbsp; Observaciones</small></i></span>
+                  </div>
+                  <textarea rows="4" cols="50" [(ngModel)]="comentary" placeholder="Agrege los comentarios necesarios para la publicacion en este campo"
+                  style="resize: none">
+                  </textarea>
+                </div>
+              </div>
             </div>
           </div>
           <div class="modal-footer">

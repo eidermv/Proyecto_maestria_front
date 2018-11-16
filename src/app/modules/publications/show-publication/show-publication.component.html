@@ -2,7 +2,7 @@
   <div class="modal-dialog modal-primary" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title"> Informacion del estudiante</h4>
+        <h4 class="modal-title"> Informacion de la Publicacion</h4>
         <button type="button" class="close" (click)="destroyModal()" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -16,6 +16,7 @@
         <p><strong>Nombre de la Revista: </strong>{{magazine.getNameMagazine()}}</p>
         <p><strong>Categoria: </strong>{{magazine.getCategoryMagazine()}}</p>
         <p><strong>Creditos: </strong>{{magazine.getCredits()}}</p>
+        <p><strong>Comentarios: </strong>{{magazine.getComentary()}}</p>
         <p><strong>Estado: </strong>{{state}}</p>
         <p><strong>Tabla Contenido: </strong><button type="button" class="btn btn-link" (click)="showFilesMagazine('indice')">Ver</button></p>
         <p><strong>Articulo: </strong><button type="button" class="btn btn-link" (click)="showFilesMagazine('articulo')">Ver</button></p>
@@ -34,7 +35,7 @@
   <div class="modal-dialog modal-primary" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title"> Informacion del estudiante</h4>
+        <h4 class="modal-title"> Informacion de la Publicacion</h4>
         <button type="button" class="close" (click)="destroyModal()" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -49,6 +50,7 @@
         <p><strong>Ciudad: </strong>{{book.getCity()}}</p>
         <p><strong>Editorial: </strong>{{book.getEditorial()}}</p>
         <p><strong>Creditos: </strong>{{book.getCredits()}}</p>
+        <p><strong>Comentarios: </strong>{{book.getComentary()}}</p>
         <p><strong>Estado: </strong>{{state}}</p>
         <p><strong>Tabla Contenido: </strong><button type="button" class="btn btn-link" (click)="showFilesBook('indice')">Ver</button></p>
         <p><strong>Libro: </strong><button type="button" class="btn btn-link" (click)="showFilesBook('libro')">Ver</button></p>
@@ -67,7 +69,7 @@
   <div class="modal-dialog modal-primary" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title"> Informacion del estudiante</h4>
+        <h4 class="modal-title"> Informacion de la Publicacion</h4>
         <button type="button" class="close" (click)="destroyModal()" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -81,6 +83,7 @@
           <p><strong>Titulo Capitulo: </strong>{{capBook.getTitleBook()}}</p>
           <p><strong>Editorial: </strong>{{capBook.getEditorial()}}</p>
           <p><strong>Creditos: </strong>{{capBook.getCredits()}}</p>
+          <p><strong>Comentarios: </strong>{{capBook.getComentary()}}</p>
           <p><strong>Estado: </strong>{{state}}</p>
           <p><strong>Tabla Contenido: </strong><button type="button" class="btn btn-link" (click)="showFilesCapBook('indice')">Ver</button></p>
           <p><strong>Capitulo Libro: </strong><button type="button" class="btn btn-link" (click)="showFilesCapBook('capituloLibro')">Ver</button></p>
@@ -99,7 +102,7 @@
   <div class="modal-dialog modal-primary" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title"> Informacion del estudiante</h4>
+        <h4 class="modal-title"> Informacion de la Publicacion</h4>
         <button type="button" class="close" (click)="destroyModal()" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -118,6 +121,7 @@
           <p><strong>Pais: </strong>{{eventt.getCounty()}}</p>
           <p><strong>Ciudad: </strong>{{eventt.getCity()}}</p>
           <p><strong>Creditos: </strong>{{eventt.getCredits()}}</p>
+          <p><strong>Creditos: </strong>{{eventt.getComentary()}}</p>
           <p><strong>Estado: </strong>{{state}}</p>
           <p><strong>Tabla Contenido: </strong><button type="button" class="btn btn-link" (click)="showFilesEvent('indice')">Ver</button></p>
           <p><strong>Ponencia: </strong><button type="button" class="btn btn-link" (click)="showFilesEvent('ponencia')">Ver</button></p>

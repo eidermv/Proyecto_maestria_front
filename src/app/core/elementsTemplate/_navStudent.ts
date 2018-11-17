@@ -37,5 +37,22 @@ export const navStudent = [
         icon: 'fa fa-list-alt'
       }
     ]
+  },
+  {
+    name: 'Pasantia',
+    url: '/internship',
+    icon: 'fa fa-database',
+    children: [
+      {
+        name: 'Agregar Practica',
+        url: '/internship/addIntership',
+        icon: 'fa fa-cloud-upload'
+      },
+      {
+        name: 'Mis Practicas',
+        url: '/internship/addIntership',
+        icon: 'fa fa-list-alt'
+      }
+    ]
   }
 ];

@@ -165,7 +165,19 @@ export class EventFormComponent implements OnInit {
     }
     else if(this.verifySelectDates())
     {
-      this.getDataaEvent();
+      if(this.fileToPresentation == null)
+      {
+        this.showErrorPresentation = true;
+        this.msjErrorPresentation = 'Debe cargar un PDF, PNG o JPG que muestre la ponencia';
+      }
+      else if(this.fileToCertificate == null)
+      {
+        this.showErrorCertificate = true;
+        this.msjErrorCertificate = 'Debe cargar un PDF, PNG o JPG que muestre el certificado del evento';
+      }
+      else{
+        this.getDataaEvent();
+      }
     }
   }
 

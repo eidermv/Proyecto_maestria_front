@@ -20,6 +20,6 @@ import { ModalModule } from 'ngx-bootstrap/modal';
   declarations: [
     AddTeachingPracticeComponent,
     FormTeachingPracticeComponent],
-  providers: [TeachingPracticeService]
+    providers: [TeachingPracticeService]
 })
 export class TeachingPracticeModule { }

@@ -66,6 +66,11 @@ export const routes: Routes = [
         canActivate: [AuthGuard],
         loadChildren: './modules/teaching-practice/teachingPractice.module#TeachingPracticeModule'
       },
+      {
+        path: 'internship',
+        canActivate: [AuthGuard],
+        loadChildren: './modules/internship/internship.module#InternshipModule'
+      },
     ]
   }
 ];

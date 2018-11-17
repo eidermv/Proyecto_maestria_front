@@ -30,6 +30,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SeekersModule } from './modules/seekers/seekers.module';
 import { TokenInterceptorService } from './modules/auth/token-interceptor.service';
+import { InternshipModule } from './modules/internship/internship.module';
 
 
 @NgModule({
@@ -43,6 +44,7 @@ import { TokenInterceptorService } from './modules/auth/token-interceptor.servic
     AuthModule,
     SeekersModule,
     BrowserAnimationsModule,
+    InternshipModule,
   ],
   declarations: [
     AppComponent,

@@ -25,4 +25,9 @@ export class StringValidation
   public MAX_LONG_NAME_EVENT: number = 150;
   public MAX_LONG_ISSN: number = 50;
 
+  /*******************VATABLES PARA VALIDACION DE MODULO PASANTIA* */
+  public MAX_LONG_RESPONSIBLE_FOR_THE_PRACTICE: number = 200;
+  public MAX_LONG_NAME_DEPENDENCE: number = 50;
+  public MAX_LONG_NAME_INSTITUTION: number = 50;
+
 }

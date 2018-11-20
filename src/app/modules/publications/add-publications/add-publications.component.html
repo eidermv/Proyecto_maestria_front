@@ -106,6 +106,9 @@
   </div>
 </div>
 
+<app-modal-progress *ngIf="showProgressRequest" [evento]="eveent" [paramsRedirecTo]="paramsRedirectTo" [enableRedirect]="enableRedirectTo"
+                    [urlRedirectTo]="urlRedirecTo"></app-modal-progress>
+
 <div bsModal #successModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
 aria-hidden="true">
 <div class="modal-dialog modal-primary" role="document">
@@ -146,17 +149,6 @@ aria-hidden="true">
 </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-<div bsModal #progressModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-aria-hidden="true">
-<div class="modal-dialog modal-danger" role="document">
-  <div class="modal-content">
-    <div class="aling-center" *ngIf="showProgressRequest">
-      <img src="../../../../assets/img/progress.gif" width="100px" height="100px" >
-      {{progressRequest}}
-     </div>
-  </div><!-- /.modal-content -->
-</div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
 
 
 

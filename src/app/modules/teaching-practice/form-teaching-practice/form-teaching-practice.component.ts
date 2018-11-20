@@ -10,11 +10,11 @@ const TAM_MAX_FILE: number = 10240;
 const PLACEHOLDER_CERTIFICATE: string= 'Archivo PDF, PNG o JPG que contenga el certificado del evento';
 const teachingCoursePre: string = 'Docencia curso pregrado';
 const teachingCoursePos: string = 'Docencia curso posgrado';
-const shortCourse: string = 'Curso corto (seminario actualización)';
+const shortCourse: string = 'Curso corto (seminario actualizacion)';
 const monitoria: string = 'Monitorías cursos';
-const gradeWorkDirection: string = 'Dirección de Trabajo de Grado en pregrado/posgrado';
-const consultingBusinessInternship: string = 'Asesoría de pasantía empresarial';
-const participationIntheProgramCommittee: string = 'Participación en el Comité de Programa';
+const gradeWorkDirection: string = 'Direccion de Trabajo de Grado en pregrado/posgrado';
+const consultingBusinessInternship: string = 'Asesoria de pasantía empresarial';
+const participationIntheProgramCommittee: string = 'Participacion en el Comite de Programa';
 const otherActivities: string = 'Otras actividades de apoyo al departamento';
 
 @Component({

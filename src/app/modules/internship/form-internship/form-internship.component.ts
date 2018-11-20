@@ -1,9 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { StringValidation } from '../../../resources/stringValidation';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { InternshipService } from '../intership.service.service';
 import { UtilitiesDate } from '../../../models/utilities/utilitiesDate';
 import { Router } from '@angular/router';
+import { Internship } from '../../../models/internship/internship';
 
 /**************************VARIABLES GLOBALES******************/
 const TAM_MAX_FILE: number = 10240;
@@ -19,6 +20,8 @@ export class FormInternshipComponent implements OnInit {
   @Input() titleForm: {titleForm: string};
   @Input() subtitleForm: {subtitleForm: string};
   @Input() buttonAction: {buttonAction: string};
+  @ViewChild('categoryTypeInternship') cbx_typeInternship: any;
+  @ViewChild('categoryTypeDependence') cbx_typeDependence: any;
   optionTypeInternship: Array<string>;
   optionDependence: Array<string>;
   nameStudent: string;
@@ -38,15 +41,18 @@ export class FormInternshipComponent implements OnInit {
   showErrorCertificate: boolean;
 
 /************************VARIABLES DE INSTANCIA********** */
+@Output() getDataInternship = new EventEmitter<{internship: Internship}>();
   utilitiesDate: UtilitiesDate;
   fieldsForm: FormGroup;
   fileToReport = null;
   fileToCertificate = null;
+  internship: Internship;
 
   constructor(private formBuilder: FormBuilder, private internshipService: InternshipService, private router: Router)
   {
     this.utilitiesDate = new UtilitiesDate();
     this.stringValidation = new StringValidation();
+    this.internship = new Internship();
     this.optionTypeInternship = ['Nacional', 'Internacional'];
     this.optionDependence = ['Departamento','Facultad','Grupo de Investigacion','Laboratorio'];
     this.dataStart = '';
@@ -180,7 +186,7 @@ export class FormInternshipComponent implements OnInit {
         this.msjErrorCertificate = 'Debe cargar un PDF, PNG o JPG que muestre el certificado de pasantia';
       }
       else{
-
+        this.getDataIntership();
       }
     }
   }
@@ -218,6 +224,22 @@ export class FormInternshipComponent implements OnInit {
       this.showErrorDateStart = false;
       return true;
     }
+  }
+
+  getDataIntership()
+  {
+    this.internship.setNameStudent(this.nameStudent);
+    this.internship.setCodeStudent(this.codeStudent);
+    this.internship.setDataIntershipStart(this.fieldsForm.get('dateInternshipStart').value);
+    this.internship.setDataIntershipEnd(this.fieldsForm.get('dateInternshipEnd').value);
+    this.internship.setTypeIntership(this.cbx_typeInternship.nativeElement.value);
+    this.internship.setInstitution(this.fieldsForm.get('institution').value);
+    this.internship.setDependence(this.cbx_typeDependence.nativeElement.value);
+    this.internship.setNameDependence(this.fieldsForm.get('nameDependence').value);
+    this.internship.setReportInternship(this.fileToReport);
+    this.internship.setCertificateInternship(this.fileToCertificate);
+    this.internship.setTutorInternship(this.fieldsForm.get('responsibleForThePractice').value);
+    this.getDataInternship.emit({internship: this.internship});
   }
 
 }

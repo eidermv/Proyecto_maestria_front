@@ -25,6 +25,11 @@ export class AddStudentComponent implements OnInit {
   subtitleModalSucces: string;
   titleModalError: string;
   subtitleModaErro: string;
+  showProgressRequest: boolean;
+  eveent: any;
+  urlRedirecTo: string;
+  paramsRedirectTo: string;
+  enableRedirecTo: boolean;
   /*************************VARIABLES DE INSTANCIA************* */
   student: Student;
 
@@ -34,7 +39,11 @@ export class AddStudentComponent implements OnInit {
     this.subTitleForm = 'En este formulario podrá registrar a los estudiantes de maestría. Los campos con * son obligatorios';
     this.titleBtnForm = 'Registrar';
     this.resetForm = 'ok';
-    this.progressRequest = '0%';
+    this.urlRedirecTo = '/student/listStudent';
+    this.paramsRedirectTo = 'Estudiante Registrado exitosamente';
+    this.progressRequest = '';
+    this.showProgressRequest = false;
+    this.enableRedirecTo = true;
     this.isFormAddStudent = true;
     this.student = new Student();
     this.textErrorService = '';
@@ -58,11 +67,12 @@ export class AddStudentComponent implements OnInit {
     this.studentService.createStudent(this.student)
     .subscribe(event =>
       {
-        this.proccesResponseRegistryStudentOk(event, 'Estudiante registrado con exito' , 'El estudiante ya puede utilizar el sistema');
+        this.eveent = event;
+        this.showProgressRequest = true;
       },
       err =>
       {
-        this.viewProgressRequest.hide();
+       this.showProgressRequest = false;
         if(err.error['error'] == '102' && err.error['campo'] == '100')
         {
           this.textErrorService = 'La identificación digitada ya existe en el sistema';
@@ -75,41 +85,10 @@ export class AddStudentComponent implements OnInit {
       });
   }
 
-
-  private showModalOk()
-  {
-      this.viewModalOk.show();
-      this.resetForm = this.resetForm + 'ok';
-      this.redirectToListStudent();
-  }
-
   private showModalFail()
   {
     this.viewModalFail.show();
   }
-
-  proccesResponseRegistryStudentOk(event: any, msjOK: string, msjSubOk: string)
-  {
-        if(event.type === HttpEventType.UploadProgress)
-        {
-          this.showModalProgressRequest();
-          this.progressRequest = (Math.round(event.loaded / event.total * 100 ) -1 )+ '%';
-        }
-        else{
-          if(event.type === HttpEventType.Response)
-          {
-            this.viewProgressRequest.hide();
-            this.showModalOk();
-            this.redirectToListStudent();
-          }
-        }
-  }
-
-  showModalProgressRequest()
-  {
-    this.viewProgressRequest.show();
-  }
-
 
   redirectToListStudent()
   {

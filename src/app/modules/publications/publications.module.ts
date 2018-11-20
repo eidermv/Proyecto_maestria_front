@@ -18,6 +18,7 @@ import { ListPublicationForAdminComponent } from './list-publication-for-admin/l
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ShowPublicationComponent } from './show-publication/show-publication.component';
 import { PublicationFilterPipe } from './list-publication-for-admin/publicationFilter.pipe';
+import { ModalWindowsModule } from '../modal-windows/modal-windows.module';
 
 @NgModule({
   imports: [
@@ -28,6 +29,7 @@ import { PublicationFilterPipe } from './list-publication-for-admin/publicationF
     SeekersModule,
     NgxPaginationModule,
     ModalModule.forRoot(),
+    ModalWindowsModule
   ],
   declarations: [AddPublicationsComponent,
                   AddMagazineComponent, BookFormComponent,

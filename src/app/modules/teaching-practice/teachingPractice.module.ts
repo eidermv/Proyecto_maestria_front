@@ -7,6 +7,7 @@ import { FormTeachingPracticeComponent } from './form-teaching-practice/form-tea
 import { TeachingPracticeRoutingModule } from './teachingPractice.routing';
 import { TeachingPracticeService } from './teachingPractice.service';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { ModalWindowsModule } from '../modal-windows/modal-windows.module';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     CommonModule,
     NgxPaginationModule,
     ModalModule.forRoot(),
+    ModalWindowsModule
   ],
   declarations: [
     AddTeachingPracticeComponent,

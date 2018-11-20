@@ -51,6 +51,8 @@ export class StringApp
 
   public URL_SERVICIO_REGISTRY_TEACHING_PRACTICE = this.URL_SERVICIO + 'practicaDocente/registrar';
 
+  public URL_SERVICIO_REGISTRY_INTERNSHIP = this.URL_SERVICIO + 'pasantia/registrar';
+
   /******** ROLES DE LA APP */
 
   public COORDINATOR =  'Coordinador';

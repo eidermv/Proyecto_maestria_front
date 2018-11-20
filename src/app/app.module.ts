@@ -31,6 +31,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SeekersModule } from './modules/seekers/seekers.module';
 import { TokenInterceptorService } from './modules/auth/token-interceptor.service';
 import { InternshipModule } from './modules/internship/internship.module';
+import { ModalWindowsModule } from './modules/modal-windows/modal-windows.module';
 
 
 @NgModule({
@@ -43,6 +44,7 @@ import { InternshipModule } from './modules/internship/internship.module';
     HttpClientModule,
     AuthModule,
     SeekersModule,
+    ModalWindowsModule,
     BrowserAnimationsModule,
     InternshipModule,
   ],

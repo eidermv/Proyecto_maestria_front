@@ -11,6 +11,7 @@ import { EditStudentComponent } from './edit-student/edit-student.component';
 import { SeekersModule } from '../seekers/seekers.module';
 import { NgxPaginationModule} from 'ngx-pagination'
 import { StudentFilterPipe } from './list-student/studentFilter.pipe';
+import { ModalWindowsModule } from '../modal-windows/modal-windows.module';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { StudentFilterPipe } from './list-student/studentFilter.pipe';
             ModalModule.forRoot(),
             SeekersModule,
             NgxPaginationModule,
+            ModalWindowsModule
             ],
   providers:[StudentService],
   declarations: [AddStudentComponent,

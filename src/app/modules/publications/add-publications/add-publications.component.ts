@@ -7,7 +7,6 @@ import { Book } from '../../../models/publications/book';
 import { CapBook } from '../../../models/publications/capLibro';
 import { EventPublication } from '../../../models/publications/event';
 import {HttpEventType} from '@angular/common/http';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Router } from '@angular/router';
 import { UtilitiesDate } from '../../../models/utilities/utilitiesDate';
 
@@ -61,6 +60,10 @@ export class AddPublicationsComponent implements OnInit {
   subtitleModalSucces: string;
   titleModalError: string;
   subtitleModaErro: string;
+  eveent: any;
+  urlRedirecTo: string;
+  paramsRedirectTo: string;
+  enableRedirectTo: boolean;
 
 
   /***********************VARIABLES DE INSTANCIA************* */
@@ -104,6 +107,9 @@ export class AddPublicationsComponent implements OnInit {
     this.showErrorDateApproved = false;
     this.showErrorDatePublication = false;
     this.showProgressRequest = false;
+    this.enableRedirectTo = true;
+    this.urlRedirecTo = '/publication/listPublicationsEstudent';
+    this.paramsRedirectTo = 'Publicacion Registrada exitosamente';
     this.max_date = this.utilitiesDate.getMaxDate();
   }
 
@@ -339,8 +345,8 @@ export class AddPublicationsComponent implements OnInit {
     this.publicationsService.registryMagazine(this.magizine)
     .subscribe(event =>
       {
-        this.proccesResponseRegistryPublicationOk(event, ' Revista Registrada con exito',
-                                                  'La revista ya se encuentra disponible para la revision');
+        this.eveent = event;
+        this.showProgressRequest = true;
       },err =>
       {
         this.showModalFail('No se pudo registrar la publicacion de revista');
@@ -368,8 +374,8 @@ export class AddPublicationsComponent implements OnInit {
     this.publicationsService.registryBook(this.book)
     .subscribe(event =>
       {
-        this.proccesResponseRegistryPublicationOk(event, ' Libro Registrado con exito',
-                                                  'El libro ya se encuentra disponible para la revision');
+        this.eveent = event;
+        this.showProgressRequest = true;
       },err =>
       {
         this.showModalFail('No se pudo registrar la publicacion de libro');
@@ -396,8 +402,8 @@ export class AddPublicationsComponent implements OnInit {
     this.publicationsService.registyCapBook(this.capBook)
     .subscribe(event =>
       {
-       this.proccesResponseRegistryPublicationOk(event, 'Capitulo Libro Registrado con exito',
-                                                  'El capitulo libro ya se encuentra disponible para la revision');
+        this.eveent = event;
+        this.showProgressRequest = true;
       },err =>
       {
         this.showModalFail('No se pudo registrar la publicacion de capitulo de libro');
@@ -430,39 +436,14 @@ export class AddPublicationsComponent implements OnInit {
     this.publicationsService.registryEvent(this.event)
     .subscribe(event =>
       {
-       this.proccesResponseRegistryPublicationOk(event,  'Evento Registrado con exito',
-                                                 'El evento ya se encuentra disponible para la revision'  );
+        this.eveent = event;
+        this.showProgressRequest = true;
       },err =>
       {
         this.showModalFail('No se pudo registrar la publicacion de evento');
       });
   }
 
-  proccesResponseRegistryPublicationOk(event: any, msjOK: string, msjSubOk: string)
-  {
-    this.showProgressRequest= true;
-        if(event.type === HttpEventType.UploadProgress)
-        {
-          this.showModalProgressRequest();
-          this.progressRequest = (Math.round(event.loaded / event.total * 100 ) -1 )+ '%';
-        }
-        else{
-          if(event.type === HttpEventType.Response)
-          {
-            this.showProgressRequest = false;
-            this.viewProgressRequest.hide();
-            this.showModalOK();
-            this.titleModalSucces = msjOK;
-            this.subtitleModalSucces = msjSubOk;
-            this.showProgressRequest = false;
-            this.redirectToListPublications();
-          }
-        }
-  }
-  showModalOK()
-  {
-    this.viewModalOk.show();
-  }
   showModalFail(titleModal: string)
   {
     this.showProgressRequest = false;
@@ -470,22 +451,12 @@ export class AddPublicationsComponent implements OnInit {
     this.subtitleModaErro = 'Error interno en el servidor';
     this.viewModalFail.show();
   }
-  showModalProgressRequest()
-  {
-    this.showProgressRequest= true;
-    this.viewProgressRequest.show();
-  }
 
   getDefaultInfoPublication()
   {
     this.authorSecondary = this.fieldsForm.get('secondaryAuthors').value;
     this.dateAproved = this.fieldsForm.get('dateApproved').value;
     this.datePublication = this.fieldsForm.get('datePublitaion').value;
-  }
-
-  redirectToListPublications()
-  {
-    this.router.navigate(['/publication/listPublicationsEstudent', 'Publicacion Registrada exitosamente']);
   }
 
 }

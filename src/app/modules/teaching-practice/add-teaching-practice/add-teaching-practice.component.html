@@ -2,6 +2,8 @@
                            (getDataTeachingP)="getDataTeachingPractice($event)">
 </app-form-teaching-practice>
 
+<app-modal-progress *ngIf="showProgressRequest" [evento]="eveent" [paramsRedirecTo]="paramsRedirectTo" [urlRedirectTo]="urlRedirecTo"></app-modal-progress>
+
 <div bsModal #dangerModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
 aria-hidden="true">
 <div class="modal-dialog modal-danger" role="document">

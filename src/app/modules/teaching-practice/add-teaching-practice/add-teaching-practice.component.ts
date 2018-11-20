@@ -17,14 +17,22 @@ export class AddTeachingPracticeComponent implements OnInit {
   buttonAction: string;
   showProgressRequest: boolean;
   progressRequest: string;
-  constructor(private teachingPracticeService: TeachingPracticeService) { }
-
-  ngOnInit() {
+  eveent: any;
+  urlRedirecTo: string;
+  paramsRedirectTo: string;
+  constructor(private teachingPracticeService: TeachingPracticeService)
+  {
     this.titleForm = 'Registrar Practica Docente';
     this.subTitleForm = 'En este formulario podra registrar sus practicas docentes';
     this.buttonAction = 'Registrar Practica Docente';
+    this.urlRedirecTo = './teachinPractice/nn';
+    this.paramsRedirectTo = 'Registro Exitoso';
     this.progressRequest = '';
     this.showProgressRequest = false;
+  }
+
+  ngOnInit() {
+
   }
 
   getDataTeachingPractice(dataTeachingPractice: {teachingPractice: TeachingPractice})
@@ -32,47 +40,17 @@ export class AddTeachingPracticeComponent implements OnInit {
     this.teachingPracticeService.registryTeachingPractice(dataTeachingPractice.teachingPractice)
     .subscribe(event =>
       {
-        this.proccesResponseRegistryPublicationOk(event);
+        this.eveent = event;
+        this.showProgressRequest = true;
       }, errr =>
       {
         this.showModalFail();
       });
   }
 
-  proccesResponseRegistryPublicationOk(event: any)
-  {
-    this.showProgressRequest= true;
-        if(event.type === HttpEventType.UploadProgress)
-        {
-          this.showModalProgressRequest();
-          this.progressRequest = (Math.round(event.loaded / event.total * 100 ) -1 )+ '%';
-        }
-        else{
-          if(event.type === HttpEventType.Response)
-          {
-            this.showProgressRequest = false;
-            this.viewProgressRequest.hide();
-            this.showProgressRequest = false;
-            this.redirectToListTeachingPractice();
-          }
-        }
-  }
-
-  showModalProgressRequest()
-  {
-    this.showProgressRequest= true;
-    this.viewProgressRequest.show();
-  }
   showModalFail()
   {
     this.showProgressRequest = false;
     this.viewModalFail.show();
   }
-
-  redirectToListTeachingPractice()
-  {
-    this.showProgressRequest = false;
-    console.log('registre exitoso');
-  }
-
 }

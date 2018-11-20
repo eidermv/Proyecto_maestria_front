@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Internship } from '../../../models/internship/internship';
+import { InternshipService } from '../intership.service.service';
 
 @Component({
   selector: 'app-add-internship',
@@ -11,7 +13,7 @@ export class AddInternshipComponent implements OnInit {
   subTitleForm: string;
   buttonAction: string;
 
-  constructor() 
+  constructor(private internshipService: InternshipService)
   {
     this.titleForm = 'Registrar Pasantia';
     this.subTitleForm = 'En este formulario podra registrar sus pasantias';
@@ -19,6 +21,18 @@ export class AddInternshipComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  getDataIntership(dataInternship: {internship: Internship})
+  {
+    this.internshipService.registryInternship(dataInternship.internship)
+    .subscribe(data =>
+      {
+        console.log('si registra pasantia');
+      },err =>
+      {
+        console.log('no registre pasantia');
+      });
   }
 
 }

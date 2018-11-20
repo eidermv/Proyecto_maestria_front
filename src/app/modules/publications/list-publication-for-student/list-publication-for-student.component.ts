@@ -19,7 +19,7 @@ export class ListPublicationForStudentComponent implements OnInit {
   idPublication: string;
   showModalPublication: boolean;
   msjOk: string;
-
+  p: any;
   constructor(private publicationsService: PublicationService, private route: ActivatedRoute,
     private router: Router)
   {

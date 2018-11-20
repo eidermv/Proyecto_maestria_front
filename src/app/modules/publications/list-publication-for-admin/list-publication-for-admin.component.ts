@@ -29,6 +29,7 @@ export class ListPublicationForAdminComponent implements OnInit {
   showModalPublication: boolean;
   showCredits: boolean;
   searchTerm: string;
+  p: any;
 
   constructor(private publicationsService: PublicationService)
   {

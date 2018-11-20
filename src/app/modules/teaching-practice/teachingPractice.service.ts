@@ -17,6 +17,11 @@ export class TeachingPracticeService
     return  this.httpClient.get(this.stringApp.URL_SERVICIO_GET_STUDENT_WHIT_TOKEN + sessionStorage.getItem('token'));
   }
 
+  getAllTeachingPractice(code: string)
+  {
+    return this.httpClient.get<Array<any>>(this.stringApp.URL_SERVICIO_GET_ALL_TEACHINGPRACTICE + code);
+  }
+
   registryTeachingPractice(teachingPractice: TeachingPractice)
   {
     const formData: FormData = new FormData();

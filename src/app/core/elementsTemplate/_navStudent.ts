@@ -33,7 +33,7 @@ export const navStudent = [
       },
       {
         name: 'Mis Practicas',
-        url: '/teachingPractice/addTeachingPractice',
+        url: '/teachingPractice/listTeachingPracticeforStudent',
         icon: 'fa fa-list-alt'
       }
     ]
@@ -44,13 +44,13 @@ export const navStudent = [
     icon: 'fa fa-database',
     children: [
       {
-        name: 'Agregar Practica',
+        name: 'Agregar Pasantia',
         url: '/internship/addIntership',
         icon: 'fa fa-cloud-upload'
       },
       {
-        name: 'Mis Practicas',
-        url: '/internship/addIntership',
+        name: 'Mis Pasantias',
+        url: '/internship/listInternshipForStudent',
         icon: 'fa fa-list-alt'
       }
     ]

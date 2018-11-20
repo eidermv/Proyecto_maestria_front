@@ -1,0 +1,53 @@
+<div class="container-fluid">
+  <div class="animated fadeIn">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-header  bg-info  ">
+              <i class="fa fa-align-justify "></i> <strong> Practicas Docente realizadas por el estudiante </strong>
+              <!--<div class="input-group mb-4 input-group">
+                <input type="text" class="form-control" placeholder="Buscar por Codigo" [(ngModel)]="searchTerm">
+                <span class="input-group-prepend">
+                    <button type="submit" class="btn btn-light" ><i class="fa fa-search"></i>  </button>
+                </span>
+              </div>-->
+
+          </div>
+          <div class="card-body">
+            <h1 class="title text-center"> Mis Practicas</h1>
+            <table class="table  table-responsive-sm">
+              <thead >
+                <tr>
+                  <th>Fecha de Registro</th>
+                  <th>Tipo</th>
+                  <th>Horas Asignadas</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let teachingPractice of optionsTeachingPractice | paginate: {itemsPerPage: 8, currentPage: p}">
+                  <td>{{teachingPractice['fechaRegistro']}} </td>
+                  <td>{{teachingPractice['tipoPracticaDocente']}}</td>
+                  <td>{{teachingPractice['horas']}}</td>
+                  <td>
+                    <span class="badge badge-dark" *ngIf="teachingPractice['estado'] == 'Por verificar'">Por verificar</span>
+                    <span class="badge badge-success" *ngIf="teachingPractice['estado'] == 'Aprobado'">Aprobada</span>
+                    <span class="badge badge-secondary" *ngIf="teachingPractice['estado'] == 'Rechazado'">Rechazada</span>
+                  </td>
+                  <td>
+                    <div class="col-lg-12">
+                      <button class="btn btn-primary col-lg-3" (click)="showPublication(publication)">Ver</button>
+                      <button class="btn btn-danger col-lg-3" (click)="deletePublication(publication)">Eliminar</button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <pagination-controls (pageChange)="p =$event"></pagination-controls>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -29,16 +29,6 @@ export class ListPublicationForStudentComponent implements OnInit {
     this.idPublication = '';
     this.typePublication = '';
   }
-
-  ngOnInit() {
-    const msj: string = this.route.snapshot.params['msj'];
-    if(msj != null)
-    {
-      this.msjOk = msj;
-    }
-    this.getDateStudent();
-  }
-
   getDateStudent()
   {
     this.publicationsService.getStudent()
@@ -64,6 +54,17 @@ export class ListPublicationForStudentComponent implements OnInit {
         this.viewErroServer.show();
       });
   }
+
+  ngOnInit() {
+    const msj: string = this.route.snapshot.params['msj'];
+    if(msj != null)
+    {
+      this.msjOk = msj;
+    }
+    this.getDateStudent();
+  }
+
+
 
   showMSJ()
   {

@@ -16,11 +16,10 @@ export class ListStudentComponent implements OnInit {
   optionsDataStudents: Array<string>;
   searchTerm: string;
   msjOk: string;
+  p:any;
 
   /************************VARIABLES DE INSTANCIA ********/
   studentShow: Student;
-
-
 
   constructor( private studentService: StudentService, private route: ActivatedRoute,
     private router: Router)

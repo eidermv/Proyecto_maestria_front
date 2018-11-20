@@ -22,6 +22,11 @@ export class InternshipService {
     return  this.httpClient.get(this.stringApp.URL_SERVICIO_GET_STUDENT_WHIT_TOKEN + sessionStorage.getItem('token'));
   }
 
+  getAllInternshipForStudent(code: string)
+  {
+    return this.httpClient.get<Array<any>>(this.stringApp.URL_SERVICIO_GET_ALL_INTERNSHIP + code);
+  }
+
   registryInternship(internship: Internship)
   {
     const formData: FormData = new FormData();

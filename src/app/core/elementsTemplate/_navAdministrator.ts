@@ -23,6 +23,11 @@ export const navAdministrator = [
         url: '/publication/listPublicationsAdmin',
         icon: 'fa fa-list-alt'
       },
+      {
+        name: 'Listar Practicas Docente',
+        url: '/teachingPractice/listTeachingPracticeAdmin',
+        icon: 'fa fa-list-alt'
+      }
 
     ]
   },

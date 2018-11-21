@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AddInternshipComponent } from './add-internship/add-internship.component';
 import { ListInternshipForStudentComponent } from './list-internship-for-student/list-internship-for-student.component';
+import { ListInternshipForAdminComponent } from './list-internship-for-admin/list-internship-for-admin.component';
 
 const routes: Routes = [
   {
@@ -32,6 +33,14 @@ const routes: Routes = [
         data:
         {
           title: 'Mis Pasantias'
+        }
+      },
+      {
+        path: 'listInsternshipAdmin',
+        component: ListInternshipForAdminComponent,
+        data:
+        {
+          title: 'Pasantias'
         }
       }
     ]

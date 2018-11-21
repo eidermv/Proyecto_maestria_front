@@ -27,7 +27,12 @@ export const navAdministrator = [
         name: 'Listar Practicas Docente',
         url: '/teachingPractice/listTeachingPracticeAdmin',
         icon: 'fa fa-list-alt'
-      }
+      },
+      {
+        name: 'Listar Pasantias',
+        url: '/internship/listInsternshipAdmin',
+        icon: 'fa fa-list-alt'
+      },
 
     ]
   },

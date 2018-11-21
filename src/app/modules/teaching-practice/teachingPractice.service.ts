@@ -28,6 +28,11 @@ export class TeachingPracticeService
     return this.httpClient.get<Array<any>>(this.stringApp.URL_SERVICIO_GET_ALL_TEACHINGPRACTICE + code);
   }
 
+  getAllTeachingPracticeAdmin()
+  {
+    return this.httpClient.get<Array<any>>(this.stringApp.URL_SERVICIO_GET_ALL_TEACHINGPRACTICE_ADMIN);
+  }
+
   registryTeachingPractice(teachingPractice: TeachingPractice)
   {
     const formData: FormData = new FormData();

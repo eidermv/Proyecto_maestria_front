@@ -27,6 +27,11 @@ export class InternshipService {
     return this.httpClient.get<Array<any>>(this.stringApp.URL_SERVICIO_GET_ALL_INTERNSHIP + code);
   }
 
+  getAllInternshipForAdmin()
+  {
+    return this.httpClient.get<Array<any>>(this.stringApp.URL_SERVICIO_GET_ALL_INTERNSHIP_ADMIN);
+  }
+
   getFileInternship(idInternship: string, namaFile: string)
   {
     this.httpClient.get(this.stringApp.URL_SERVICIO_GETFILE_INTERNSHIP + idInternship + '/' + namaFile, {responseType: 'blob'})

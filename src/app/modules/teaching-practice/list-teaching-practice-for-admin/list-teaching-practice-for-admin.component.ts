@@ -13,26 +13,14 @@ export class ListTeachingPracticeForAdminComponent implements OnInit {
    optionsTeachingPractice: Array<string>;
    p: any;
 
-  constructor(private teachingPracticeService: TeachingPracticeService,
-              private route: ActivatedRoute,private router: Router)
+  constructor(private teachingPracticeService: TeachingPracticeService)
   {
     this.optionsTeachingPractice = [];
   }
-  getDateStudent()
-  {
-   this.teachingPracticeService.getStudent()
-   .subscribe(data =>
-    {
-      this.codeStudent = data['codigo'];
-      this.getAllTeachingPractice();
-    },err =>
-    {
 
-    });
-  }
   getAllTeachingPractice()
   {
-    this.teachingPracticeService.getAllTeachingPractice(this.codeStudent)
+    this.teachingPracticeService.getAllTeachingPracticeAdmin()
     .subscribe(data =>
       {
         this.optionsTeachingPractice = data;
@@ -43,6 +31,7 @@ export class ListTeachingPracticeForAdminComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getAllTeachingPractice();
   }
 
 }

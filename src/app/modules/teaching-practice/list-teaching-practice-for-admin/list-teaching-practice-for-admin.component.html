@@ -15,22 +15,26 @@
           </div>
           <div class="card-body">
             <h1 class="title text-center"> Practicas Docente </h1>
-            <table class="table  table-responsive-sm">
+            <table class="table  table-responsive-md">
               <thead >
                 <tr>
+                  <th>Codigo</th>
+                  <th>Autor</th>
                   <th>Fecha de Registro</th>
                   <th>Tipo</th>
-                  <th>Institucion - Universidad</th>
-                  <th>Creditos</th>
+                  <th>Horas Asignadas</th>
                   <th>Estado</th>
                   <th>Acciones</th>
                 </tr>
               </thead>
               <tbody>
                 <tr *ngFor="let teachingPractice of optionsTeachingPractice | paginate: {itemsPerPage: 8, currentPage: p}">
-                  <td>{{teachingPractice['fechaRegistro']}} </td>
+                  <td>{{teachingPractice['estudiante']['codigo']}} </td>
+                  <td>{{teachingPractice['estudiante']['nombres'] + ' ' + teachingPractice['estudiante']['apellidos']}}</td>
+                  <td>{{teachingPractice['fechaRegistro']}}</td>
                   <td>{{teachingPractice['tipoPracticaDocente']}}</td>
                   <td>{{teachingPractice['horas']}}</td>
+
                   <td>
                     <span class="badge badge-dark" *ngIf="teachingPractice['estado'] == 'Por verificar'">Por verificar</span>
                     <span class="badge badge-success" *ngIf="teachingPractice['estado'] == 'Aprobado'">Aprobada</span>
@@ -39,7 +43,7 @@
                   <td>
                     <div class="col-lg-12">
                       <button class="btn btn-primary col-lg-3" (click)="showPublication(publication)">Ver</button>
-                      <button class="btn btn-danger col-lg-3" (click)="deletePublication(publication)">Eliminar</button>
+                      <button class="btn btn-danger col-lg-4" (click)="deletePublication(publication)">Cambiar Estado</button>
                     </div>
                   </td>
                 </tr>

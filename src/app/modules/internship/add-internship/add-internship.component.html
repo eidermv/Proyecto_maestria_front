@@ -1,3 +1,6 @@
 <app-form-internship [titleForm]="titleForm" [subtitleForm]="subTitleForm" [buttonAction]="buttonAction" (getDataInternship)="getDataIntership($event)">
 
 </app-form-internship>
+
+  <app-modal-progress *ngIf="showProgressRequest" [evento]="eventt" [paramsRedirecTo]="paramsRedirectTo" [enableRedirect]="enableRedirectTO"
+                    [urlRedirectTo]="urlRedirectTo"></app-modal-progress>

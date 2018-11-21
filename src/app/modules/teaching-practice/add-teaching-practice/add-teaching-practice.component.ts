@@ -15,20 +15,24 @@ export class AddTeachingPracticeComponent implements OnInit {
   titleForm: string;
   subTitleForm: string;
   buttonAction: string;
-  showProgressRequest: boolean;
-  progressRequest: string;
-  eveent: any;
   urlRedirecTo: string;
   paramsRedirectTo: string;
+  showProgressRequest: boolean;
+  enableRedirect: boolean;
+  progressRequest: string;
+  eveent: any;
+
+
   constructor(private teachingPracticeService: TeachingPracticeService)
   {
     this.titleForm = 'Registrar Practica Docente';
     this.subTitleForm = 'En este formulario podra registrar sus practicas docentes';
     this.buttonAction = 'Registrar Practica Docente';
-    this.urlRedirecTo = './teachinPractice/nn';
-    this.paramsRedirectTo = 'Registro Exitoso';
+    this.urlRedirecTo = './teachingPractice/listTeachingPracticeforStudent';
+    this.paramsRedirectTo = 'Practica Docente Registrada Exitosamente';
     this.progressRequest = '';
     this.showProgressRequest = false;
+    this.enableRedirect = true;
   }
 
   ngOnInit() {

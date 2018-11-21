@@ -115,6 +115,11 @@ export class FormTeachingPracticeComponent implements OnInit {
       this.showErrorDateFinish = true;
       this.msjErrorDateFinish = 'La fecha de finalizacion no puede ser menor que la fecha de inicio';
     }
+    else if(dateEnd == dateStart)
+    {
+      this.showErrorDateFinish = true;
+      this.msjErrorDateFinish = 'La fecha de finalizacion no puede ser igual que la fecha de inicio';
+    }
     else{
       this.dataStart = dateStart;
       this.dateEnd = dateEnd;
@@ -193,7 +198,7 @@ export class FormTeachingPracticeComponent implements OnInit {
   {
     if(this.verifyContentCertificate())
     {
-      if(this.showDatesStartAndEnd)
+      if(this.verifyDates())
       {
         const dateEnd = this.fieldsForm.get('dateActivityEnd').value;
         const dateStart = this.fieldsForm.get('dateActivityStart').value;
@@ -212,7 +217,7 @@ export class FormTeachingPracticeComponent implements OnInit {
         }
       }
       else{
-        this.getDataTeachingPractice();
+        //this.getDataTeachingPractice();
       }
     }
   }

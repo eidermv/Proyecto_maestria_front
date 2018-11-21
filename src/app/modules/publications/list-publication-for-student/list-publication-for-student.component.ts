@@ -12,12 +12,12 @@ export class ListPublicationForStudentComponent implements OnInit {
   /**********************************VARIABLES LOCALES**************** */
   @ViewChild('dangerModal') viewErroServer: any;
   @ViewChild('errDeletePublication') viewErrorDeletePublication: any;
-  @ViewChild('warningModal') viewModalMsjOk: any ;
   codeStudent: string;
   optionsPublicationsStudent: Array<string>;
   typePublication: string;
   idPublication: string;
   showModalPublication: boolean;
+  showModalOk: boolean;
   msjOk: string;
   p: any;
   constructor(private publicationsService: PublicationService, private route: ActivatedRoute,
@@ -26,6 +26,7 @@ export class ListPublicationForStudentComponent implements OnInit {
 
     this.optionsPublicationsStudent = [];
     this.showModalPublication = false;
+    this.showModalOk = false;
     this.idPublication = '';
     this.typePublication = '';
   }
@@ -48,8 +49,8 @@ export class ListPublicationForStudentComponent implements OnInit {
     .subscribe(data =>
       {
          this.optionsPublicationsStudent = data;
-         this.showMSJ();
-      },err =>
+
+      }, err =>
       {
         this.viewErroServer.show();
       });
@@ -60,18 +61,9 @@ export class ListPublicationForStudentComponent implements OnInit {
     if(msj != null)
     {
       this.msjOk = msj;
+      this.showModalOk = true;
     }
     this.getDateStudent();
-  }
-
-
-
-  showMSJ()
-  {
-    if(this.msjOk != null)
-    {
-      this.viewModalMsjOk.show();
-    }
   }
 
   showPublication(aux: any)

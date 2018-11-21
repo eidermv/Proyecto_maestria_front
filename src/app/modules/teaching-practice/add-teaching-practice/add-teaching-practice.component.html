@@ -2,7 +2,8 @@
                            (getDataTeachingP)="getDataTeachingPractice($event)">
 </app-form-teaching-practice>
 
-<app-modal-progress *ngIf="showProgressRequest" [evento]="eveent" [paramsRedirecTo]="paramsRedirectTo" [urlRedirectTo]="urlRedirecTo"></app-modal-progress>
+<app-modal-progress *ngIf="showProgressRequest" [evento]="eveent" [paramsRedirecTo]="paramsRedirectTo" [urlRedirectTo]="urlRedirecTo"
+[enableRedirect]="enableRedirect"></app-modal-progress>
 
 <div bsModal #dangerModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
 aria-hidden="true">
@@ -24,14 +25,3 @@ aria-hidden="true">
 </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-<div bsModal #progressModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-aria-hidden="true">
-<div class="modal-dialog modal-danger" role="document">
-  <div class="modal-content">
-    <div class="aling-center" *ngIf="showProgressRequest">
-      <img src="../../../../assets/img/progress.gif" width="100px" height="100px" >
-      {{progressRequest}}
-     </div>
-  </div><!-- /.modal-content -->
-</div><!-- /.modal-dialog -->
-</div><!-- /.modal -->

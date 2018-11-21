@@ -13,6 +13,9 @@ export class ListInternshipForStudentComponent implements OnInit {
   codeStudent: string;
   optionsInternship: Array<string>;
   showInternship: boolean;
+  showModalOk: boolean;
+  msjOk: string;
+
   /****************************VARIABLES DE INSTANCIA*********************/
   internship: Internship;
 
@@ -21,6 +24,7 @@ export class ListInternshipForStudentComponent implements OnInit {
     this.internship = new Internship();
     this.optionsInternship = [];
     this.showInternship = false;
+    this.showModalOk = false;
   }
 
   getDateStudent()
@@ -49,6 +53,12 @@ export class ListInternshipForStudentComponent implements OnInit {
   }
 
   ngOnInit() {
+    const msj: string = this.route.snapshot.params['msj'];
+    if(msj != null)
+    {
+      this.msjOk = msj;
+      this.showModalOk = true;
+    }
     this.getDateStudent();
   }
 

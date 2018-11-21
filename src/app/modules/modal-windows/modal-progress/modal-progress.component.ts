@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input, SimpleChanges, OnChanges, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, SimpleChanges, OnChanges,} from '@angular/core';
 import {HttpEventType} from '@angular/common/http';
 import { Router } from '@angular/router';
 

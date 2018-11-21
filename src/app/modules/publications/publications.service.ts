@@ -10,6 +10,8 @@ import { EventPublication } from '../../models/publications/event';
 import { CapBook } from '../../models/publications/capLibro';
 import { DomSanitizer } from '@angular/platform-browser';
 import 'rxjs/Rx';
+import { UtilitiesFile } from '../../models/utilities/utilitiesFiles';
+import { UtilitiesDate } from '../../models/utilities/utilitiesDate';
 
 /***************************VARIABLES GLOBALES*********** */
 const MAGAZINE: string = 'Revista';
@@ -33,10 +35,12 @@ const httpOptions =
 export class PublicationService
 {
   stringApp: StringApp = new StringApp();
-
+  utilitiesFiles: UtilitiesFile;
+  utilitiesDate: UtilitiesDate;
   constructor(private httpClient: HttpClient,  private router: Router)
   {
-
+    this.utilitiesFiles = new UtilitiesFile();
+    this.utilitiesDate = new UtilitiesDate();
   }
 
     getStudent()
@@ -93,7 +97,7 @@ export class PublicationService
              {responseType: 'blob'})
              .subscribe(data =>
              {
-               this.showFile(data);
+               this.utilitiesFiles.showFile(data);
              });
             break;
 
@@ -101,7 +105,7 @@ export class PublicationService
              this.httpClient.get(this.stringApp.URL_SERVICIO_GETFILES_BOOK+ idPublication + '/' + typeFile,{responseType: 'blob'})
              .subscribe(data =>
               {
-                this.showFile(data);
+                this.utilitiesFiles.showFile(data);
               });
             break;
 
@@ -109,7 +113,7 @@ export class PublicationService
              this.httpClient.get(this.stringApp.URL_SERVICIO_GETFILES_CAPBOKK + idPublication + '/' + typeFile,{responseType: 'blob'})
              .subscribe(data =>
               {
-                this.showFile(data);
+                this.utilitiesFiles.showFile(data);
               });
             break;
 
@@ -117,7 +121,7 @@ export class PublicationService
            this.httpClient.get(this.stringApp.URL_SERVICIO_GETFILES_EVENT + idPublication + '/' + typeFile,{responseType: 'blob'})
            .subscribe(data =>
             {
-              this.showFile(data);
+              this.utilitiesFiles.showFile(data);
             });
           break;
       }
@@ -272,12 +276,6 @@ export class PublicationService
         }
       }
       return dateReturn;
-    }
-
-    showFile(data : any)
-    {
-      let fileUrl = window.URL.createObjectURL(data);
-      window.open(fileUrl);
     }
 
   }

@@ -13,6 +13,8 @@ export class ListTeachingPracticeForStudentComponent implements OnInit {
   codeStudent: string;
   optionsTeachingPractice: Array<string>;
   showTeachingPractice: boolean;
+  showModalOk: boolean;
+  msjOk: string;
   p: any;
   /********************************VARIABLES DE INSTANCIA*************/
   teachingPractice: TeachingPractice;
@@ -23,6 +25,7 @@ export class ListTeachingPracticeForStudentComponent implements OnInit {
     this.teachingPractice = new TeachingPractice();
     this.optionsTeachingPractice = [];
     this.showTeachingPractice = false;
+    this.showModalOk = false;
   }
 
   getDateStudent()
@@ -51,6 +54,12 @@ export class ListTeachingPracticeForStudentComponent implements OnInit {
   }
 
   ngOnInit() {
+    const msj: string = this.route.snapshot.params['msj'];
+    if(msj != null)
+    {
+      this.msjOk = msj;
+      this.showModalOk = true;
+    }
     this.getDateStudent();
   }
 

@@ -25,6 +25,14 @@ const routes: Routes = [
         {
           title: 'Mis Pasantias'
         }
+      },
+      {
+        path: 'listInternshipForStudent/:msj',
+        component: ListInternshipForStudentComponent,
+        data:
+        {
+          title: 'Mis Pasantias'
+        }
       }
     ]
   }

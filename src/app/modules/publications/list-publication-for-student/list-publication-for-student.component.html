@@ -52,6 +52,7 @@
 
 <app-show-publication [typePublication]="typePublication" [idPublication]="idPublication"  *ngIf="showModalPublication"
                       (cerrar)="destroyModal($event)" ></app-show-publication>
+<app-modal-ok *ngIf="showModalOk" [msjOk]="msjOk"></app-modal-ok>
 
   <div bsModal #dangerModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
@@ -94,24 +95,6 @@
   </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
 
-  <div bsModal #warningModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-aria-hidden="true">
-<div class="modal-dialog modal-primary" role="document">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h4 class="modal-title">{{msjOk}}</h4>
-      <button type="button" class="close" (click)="warningModal.hide()" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <p><strong>Accion exitosa</strong></p>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-dark" (click)="warningModal.hide()">Cerrar</button>
-    </div>
-  </div><!-- /.modal-content -->
-</div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+
 
 

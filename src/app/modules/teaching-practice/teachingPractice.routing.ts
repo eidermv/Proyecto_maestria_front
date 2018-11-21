@@ -28,13 +28,22 @@ const teachingPracticeRoutes: Routes = [
         }
       },
       {
+        path: 'listTeachingPracticeforStudent/:msj',
+        component: ListTeachingPracticeForStudentComponent,
+        data:
+        {
+          title: 'Listado de Practicas Docentes'
+        }
+      },
+      {
         path: 'listTeachingPracticeAdmin',
         component: ListTeachingPracticeForAdminComponent,
         data:
         {
           title: 'Listado de Practicas Docentes'
         }
-      }
+      },
+
     ]
   }
 ];

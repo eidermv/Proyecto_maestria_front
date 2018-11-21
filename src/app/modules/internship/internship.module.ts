@@ -10,6 +10,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { ListInternshipForAdminComponent } from './list-internship-for-admin/list-internship-for-admin.component';
 import { ListInternshipForStudentComponent } from './list-internship-for-student/list-internship-for-student.component';
+import { ShowInternshipComponent } from './show-internship/show-internship.component';
 
 @NgModule({
   imports: [
@@ -20,7 +21,7 @@ import { ListInternshipForStudentComponent } from './list-internship-for-student
     NgxPaginationModule,
     ModalModule.forRoot(),
   ],
-  declarations: [FormInternshipComponent, AddInternshipComponent, ListInternshipForAdminComponent, ListInternshipForStudentComponent],
+  declarations: [FormInternshipComponent, AddInternshipComponent, ListInternshipForAdminComponent, ListInternshipForStudentComponent, ShowInternshipComponent],
   providers: [InternshipService]
 })
 export class InternshipModule { }

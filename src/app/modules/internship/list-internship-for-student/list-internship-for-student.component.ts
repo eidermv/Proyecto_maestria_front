@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { InternshipService } from '../intership.service.service';
+import { Internship } from '../../../models/internship/internship';
 
 @Component({
   selector: 'app-list-internship-for-student',
@@ -11,10 +12,15 @@ export class ListInternshipForStudentComponent implements OnInit {
   /****************************VARIABLES LOCALES************************/
   codeStudent: string;
   optionsInternship: Array<string>;
+  showInternship: boolean;
+  /****************************VARIABLES DE INSTANCIA*********************/
+  internship: Internship;
 
   constructor(private internshipService: InternshipService,private route: ActivatedRoute,private router: Router)
   {
+    this.internship = new Internship();
     this.optionsInternship = [];
+    this.showInternship = false;
   }
 
   getDateStudent()
@@ -44,6 +50,42 @@ export class ListInternshipForStudentComponent implements OnInit {
 
   ngOnInit() {
     this.getDateStudent();
+  }
+
+  showDataInternship(dataInternship: any)
+  {
+    this.internship.setIdInternship(dataInternship['id']);
+    this.internship.setNameStudent(dataInternship['estudiante']['nombres'] + dataInternship['estudiante']['apellidos']);
+    this.internship.setCodeStudent(this.codeStudent);
+    this.internship.setDateRegistryIntership(dataInternship['fechaRegistro']);
+    this.internship.setDataIntershipStart(dataInternship['fechaInicio']);
+    this.internship.setDataIntershipEnd(dataInternship['fechaFin']);
+    this.internship.setTypeIntership(dataInternship['tipoPasantia']);
+    this.internship.setInstitution(dataInternship['institucion']);
+    this.internship.setDependence(dataInternship['dependencia']);
+    this.internship.setNameDependence(dataInternship['nombreDependencia']);
+    this.internship.setTutorInternship(dataInternship['responsable']);
+    this.internship.setState(dataInternship['estado']);
+    this.internship.setCredits(dataInternship['creditos']);
+    this.internship.setObservation(dataInternship['observacion']);
+    this.showInternship = true;
+  }
+
+  destroyModal(destruir: {cerrar: boolean})
+  {
+    this.showInternship = false;
+  }
+
+  deleteInternship(idInternship: string)
+  {
+    this.internshipService.deleteInternship(idInternship)
+    .subscribe(data =>
+      {
+        this.getAllInternship();
+      },err =>
+      {
+
+      });
   }
 
 }

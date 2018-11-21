@@ -1,22 +1,7 @@
-import { ThrowStmt } from "@angular/compiler";
+
 
 export class StringApp
 {
-  /** variables del modulo linea **/
-        /** registrar linea */
-  public TITLE_ADD_LINE = 'Registrar Linea';
-  public BTN_ADD_LINE = 'Registrar';
-  public MSJ_EJEMPLO_ADD_LINE = 'En este sitio podrás crear líneas para tus productos como: línea de jabones, línea de celulares Samsung o las líneas que tu negocio requiera';
-  public PLACEHOLDER_ADD_LINE = 'Nombre de la linea';
-  public LABEL_MSJ_ADD_LINE = 'Nombre de la Línea';
-  public MSJ_ERROR_ADD_LINE = 'El campo nombre línea no puede tener más de 20 caracteres o estar vacio';
-  public MSJ_EXITO_ADD_LINE_MODAL = 'Línea registrada con éxito';
-  public MSJ_FAIL_ADD_LINE_MODAL = 'El nombre de la línea ya existe, intente con otro nombre';
-
-  /** Mensajes de exito en ventana Modal */
-  public MSJ_OK_REGISTRY = 'Registro Exitoso';
-  public MSJ_ERROR_REGISTRY = 'Falla en el registro';
-  public MSJ_CLOSE = 'Cerrar';
 
   /** URL DEL SERVICIO*********** */
 
@@ -51,9 +36,14 @@ export class StringApp
 
   public URL_SERVICIO_REGISTRY_TEACHING_PRACTICE = this.URL_SERVICIO + 'practicaDocente/registrar';
   public URL_SERVICIO_GET_ALL_TEACHINGPRACTICE = this.URL_SERVICIO + 'practicaDocente/buscar/codigoEstudiante/';
+  public URL_SERVICIO_GETFILE_TEACHING_PRACTICE = this.URL_SERVICIO + 'practicaDocente/descargar/';
+  public URL_SERVICIO_DELETE_TEACHING_PRACTICE = this.URL_SERVICIO + 'practicaDocente/eliminar/idPracticaDocente/';
 
   public URL_SERVICIO_REGISTRY_INTERNSHIP = this.URL_SERVICIO + 'pasantia/registrar';
   public URL_SERVICIO_GET_ALL_INTERNSHIP = this.URL_SERVICIO + 'pasantia/buscar/codigoEstudiante/';
+  public URL_SERVICIO_GETFILE_INTERNSHIP = this.URL_SERVICIO + 'pasantia/descargar/';
+  public URL_SERVICIO_DELETE_INTERNSHIP = this.URL_SERVICIO + 'pasantia/eliminar/idPasantia/';
+
 
   /******** ROLES DE LA APP */
 

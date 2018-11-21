@@ -12,6 +12,11 @@ export class Internship
   private _tutorInternship: string;
   private _certificateInternship: File;
   private _ReportInternship: File;
+  private _dateRegistryIntership: string;
+  private _state: string;
+  private _credits: string;
+  private _observation: string;
+  private _idInternship: string;
 
   public getNameStudent(): string {
     return this._nameStudent;
@@ -83,6 +88,37 @@ export class Internship
   }
   public setReportInternship(value: File) {
     this._ReportInternship = value;
+  }
+
+  public getDateRegistryIntership(): string {
+    return this._dateRegistryIntership;
+  }
+  public setDateRegistryIntership(value: string) {
+    this._dateRegistryIntership = value;
+  }
+  public getState(): string {
+    return this._state;
+  }
+  public setState(value: string) {
+    this._state = value;
+  }
+  public getCredits(): string {
+    return this._credits;
+  }
+  public setCredits(value: string) {
+    this._credits = value;
+  }
+  public getObservation(): string {
+    return this._observation;
+  }
+  public setObservation(value: string) {
+    this._observation = value;
+  }
+  public getIdInternship(): string {
+    return this._idInternship;
+  }
+  public setIdInternship(value: string) {
+    this._idInternship = value;
   }
 
 }

@@ -2,14 +2,20 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { StringApp } from '../../resources/stringApp';
 import { TeachingPractice } from '../../models/teachingPractice/teachingPractice';
+import { UtilitiesFile } from '../../models/utilities/utilitiesFiles';
+import { UtilitiesDate } from '../../models/utilities/utilitiesDate';
 
 @Injectable()
 export class TeachingPracticeService
 {
   stringApp: StringApp;
+  utilitiesFile: UtilitiesFile;
+  utilitiesData: UtilitiesDate;
   constructor(private httpClient: HttpClient)
   {
     this.stringApp = new StringApp();
+    this.utilitiesFile = new UtilitiesFile();
+    this.utilitiesData = new UtilitiesDate();
   }
 
   getStudent()
@@ -29,9 +35,9 @@ export class TeachingPracticeService
       {
         codigoEstudiante: teachingPractice.getCodeStudent(),
         tipoPracticaDocente: teachingPractice.getTypePractice(),
-        fechaInicio: this.invertToDate(teachingPractice.getDateStart()),
-        fechaFin: this.invertToDate(teachingPractice.getDateEnd()),
-        extensionCertificado: this.determineTypeFile(teachingPractice.getCertificatePractice())
+        fechaInicio: this.utilitiesData.invertToDate(teachingPractice.getDateStart()),
+        fechaFin: this.utilitiesData.invertToDate(teachingPractice.getDateEnd()),
+        extensionCertificado: this.utilitiesFile.determineTypeFile(teachingPractice.getCertificatePractice())
       }
     );
     formData.append('datos', metaData);
@@ -40,33 +46,21 @@ export class TeachingPracticeService
                                 {reportProgress: true, observe: 'events'});
   }
 
-  determineTypeFile(file: File)
+  getFileTeachingPractice(id: string, nameFile: string)
   {
-    const returnFile = file.type.split('/');
-    if(returnFile[1] == 'jpeg')
-    {
-      returnFile[1] = 'jpg';
-    }
-    return returnFile[1];
+    this.httpClient.get(this.stringApp.URL_SERVICIO_GETFILE_TEACHING_PRACTICE + id + '/' + nameFile, {responseType: 'blob'})
+    .subscribe(data=>
+      {
+        this.utilitiesFile.showFile(data);
+      },err =>
+      {
+
+      });
   }
 
-  invertToDate(date: string)
+  deleteTeachingPractice(idTeachingPractice: string)
   {
-    const dateAux = date.split('-');
-    var dateReturn: string;
-    dateReturn = '';
-    for(let i = dateAux.length; i > 0; i--)
-    {
-
-      if((i-1) == 0)
-      {
-        dateReturn = dateReturn + dateAux[i-1];
-      }
-      else{
-        dateReturn = dateReturn + dateAux[i-1] + '-';
-      }
-    }
-    return dateReturn;
+    return this.httpClient.delete(this.stringApp.URL_SERVICIO_DELETE_TEACHING_PRACTICE + idTeachingPractice);
   }
 
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TeachingPracticeService } from '../teachingPractice.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TeachingPractice } from '../../../models/teachingPractice/teachingPractice';
 
 @Component({
   selector: 'app-list-teaching-practice-for-student',
@@ -11,11 +12,17 @@ export class ListTeachingPracticeForStudentComponent implements OnInit {
   /****************************VARIABLES LOCALES************************/
   codeStudent: string;
   optionsTeachingPractice: Array<string>;
+  showTeachingPractice: boolean;
   p: any;
+  /********************************VARIABLES DE INSTANCIA*************/
+  teachingPractice: TeachingPractice;
+
   constructor(private teachingPracticeService: TeachingPracticeService,
               private route: ActivatedRoute,private router: Router)
   {
+    this.teachingPractice = new TeachingPractice();
     this.optionsTeachingPractice = [];
+    this.showTeachingPractice = false;
   }
 
   getDateStudent()
@@ -45,6 +52,39 @@ export class ListTeachingPracticeForStudentComponent implements OnInit {
 
   ngOnInit() {
     this.getDateStudent();
+  }
+
+  showDataTeachingPractice(teachigP: any)
+  {
+    this.teachingPractice.setTypePractice(teachigP['tipoPracticaDocente']);
+    this.teachingPractice.setDateRegister(teachigP['fechaRegistro']);
+    this.teachingPractice.setDateStart(teachigP['fechaInicio']);
+    this.teachingPractice.setDateEnd(teachigP['fechaFin']);
+    this.teachingPractice.setState(teachigP['estado']);
+    this.teachingPractice.setHours(teachigP['horas']);
+    this.teachingPractice.setObservation(teachigP['observaciones']);
+    this.teachingPractice.setIdPractice(teachigP['id']);
+    this.teachingPractice.setNameStudent(teachigP['estudiante']['nombres'] +' ' + teachigP['estudiante']['apellidos']);
+    this.teachingPractice.setCodeStudent(this.codeStudent);
+    this.showTeachingPractice = true;
+  }
+
+  destroyModal(destruir: {cerrar: boolean})
+  {
+    this.showTeachingPractice = false;
+  }
+
+  deleteTeachingPractice(idTeachingPractice: string)
+  {
+    this.teachingPracticeService.deleteTeachingPractice(idTeachingPractice)
+   .subscribe(data =>
+     {
+        this.getAllTeachingPractice();
+     },err =>
+     {
+
+     }
+   );
   }
 
 }

@@ -27,6 +27,23 @@ export class InternshipService {
     return this.httpClient.get<Array<any>>(this.stringApp.URL_SERVICIO_GET_ALL_INTERNSHIP + code);
   }
 
+  getFileInternship(idInternship: string, namaFile: string)
+  {
+    this.httpClient.get(this.stringApp.URL_SERVICIO_GETFILE_INTERNSHIP + idInternship + '/' + namaFile, {responseType: 'blob'})
+    .subscribe(data=>
+      {
+        this.utilitiesFile.showFile(data);
+      },err =>
+      {
+
+      });
+  }
+
+  deleteInternship(idInternship: string)
+  {
+    return this.httpClient.delete(this.stringApp.URL_SERVICIO_DELETE_INTERNSHIP + idInternship);
+  }
+
   registryInternship(internship: Internship)
   {
     const formData: FormData = new FormData();

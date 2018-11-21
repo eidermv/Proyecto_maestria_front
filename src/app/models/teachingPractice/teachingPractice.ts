@@ -13,6 +13,17 @@ export class TeachingPractice
 
   private _certificatePractice: File;
 
+  private _estado: string;
+
+  private _horas: string;
+
+  private _observacion: string;
+
+  private _dateRegister: string;
+
+  private _idPractice: string;
+
+
 
   public getNameStudent(): string {
     return this._nameStudent;
@@ -49,5 +60,35 @@ export class TeachingPractice
   }
   public setCertificatePractice(value: File) {
     this._certificatePractice = value;
+  }
+  public getState(): string {
+    return this._estado;
+  }
+  public setState(value: string) {
+    this._estado = value;
+  }
+  public getHours(): string {
+    return this._horas;
+  }
+  public setHours(value: string) {
+    this._horas = value;
+  }
+  public getObservation(): string {
+    return this._observacion;
+  }
+  public setObservation(value: string) {
+    this._observacion = value;
+  }
+  public getDateRegister(): string {
+    return this._dateRegister;
+  }
+  public setDateRegister(value: string) {
+    this._dateRegister = value;
+  }
+  public getIdPractice(): string {
+    return this._idPractice;
+  }
+  public setIdPractice(value: string) {
+    this._idPractice = value;
   }
 }

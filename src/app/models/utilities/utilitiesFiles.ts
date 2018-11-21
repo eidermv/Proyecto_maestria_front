@@ -9,4 +9,11 @@ export class UtilitiesFile
     }
     return returnFile[1];
   }
+
+  showFile(data : any)
+  {
+    const fileUrl = window.URL.createObjectURL(data);
+    window.open(fileUrl);
+  }
+
 }

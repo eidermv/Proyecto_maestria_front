@@ -10,6 +10,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { ModalWindowsModule } from '../modal-windows/modal-windows.module';
 import { ListTeachingPracticeForStudentComponent } from './list-teaching-practice-for-student/list-teaching-practice-for-student.component';
 import { ListTeachingPracticeForAdminComponent } from './list-teaching-practice-for-admin/list-teaching-practice-for-admin.component';
+import { ShowTeachingPracticeComponent } from './show-teaching-practice/show-teaching-practice.component';
 
 @NgModule({
   imports: [
@@ -25,7 +26,8 @@ import { ListTeachingPracticeForAdminComponent } from './list-teaching-practice-
     AddTeachingPracticeComponent,
     FormTeachingPracticeComponent,
     ListTeachingPracticeForStudentComponent,
-    ListTeachingPracticeForAdminComponent],
+    ListTeachingPracticeForAdminComponent,
+    ShowTeachingPracticeComponent],
     providers: [TeachingPracticeService]
 })
 export class TeachingPracticeModule { }

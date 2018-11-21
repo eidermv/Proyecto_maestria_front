@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, AfterContentInit, AfterContentChecked, AfterViewInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { PublicationService } from '../publications.service';
 import { Magazine } from '../../../models/publications/magazine';
 import { Book } from '../../../models/publications/book';

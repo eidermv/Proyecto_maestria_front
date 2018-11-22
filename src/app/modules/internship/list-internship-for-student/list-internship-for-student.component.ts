@@ -27,18 +27,6 @@ export class ListInternshipForStudentComponent implements OnInit {
     this.showModalOk = false;
   }
 
-  getDateStudent()
-  {
-   this.internshipService.getStudent()
-   .subscribe(data =>
-    {
-      this.codeStudent = data['codigo'];
-      this.getAllInternship();
-    },err =>
-    {
-
-    });
-  }
 
   getAllInternship()
   {
@@ -59,14 +47,14 @@ export class ListInternshipForStudentComponent implements OnInit {
       this.msjOk = msj;
       this.showModalOk = true;
     }
-    this.getDateStudent();
+   this.getAllInternship();
   }
 
   showDataInternship(dataInternship: any)
   {
     this.internship.setIdInternship(dataInternship['id']);
     this.internship.setNameStudent(dataInternship['estudiante']['nombres'] + dataInternship['estudiante']['apellidos']);
-    this.internship.setCodeStudent(this.codeStudent);
+    this.internship.setCodeStudent(dataInternship['estudiante'['codigigo']]);
     this.internship.setDateRegistryIntership(dataInternship['fechaRegistro']);
     this.internship.setDataIntershipStart(dataInternship['fechaInicio']);
     this.internship.setDataIntershipEnd(dataInternship['fechaFin']);

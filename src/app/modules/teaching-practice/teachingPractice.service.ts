@@ -1,9 +1,13 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { StringApp } from '../../resources/stringApp';
 import { TeachingPractice } from '../../models/teachingPractice/teachingPractice';
 import { UtilitiesFile } from '../../models/utilities/utilitiesFiles';
 import { UtilitiesDate } from '../../models/utilities/utilitiesDate';
+const httpOptions =
+{
+  headers : new HttpHeaders({ 'Content-Type': 'application/json'})
+}
 
 @Injectable()
 export class TeachingPracticeService
@@ -31,6 +35,19 @@ export class TeachingPracticeService
   getAllTeachingPracticeAdmin()
   {
     return this.httpClient.get<Array<any>>(this.stringApp.URL_SERVICIO_GET_ALL_TEACHINGPRACTICE_ADMIN);
+  }
+
+  updateStateTeachingPractice(id: string, hours: string, state: string, observation: string)
+  {
+    const data = JSON.stringify(
+      {
+        idPracticaDocente: id,
+        horas: hours,
+        estado: state,
+        observacion: observation
+      }
+    );
+    return this.httpClient.post(this.stringApp.URL_SERVICIO_UPDATE_STATE_TEACHINGPRACTICE, data, httpOptions);
   }
 
   registryTeachingPractice(teachingPractice: TeachingPractice)

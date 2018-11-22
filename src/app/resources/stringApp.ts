@@ -39,6 +39,7 @@ export class StringApp
   public URL_SERVICIO_GETFILE_TEACHING_PRACTICE = this.URL_SERVICIO + 'practicaDocente/descargar/';
   public URL_SERVICIO_DELETE_TEACHING_PRACTICE = this.URL_SERVICIO + 'practicaDocente/eliminar/idPracticaDocente/';
   public URL_SERVICIO_GET_ALL_TEACHINGPRACTICE_ADMIN = this.URL_SERVICIO + 'practicaDocente/buscar/todo';
+  public URL_SERVICIO_UPDATE_STATE_TEACHINGPRACTICE = this.URL_SERVICIO + 'practicaDocente/actualizar/estado';
 
   public URL_SERVICIO_REGISTRY_INTERNSHIP = this.URL_SERVICIO + 'pasantia/registrar';
   public URL_SERVICIO_GET_ALL_INTERNSHIP = this.URL_SERVICIO + 'pasantia/buscar/codigoEstudiante/';

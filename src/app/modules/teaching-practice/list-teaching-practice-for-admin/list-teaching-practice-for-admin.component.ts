@@ -1,7 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TeachingPracticeService } from '../teachingPractice.service';
 import { TeachingPractice } from '../../../models/teachingPractice/teachingPractice';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+const APROBADA: string = 'Aprobado';
+const REPROBADA: string = 'Rechazado';
+const POR_VERIFICAR: string = 'Por verificar';
 
 @Component({
   selector: 'app-list-teaching-practice-for-admin',
@@ -10,16 +15,30 @@ import { TeachingPractice } from '../../../models/teachingPractice/teachingPract
 export class ListTeachingPracticeForAdminComponent implements OnInit {
 
   /****************************VARIABLES LOCALES************************/
+  @ViewChild('showEditState') viewEditState: any ;
    codeStudent: string;
    optionsTeachingPractice: Array<string>;
+   optionState: Array<string>;
    showTeachingPractice: boolean;
+   nameStudent: string;
+   showHours: boolean;
+   showErrorMax: boolean;
+   totalHours: string;
+   comentary: string;
+   selectedState: string;
+   idPublication: string;
+
    p: any;
    /********************************VARIABLES DE INSTANCIA*************/
   teachingPractice: TeachingPractice;
+  fieldsForm: FormGroup;
 
-  constructor(private teachingPracticeService: TeachingPracticeService)
+  constructor(private teachingPracticeService: TeachingPracticeService, private formBuilder: FormBuilder)
   {
     this.teachingPractice = new TeachingPractice();
+    this.optionState = [POR_VERIFICAR, APROBADA, REPROBADA];
+    this.showHours= false;
+    this.showErrorMax = false;
     this.optionsTeachingPractice = [];
   }
 
@@ -36,6 +55,16 @@ export class ListTeachingPracticeForAdminComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.fieldsForm = this.formBuilder.group(
+      {
+        hours:    ['', [Validators.required,
+                          Validators.maxLength(3),
+                          Validators.pattern('^([0-9])*$'),
+                        ]
+                    ],
+                  });
+
     this.getAllTeachingPractice();
   }
 
@@ -50,13 +79,91 @@ export class ListTeachingPracticeForAdminComponent implements OnInit {
     this.teachingPractice.setObservation(teachigP['observaciones']);
     this.teachingPractice.setIdPractice(teachigP['id']);
     this.teachingPractice.setNameStudent(teachigP['estudiante']['nombres'] +' ' + teachigP['estudiante']['apellidos']);
-    this.teachingPractice.setCodeStudent(this.codeStudent);
+    this.teachingPractice.setCodeStudent(teachigP['estudiante']['codigo']);
     this.showTeachingPractice = true;
   }
 
   destroyModal(destruir: {cerrar: boolean})
   {
     this.showTeachingPractice = false;
+  }
+
+
+  handleState(event: any)
+  {
+    this.selectedState =  event.target.value;
+    console.log(this.selectedState);
+    if(this.selectedState == APROBADA)
+    {
+      this.showHours = true;
+    }
+    else{
+      this.showHours = false;
+    }
+  }
+
+  editState(aux: any)
+  {
+    this.nameStudent = aux['estudiante']['nombres'] + ' ' + aux['estudiante']['apellidos'];
+    this.codeStudent = aux['estudiante']['codigo'];
+    this.idPublication = aux['id'];
+    this.optionState = this.organizateOptions(aux['estado']);
+    if(aux['estado'] === APROBADA)
+    {
+      this.showHours = true;
+    }
+    else{
+      this.showHours = false;
+    }
+    this.viewEditState.show();
+  }
+
+  organizateOptions(state: string)
+  {
+    const optionTypeAux = [];
+    optionTypeAux.push(state);
+    for(let i = 0; i < this.optionState.length; i++)
+    {
+      if(this.optionState[i] != state)
+      {
+        optionTypeAux.push(this.optionState[i]);
+      }
+    }
+    return optionTypeAux;
+  }
+
+  updateState()
+  {
+    if(this.selectedState != APROBADA)
+    {
+      this.totalHours = '0';
+    }
+    else{
+      this.totalHours = this.fieldsForm.get('hours').value;
+      const varAux = parseInt(this.totalHours , 10);
+      if(this.totalHours === '')
+      {
+        this.totalHours = '0';
+      }
+      else if(varAux > 288)
+      {
+        this.showErrorMax = true;
+      }
+      else{
+        this.teachingPracticeService.updateStateTeachingPractice(this.idPublication, this.totalHours , this.selectedState, this.comentary)
+        .subscribe(data =>
+              {
+                this.showHours = false;
+                this.viewEditState.hide();
+                this.comentary = '';
+                this.getAllTeachingPractice();
+              }, err =>
+              {
+               //this.viewErroServer.show();
+              });
+
+      }
+    }
   }
 
 

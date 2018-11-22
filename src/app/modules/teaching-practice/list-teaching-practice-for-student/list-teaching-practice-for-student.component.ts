@@ -75,6 +75,7 @@ export class ListTeachingPracticeForStudentComponent implements OnInit {
     this.teachingPractice.setIdPractice(teachigP['id']);
     this.teachingPractice.setNameStudent(teachigP['estudiante']['nombres'] +' ' + teachigP['estudiante']['apellidos']);
     this.teachingPractice.setCodeStudent(this.codeStudent);
+    this.teachingPractice.setObservation(teachigP['observacion']);
     this.showTeachingPractice = true;
   }
 

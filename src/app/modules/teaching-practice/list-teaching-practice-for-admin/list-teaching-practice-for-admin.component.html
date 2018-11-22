@@ -43,7 +43,7 @@
                   <td>
                     <div class="col-lg-12">
                       <button class="btn btn-primary col-lg-3" (click)="showDataTeachingPractice(teachingPractice)">Ver</button>
-                      <button class="btn btn-danger col-lg-4" (click)="deletePublication(publication)">Cambiar Estado</button>
+                      <button class="btn btn-danger col-lg-6" (click)="editState(teachingPractice)">Cambiar Estado</button>
                     </div>
                   </td>
                 </tr>
@@ -57,4 +57,76 @@
   </div>
 </div>
 <app-show-teaching-practice [teachingPractice]="teachingPractice" *ngIf="showTeachingPractice" (cerrar)="destroyModal()"></app-show-teaching-practice>
+<div bsModal #showEditState="bs-modal" class="modal fade" tabindex="-1">
+  <div class="modal-dialog modal-primary" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title"> Cambiar Estado a Publicacion</h4>
+        <button type="button" class="close" (click)="showEditState.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Autor: </strong>{{nameStudent}}</p>
+        <p><strong>Codigo: </strong>{{codeStudent}}</p>
+
+        <form [formGroup]="fieldsForm">
+
+        <div class="row">
+        <div class="formGroup col-6">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fa fa-list-alt"> <small>&nbsp; Estado</small></i></span>
+              </div>
+              <select type="text" class="form-control" #state (change)="handleState($event)">
+                <option [ngValue]="categories" *ngFor="let categories of optionState">{{categories}}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="formGroup col-6" *ngIf="showHours">
+              <i class="fa fa-exclamation-circle uncheck" *ngIf="(fieldsForm.controls.hours.errors?.maxlength  && fieldsForm.controls.hours.dirty)
+              || (fieldsForm.controls.hours.errors?.required && fieldsForm.controls.hours.touched) ">
+                  Horas a asignar vacia o digitó mas de 3 caracteres
+                </i>
+                <i class="fa fa-exclamation-circle uncheck" *ngIf="fieldsForm.controls.hours.errors?.pattern">
+                  Las horas debe de ser un numero
+                </i>
+                <i class="fa fa-exclamation-circle uncheck" *ngIf="showErrorMax">
+                  Las horas debe ser un numero mayor a 288
+                </i>
+
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fa fa-list-alt"> <small>&nbsp; Horas</small></i></span>
+                </div>
+
+                  <input class="form-control" placeholder="Digite las horas a asignar" formControlName="hours" >
+
+              </div>
+            </div>
+
+        </div>
+      </form>
+        <div class="row">
+          <div class="formGroup col-12" >
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fa fa-list-alt"> <small>&nbsp; Observaciones</small></i></span>
+              </div>
+              <textarea rows="4" cols="50" [(ngModel)]="comentary" placeholder="Agrege los comentarios necesarios para la practica docente en este campo"
+              style="resize: none">
+              </textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="updateState()">Guardar</button>
+        </div>
+
+      </div>
+
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
 

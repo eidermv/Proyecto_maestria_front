@@ -288,7 +288,7 @@ export class AddPublicationsComponent implements OnInit {
 
   verifySelectDates()
   {
-    if((this.fieldsForm.get('datePublitaion').value.length > 0) || this.showErrorDatePublication)
+    if( this.showErrorDatePublication)
     {
       return false;
     }

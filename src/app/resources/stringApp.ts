@@ -46,6 +46,7 @@ export class StringApp
   public URL_SERVICIO_GETFILE_INTERNSHIP = this.URL_SERVICIO + 'pasantia/descargar/';
   public URL_SERVICIO_DELETE_INTERNSHIP = this.URL_SERVICIO + 'pasantia/eliminar/idPasantia/';
   public URL_SERVICIO_GET_ALL_INTERNSHIP_ADMIN = this.URL_SERVICIO + 'pasantia/buscar/todo';
+  public URL_SERVICIO_UPDATE_STATE_INSTERNSHIP = this.URL_SERVICIO + 'pasantia/actualizar/estado';
 
 
   /******** ROLES DE LA APP */

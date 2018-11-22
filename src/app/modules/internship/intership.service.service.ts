@@ -1,9 +1,15 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { StringApp } from '../../resources/stringApp';
 import { Internship } from '../../models/internship/internship';
 import { UtilitiesDate } from '../../models/utilities/utilitiesDate';
 import { UtilitiesFile } from '../../models/utilities/utilitiesFiles';
+
+const httpOptions =
+{
+  headers : new HttpHeaders({ 'Content-Type': 'application/json'})
+}
+
 
 @Injectable()
 export class InternshipService {
@@ -47,6 +53,19 @@ export class InternshipService {
   deleteInternship(idInternship: string)
   {
     return this.httpClient.delete(this.stringApp.URL_SERVICIO_DELETE_INTERNSHIP + idInternship);
+  }
+
+  updateStateInternship(id: string, credits: string, state: string, observation: string)
+  {
+    const data = JSON.stringify(
+      {
+        idPasantia: id,
+        creditos: credits,
+        estado: state,
+        observacion: observation
+      }
+    );
+    return this.httpClient.post(this.stringApp.URL_SERVICIO_UPDATE_STATE_INSTERNSHIP, data, httpOptions);
   }
 
   registryInternship(internship: Internship)

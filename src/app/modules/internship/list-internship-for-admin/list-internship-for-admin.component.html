@@ -59,6 +59,8 @@
     </div>
   </div>
   <app-show-internship [internship]="internship" *ngIf="showInternship" (cerrar)="destroyModal()"></app-show-internship>
+  <app-modal-fail *ngIf="showFail" [msjFail]="msjFail"></app-modal-fail>
+
   <div bsModal #showEditState="bs-modal" class="modal fade" tabindex="-1">
     <div class="modal-dialog modal-primary" role="document">
       <div class="modal-content">

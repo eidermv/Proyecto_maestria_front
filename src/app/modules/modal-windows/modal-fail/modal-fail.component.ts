@@ -1,14 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, AfterViewInit } from '@angular/core';
 
 @Component({
   selector: 'app-modal-fail',
   templateUrl: './modal-fail.component.html'
 })
-export class ModalFailComponent implements OnInit {
+export class ModalFailComponent implements AfterViewInit {
+  /******************************Variables Locales*******************/
+  @Input() msjFail: string;
+  @ViewChild('failModal') viewModalMsjOk: any ;
 
   constructor() { }
 
-  ngOnInit() {
+  ngAfterViewInit(): void {
+    this.viewModalMsjOk.show();
   }
 
 }

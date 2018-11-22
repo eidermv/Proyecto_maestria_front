@@ -26,6 +26,8 @@ export class ListInternshipForAdminComponent implements OnInit {
   totalCredits: string;
   idInternship: string;
   searchTerm: string;
+  showFail: boolean;
+  msjFail: string;
   p: any;
   /****************************VARIABLES DE INSTANCIA*********************/
   internship: Internship;
@@ -39,6 +41,7 @@ export class ListInternshipForAdminComponent implements OnInit {
     this.optionsInternship = [];
     this.showCredits = false;
     this.showInternship = false;
+    this.showFail = false;
     this.totalCredits = '0';
     this.selectedState = POR_VERIFICAR;
   }
@@ -51,7 +54,8 @@ export class ListInternshipForAdminComponent implements OnInit {
         this.optionsInternship = data;
       }, err =>
       {
-
+        this.msjFail = 'Error al obtener todas las pasantias';
+        this.showFail = true;
       })
   }
 
@@ -123,7 +127,9 @@ export class ListInternshipForAdminComponent implements OnInit {
                 this.showCredits = false;
               }, err =>
               {
-                //this.viewErroServer.show();
+                this.viewEditState.hide();
+                this.msjFail = 'Error al actualizar el estado de la pasantia';
+                this.showFail = true;
               });
   }
 

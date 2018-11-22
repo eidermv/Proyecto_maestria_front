@@ -15,6 +15,8 @@ export class ListInternshipForStudentComponent implements OnInit {
   showInternship: boolean;
   showModalOk: boolean;
   msjOk: string;
+  showFail: boolean;
+  msjFail: string;
 
   /****************************VARIABLES DE INSTANCIA*********************/
   internship: Internship;
@@ -25,6 +27,7 @@ export class ListInternshipForStudentComponent implements OnInit {
     this.optionsInternship = [];
     this.showInternship = false;
     this.showModalOk = false;
+    this.showFail = false;
   }
 
 
@@ -36,7 +39,8 @@ export class ListInternshipForStudentComponent implements OnInit {
         this.optionsInternship = data;
       }, err =>
       {
-
+        this.msjFail = 'Error al obtener mis pasantias';
+        this.showFail = true;
       });
   }
 
@@ -82,7 +86,8 @@ export class ListInternshipForStudentComponent implements OnInit {
         this.getAllInternship();
       },err =>
       {
-
+        this.msjFail ='Error al eliminar la pasantia';
+        this.showFail = true;
       });
   }
 

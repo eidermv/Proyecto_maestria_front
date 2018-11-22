@@ -15,6 +15,8 @@ export class ListTeachingPracticeForStudentComponent implements OnInit {
   showTeachingPractice: boolean;
   showModalOk: boolean;
   msjOk: string;
+  showFail: boolean;
+  msjFail: string;
   p: any;
   /********************************VARIABLES DE INSTANCIA*************/
   teachingPractice: TeachingPractice;
@@ -26,6 +28,7 @@ export class ListTeachingPracticeForStudentComponent implements OnInit {
     this.optionsTeachingPractice = [];
     this.showTeachingPractice = false;
     this.showModalOk = false;
+    this.showFail = false;
   }
 
   getDateStudent()
@@ -37,7 +40,8 @@ export class ListTeachingPracticeForStudentComponent implements OnInit {
       this.getAllTeachingPractice();
     },err =>
     {
-
+      this.msjFail = 'Error al obtener informacion del estudiante';
+      this.showFail = true;
     });
   }
 
@@ -49,7 +53,8 @@ export class ListTeachingPracticeForStudentComponent implements OnInit {
         this.optionsTeachingPractice = data;
       }, err =>
       {
-
+        this.msjFail = 'Error al obtener mis practicas docente';
+        this.showFail = false;
       });
   }
 
@@ -92,7 +97,8 @@ export class ListTeachingPracticeForStudentComponent implements OnInit {
         this.getAllTeachingPractice();
      },err =>
      {
-
+        this.msjFail = 'Error al eliminar la practica docente';
+        this.showFail = true;
      }
    );
   }

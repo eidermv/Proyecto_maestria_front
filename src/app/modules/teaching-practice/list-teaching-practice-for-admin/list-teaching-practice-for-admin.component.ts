@@ -28,6 +28,8 @@ export class ListTeachingPracticeForAdminComponent implements OnInit {
    selectedState: string;
    idPublication: string;
    searchTerm: string;
+   showFail: boolean;
+   msjFail: string;
    p: any;
    /********************************VARIABLES DE INSTANCIA*************/
   teachingPractice: TeachingPractice;
@@ -41,6 +43,7 @@ export class ListTeachingPracticeForAdminComponent implements OnInit {
     this.showErrorMax = false;
     this.optionsTeachingPractice = [];
     this.selectedState = POR_VERIFICAR;
+    this.showFail = false;
   }
 
   getAllTeachingPractice()
@@ -51,7 +54,8 @@ export class ListTeachingPracticeForAdminComponent implements OnInit {
         this.optionsTeachingPractice = data;
       }, err =>
       {
-
+        this.msjFail = 'Error al obtener todas las parcticas docente';
+        this.showFail = true;
       });
   }
 
@@ -140,7 +144,7 @@ export class ListTeachingPracticeForAdminComponent implements OnInit {
 
   update()
   {
-    this.teachingPracticeService.updateStateTeachingPractice(this.idPublication, this.totalHours , this.selectedState, this.comentary)
+    this.teachingPracticeService.updateStateTeachingPractice('o', this.totalHours , this.selectedState, this.comentary)
         .subscribe(data =>
               {
                 this.showHours = false;
@@ -149,7 +153,9 @@ export class ListTeachingPracticeForAdminComponent implements OnInit {
                 this.getAllTeachingPractice();
               }, err =>
               {
-               //this.viewErroServer.show();
+               this.viewEditState.hide();
+               this.msjFail ='Error al actualizar el estado de la practica';
+               this.showFail = true;
               });
   }
 

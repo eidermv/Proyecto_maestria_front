@@ -12,6 +12,7 @@ import { ListInternshipForAdminComponent } from './list-internship-for-admin/lis
 import { ListInternshipForStudentComponent } from './list-internship-for-student/list-internship-for-student.component';
 import { ShowInternshipComponent } from './show-internship/show-internship.component';
 import { ModalWindowsModule } from '../modal-windows/modal-windows.module';
+import { InternshipFilterPipe } from './list-internship-for-admin/internshipFilter.pipe';
 
 @NgModule({
   imports: [
@@ -24,7 +25,7 @@ import { ModalWindowsModule } from '../modal-windows/modal-windows.module';
     ModalWindowsModule
   ],
   declarations: [FormInternshipComponent, AddInternshipComponent, ListInternshipForAdminComponent,
-                 ListInternshipForStudentComponent, ShowInternshipComponent],
+                 ListInternshipForStudentComponent, ShowInternshipComponent, InternshipFilterPipe],
   providers: [InternshipService]
 })
 export class InternshipModule { }

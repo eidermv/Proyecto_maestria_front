@@ -5,12 +5,12 @@
           <div class="card">
             <div class="card-header  bg-info  ">
                 <i class="fa fa-align-justify "></i> <strong> Pasantias realizadas por los estudiantes </strong>
-                <!--<div class="input-group mb-4 input-group">
-                  <input type="text" class="form-control" placeholder="Buscar por Codigo" [(ngModel)]="searchTerm">
+                <div class="input-group mb-4 input-group">
+                  <input type="text" class="form-control" placeholder="Buscar por Codigo, Autor, Tipo Pasantia, Estado" [(ngModel)]="searchTerm">
                   <span class="input-group-prepend">
                       <button type="submit" class="btn btn-light" ><i class="fa fa-search"></i>  </button>
                   </span>
-                </div>-->
+                </div>
 
             </div>
             <div class="card-body">
@@ -29,7 +29,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let internship of optionsInternship | paginate: {itemsPerPage: 8, currentPage: p}">
+                  <tr *ngFor="let internship of optionsInternship | internshipFilter:searchTerm | paginate: {itemsPerPage: 8, currentPage: p}">
                     <td>{{internship['estudiante']['codigo']}} </td>
                     <td>{{internship['estudiante']['nombres'] + ' ' + internship['estudiante']['apellidos']}}</td>
                     <td>{{internship['fechaRegistro']}}</td>

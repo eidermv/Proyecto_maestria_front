@@ -29,6 +29,7 @@ export class ListPublicationForAdminComponent implements OnInit {
   showModalPublication: boolean;
   showCredits: boolean;
   searchTerm: string;
+
   p: any;
 
   constructor(private publicationsService: PublicationService)
@@ -75,7 +76,6 @@ export class ListPublicationForAdminComponent implements OnInit {
   handleState(event: any)
   {
     this.selectedState =  event.target.value;
-    console.log(this.selectedState);
     if(this.selectedState == APROBADA)
     {
       this.showCredits = true;
@@ -95,14 +95,7 @@ export class ListPublicationForAdminComponent implements OnInit {
     this.nameStudent = aux['estudiante']['nombres'] + ' ' + aux['estudiante']['apellidos'];
     this.codeStudent = aux['estudiante']['codigo'];
     this.idPublication = aux['id'];
-    this.optionState = this.organizateOptions(aux['estado']);
-    if(aux['estado'] === APROBADA)
-    {
-      this.showCredits = true;
-    }
-    else{
-      this.showCredits = false;
-    }
+    this.selectedState = POR_VERIFICAR;
     this.viewEditState.show();
   }
 

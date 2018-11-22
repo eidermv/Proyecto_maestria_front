@@ -27,7 +27,7 @@ export class ListTeachingPracticeForAdminComponent implements OnInit {
    comentary: string;
    selectedState: string;
    idPublication: string;
-
+   searchTerm: string;
    p: any;
    /********************************VARIABLES DE INSTANCIA*************/
   teachingPractice: TeachingPractice;
@@ -40,6 +40,7 @@ export class ListTeachingPracticeForAdminComponent implements OnInit {
     this.showHours= false;
     this.showErrorMax = false;
     this.optionsTeachingPractice = [];
+    this.selectedState = POR_VERIFICAR;
   }
 
   getAllTeachingPractice()
@@ -92,7 +93,6 @@ export class ListTeachingPracticeForAdminComponent implements OnInit {
   handleState(event: any)
   {
     this.selectedState =  event.target.value;
-    console.log(this.selectedState);
     if(this.selectedState == APROBADA)
     {
       this.showHours = true;
@@ -102,34 +102,16 @@ export class ListTeachingPracticeForAdminComponent implements OnInit {
     }
   }
 
+
+
   editState(aux: any)
   {
     this.nameStudent = aux['estudiante']['nombres'] + ' ' + aux['estudiante']['apellidos'];
     this.codeStudent = aux['estudiante']['codigo'];
     this.idPublication = aux['id'];
-    this.optionState = this.organizateOptions(aux['estado']);
-    if(aux['estado'] === APROBADA)
-    {
-      this.showHours = true;
-    }
-    else{
-      this.showHours = false;
-    }
+    this.selectedState = POR_VERIFICAR;
+    this.showHours = false;
     this.viewEditState.show();
-  }
-
-  organizateOptions(state: string)
-  {
-    const optionTypeAux = [];
-    optionTypeAux.push(state);
-    for(let i = 0; i < this.optionState.length; i++)
-    {
-      if(this.optionState[i] != state)
-      {
-        optionTypeAux.push(this.optionState[i]);
-      }
-    }
-    return optionTypeAux;
   }
 
   updateState()
@@ -137,20 +119,28 @@ export class ListTeachingPracticeForAdminComponent implements OnInit {
     if(this.selectedState != APROBADA)
     {
       this.totalHours = '0';
+      this.update();
     }
     else{
       this.totalHours = this.fieldsForm.get('hours').value;
-      const varAux = parseInt(this.totalHours , 10);
       if(this.totalHours === '')
       {
         this.totalHours = '0';
       }
-      else if(varAux > 288)
+      const varAux = parseInt(this.totalHours , 10);
+      if((varAux > 288) || (varAux < 0))
       {
         this.showErrorMax = true;
       }
       else{
-        this.teachingPracticeService.updateStateTeachingPractice(this.idPublication, this.totalHours , this.selectedState, this.comentary)
+          this.update();
+      }
+    }
+  }
+
+  update()
+  {
+    this.teachingPracticeService.updateStateTeachingPractice(this.idPublication, this.totalHours , this.selectedState, this.comentary)
         .subscribe(data =>
               {
                 this.showHours = false;
@@ -161,9 +151,6 @@ export class ListTeachingPracticeForAdminComponent implements OnInit {
               {
                //this.viewErroServer.show();
               });
-
-      }
-    }
   }
 
 

@@ -5,12 +5,12 @@
         <div class="card">
           <div class="card-header  bg-info  ">
               <i class="fa fa-align-justify "></i> <strong> Practicas Docente realizadas por los estudiantes </strong>
-              <!--<div class="input-group mb-4 input-group">
-                <input type="text" class="form-control" placeholder="Buscar por Codigo" [(ngModel)]="searchTerm">
+              <div class="input-group mb-4 input-group">
+                <input type="text" class="form-control" placeholder="Buscar por Codigo, Autor, Tipo Practica, Estado" [(ngModel)]="searchTerm">
                 <span class="input-group-prepend">
                     <button type="submit" class="btn btn-light" ><i class="fa fa-search"></i>  </button>
                 </span>
-              </div>-->
+              </div>
 
           </div>
           <div class="card-body">
@@ -28,7 +28,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let teachingPractice of optionsTeachingPractice | paginate: {itemsPerPage: 8, currentPage: p}">
+                <tr *ngFor="let teachingPractice of optionsTeachingPractice| teachingPracticeFilter:searchTerm | paginate: {itemsPerPage: 8, currentPage: p}">
                   <td>{{teachingPractice['estudiante']['codigo']}} </td>
                   <td>{{teachingPractice['estudiante']['nombres'] + ' ' + teachingPractice['estudiante']['apellidos']}}</td>
                   <td>{{teachingPractice['fechaRegistro']}}</td>
@@ -61,7 +61,7 @@
   <div class="modal-dialog modal-primary" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title"> Cambiar Estado a Publicacion</h4>
+        <h4 class="modal-title"> Cambiar Estado a Practica Docente</h4>
         <button type="button" class="close" (click)="showEditState.hide()" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -93,7 +93,7 @@
                   Las horas debe de ser un numero
                 </i>
                 <i class="fa fa-exclamation-circle uncheck" *ngIf="showErrorMax">
-                  Las horas debe ser un numero mayor a 288
+                  Las horas debe ser un numero mayor a 288 o menor que 0
                 </i>
 
               <div class="input-group mb-3">

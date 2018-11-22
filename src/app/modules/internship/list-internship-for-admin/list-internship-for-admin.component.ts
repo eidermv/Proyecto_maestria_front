@@ -25,6 +25,7 @@ export class ListInternshipForAdminComponent implements OnInit {
   selectedState: string;
   totalCredits: string;
   idInternship: string;
+  searchTerm: string;
   p: any;
   /****************************VARIABLES DE INSTANCIA*********************/
   internship: Internship;
@@ -39,6 +40,7 @@ export class ListInternshipForAdminComponent implements OnInit {
     this.showCredits = false;
     this.showInternship = false;
     this.totalCredits = '0';
+    this.selectedState = POR_VERIFICAR;
   }
 
   getAllInternshipAdmin()
@@ -83,7 +85,6 @@ export class ListInternshipForAdminComponent implements OnInit {
   handleState(event: any)
   {
     this.selectedState =  event.target.value;
-    console.log(this.selectedState);
     if(this.selectedState == APROBADA)
     {
       this.showCredits = true;
@@ -103,29 +104,8 @@ export class ListInternshipForAdminComponent implements OnInit {
     this.nameStudent = aux['estudiante']['nombres'] + ' ' + aux['estudiante']['apellidos'];
     this.codeStudent = aux['estudiante']['codigo'];
     this.idInternship = aux['id'];
-    this.optionState = this.organizateOptions(aux['estado']);
-    if(aux['estado'] === APROBADA)
-    {
-      this.showCredits = true;
-    }
-    else{
-      this.showCredits = false;
-    }
+    this.selectedState = POR_VERIFICAR;
     this.viewEditState.show();
-  }
-
-  organizateOptions(state: string)
-  {
-    const optionTypeAux = [];
-    optionTypeAux.push(state);
-    for(let i = 0; i < this.optionState.length; i++)
-    {
-      if(this.optionState[i] != state)
-      {
-        optionTypeAux.push(this.optionState[i]);
-      }
-    }
-    return optionTypeAux;
   }
 
   updateState()

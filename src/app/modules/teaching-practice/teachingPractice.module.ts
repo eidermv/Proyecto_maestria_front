@@ -11,6 +11,7 @@ import { ModalWindowsModule } from '../modal-windows/modal-windows.module';
 import { ListTeachingPracticeForStudentComponent } from './list-teaching-practice-for-student/list-teaching-practice-for-student.component';
 import { ListTeachingPracticeForAdminComponent } from './list-teaching-practice-for-admin/list-teaching-practice-for-admin.component';
 import { ShowTeachingPracticeComponent } from './show-teaching-practice/show-teaching-practice.component';
+import { TeachingPracticeFilterPipe } from './list-teaching-practice-for-admin/teachingPracticeFilter.pipe';
 
 @NgModule({
   imports: [
@@ -27,7 +28,8 @@ import { ShowTeachingPracticeComponent } from './show-teaching-practice/show-tea
     FormTeachingPracticeComponent,
     ListTeachingPracticeForStudentComponent,
     ListTeachingPracticeForAdminComponent,
-    ShowTeachingPracticeComponent],
+    ShowTeachingPracticeComponent,
+    TeachingPracticeFilterPipe],
     providers: [TeachingPracticeService]
 })
 export class TeachingPracticeModule { }

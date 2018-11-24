@@ -65,7 +65,7 @@ export class FormTeachingPracticeComponent implements OnInit {
                                         'Jurado Anteproyecto de Maestría', 'Jurado Trabajo de Grado de Maestria',
                                         consultingBusinessInternship, 'Evaluacion como jurado de pasantia empresarial',
                                         'Evaluacion de plan de trabajo para pasantia empresarial', 'Evaluacion de anteproyecto-pregrado',
-                                        'Evaluacion productividad intelectual', 'Evaluación informe ano sabatico - Libros',
+                                        'Evaluacion productividad intelectual', 'Evaluacion informe ano sabatico - Libros',
                                         participationIntheProgramCommittee, otherActivities];
     this.showDatesStartAndEnd = false;
     this.showErrorDateFinish = false;
@@ -113,12 +113,12 @@ export class FormTeachingPracticeComponent implements OnInit {
     if (dateEnd < dateStart)
     {
       this.showErrorDateFinish = true;
-      this.msjErrorDateFinish = 'La fecha de finalizacion no puede ser menor que la fecha de inicio';
+      this.msjErrorDateFinish = 'La fecha de finalización no puede ser menor que la fecha de inicio';
     }
     else if(dateEnd == dateStart)
     {
       this.showErrorDateFinish = true;
-      this.msjErrorDateFinish = 'La fecha de finalizacion no puede ser igual que la fecha de inicio';
+      this.msjErrorDateFinish = 'La fecha de finalización no puede ser igual que la fecha de inicio';
     }
     else{
       this.dataStart = dateStart;
@@ -136,7 +136,7 @@ export class FormTeachingPracticeComponent implements OnInit {
     {
       if(tam_file > TAM_MAX_FILE)
       {
-        this.msjErrorCertificate= 'El archivo supera el limite de 10 MB';
+        this.msjErrorCertificate= 'El archivo supera el límite de 10 MB';
         this.showErrorCertificate = true;
       }
       else{
@@ -187,37 +187,42 @@ export class FormTeachingPracticeComponent implements OnInit {
   {
     if(this.showErrorDateFinish)
     {
-      return false;
+      return true;
     }
     else{
-      return true;
+      return false;
     }
   }
 
   onSubmit()
   {
+   
     if(this.verifyContentCertificate())
     {
+     
       if(this.verifyDates())
       {
+       
         const dateEnd = this.fieldsForm.get('dateActivityEnd').value;
         const dateStart = this.fieldsForm.get('dateActivityStart').value;
+        const valueOptionTypePublication = this.cbx_typePractice.nativeElement.value;
+       
         if(dateEnd.length === 0)
         {
           this.showErrorDateFinish = true;
-          this.msjErrorDateFinish = 'Campo Obligatorio para este tipo de practica';
+          this.msjErrorDateFinish = 'Campo Obligatorio para este tipo de práctica';
         }
         else if(dateStart.length === 0)
         {
           this.showErrorDateStart = true;
-          this.msjErrorDateStart = 'Campo Obligatorio para este tipo de practica';
+          this.msjErrorDateStart = 'Campo Obligatorio para este tipo de práctica';
         }
         else{
           this.getDataTeachingPractice();
         }
       }
       else{
-        //this.getDataTeachingPractice();
+        this.getDataTeachingPractice();
       }
     }
   }
@@ -237,6 +242,7 @@ export class FormTeachingPracticeComponent implements OnInit {
   }
   getDataTeachingPractice()
   {
+
     this.getDates();
     this.teachingP.setNameStudent(this.nameStudent);
     this.teachingP.setCodeStudent(this.codeStudent);

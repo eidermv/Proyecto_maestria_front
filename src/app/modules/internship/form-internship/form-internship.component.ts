@@ -57,8 +57,8 @@ export class FormInternshipComponent implements OnInit {
     this.optionDependence = ['Departamento','Facultad','Grupo de Investigacion','Laboratorio'];
     this.dataStart = '';
     this.dateEnd = '';
-    this.placeholderReport = 'Archivo PDF, JPG o PNG que contenga el Reporte del tutor';
-    this.placeholderCertificate = 'Archivo PDF, JPG o PNG que contenga el certificado de pasantia';
+    this.placeholderReport = 'Archivo PDF, JPG o PNG que contenga el Reporte con el visto bueno del tutor';
+    this.placeholderCertificate = 'Archivo PDF, JPG o PNG que contenga el certificado de pasantia emitido por la Universidad o Institución';
     this.showErrorDateFinish = false;
     this.showErrorDateStart = false;
     this.showErrorReport = false;
@@ -110,12 +110,12 @@ export class FormInternshipComponent implements OnInit {
     if (dateEnd < dateStart)
     {
       this.showErrorDateFinish = true;
-      this.msjErrorDateFinish = 'La fecha de fin de pasantia no puede ser menor que la fecha de inicio';
+      this.msjErrorDateFinish = 'La fecha de fin de pasantía no puede ser menor que la fecha de inicio';
     }
     else if (dateEnd == dateStart)
     {
       this.showErrorDateFinish = true;
-      this.msjErrorDateFinish = 'La fecha de fin de la pasantia no puede ser igual que la fecha de inicio';
+      this.msjErrorDateFinish = 'La fecha de fin de la pasantía no puede ser igual que la fecha de inicio';
     }
     else{
       this.dataStart = dateStart;
@@ -133,7 +133,7 @@ export class FormInternshipComponent implements OnInit {
     {
       if(tam_file > TAM_MAX_FILE)
       {
-        this.msjErroReport = 'El archivo supera el limite de 10 MB';
+        this.msjErroReport = 'El archivo supera el límite de 10 MB';
         this.showErrorReport = true;
       }
       else{
@@ -156,7 +156,7 @@ export class FormInternshipComponent implements OnInit {
     {
       if(tam_file > TAM_MAX_FILE)
       {
-        this.msjErrorCertificate= 'El archivo supera el limite de 10 MB';
+        this.msjErrorCertificate= 'El archivo supera el límite de 10 MB';
         this.showErrorCertificate = true;
       }
       else{
@@ -178,12 +178,12 @@ export class FormInternshipComponent implements OnInit {
       if(this.fileToReport == null)
       {
         this.showErrorReport = true;
-        this.msjErroReport = 'Debe cargar un PDF, PNG o JPG que muestre el reporte emitido por el tutor ';
+        this.msjErroReport = 'Debe cargar un PDF, PNG o JPG que muestre el reporte firmado por el tutor ';
       }
       else if(this.fileToCertificate == null)
       {
         this.showErrorCertificate = true;
-        this.msjErrorCertificate = 'Debe cargar un PDF, PNG o JPG que muestre el certificado de pasantia';
+        this.msjErrorCertificate = 'Debe cargar un PDF, PNG o JPG que muestre el certificado de pasantía';
       }
       else{
         this.getDataIntership();

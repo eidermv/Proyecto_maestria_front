@@ -2,27 +2,27 @@
   <div class="modal-dialog modal-primary" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title"> Informacion de la Pasantia</h4>
+        <h4 class="modal-title"> Información de la Pasantía</h4>
         <button type="button" class="close" (click)="destroyModal()" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         <p><strong>Autor: </strong>{{internship.getNameStudent()}}</p>
-        <p><strong>Codigo: </strong>{{internship.getCodeStudent()}}</p>
-        <p><strong>Tipo Pasantia: </strong>{{internship.getTypeIntership()}}</p>
+        <p><strong>Código: </strong>{{internship.getCodeStudent()}}</p>
+        <p><strong>Tipo Pasantía: </strong>{{internship.getTypeIntership()}}</p>
         <p><strong>Fecha Registro en el Sistema: </strong>{{internship.getDateRegistryIntership()}}</p>
-        <p><strong>Fecha Inicio Pasantia: </strong>{{internship.getDataIntershipStart()}}</p>
-        <p><strong>Fecha Fin Pasantia: </strong>{{internship.getDataIntershipEnd()}}</p>
-        <p><strong>Institucion ó Universidad: </strong>{{internship.getInstitution()}}</p>
+        <p><strong>Fecha Inicio Pasantía: </strong>{{internship.getDataIntershipStart()}}</p>
+        <p><strong>Fecha Fin Pasantía: </strong>{{internship.getDataIntershipEnd()}}</p>
+        <p><strong>Institución ó Universidad: </strong>{{internship.getInstitution()}}</p>
         <p><strong>Dependencia: </strong>{{internship.getDependence()}}</p>
         <p><strong>Nombre de la Dependencia: </strong>{{internship.getNameDependence()}}</p>
-        <p><strong>Tutor de Pasantia: </strong>{{internship.getTutorInternship()}}</p>
+        <p><strong>Tutor de Pasantía: </strong>{{internship.getTutorInternship()}}</p>
         <p><strong>Certificado: </strong><button type="button" class="btn btn-link" (click)="showFileInternship('certificado')">Ver</button></p>
         <p><strong>Informe del tutor: </strong><button type="button" class="btn btn-link" (click)="showFileInternship('informe')">Ver</button></p>
         <p><strong>Estado: </strong>{{internship.getState()}}</p>
         <p><strong>Creditos: </strong>{{internship.getCredits()}}</p>
-        <p><strong>Observacion: </strong>{{internship.getObservation()}}</p>
+        <p><strong>Observación: </strong>{{internship.getObservation()}}</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" (click)="destroyModal()">Cerrar</button>

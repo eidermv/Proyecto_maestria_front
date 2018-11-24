@@ -4,7 +4,7 @@
       <div class="col-lg-12">
         <div class="card">
           <div class="card-header  bg-info  ">
-              <i class="fa fa-align-justify "></i> <strong> Practicas Docente realizadas por el estudiante </strong>
+              <i class="fa fa-align-justify "></i> <strong> Pasantias realizadas por el estudiante </strong>
               <!--<div class="input-group mb-4 input-group">
                 <input type="text" class="form-control" placeholder="Buscar por Codigo" [(ngModel)]="searchTerm">
                 <span class="input-group-prepend">
@@ -20,7 +20,7 @@
                 <tr>
                   <th>Fecha de Registro</th>
                   <th>Tipo</th>
-                  <th>Institucion - Universidad</th>
+                  <th>Institución - Universidad</th>
                   <th>Creditos</th>
                   <th>Estado</th>
                   <th>Acciones</th>
@@ -40,7 +40,8 @@
                   <td>
                     <div class="col-lg-12">
                       <button class="btn btn-primary col-lg-3" (click)="showDataInternship(internship)">Ver</button>
-                      <button class="btn btn-danger col-lg-3" (click)="deleteInternship(internship['id'])">Eliminar</button>
+                      <button class="btn btn-danger col-lg-4" (click)="deleteInternship(internship['id'])"
+                      *ngIf="internship['estado'] == 'Por verificar'">Eliminar</button>
                     </div>
                   </td>
                 </tr>

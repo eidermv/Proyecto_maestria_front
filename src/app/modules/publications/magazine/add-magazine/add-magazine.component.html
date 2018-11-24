@@ -13,7 +13,7 @@
             <div class="row">
               <div class="formGroup col-6">
                 <i class="fa fa-exclamation-circle uncheck" *ngIf="(fieldsForm.controls.doiMagazine.invalid && fieldsForm.controls.doiMagazine.touched ) ">
-                  DOI vacio o digitó mas de 20 caracteres
+                  DOI vacío o digitó más de 20 caracteres
                 </i>
 
                 <div class="input-group mb-3">
@@ -26,13 +26,13 @@
 
               <div class="formGroup col-6">
                 <i class="fa fa-exclamation-circle uncheck" *ngIf="(fieldsForm.controls.tittleArticle.invalid && fieldsForm.controls.tittleArticle.touched)">
-                  Titulo del articulo vacio o digitó mas de 40 caracteres
+                  Titulo del articulo vacío o digitó más de 40 caracteres
                 </i>
                 <div class="input-group mb-3">
                   <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="fa fa-text-height"></i><small>&nbsp; Titulo Articulo</small></span>
+                    <span class="input-group-text"><i class="fa fa-text-height"></i><small>&nbsp; Titulo Artículo</small></span>
                   </div>
-                  <input type="text" class="form-control" placeholder="* Digite el titulo del articulo" formControlName="tittleArticle">
+                  <input type="text" class="form-control" placeholder="* Digite el título del artículo" formControlName="tittleArticle">
                 </div>
               </div>
             </div>
@@ -44,7 +44,7 @@
                 </i>
                 <div class="input-group mb-3">
                   <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="fa fa-folder-o"></i><small>&nbsp;Articulo</small></span>
+                    <span class="input-group-text"><i class="fa fa-folder-o"></i><small>&nbsp;Artículo</small></span>
                   </div>
                   <div class="custom-file">
                     <input type="file" class="custom-file-input" id="inputArticle" (change)="handleFileInputArticle($event)"
@@ -69,7 +69,7 @@
             <div class="row">
               <div class="formGroup col-6">
                 <i class="fa fa-exclamation-circle uncheck" *ngIf="(fieldsForm.controls.nameMagazine.invalid && fieldsForm.controls.nameMagazine.touched)">
-                  Nombre de revista vacio o digitó mas de 40 caracteres
+                  Nombre de revista vacío o digitó más de 40 caracteres
                 </i>
                 <div class="input-group mb-3">
                   <div class="input-group-prepend">

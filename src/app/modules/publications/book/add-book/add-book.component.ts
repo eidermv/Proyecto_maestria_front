@@ -15,8 +15,8 @@ export class AddBookComponent implements OnInit {
 
   constructor()
   {
-    this.titleAddBook = 'Datos Libro';
-    this.subtitleAddBook = 'En este formulario ingrese los datos del  capitulo de un libro, recuerde los campos con * son obligatorios.'
+    this.titleAddBook = 'Datos de Libro';
+    this.subtitleAddBook = 'En este formulario ingrese los datos del libro, recuerde los campos con * son obligatorios.'
                                   +' No olvide cargar los archivos necesarios';
     this.nameBtnAddBook = 'Registrar Libro';
   }

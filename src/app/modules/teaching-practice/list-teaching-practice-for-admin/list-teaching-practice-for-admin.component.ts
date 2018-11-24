@@ -81,7 +81,7 @@ export class ListTeachingPracticeForAdminComponent implements OnInit {
     this.teachingPractice.setDateEnd(teachigP['fechaFin']);
     this.teachingPractice.setState(teachigP['estado']);
     this.teachingPractice.setHours(teachigP['horas']);
-    this.teachingPractice.setObservation(teachigP['observaciones']);
+    this.teachingPractice.setObservation(teachigP['observacion']);
     this.teachingPractice.setIdPractice(teachigP['id']);
     this.teachingPractice.setNameStudent(teachigP['estudiante']['nombres'] +' ' + teachigP['estudiante']['apellidos']);
     this.teachingPractice.setCodeStudent(teachigP['estudiante']['codigo']);
@@ -144,7 +144,7 @@ export class ListTeachingPracticeForAdminComponent implements OnInit {
 
   update()
   {
-    this.teachingPracticeService.updateStateTeachingPractice('o', this.totalHours , this.selectedState, this.comentary)
+    this.teachingPracticeService.updateStateTeachingPractice(this.idPublication, this.totalHours , this.selectedState, this.comentary)
         .subscribe(data =>
               {
                 this.showHours = false;

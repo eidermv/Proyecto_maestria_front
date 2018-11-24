@@ -75,7 +75,7 @@ export class BookFormComponent implements OnInit {
     {
       if(tam_file > this.TAM_MAX_FILE)
       {
-        this.msjErroBook = 'El archivo supera el limite de 10 MB';
+        this.msjErroBook = 'El archivo supera el límite de 10 MB';
         this.showErrorBook = true;
       }
       else{
@@ -98,7 +98,7 @@ export class BookFormComponent implements OnInit {
     {
       if(tam_file > this.TAM_MAX_FILE)
       {
-        this.msjErrorCertificate= 'El archivo supera el limite de 10 MB';
+        this.msjErrorCertificate= 'El archivo supera el límite de 10 MB';
         this.showErrorCertificate = true;
       }
       else{

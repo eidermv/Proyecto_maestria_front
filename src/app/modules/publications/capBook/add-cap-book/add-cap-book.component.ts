@@ -8,15 +8,15 @@ export class AddCapBookComponent implements OnInit {
 /***********************VARIABLES LOCALES**************** */
 @Output() getDateCapBook = new EventEmitter<{isbn: string, title: string, editorial: string, titleCapLibro: string
   fileBook: File, fileCertificate: File}>();
-titleAddBook: string;
-subtitleAddBook: string;
-nameBtnAddBook: string;
+  titleAddBook: string;
+  subtitleAddBook: string;
+  nameBtnAddBook: string;
   constructor()
   {
-    this.titleAddBook = 'Datos capitulo de Libro';
-    this.subtitleAddBook = 'En este formulario ingrese los datos del capitulo del libro, recuerde los campos con * son obligatorios.'
+    this.titleAddBook = 'Datos de capítulo de Libro';
+    this.subtitleAddBook = 'En este formulario ingrese los datos del capítulo del libro, recuerde los campos con * son obligatorios.'
                                   +' No olvide cargar los archivos necesarios';
-    this.nameBtnAddBook = 'Registrar Capitulo Libro';
+    this.nameBtnAddBook = 'Registrar Capítulo Libro';
    }
 
   ngOnInit() {
@@ -25,7 +25,6 @@ nameBtnAddBook: string;
   getDatePublicationCapBook(dataCapBook: {isbn: string, title: string, editorial: string, titleCapLibro: string
     fileBook: File, fileCertificate: File})
   {
-    console.log('llegue a add');
     this.getDateCapBook.emit(
                               {
                                 isbn: dataCapBook.isbn,

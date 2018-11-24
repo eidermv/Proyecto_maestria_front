@@ -30,6 +30,19 @@ export class ListInternshipForStudentComponent implements OnInit {
     this.showFail = false;
   }
 
+  getDateStudent()
+  {
+   this.internshipService.getStudent()
+   .subscribe(data =>
+    {
+      this.codeStudent = data['codigo'];
+     this.getAllInternship();
+    },err =>
+    {
+      this.msjFail = 'Error al obtener informacion del estudiante';
+      this.showFail = true;
+    });
+  }
 
   getAllInternship()
   {
@@ -51,7 +64,7 @@ export class ListInternshipForStudentComponent implements OnInit {
       this.msjOk = msj;
       this.showModalOk = true;
     }
-   this.getAllInternship();
+   this.getDateStudent();
   }
 
   showDataInternship(dataInternship: any)

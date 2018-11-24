@@ -8,12 +8,9 @@
         <div class="card-body">
             <form  [formGroup]="fieldsForm" #f="ngForm" >
                 <h1 class="title text-center">Registrar Publicaciones</h1>
-                <p class="text-muted text-center">En este formulario podras agregar todo tipo de publicaciones para que el coordinador las revise</p>
+                <p class="text-muted text-center">En este formulario podrás agregar todo tipo de publicaciones para que el coordinador las revise</p>
                 <div class="row">
                     <div class="formGroup col-6">
-                      <i class="fa fa-exclamation-circle uncheck" *ngIf="false">
-                        Identificacion de usuario vacio o digitó mas de 20 caracteres
-                      </i>
                       <div class="input-group mb-3">
                         <div class="input-group-prepend">
                           <span class="input-group-text"><i class="fa fa-id-card-o"></i><small>&nbsp;Autor</small></span>
@@ -24,13 +21,13 @@
 
                     <div class="formGroup col-6">
                       <i class="fa fa-exclamation-circle uncheck" *ngIf="(fieldsForm.controls.secondaryAuthors.invalid && fieldsForm.controls.secondaryAuthors.touched )">
-                        Campo solo es posible agregar 250 caracteres
+                        Campo autores secundarios solo es posible agregar 250 caracteres
                       </i>
                       <div class="input-group mb-3">
                         <div class="input-group-prepend">
                           <span class="input-group-text"><i class="fa fa-envelope-o"></i><small>&nbsp;Autores Secundarios</small></span>
                         </div>
-                        <input type="text" class="form-control" placeholder="Campo opcional. Digite aqui los otros autores separandolos por coma. "
+                        <input type="text" class="form-control" placeholder="Campo opcional. Digite aquí los otros autores separándolos por coma. "
                                formControlName="secondaryAuthors">
                       </div>
                     </div>
@@ -43,9 +40,9 @@
                             </i>
                             <div class="input-group mb-3">
                               <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fa fa-id-card-o"></i><small>&nbsp;Fecha Aceptacion</small></span>
+                                <span class="input-group-text"><i class="fa fa-id-card-o"></i><small>&nbsp;Fecha Aceptación</small></span>
                               </div>
-                              <input type="date" class="form-control" placeholder="* Nombre del autor principal del articulo" max="{{max_date}}"
+                              <input type="date" class="form-control" placeholder="* " max="{{max_date}}"
                                     formControlName="dateApproved" (change)="handleApproved($event)">
                             </div>
                       </div>
@@ -55,9 +52,9 @@
                         </i>
                         <div class="input-group mb-3">
                           <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-id-card-o"></i><small>&nbsp;Fecha Publicacion</small></span>
+                            <span class="input-group-text"><i class="fa fa-id-card-o"></i><small>&nbsp;Fecha Publicación</small></span>
                           </div>
-                          <input type="date" class="form-control" placeholder="* Nombre del autor principal del articulo" max="{{max_date}}"
+                          <input type="date" class="form-control" placeholder="* " max="{{max_date}}"
                                 formControlName="datePublitaion" (change)="handleDateapproved($event)">
                         </div>
                     </div>
@@ -83,7 +80,7 @@
                         <div class="formGroup col-6">
                             <div class="input-group mb-3">
                               <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fa fa-list-alt"> <small>&nbsp; Tipo de publicacion</small></i></span>
+                                <span class="input-group-text"><i class="fa fa-list-alt"> <small>&nbsp; Tipo de publicación</small></i></span>
                               </div>
                               <select type="text" class="form-control" #categoryTypePublication (change)="handleTypePublication($event)">
                                 <option [ngValue]="categories" *ngFor="let categories of optionTypePublication">{{categories}}</option>

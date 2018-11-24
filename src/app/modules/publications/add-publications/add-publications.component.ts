@@ -87,7 +87,7 @@ export class AddPublicationsComponent implements OnInit {
     this.subtitleFormAddMagazine = 'En este formulario ingrese los datos para la revista, recuerde los campos con * son obligatorios.'
                                   +' No olvide cargar los archivos necesarios';
     this.nameBtnAddMagazine = 'Registrar Revista';
-    this.optionTypePublication= ['Elija el tipo de publicacion', this.MAGAZINE, this.BOOK, this.CAP_BOK, this.EVENT];
+    this.optionTypePublication= ['Elija el tipo de publicación', this.MAGAZINE, this.BOOK, this.CAP_BOK, this.EVENT];
     this.msjErroContentTable = '';
     this.msjErrorDateApproved = '';
     this.msjErrorDatePublication = '';
@@ -109,7 +109,7 @@ export class AddPublicationsComponent implements OnInit {
     this.showProgressRequest = false;
     this.enableRedirectTo = true;
     this.urlRedirecTo = '/publication/listPublicationsEstudent';
-    this.paramsRedirectTo = 'Publicacion Registrada exitosamente';
+    this.paramsRedirectTo = 'Publicación Registrada Exitosamente';
     this.max_date = this.utilitiesDate.getMaxDate();
   }
 
@@ -153,7 +153,7 @@ export class AddPublicationsComponent implements OnInit {
     {
       if(tam_file > this.TAM_MAX_FILE)
       {
-        this.msjErroContentTable = 'El archivo supera el limite de 10 MB';
+        this.msjErroContentTable = 'El archivo supera el límite de 10 MB';
         this.showErrorContentTable = true;
       }
       else{
@@ -186,7 +186,7 @@ export class AddPublicationsComponent implements OnInit {
       this.showErrorDatePublication = false;
       this.showErrorDateApproved = false;
       this.msjErrorDatePublication = 'Campo opcional';
-      if (valueOptionTypePublication != 'Elija el tipo de publicacion' )
+      if (valueOptionTypePublication != 'Elija el tipo de publicación' )
       {
         this.showOptionPublication(valueOptionTypePublication);
       }
@@ -194,19 +194,19 @@ export class AddPublicationsComponent implements OnInit {
     else if (dateAprrov > datePublic)
     {
       this.showErrorDatePublication = true;
-      this.msjErrorDatePublication = 'La fecha de publicacion no puede ser menor que la fecha de aceptacion. Campo opcional';
+      this.msjErrorDatePublication = 'La fecha de publicación no puede ser menor que la fecha de aceptación. Campo opcional';
       this.closeTypePublication();
     }
     else if(dateAprrov == datePublic)
     {
       this.showErrorDatePublication = true;
-      this.msjErrorDatePublication = 'La fecha de publicacion no puede ser igual que la fecha de aceptacion. Campo opcional';
+      this.msjErrorDatePublication = 'La fecha de publicación no puede ser igual que la fecha de aceptación. Campo opcional';
       this.closeTypePublication();
     }
     else{
       this.showErrorDatePublication = false;
       this.showErrorDateApproved = false;
-      if (valueOptionTypePublication != 'Elija el tipo de publicacion' )
+      if (valueOptionTypePublication != 'Elija el tipo de publicación' )
       {
         this.showOptionPublication(valueOptionTypePublication);
       }
@@ -224,7 +224,7 @@ export class AddPublicationsComponent implements OnInit {
     }
     else{
       this.showErrorDateApproved = false;
-      if (valueOptionTypePublication != 'Elija el tipo de publicacion' )
+      if (valueOptionTypePublication != 'Elija el tipo de publicación' )
       {
         this.showOptionPublication(valueOptionTypePublication);
       }
@@ -349,7 +349,7 @@ export class AddPublicationsComponent implements OnInit {
         this.showProgressRequest = true;
       },err =>
       {
-        this.showModalFail('No se pudo registrar la publicacion de revista');
+        this.showModalFail('No se pudo registrar la publicación de revista');
       });
   }
 
@@ -378,7 +378,7 @@ export class AddPublicationsComponent implements OnInit {
         this.showProgressRequest = true;
       },err =>
       {
-        this.showModalFail('No se pudo registrar la publicacion de libro');
+        this.showModalFail('No se pudo registrar la publicación de libro');
       });
   }
 
@@ -406,7 +406,7 @@ export class AddPublicationsComponent implements OnInit {
         this.showProgressRequest = true;
       },err =>
       {
-        this.showModalFail('No se pudo registrar la publicacion de capitulo de libro');
+        this.showModalFail('No se pudo registrar la publicación de capitulo de libro');
       });
   }
 
@@ -440,7 +440,7 @@ export class AddPublicationsComponent implements OnInit {
         this.showProgressRequest = true;
       },err =>
       {
-        this.showModalFail('No se pudo registrar la publicacion de evento');
+        this.showModalFail('No se pudo registrar la publicación de evento');
       });
   }
 

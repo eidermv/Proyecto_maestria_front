@@ -15,7 +15,7 @@
               <div class="formGroup col-6">
                 <i class="fa fa-exclamation-circle uncheck" *ngIf="(
                                                                     (fieldsForm.controls.doiEvent.errors?.required && fieldsForm.controls.doiEvent.touched )) ">
-                  DOI vacio o digitó mas de 40 caracteres
+                  DOI vacío o digitó más de 40 caracteres
                 </i>
                 <div class="input-group mb-3">
                   <div class="input-group-prepend">
@@ -29,16 +29,16 @@
               <div class="formGroup col-6">
                 <i class="fa fa-exclamation-circle uncheck" *ngIf="(fieldsForm.controls.issnEvent.errors?.maxlength  && fieldsForm.controls.issnEvent.dirty)
                                                             || (fieldsForm.controls.issnEvent.errors?.required && fieldsForm.controls.issnEvent.touched ) ">
-                  ISSN vacio o digitó mas de 50 caracteres
+                  ISSN vacío o digitó más de 50 caracteres
                 </i>
                 <i class="fa fa-exclamation-circle uncheck" *ngIf="fieldsForm.controls.issnEvent.errors?.pattern">
-                  El Formato para ISSN debe ser numero seguido de guion asi: ej: 1234-1258 o  2547-254X la letra en mayuscula
+                  El Formato para ISSN debe ser numero seguido de guion así: ej: 1234-1258 o  2547-254X la letra en mayuscula
                 </i>
                 <div class="input-group mb-3">
                   <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-book"></i><small>&nbsp;ISSN</small></span>
                   </div>
-                  <input type="text" class="form-control" placeholder="*  El Formato para ISSN debe ser numero seguido de guion asi: ej: 1234-1258 o  2547-254X la letra en mayuscula "
+                  <input type="text" class="form-control" placeholder="*  El Formato para ISSN debe ser numero seguido de guion así: ej: 1234-1258 o  2547-254X la letra en mayuscula "
                     formControlName="issnEvent">
                 </div>
               </div>
@@ -67,11 +67,11 @@
             <div class="row">
                 <div class="formGroup col-6">
                   <i class="fa fa-exclamation-circle uncheck" *ngIf="(fieldsForm.controls.tittlePresentation.invalid && fieldsForm.controls.tittlePresentation.touched ) ">
-                    Titulo ponencia  vacio o digitó mas de 300 caracteres
+                    Titulo ponencia  vacío o digitó más de 300 caracteres
                   </i>
                   <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="fa fa-text-width"></i><small>&nbsp;Titulo Ponencia</small></span>
+                      <span class="input-group-text"><i class="fa fa-text-width"></i><small>&nbsp;Título Ponencia</small></span>
                     </div>
                     <input type="text" class="form-control" placeholder="* Digite el titulo de la ponencia "
                       formControlName="tittlePresentation">
@@ -80,7 +80,7 @@
 
                 <div class="formGroup col-6">
                   <i class="fa fa-exclamation-circle uncheck" *ngIf="(fieldsForm.controls.nameEvent.invalid && fieldsForm.controls.nameEvent.touched ) ">
-                    Nombre Evento vacio o digitó mas de 150 caracteres
+                    Nombre Evento vacío o digitó más de 150 caracteres
                   </i>
                   <div class="input-group mb-3">
                     <div class="input-group-prepend">
@@ -113,7 +113,7 @@
                         </i>
                         <div class="input-group mb-3">
                           <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-id-card-o"></i><small>&nbsp;Fecha Finalizacion</small></span>
+                            <span class="input-group-text"><i class="fa fa-id-card-o"></i><small>&nbsp;Fecha Finalización</small></span>
                           </div>
                           <input type="date" class="form-control" placeholder="* " max="{{max_date}}"
                                 formControlName="dateEndEvent" (change)="handleDateFinish($event)">

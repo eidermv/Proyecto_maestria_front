@@ -12,8 +12,8 @@
         <p><strong>Codigo: </strong>{{teachingPractice.getCodeStudent()}}</p>
         <p><strong>Tipo Practica Docente: </strong>{{teachingPractice.getTypePractice()}}</p>
         <p><strong>Fecha Registro de la Actividad: </strong>{{teachingPractice.getDateRegister()}}</p>
-        <p><strong>Fecha Inicio Actividad: </strong>{{teachingPractice.getDateStart()}}</p>
-        <p><strong>Fecha Fin Actividad: </strong>{{teachingPractice.getDateEnd()}}</p>
+        <p *ngIf="showData"><strong>Fecha Inicio Actividad: </strong>{{teachingPractice.getDateStart()}}</p>
+        <p *ngIf="showData"><strong>Fecha Fin Actividad: </strong>{{teachingPractice.getDateEnd()}}</p>
         <p><strong>Certificado: </strong><button type="button" class="btn btn-link" (click)="showFileTeachingPractice('certificado')">Ver</button></p>
         <p><strong>Estado: </strong>{{teachingPractice.getState()}}</p>
         <p><strong>Horas: </strong>{{teachingPractice.getHours()}}</p>

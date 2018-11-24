@@ -41,6 +41,7 @@ export class AddTeachingPracticeComponent implements OnInit {
 
   getDataTeachingPractice(dataTeachingPractice: {teachingPractice: TeachingPractice})
   {
+
     this.teachingPracticeService.registryTeachingPractice(dataTeachingPractice.teachingPractice)
     .subscribe(event =>
       {

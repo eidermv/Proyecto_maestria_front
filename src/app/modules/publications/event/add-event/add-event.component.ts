@@ -13,7 +13,7 @@ subtitleAddEvent: string;
 nameBtnAddEvent: string;
   constructor()
   {
-    this.titleAddEvent = 'Datos Evento';
+    this.titleAddEvent = 'Datos de Evento';
     this.subtitleAddEvent = 'En este formulario ingrese los datos para el evento, recuerde los campos con * son obligatorios.'
                                   +' No olvide cargar los archivos necesarios';
     this.nameBtnAddEvent = 'Registrar Evento';

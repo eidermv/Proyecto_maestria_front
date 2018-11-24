@@ -21,17 +21,17 @@ export const navAdministrator = [
       {
         name: 'Listar Publicaciones',
         url: '/publication/listPublicationsAdmin',
-        icon: 'fa fa-list-alt'
+        icon: 'fa fa-database'
       },
       {
-        name: 'Listar Practicas Docente',
+        name: 'Listar Prácticas Docente',
         url: '/teachingPractice/listTeachingPracticeAdmin',
-        icon: 'fa fa-list-alt'
+        icon: 'fa fa-user-md'
       },
       {
-        name: 'Listar Pasantias',
+        name: 'Listar Pasantías',
         url: '/internship/listInsternshipAdmin',
-        icon: 'fa fa-list-alt'
+        icon: 'fa fa-building'
       },
 
     ]

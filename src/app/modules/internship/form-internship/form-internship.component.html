@@ -12,20 +12,17 @@
 
                 <div class="row">
                     <div class="formGroup col-6">
-                      <i class="fa fa-exclamation-circle uncheck" *ngIf="false">
-                        Identificacion de usuario vacio o digitó mas de 20 caracteres
-                      </i>
                       <div class="input-group mb-3">
                         <div class="input-group-prepend">
                           <span class="input-group-text"><i class="fa fa-id-card-o"></i><small>&nbsp;Autor</small></span>
                         </div>
-                        <input type="text" class="form-control" placeholder="* Nombre del autor principal del articulo" formControlName="author" >
+                        <input type="text" class="form-control" placeholder="* Nombre del autor principal " formControlName="author" >
                       </div>
                     </div>
                     <div class="formGroup col-6">
                         <div class="input-group mb-3">
                           <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-list-alt"> <small>&nbsp; Tipo de pasantia</small></i></span>
+                            <span class="input-group-text"><i class="fa fa-list-alt"> <small>&nbsp; Tipo de pasantía</small></i></span>
                           </div>
                           <select type="text" class="form-control" #categoryTypeInternship>
                               <option [ngValue]="typeInternship" *ngFor="let typeInternship of optionTypeInternship">{{typeInternship}}</option>
@@ -41,7 +38,7 @@
                         </i>
                         <div class="input-group mb-3">
                           <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-calendar"></i><small>&nbsp;Fecha Inicio Pasantia</small></span>
+                            <span class="input-group-text"><i class="fa fa-calendar"></i><small>&nbsp;Fecha Inicio Pasantía</small></span>
                           </div>
                           <input type="date" class="form-control" placeholder="* " max="{{max_date}}"
                                 formControlName="dateInternshipStart" (change)="handleDateFinish($event)">
@@ -54,7 +51,7 @@
                           </i>
                           <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                              <span class="input-group-text"><i class="fa fa-calendar"></i><small>&nbsp;Fecha Fin Pasantia</small></span>
+                              <span class="input-group-text"><i class="fa fa-calendar"></i><small>&nbsp;Fecha Fin Pasantía</small></span>
                             </div>
                             <input type="date" class="form-control" placeholder="* " max="{{max_date}}"
                                   formControlName="dateInternshipEnd" (change)="handleDateFinish($event)">
@@ -63,9 +60,39 @@
                 </div>
 
                 <div class="row">
+                  <div class="formGroup col-6">
+                      <i class="fa fa-exclamation-circle uncheck" *ngIf="(fieldsForm.controls.responsibleForThePractice.errors?.maxlength  && fieldsForm.controls.responsibleForThePractice.dirty)
+                                                                        || (fieldsForm.controls.responsibleForThePractice.errors?.required && fieldsForm.controls.responsibleForThePractice.touched )">
+                        Nombres y Apellidos del tutor vacío o digitó más de 200 caracteres
+                      </i>
+                      <i class="fa fa-exclamation-circle uncheck" *ngIf="(fieldsForm.controls.responsibleForThePractice.errors?.pattern)">
+                        Este campo solo admite letras
+                      </i>
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"><i class="fa fa-user-circle"></i><small>&nbsp;Nombres y Apellidos del Tutor</small></span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="* Nombres y apellidos del responsable de la pasantía en la Institución o Universidad"
+                        formControlName="responsibleForThePractice">
+                      </div>
+                    </div>
 
                     <div class="formGroup col-6">
+                        <i class="fa fa-exclamation-circle uncheck" *ngIf="fieldsForm.controls.institution.invalid && fieldsForm.controls.institution.touched ">
+                          Universidad o Institución vacío o digitó más de 100 caracteres
+                        </i>
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-university"></i><small>&nbsp;Universidad ó Institución</small></span>
+                          </div>
+                          <input type="text" class="form-control" placeholder="* Nombre de la Universidad o Institución donde se hizo la pasantía"
+                          formControlName="institution" >
+                        </div>
+                      </div>
+                </div>
 
+                <div class="row">
+                    <div class="formGroup col-6">
                         <div class="input-group mb-3">
                           <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-cubes"> <small>&nbsp; Dependencia </small></i></span>
@@ -78,7 +105,7 @@
                     <div class="formGroup col-6">
                         <i class="fa fa-exclamation-circle uncheck" *ngIf="(fieldsForm.controls.nameDependence.errors?.maxlength  && fieldsForm.controls.nameDependence.dirty)
                         || (fieldsForm.controls.nameDependence.errors?.required && fieldsForm.controls.nameDependence.touched )">
-                          Nombre de dependencia vacio o digitó mas de 100 caracteres
+                          Nombre de dependencia vacío o digitó más de 100 caracteres
                           </i>
                           <i class="fa fa-exclamation-circle uncheck" *ngIf="(fieldsForm.controls.nameDependence.errors?.pattern)">
                           Este campo solo admite letras
@@ -91,42 +118,7 @@
                           formControlName="nameDependence">
                         </div>
                       </div>
-
-
                 </div>
-
-                <div class="row">
-
-                    <div class="formGroup col-6">
-                        <i class="fa fa-exclamation-circle uncheck" *ngIf="(fieldsForm.controls.responsibleForThePractice.errors?.maxlength  && fieldsForm.controls.responsibleForThePractice.dirty)
-                                                                          || (fieldsForm.controls.responsibleForThePractice.errors?.required && fieldsForm.controls.responsibleForThePractice.touched )">
-                          Nombres y Apellidos del tutor vacio o digitó mas de 200 caracteres
-                        </i>
-                        <i class="fa fa-exclamation-circle uncheck" *ngIf="(fieldsForm.controls.responsibleForThePractice.errors?.pattern)">
-                          Este campo solo admite letras
-                        </i>
-                        <div class="input-group mb-3">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-user-circle"></i><small>&nbsp;Nombres y Apellidos del Tutor</small></span>
-                          </div>
-                          <input type="text" class="form-control" placeholder="* Nombres y apellidos del responsable de la pasantia. Funcionario de la Institucion o Universidad"
-                          formControlName="responsibleForThePractice">
-                        </div>
-                      </div>
-
-                      <div class="formGroup col-6">
-                          <i class="fa fa-exclamation-circle uncheck" *ngIf="fieldsForm.controls.institution.invalid && fieldsForm.controls.institution.touched ">
-                            Identificacion de usuario vacio o digitó mas de 100 caracteres
-                          </i>
-                          <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                              <span class="input-group-text"><i class="fa fa-university"></i><small>&nbsp;Universidad ó Institucion</small></span>
-                            </div>
-                            <input type="text" class="form-control" placeholder="* Nombre de la Universidad o Institución donde se hizo la pasantía"
-                            formControlName="institution" >
-                          </div>
-                        </div>
-                  </div>
 
                   <div class="row">
                       <div class="formGroup col-6">
@@ -135,7 +127,7 @@
                             </i>
                         <div class="input-group mb-3">
                           <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-file-text"></i><small>&nbsp; Reporte del Tutor</small>
+                            <span class="input-group-text"><i class="fa fa-file-text"></i><small>&nbsp; Reporte del Estudiante</small>
                             </span>
                           </div>
                           <div class="custom-file">

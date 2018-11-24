@@ -16,15 +16,17 @@ export class AddInternshipComponent implements OnInit {
   paramsRedirectTo: string;
   showProgressRequest: boolean;
   enableRedirectTO: boolean;
+  showFail: boolean;
+  msjFail: string;
   eventt: any;
 
   constructor(private internshipService: InternshipService)
   {
-    this.titleForm = 'Registrar Pasantia';
+    this.titleForm = 'Registrar Pasantía';
     this.subTitleForm = 'En este formulario podra registrar sus pasantias';
-    this.buttonAction = 'Registrar Pasantia';
+    this.buttonAction = 'Registrar Pasantía';
     this.urlRedirectTo = '/internship/listInternshipForStudent';
-    this.paramsRedirectTo = 'Pasantia Registrada Exitosamente';
+    this.paramsRedirectTo = 'Pasantía Registrada Exitosamente';
     this.showProgressRequest = false;
     this.enableRedirectTO = true;
   }
@@ -42,7 +44,8 @@ export class AddInternshipComponent implements OnInit {
 
       },err =>
       {
-        console.log('no registre pasantia');
+        this.msjFail = 'No es posible registrar la pasantía';
+        this.showFail = true;
       });
   }
 

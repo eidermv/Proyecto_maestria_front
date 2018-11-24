@@ -42,9 +42,9 @@ export class AddMagazineComponent implements OnInit {
   {
     this.stringValidation = new StringValidation();
     this.optionCategoyMagazine = ['A1', 'A2', 'B', 'C'];
-    this.placeholderScreenShotArticle = 'Archivo PDF que contenga el articulo';
-    this.placeholderScreenShotClasification = 'Archivo (PNG o JPG) que contenga la clasificacion de la revista';
-    this.placeholderScreenShotEmail = 'Archivo (PNG o JPG) que contenga pantallazo de correo de aceptacion';
+    this.placeholderScreenShotArticle = 'Archivo PDF que contenga el artículo';
+    this.placeholderScreenShotClasification = 'Archivo (PNG o JPG) que contenga la clasificación de la revista';
+    this.placeholderScreenShotEmail = 'Archivo (PNG o JPG) que contenga pantallazo de correo de aceptación';
     this.showErrorArticle = false;
     this.showErrorScreenShotClasification = false;
     this.showErrorScreenShotEmail = false;
@@ -81,7 +81,7 @@ export class AddMagazineComponent implements OnInit {
     {
       if(tam_file > this.TAM_MAX_FILE)
       {
-        this.msjErrorArticle = 'El archivo supera el limite de 10 MB';
+        this.msjErrorArticle = 'El archivo supera el límite de 10 MB';
         this.showErrorArticle = true;
       }
       else{
@@ -104,7 +104,7 @@ export class AddMagazineComponent implements OnInit {
     {
       if(tam_file > this.TAM_MAX_FILE)
       {
-        this.msjErrorScreenShotEmail= 'El archivo supera el limite de 10 MB';
+        this.msjErrorScreenShotEmail= 'El archivo supera el límite de 10 MB';
         this.showErrorScreenShotEmail = true;
       }
       else{
@@ -127,7 +127,7 @@ export class AddMagazineComponent implements OnInit {
     {
       if(tam_file > this.TAM_MAX_FILE)
       {
-        this.msjErrorScreenShotClasification= 'El archivo supera el limite de 10 MB';
+        this.msjErrorScreenShotClasification= 'El archivo supera el límite de 10 MB';
         this.showErrorScreenShotClasification = true;
       }
       else{
@@ -148,12 +148,12 @@ export class AddMagazineComponent implements OnInit {
     if(this.fileToArticle == null)
     {
       this.showErrorArticle = true;
-      this.msjErrorArticle = 'Debe cargar un PDF del articulo para la publicacion';
+      this.msjErrorArticle = 'Debe cargar un PDF del artículo ';
     }
     else if(this.fileToScreenShotEmail == null)
     {
       this.showErrorScreenShotEmail = true;
-      this.msjErrorScreenShotEmail = 'Debe cargar una imagen PNG o JPG que muestre el correo de aceptacion del articulo';
+      this.msjErrorScreenShotEmail = 'Debe cargar una imagen PNG o JPG que muestre el correo de aceptación del artículo';
     }
     else if(this.fileToScreenShotClasification == null)
     {

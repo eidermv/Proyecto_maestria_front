@@ -10,7 +10,7 @@ export const navStudent = [
     icon: 'fa fa-database',
     children: [
       {
-        name: 'Agregar Publicacion',
+        name: 'Agregar Publicación',
         url: '/publication/addPublications',
         icon: 'fa fa-cloud-upload'
       },
@@ -22,34 +22,34 @@ export const navStudent = [
     ]
   },
   {
-    name: 'Practica Docente',
+    name: 'Práctica Docente',
     url: '/teachingPractice',
-    icon: 'fa fa-database',
+    icon: 'fa fa-user-md',
     children: [
       {
-        name: 'Agregar Practica',
+        name: 'Agregar Práctica',
         url: '/teachingPractice/addTeachingPractice',
         icon: 'fa fa-cloud-upload'
       },
       {
-        name: 'Mis Practicas',
+        name: 'Mis Prácticas',
         url: '/teachingPractice/listTeachingPracticeforStudent',
         icon: 'fa fa-list-alt'
       }
     ]
   },
   {
-    name: 'Pasantia',
+    name: 'Pasantía',
     url: '/internship',
-    icon: 'fa fa-database',
+    icon: 'fa fa-building',
     children: [
       {
-        name: 'Agregar Pasantia',
+        name: 'Agregar Pasantía',
         url: '/internship/addIntership',
         icon: 'fa fa-cloud-upload'
       },
       {
-        name: 'Mis Pasantias',
+        name: 'Mis Pasantías',
         url: '/internship/listInternshipForStudent',
         icon: 'fa fa-list-alt'
       }

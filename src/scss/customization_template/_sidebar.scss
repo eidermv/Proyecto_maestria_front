@@ -116,11 +116,11 @@
 
     &.active {
       color: $sidebar-nav-link-active-color;
-      background: $sidebar-nav-link-active-bg;
+      background:  $sidebar-nav-link-hover-bg;
       @include borders($sidebar-nav-link-active-borders);
 
       .nav-icon {
-        color: $sidebar-nav-link-active-icon-color;
+        color:$sidebar-nav-link-hover-icon-color;
       }
     }
 

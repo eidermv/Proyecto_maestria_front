@@ -19,7 +19,7 @@
               <thead >
                 <tr>
                   <th>Tipo</th>
-                  <th>Fecha</th>
+                  <th>Fecha de Registro</th>
                   <th>Estado</th>
                   <th>Acciones</th>
                 </tr>
@@ -27,7 +27,7 @@
               <tbody>
                 <tr *ngFor="let publication of optionsPublicationsStudent | paginate: {itemsPerPage: 8, currentPage: p}">
                   <td>{{publication['tipoDocumento']}} </td>
-                  <td>{{publication['fechaPublicacion']}}</td>
+                  <td>{{publication['fechaRegistro']}}</td>
                   <td>
                     <span class="badge badge-dark" *ngIf="publication['estado'] == 'Por verificar'">Por verificar</span>
                     <span class="badge badge-success" *ngIf="publication['estado'] == 'Aprobado'">Aprobada</span>

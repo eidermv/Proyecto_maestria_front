@@ -14,7 +14,8 @@ export class StudentFilterPipe implements PipeTransform
     }
 
     return optionsDataStudents.filter(student => (student['codigo'].toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1) ||
-                                                (student['nombres'].toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1)  );
+                                                (student['nombres'].toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1) ||
+                                                (student['apellidos'].toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1) );
   }
 
 }

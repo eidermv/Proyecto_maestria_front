@@ -16,6 +16,9 @@ export class ListStudentComponent implements OnInit {
   optionsDataStudents: Array<string>;
   searchTerm: string;
   msjOk: string;
+  msjFail : string;
+  showEmpty: boolean;
+  showFail: boolean;
   p:any;
 
   /************************VARIABLES DE INSTANCIA ********/
@@ -28,6 +31,8 @@ export class ListStudentComponent implements OnInit {
     this.optionsDataStudents = [];
     this.getAllStudents();
     this.searchTerm = '';
+    this.showEmpty = false;
+    this.showFail = false;
   }
 
   showMSJ()
@@ -44,11 +49,19 @@ export class ListStudentComponent implements OnInit {
     .subscribe(data =>
       {
         this.optionsDataStudents = data;
+        if(this.optionsDataStudents.length == 0)
+        {
+          this.showEmpty = true;
+        }
+        else{
+          this.showEmpty = false;
+        }
         this.showMSJ();
       },
       err =>
       {
-        console.log('info');
+        this.msjFail = 'No fue posible obtener el listado de estudiantes';
+        this.showFail = true;
       }
     );
   }

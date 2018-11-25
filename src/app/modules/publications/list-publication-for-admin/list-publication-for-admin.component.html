@@ -15,6 +15,7 @@
           </div>
           <div class="card-body">
             <h1 class="title text-center"> Listado de Publicaciones </h1>
+            <h3 class="title text-center" *ngIf="showEmpty">Los estudiantes aún no suben Publicaciones</h3>
             <table class="table  table-responsive-sm">
               <thead >
                 <tr>
@@ -94,18 +95,23 @@
                 </div>
 
             </div>
-            <div class="row">
-              <div class="formGroup col-12" >
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="fa fa-list-alt"> <small>&nbsp; Observaciones</small></i></span>
+            <form  [formGroup]="fieldsForm">
+                <div class="row">
+                  <div class="formGroup col-12" >
+                    <i class="fa fa-exclamation-circle uncheck" *ngIf="fieldsForm.controls.observation.invalid  && fieldsForm.controls.observation.touched">
+                        La observacion tiene un maximo de 300 caracteres
+                      </i>
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-list-alt"> <small>&nbsp; Observaciones</small></i></span>
+                      </div>
+                      <textarea rows="4" cols="50" placeholder="Agrege los comentarios necesarios para la publicacion en este campo"
+                      style="resize: none" formControlName="observation">
+                      </textarea>
+                    </div>
                   </div>
-                  <textarea rows="4" cols="50" [(ngModel)]="comentary" placeholder="Agrege los comentarios necesarios para la publicacion en este campo"
-                  style="resize: none">
-                  </textarea>
                 </div>
-              </div>
-            </div>
+              </form>
           </div>
           <div class="modal-footer">
               <button type="button" class="btn btn-primary" (click)="updateState()">Guardar</button>

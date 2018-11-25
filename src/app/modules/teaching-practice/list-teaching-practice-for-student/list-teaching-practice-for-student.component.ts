@@ -16,6 +16,7 @@ export class ListTeachingPracticeForStudentComponent implements OnInit {
   showModalOk: boolean;
   msjOk: string;
   showFail: boolean;
+  showEmpty: boolean;
   msjFail: string;
   p: any;
   /********************************VARIABLES DE INSTANCIA*************/
@@ -29,6 +30,7 @@ export class ListTeachingPracticeForStudentComponent implements OnInit {
     this.showTeachingPractice = false;
     this.showModalOk = false;
     this.showFail = false;
+    this.showEmpty = false;
   }
 
   getDateStudent()
@@ -51,6 +53,13 @@ export class ListTeachingPracticeForStudentComponent implements OnInit {
     .subscribe(data =>
       {
         this.optionsTeachingPractice = data;
+        if(this.optionsTeachingPractice.length == 0)
+        {
+          this.showEmpty = true;
+        }
+        else{
+          this.showEmpty = false;
+        }
       }, err =>
       {
         this.msjFail = 'Error al obtener mis practicas docente';

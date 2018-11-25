@@ -16,12 +16,19 @@
         <p><strong>Nombre de la Revista: </strong>{{magazine.getNameMagazine()}}</p>
         <p><strong>Categoria: </strong>{{magazine.getCategoryMagazine()}}</p>
         <p><strong>Creditos: </strong>{{magazine.getCredits()}}</p>
-        <p><strong>Comentarios: </strong>{{magazine.getComentary()}}</p>
         <p><strong>Estado: </strong>{{state}}</p>
         <p><strong>Tabla Contenido: </strong><button type="button" class="btn btn-link" (click)="showFilesMagazine('indice')">Ver</button></p>
         <p><strong>Articulo: </strong><button type="button" class="btn btn-link" (click)="showFilesMagazine('articulo')">Ver</button></p>
         <p><strong>Pantallazo Correo Aceptacion: </strong><button type="button" class="btn btn-link" (click)="showFilesMagazine('correoAceptacion')">Ver</button></p>
         <p><strong>Pantallazo Categoria revista: </strong><button type="button" class="btn btn-link" (click)="showFilesMagazine('clasificacionRevista')">Ver</button></p>
+        <p><strong>Observación: </strong></p>
+        <div class="row">
+            <div class="formGroup col-12" >
+              <textarea rows="4" cols="80"  disabled="false">
+                  {{magazine.getComentary()}}
+              </textarea>
+            </div>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" (click)="destroyModal()">Cerrar</button>
@@ -50,12 +57,19 @@
         <p><strong>Ciudad: </strong>{{book.getCity()}}</p>
         <p><strong>Editorial: </strong>{{book.getEditorial()}}</p>
         <p><strong>Creditos: </strong>{{book.getCredits()}}</p>
-        <p><strong>Comentarios: </strong>{{book.getComentary()}}</p>
+
         <p><strong>Estado: </strong>{{state}}</p>
         <p><strong>Tabla Contenido: </strong><button type="button" class="btn btn-link" (click)="showFilesBook('indice')">Ver</button></p>
         <p><strong>Libro: </strong><button type="button" class="btn btn-link" (click)="showFilesBook('libro')">Ver</button></p>
         <p><strong>Certificado Editorial: </strong><button type="button" class="btn btn-link" (click)="showFilesBook('certificadoEditorial')">Ver</button></p>
-        <p><strong></strong></p>
+        <p><strong>Observación: </strong></p>
+        <div class="row">
+            <div class="formGroup col-12" >
+              <textarea rows="4" cols="80"  disabled="false">
+                  {{book.getComentary()}}
+              </textarea>
+            </div>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" (click)="destroyModal()">Cerrar</button>
@@ -83,12 +97,19 @@
           <p><strong>Titulo Capitulo: </strong>{{capBook.getTitleBook()}}</p>
           <p><strong>Editorial: </strong>{{capBook.getEditorial()}}</p>
           <p><strong>Creditos: </strong>{{capBook.getCredits()}}</p>
-          <p><strong>Comentarios: </strong>{{capBook.getComentary()}}</p>
+
           <p><strong>Estado: </strong>{{state}}</p>
           <p><strong>Tabla Contenido: </strong><button type="button" class="btn btn-link" (click)="showFilesCapBook('indice')">Ver</button></p>
           <p><strong>Capitulo Libro: </strong><button type="button" class="btn btn-link" (click)="showFilesCapBook('capituloLibro')">Ver</button></p>
           <p><strong>Certificado Editorial: </strong><button type="button" class="btn btn-link" (click)="showFilesCapBook('certificadoEditorial')">Ver</button></p>
-          <p><strong></strong></p>
+          <p><strong>Observación: </strong></p>
+          <div class="row">
+              <div class="formGroup col-12" >
+                <textarea rows="4" cols="80"  disabled="false">
+                  {{capBook.getComentary()}}
+                </textarea>
+              </div>
+          </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" (click)="destroyModal()">Cerrar</button>
@@ -121,12 +142,20 @@
           <p><strong>Pais: </strong>{{eventt.getCounty()}}</p>
           <p><strong>Ciudad: </strong>{{eventt.getCity()}}</p>
           <p><strong>Creditos: </strong>{{eventt.getCredits()}}</p>
-          <p><strong>Creditos: </strong>{{eventt.getComentary()}}</p>
+
           <p><strong>Estado: </strong>{{state}}</p>
           <p><strong>Tabla Contenido: </strong><button type="button" class="btn btn-link" (click)="showFilesEvent('indice')">Ver</button></p>
           <p><strong>Ponencia: </strong><button type="button" class="btn btn-link" (click)="showFilesEvent('ponencia')">Ver</button></p>
           <p><strong>Certificado Evento: </strong><button type="button" class="btn btn-link" (click)="showFilesEvent('certificadoEvento')">Ver</button></p>
-        <p><strong></strong></p>
+          <p><strong>Observación: </strong></p>
+          <div class="row">
+              <div class="formGroup col-12" >
+                <textarea rows="4" cols="80"  disabled="false">
+                    {{eventt.getComentary()}}
+                </textarea>
+              </div>
+          </div>
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" (click)="destroyModal()">Cerrar</button>

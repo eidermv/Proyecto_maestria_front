@@ -18,6 +18,7 @@ export class ListPublicationForStudentComponent implements OnInit {
   idPublication: string;
   showModalPublication: boolean;
   showModalOk: boolean;
+  showEmpty: boolean;
   msjOk: string;
   p: any;
   constructor(private publicationsService: PublicationService, private route: ActivatedRoute,
@@ -27,6 +28,7 @@ export class ListPublicationForStudentComponent implements OnInit {
     this.optionsPublicationsStudent = [];
     this.showModalPublication = false;
     this.showModalOk = false;
+    this.showEmpty = false;
     this.idPublication = '';
     this.typePublication = '';
   }
@@ -49,6 +51,13 @@ export class ListPublicationForStudentComponent implements OnInit {
     .subscribe(data =>
       {
          this.optionsPublicationsStudent = data;
+         if(this.optionsPublicationsStudent.length == 0)
+         {
+          this.showEmpty = true;
+         }
+         else{
+           this.showEmpty = false;
+         }
 
       }, err =>
       {

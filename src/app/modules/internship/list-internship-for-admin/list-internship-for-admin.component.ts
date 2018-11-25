@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { InternshipService } from '../intership.service.service';
 import { Internship } from '../../../models/internship/internship';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { StringValidation } from '../../../resources/stringValidation';
 /***************************VARIABLES GLOBALES******** */
 const APROBADA: string = 'Aprobado';
 const REPROBADA: string = 'Rechazado';
@@ -11,6 +13,9 @@ const POR_VERIFICAR: string = 'Por verificar';
   templateUrl: './list-internship-for-admin.component.html'
 })
 export class ListInternshipForAdminComponent implements OnInit {
+
+  /*********************************STIRNG APP******************* */
+  stringValidation: StringValidation;
 
   /****************************VARIABLES LOCALES************************/
   @ViewChild('showEditState') viewEditState: any ;
@@ -27,14 +32,17 @@ export class ListInternshipForAdminComponent implements OnInit {
   idInternship: string;
   searchTerm: string;
   showFail: boolean;
+  showEmpty: boolean;
   msjFail: string;
   p: any;
   /****************************VARIABLES DE INSTANCIA*********************/
   internship: Internship;
+  fieldsForm: FormGroup;
 
 
-  constructor(private internshipService: InternshipService)
+  constructor(private internshipService: InternshipService, private formBuilder: FormBuilder)
   {
+    this.stringValidation = new StringValidation();
     this.internship = new Internship();
     this.optionState = [POR_VERIFICAR, APROBADA, REPROBADA];
     this.optionsCredits = ['1', '2', '3', '4', '5', '6'];
@@ -42,6 +50,7 @@ export class ListInternshipForAdminComponent implements OnInit {
     this.showCredits = false;
     this.showInternship = false;
     this.showFail = false;
+    this.showEmpty = false;
     this.totalCredits = '0';
     this.selectedState = POR_VERIFICAR;
   }
@@ -52,6 +61,13 @@ export class ListInternshipForAdminComponent implements OnInit {
     .subscribe(data =>
       {
         this.optionsInternship = data;
+        if(this.optionsInternship.length == 0)
+        {
+          this.showEmpty = true;
+        }
+        else{
+          this.showEmpty = false;
+        }
       }, err =>
       {
         this.msjFail = 'Error al obtener todas las pasantias';
@@ -60,6 +76,11 @@ export class ListInternshipForAdminComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.fieldsForm = this.formBuilder.group(
+      {
+       observation: ['', [Validators.maxLength(this.stringValidation.MAX_LONG_OBSERVATION),]]
+                  });
     this.getAllInternshipAdmin();
   }
 
@@ -114,23 +135,28 @@ export class ListInternshipForAdminComponent implements OnInit {
 
   updateState()
   {
-    if(this.selectedState != APROBADA)
+    if(this.fieldsForm.get('observation').value.length <= 300)
     {
-      this.totalCredits = '0';
-    }
-    this.internshipService.updateStateInternship(this.idInternship, this.totalCredits , this.selectedState, this.comentary)
-    .subscribe(data =>
-              {
-                this.viewEditState.hide();
-                this.getAllInternshipAdmin();
-                this.comentary = '';
-                this.showCredits = false;
-              }, err =>
-              {
-                this.viewEditState.hide();
-                this.msjFail = 'Error al actualizar el estado de la pasantia';
-                this.showFail = true;
-              });
+      if(this.selectedState != APROBADA)
+      {
+        this.totalCredits = '0';
+      }
+      this.comentary = this.fieldsForm.get('observation').value;
+      this.fieldsForm.get('observation').setValue('');
+      this.internshipService.updateStateInternship(this.idInternship, this.totalCredits , this.selectedState, this.comentary)
+      .subscribe(data =>
+                {
+                  this.viewEditState.hide();
+                  this.getAllInternshipAdmin();
+                  this.comentary = '';
+                  this.showCredits = false;
+                }, err =>
+                {
+                  this.viewEditState.hide();
+                  this.msjFail = 'Error al actualizar el estado de la pasantia';
+                  this.showFail = true;
+                });
+      }
   }
 
 

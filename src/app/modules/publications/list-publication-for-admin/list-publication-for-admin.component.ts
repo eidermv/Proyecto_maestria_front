@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { PublicationService } from '../publications.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { StringValidation } from '../../../resources/stringValidation';
 
 /***************************VARIABLES GLOBALES******** */
 const APROBADA: string = 'Aprobado';
@@ -11,6 +13,8 @@ const POR_VERIFICAR: string = 'Por verificar';
   templateUrl: './list-publication-for-admin.component.html'
 })
 export class ListPublicationForAdminComponent implements OnInit {
+  /*********************************STIRNG APP******************* */
+  stringValidation: StringValidation;
  /********************************VARIABLES LOCALES****************** */
  @ViewChild('showEditState') viewEditState: any ;
  @ViewChild('dangerModal') viewErroServer: any;
@@ -29,16 +33,21 @@ export class ListPublicationForAdminComponent implements OnInit {
   showModalPublication: boolean;
   showCredits: boolean;
   searchTerm: string;
-
+  showEmpty: boolean;
   p: any;
+  /******************VARIABLES DE INSTANCIA********************** */
+  fieldsForm: FormGroup;
 
-  constructor(private publicationsService: PublicationService)
+
+  constructor(private publicationsService: PublicationService, private formBuilder: FormBuilder)
   {
+    this.stringValidation = new StringValidation();
     this.optionsPublicationsStudents = [];
     this.optionState = [POR_VERIFICAR, APROBADA, REPROBADA];
     this.optionsCredits = ['1', '2', '3', '4', '5', '6'];
     this.showModalPublication = false;
     this.showCredits = false;
+    this.showEmpty = false;
     this.idPublication = '';
     this.typePublication = '';
     this.searchTerm = '';
@@ -48,6 +57,10 @@ export class ListPublicationForAdminComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.fieldsForm = this.formBuilder.group(
+      {
+       observation: ['', [Validators.maxLength(this.stringValidation.MAX_LONG_OBSERVATION),]]
+                  });
   }
 
   getAllStudent()
@@ -55,6 +68,13 @@ export class ListPublicationForAdminComponent implements OnInit {
     this.publicationsService.getAllPublications()
     .subscribe(data =>{
       this.optionsPublicationsStudents =  data;
+      if(this.optionsPublicationsStudents.length == 0)
+      {
+        this.showEmpty = true;
+      }
+      else{
+        this.showEmpty = false;
+      }
     },err =>
     {
       this.viewErroServer.show();
@@ -115,20 +135,25 @@ export class ListPublicationForAdminComponent implements OnInit {
 
   updateState()
   {
-    if(this.selectedState != APROBADA)
+    if(this.fieldsForm.get('observation').value.length <= 300)
     {
-      this.totalCredits = '0';
+      if(this.selectedState != APROBADA)
+      {
+        this.totalCredits = '0';
+      }
+      this.comentary = this.fieldsForm.get('observation').value;
+      this.fieldsForm.get('observation').setValue('');
+      this.publicationsService.updateStatePublication(this.idPublication, this.totalCredits , this.selectedState, this.comentary)
+      .subscribe(data =>
+                {
+                  this.viewEditState.hide();
+                  this.getAllStudent();
+                  this.comentary = '';
+                }, err =>
+                {
+                  this.viewErroServer.show();
+                });
     }
-    this.publicationsService.updateStatePublication(this.idPublication, this.totalCredits , this.selectedState, this.comentary)
-    .subscribe(data =>
-              {
-                this.viewEditState.hide();
-                this.getAllStudent();
-                this.comentary = '';
-              }, err =>
-              {
-                this.viewErroServer.show();
-              });
   }
 
 }

@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TeachingPracticeService } from '../teachingPractice.service';
 import { TeachingPractice } from '../../../models/teachingPractice/teachingPractice';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { StringValidation } from '../../../resources/stringValidation';
 
 const APROBADA: string = 'Aprobado';
 const REPROBADA: string = 'Rechazado';
@@ -14,6 +15,8 @@ const POR_VERIFICAR: string = 'Por verificar';
 })
 export class ListTeachingPracticeForAdminComponent implements OnInit {
 
+  /********************************************StrinG APP */
+  stringValidation: StringValidation;
   /****************************VARIABLES LOCALES************************/
   @ViewChild('showEditState') viewEditState: any ;
    codeStudent: string;
@@ -30,6 +33,7 @@ export class ListTeachingPracticeForAdminComponent implements OnInit {
    searchTerm: string;
    showFail: boolean;
    msjFail: string;
+   showEmpty: boolean;
    p: any;
    /********************************VARIABLES DE INSTANCIA*************/
   teachingPractice: TeachingPractice;
@@ -37,6 +41,7 @@ export class ListTeachingPracticeForAdminComponent implements OnInit {
 
   constructor(private teachingPracticeService: TeachingPracticeService, private formBuilder: FormBuilder)
   {
+    this.stringValidation = new StringValidation();
     this.teachingPractice = new TeachingPractice();
     this.optionState = [POR_VERIFICAR, APROBADA, REPROBADA];
     this.showHours= false;
@@ -44,6 +49,7 @@ export class ListTeachingPracticeForAdminComponent implements OnInit {
     this.optionsTeachingPractice = [];
     this.selectedState = POR_VERIFICAR;
     this.showFail = false;
+    this.showEmpty = false;
   }
 
   getAllTeachingPractice()
@@ -52,6 +58,13 @@ export class ListTeachingPracticeForAdminComponent implements OnInit {
     .subscribe(data =>
       {
         this.optionsTeachingPractice = data;
+        if(this.optionsTeachingPractice.length == 0)
+        {
+          this.showEmpty = true;
+        }
+        else{
+          this.showEmpty = false;
+        }
       }, err =>
       {
         this.msjFail = 'Error al obtener todas las parcticas docente';
@@ -68,6 +81,7 @@ export class ListTeachingPracticeForAdminComponent implements OnInit {
                           Validators.pattern('^([0-9])*$'),
                         ]
                     ],
+       observation: ['', [Validators.maxLength(this.stringValidation.MAX_LONG_OBSERVATION),]]
                   });
 
     this.getAllTeachingPractice();
@@ -123,7 +137,10 @@ export class ListTeachingPracticeForAdminComponent implements OnInit {
     if(this.selectedState != APROBADA)
     {
       this.totalHours = '0';
-      this.update();
+      if(this.fieldsForm.get('observation').value.length <= 300)
+      {
+        this.update();
+      }
     }
     else{
       this.totalHours = this.fieldsForm.get('hours').value;
@@ -137,13 +154,18 @@ export class ListTeachingPracticeForAdminComponent implements OnInit {
         this.showErrorMax = true;
       }
       else{
-          this.update();
+        if(this.fieldsForm.get('observation').value.length < 300)
+          {
+            this.update();
+          }
       }
     }
   }
 
   update()
   {
+    this.comentary = this.fieldsForm.get('observation').value;
+    this.fieldsForm.get('observation').setValue('');
     this.teachingPracticeService.updateStateTeachingPractice(this.idPublication, this.totalHours , this.selectedState, this.comentary)
         .subscribe(data =>
               {

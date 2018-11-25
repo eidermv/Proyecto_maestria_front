@@ -17,7 +17,14 @@
         <p><strong>Certificado: </strong><button type="button" class="btn btn-link" (click)="showFileTeachingPractice('certificado')">Ver</button></p>
         <p><strong>Estado: </strong>{{teachingPractice.getState()}}</p>
         <p><strong>Horas: </strong>{{teachingPractice.getHours()}}</p>
-        <p><strong>Observacion: </strong>{{teachingPractice.getObservation()}}</p>
+        <p><strong>Observacion: </strong></p>
+        <div class="row">
+            <div class="formGroup col-12" >
+              <textarea rows="4" cols="80"  disabled="false">
+                  {{teachingPractice.getObservation()}}
+              </textarea>
+            </div>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" (click)="destroyModal()">Cerrar</button>

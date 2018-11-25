@@ -13,8 +13,7 @@
 
             <div class="row">
               <div class="formGroup col-6">
-                <i class="fa fa-exclamation-circle uncheck" *ngIf="(
-                                                                    (fieldsForm.controls.doiEvent.errors?.required && fieldsForm.controls.doiEvent.touched )) ">
+                <i class="fa fa-exclamation-circle uncheck" *ngIf="(fieldsForm.controls.doiEvent.invalid && fieldsForm.controls.doiEvent.touched)">
                   DOI vacío o digitó más de 40 caracteres
                 </i>
                 <div class="input-group mb-3">
@@ -67,7 +66,7 @@
             <div class="row">
                 <div class="formGroup col-6">
                   <i class="fa fa-exclamation-circle uncheck" *ngIf="(fieldsForm.controls.tittlePresentation.invalid && fieldsForm.controls.tittlePresentation.touched ) ">
-                    Titulo ponencia  vacío o digitó más de 300 caracteres
+                    Titulo ponencia  vacío o digitó más de 250 caracteres
                   </i>
                   <div class="input-group mb-3">
                     <div class="input-group-prepend">

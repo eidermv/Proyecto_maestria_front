@@ -22,7 +22,14 @@
         <p><strong>Informe del tutor: </strong><button type="button" class="btn btn-link" (click)="showFileInternship('informe')">Ver</button></p>
         <p><strong>Estado: </strong>{{internship.getState()}}</p>
         <p><strong>Creditos: </strong>{{internship.getCredits()}}</p>
-        <p><strong>Observación: </strong>{{internship.getObservation()}}</p>
+        <p><strong>Observación: </strong></p>
+        <div class="row">
+            <div class="formGroup col-12" >
+              <textarea rows="4" cols="80"  disabled="false">
+              {{internship.getObservation()}}
+              </textarea>
+            </div>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" (click)="destroyModal()">Cerrar</button>

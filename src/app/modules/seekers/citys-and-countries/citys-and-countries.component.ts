@@ -138,6 +138,8 @@ export class CitysAndCountriesComponent implements OnInit {
     str = str.replace('Í', 'I');
     str = str.replace('Ó', 'O');
     str = str.replace('Ú', 'U');
+    str = str.replace('Å', 'A');
+    str = str.replace('å', 'a');
     return str;
     }
 

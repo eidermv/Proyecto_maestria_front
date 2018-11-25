@@ -16,11 +16,11 @@
 
         <form [formGroup]="fieldsForm" (ng-submit)="onSubmit()" class="formLogin">
             <i class="fa fa-exclamation-circle uncheck" *ngIf="showErrorDates">
-                <small> usuario o contraseña incorrectos</small>
+                <small> Usuario o contraseña incorrectos</small>
               </i>
           <div class="formGroup">
             <i class="fa fa-exclamation-circle uncheck" *ngIf="(fieldsForm.controls.userLogin.invalid && fieldsForm.controls.userLogin.touched ) || showErrorUser ">
-              <small> usuario vacio o digitó mas de 30 caracteres</small>
+              <small> Usuario vacio o digitó más de 30 caracteres</small>
             </i>
             <div class="input-group mb-3">
               <div class="input-group-prepend">
@@ -28,13 +28,13 @@
                 </span>
               </div>
               <input type="text" class="form-control" aria-label="Default" aria-describedby="putGroup-siinzing-default"
-                autofocus formControlName="userLogin">
+                autofocus formControlName="userLogin" (click)="closeMsjError()">
             </div>
           </div>
 
           <div class="formGroup">
             <i class="fa fa-exclamation-circle uncheck" *ngIf="(fieldsForm.controls.passLogin.invalid && fieldsForm.controls.passLogin.touched ) || showErrorPass ">
-              <small> contraseña vacia o digitó más 15 caracteres</small>
+              <small> Contraseña vacía o digitó más 15 caracteres</small>
             </i>
 
             <div class="input-group mb-3">
@@ -43,7 +43,7 @@
                 </span>
               </div>
               <input type="password" class="form-control" aria-label="Default" aria-describedby="putGroup-siinzing-default"
-                formControlName="passLogin">
+                formControlName="passLogin"  (click)="closeMsjError()">
             </div>
           </div>
           <button class="botonIngresarClass" type="submit" (click)="onSubmit()"><strong>Ingresar</strong></button>

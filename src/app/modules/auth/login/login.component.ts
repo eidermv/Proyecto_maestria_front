@@ -88,6 +88,7 @@ export class LoginComponent implements OnInit {
 
   validateField(user: string, pass: string)
   {
+    this.showErrorDates = false;
     if (user.length == 0)
     {
       this.showErrorUser = true;
@@ -110,6 +111,11 @@ export class LoginComponent implements OnInit {
     {
       return false;
     }
+  }
+
+  closeMsjError()
+  {
+    this.showErrorDates = false;
   }
 
  }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { StringValidation } from '../../../resources/stringValidation';
@@ -19,9 +19,12 @@ export class LoginComponent implements OnInit {
   fieldsForm: FormGroup;
 
   /***************** VARIABLES LOCALES********************** */
+  @ViewChild('progressModal') viewProgressRequest: any;
   showErrorUser: boolean;
   showErrorPass: boolean;
   showErrorDates: boolean;
+  showProgressRequest: boolean;
+  eventt: any;
 
   constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router)
   {
@@ -30,6 +33,7 @@ export class LoginComponent implements OnInit {
     this.showErrorPass = false;
     this.showErrorUser = false;
     this.showErrorDates = false;
+    this.showProgressRequest = false;
   }
 
   ngOnInit() {
@@ -57,24 +61,35 @@ export class LoginComponent implements OnInit {
     if(this.validateField(user, pass))
     {
       this.authService.login(user, pass)
-      .subscribe( data =>
+      .subscribe( event =>
         {
-          this.showErrorDates = false;
-          this.showErrorPass = false;
-          this.showErrorUser = false;
-          this.authService.setSession(data);
-          if(sessionStorage.getItem('rol') == this.stringApp.COORDINATOR)
-          {
-            this.router.navigate(['/student/listStudent']);
-          }
-          else if(sessionStorage.getItem('rol') == this.stringApp.STUDENT)
-          {
 
-            this.router.navigate(['/publication/listPublicationsEstudent']);
+          if(event.type === HttpEventType.UploadProgress)
+          {
+            this.viewProgressRequest.show();
           }
           else{
-            this.router.navigate(['/login']);
+          if(event.type === HttpEventType.Response)
+          {
+            this.viewProgressRequest.hide();
+            this.showErrorDates = false;
+            this.showErrorPass = false;
+            this.showErrorUser = false;
+            this.authService.setSession(event.body);
+            if(sessionStorage.getItem('rol') == this.stringApp.COORDINATOR)
+            {
+              this.router.navigate(['/student/listStudent']);
+            }
+            else if(sessionStorage.getItem('rol') == this.stringApp.STUDENT)
+            {
+
+              this.router.navigate(['/publication/listPublicationsEstudent']);
+            }
+            else{
+              this.router.navigate(['/login']);
+            }
           }
+        }
         },
         err =>
         {

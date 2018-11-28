@@ -26,7 +26,7 @@ export class AuthService
   {
     const newStudent = JSON.stringify({usuario: user,
                                      contrasena: password});
-    return this.httpClient.post<any>(this.stringApp.URL_SERVICIO_LOGIN,newStudent );
+    return this.httpClient.post<any>(this.stringApp.URL_SERVICIO_LOGIN,newStudent, { reportProgress: true, observe: 'events'} );
   }
 
   getStudent()

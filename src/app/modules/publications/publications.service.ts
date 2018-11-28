@@ -1,14 +1,12 @@
 import { Injectable } from '@angular/core';
 import { StringApp } from '../../resources/stringApp';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
-import {Line} from '../../models/line';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { Magazine } from '../../models/publications/magazine';
 import { Book } from '../../models/publications/book';
 import { EventPublication } from '../../models/publications/event';
 import { CapBook } from '../../models/publications/capLibro';
-import { DomSanitizer } from '@angular/platform-browser';
 import 'rxjs/Rx';
 import { UtilitiesFile } from '../../models/utilities/utilitiesFiles';
 import { UtilitiesDate } from '../../models/utilities/utilitiesDate';

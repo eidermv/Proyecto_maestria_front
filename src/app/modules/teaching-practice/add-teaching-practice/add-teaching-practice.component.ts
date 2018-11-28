@@ -25,11 +25,11 @@ export class AddTeachingPracticeComponent implements OnInit {
 
   constructor(private teachingPracticeService: TeachingPracticeService)
   {
-    this.titleForm = 'Registrar Practica Docente';
-    this.subTitleForm = 'En este formulario podra registrar sus practicas docentes';
+    this.titleForm = 'Registrar Práctica Docente';
+    this.subTitleForm = 'En este formulario podra registrar sus actividades de práctica docente';
     this.buttonAction = 'Registrar Practica Docente';
     this.urlRedirecTo = './teachingPractice/listTeachingPracticeforStudent';
-    this.paramsRedirectTo = 'Practica Docente Registrada Exitosamente';
+    this.paramsRedirectTo = 'Práctica Docente Registrada Exitosamente';
     this.progressRequest = '';
     this.showProgressRequest = false;
     this.enableRedirect = true;

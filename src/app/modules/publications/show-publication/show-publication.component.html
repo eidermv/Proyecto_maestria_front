@@ -1,4 +1,4 @@
-<div bsModal #showMagazime="bs-modal" class="modal fade" tabindex="-1">
+<div bsModal #showMagazime="bs-modal" class="modal fade" tabindex="-1" [config]="{backdrop: 'static'}">
   <div class="modal-dialog modal-primary" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -38,7 +38,7 @@
 </div><!-- /.modal -->
 
 <div bsModal #showBook="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-  aria-hidden="true">
+  aria-hidden="true" [config]="{backdrop: 'static'}">
   <div class="modal-dialog modal-primary" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -79,7 +79,7 @@
 </div><!-- /.modal -->
 
 <div bsModal #showCapBook="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-  aria-hidden="true" data-backdrop="static">
+  aria-hidden="true" [config]="{backdrop: 'static'}">
   <div class="modal-dialog modal-primary" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -119,7 +119,7 @@
 </div><!-- /.modal -->
 
 <div bsModal #showEvent="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-  aria-hidden="true">
+  aria-hidden="true" [config]="{backdrop: 'static'}">
   <div class="modal-dialog modal-primary" role="document">
     <div class="modal-content">
       <div class="modal-header">

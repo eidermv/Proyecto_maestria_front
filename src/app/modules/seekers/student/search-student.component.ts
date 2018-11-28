@@ -12,9 +12,7 @@ export class SearchStudentComponent implements OnInit {
    /*************************STRINGS APP********************* */
    stringValidation: StringValidation;
     /***********************VARIABLES LOCALES *****************/
-    @Output() getStudent = new EventEmitter<{id: string, name: string, surname: string, tutor: string, email: string,
-                                          cohorte: string, state: string, semesterEntered: string, enteredBy: string}>();
-    @Input() resetForm: {resetForm: string};
+
     @ViewChild('f') form: NgForm ;
     options = [];
     studentNotFound: boolean;
@@ -22,6 +20,7 @@ export class SearchStudentComponent implements OnInit {
     txt_fieldNameStudent: string;
     arrayStudent: Array<string>;
     /****************VARIABLES DE INSTANCIA********** */
+    @Output() getStudent = new EventEmitter<{student: Student}>();
     fieldsForm: FormGroup;
     student: Student;
 
@@ -44,27 +43,25 @@ export class SearchStudentComponent implements OnInit {
       });
   }
 
-  ressetForm()
-  {
-    this.form.reset();
-    this.clearOptions();
-  }
   clearOptions()
   {
     this.options = [];
   }
 
-  determineAction(eventField: any)
+  determineAction(eventField: any, dataStudent: any)
   {
+
     this.fielstudentEmpty = false;
       if((eventField.key === 'Enter') || (eventField.type === 'click'))
         {
-          this.getDataStudent();
+          this.getDataStudent(dataStudent);
         }
         else {
           this.searchStudent();
         }
   }
+
+
 
   private searchStudent()
   {
@@ -78,7 +75,6 @@ export class SearchStudentComponent implements OnInit {
       this.seekersServices.searchStudent(this.txt_fieldNameStudent).
       subscribe(data =>
         {
-
           this.proccessResponse(data);
         },
         err =>
@@ -89,12 +85,13 @@ export class SearchStudentComponent implements OnInit {
       );
     }
   }
+
   private proccessResponse(data: Array<any>)
   {
     this.arrayStudent = data;
     if(this.arrayStudent.length > 0)
       {
-      this.loadOptions(this.arrayStudent);
+      this.loadOptions();
       this.studentNotFound = false;
       }
       else
@@ -104,58 +101,48 @@ export class SearchStudentComponent implements OnInit {
       }
   }
 
-  private loadOptions(students: Array<string>)
+  private loadOptions()
   {
     this.clearOptions();
-    for(let i = 0 ; i < students.length ; i++)
+    for(let i = 0 ; i < this.arrayStudent.length ; i++)
       {
-        this.options.push(students[i]['nombres'] + ' ' + students[i]['apellidos']);
+        this.options.push(this.arrayStudent[i]);
       }
   }
 
-  getDataStudent()
+  getDataStudent(dataStudent: any)
   {
+    this.fieldsForm.get('nameStudent').setValue(dataStudent['nombres'] + ' ' + dataStudent['apellidos']);
     if(this.checkSelectedStudentValid())
       {
-      this.selectedStudent();
-      this.getStudent.emit(
-                            /*{
-                              id: this.fieldsForm.get('idStudent').value,
-                              name:  this.fieldsForm.get('nameStudent').value,
-                              surname: this.fieldsForm.get('surnameStudent').value,
-                              tutor: this.cbx_tutorStudent.nativeElement.value,
-                              email: this.fieldsForm.get('emailStudent').value,
-                              cohorte: this.cbx_cohorteStudent.nativeElement.value,
-                              state: this.cbx_stateStudent.nativeElement.value,
-                              semesterEntered: this.cbx_semesterStudent.nativeElement.value,
-                              enteredBy: this.cbx_enteredByStudent.nativeElement.value
-                            }*/
-                          );
+      this.student.setCodigo(dataStudent['codigo']);
+      this.student.setName(dataStudent['nombres']);
+      this.student.setSurname(dataStudent['apellidos']);
+      this.student.setEmail(dataStudent['correo']);
+      this.student.setCohorte(dataStudent['cohorte']);
+      this.student.setState(dataStudent['estado']);
+      this.student.setEnteredBy(dataStudent['pertenece']);
+      this.student.setTutor(dataStudent['tutor']['nombre']);
+      this.getStudent.emit({student : this.student});
       }
-  }
-  checkSelectedStudentValid()
-  {
-    return this.options.includes(this.fieldsForm.get('nameStudent').value.trim());
+      else
+      {
+        this.studentNotFound = true;
+      }
   }
 
-  selectedStudent()
+  checkSelectedStudentValid()
   {
+    var aux = this.fieldsForm.get('nameStudent').value;
+    for(let i = 0; i < this.options.length; i ++)
     {
-      for(let i = 0; i < this.arrayStudent.length ; i++)
+      if( aux === (this.options[i]['nombres'] + ' ' + this.options[i]['apellidos']))
       {
-        let nameAndSurname = this.fieldsForm.get('nameStudent').value.split(' ');
-        let name = nameAndSurname[0] + nameAndSurname [1].trim();
-        let surname = nameAndSurname[2] + nameAndSurname [3].trim();
-        console.log(name);
-        console.log(surname);
-        if((this.arrayStudent[i]['nombres'].includes(name))
-            && (this.arrayStudent[i]['apellidos'].includes(surname)))
-        {
-          console.log('si pase la condicion');
-          this.student.setId(this.arrayStudent[i]);
-        }
+        return true;
       }
-    }
+   }
+   return false;
   }
+
 
 }

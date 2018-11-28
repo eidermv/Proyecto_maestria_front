@@ -12,6 +12,8 @@ import { ListTeachingPracticeForStudentComponent } from './list-teaching-practic
 import { ListTeachingPracticeForAdminComponent } from './list-teaching-practice-for-admin/list-teaching-practice-for-admin.component';
 import { ShowTeachingPracticeComponent } from './show-teaching-practice/show-teaching-practice.component';
 import { TeachingPracticeFilterPipe } from './list-teaching-practice-for-admin/teachingPracticeFilter.pipe';
+import { ShowHoursAndCreditsForStudentComponent } from './show-hours-and-credits-for-student/show-hours-and-credits-for-student.component';
+import { SeekersModule } from '../seekers/seekers.module';
 
 @NgModule({
   imports: [
@@ -20,6 +22,7 @@ import { TeachingPracticeFilterPipe } from './list-teaching-practice-for-admin/t
     FormsModule,
     CommonModule,
     NgxPaginationModule,
+    SeekersModule,
     ModalModule.forRoot(),
     ModalWindowsModule
   ],
@@ -29,7 +32,8 @@ import { TeachingPracticeFilterPipe } from './list-teaching-practice-for-admin/t
     ListTeachingPracticeForStudentComponent,
     ListTeachingPracticeForAdminComponent,
     ShowTeachingPracticeComponent,
-    TeachingPracticeFilterPipe],
+    TeachingPracticeFilterPipe,
+    ShowHoursAndCreditsForStudentComponent],
     providers: [TeachingPracticeService]
 })
 export class TeachingPracticeModule { }

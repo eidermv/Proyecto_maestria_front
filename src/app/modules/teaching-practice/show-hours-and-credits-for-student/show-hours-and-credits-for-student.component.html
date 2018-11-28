@@ -1,0 +1,31 @@
+<div style="text-align:right" *ngIf="showButon">
+    <button type="submit" class="btn  btn-light" (click)="showFormm()" >Buscar Horas y Créditos de un Estudiante
+    </button>
+  </div>
+<div class="alert alert-secondary" role="alert" *ngIf="showForm">
+  <button type="button" class="close" aria-label="Close" (click)="close()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <h3 class="title text-center">Consulta aquí las horas y los créditos asignados para un estudiante</h3><br>
+  <div class="row">
+    <div class="formGroup col-6">
+      <app-student-search (getStudent)="getStudent($event)"></app-student-search>
+    </div>
+    <div class="formGroup col-3">
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text"><i class="fa fa-id-card-o"></i><small>&nbsp;Horas</small></span>
+        </div>
+        <input type="text" class="form-control" [(ngModel)]="hours" disabled="true">
+      </div>
+    </div>
+    <div class="formGroup col-3">
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text"><i class="fa fa-id-card-o"></i><small>&nbsp;Creditos</small></span>
+        </div>
+        <input type="text" class="form-control" [(ngModel)]="credits" disabled="true">
+      </div>
+    </div>
+  </div>
+</div>

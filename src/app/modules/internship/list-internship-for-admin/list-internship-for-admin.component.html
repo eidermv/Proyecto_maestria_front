@@ -6,7 +6,7 @@
             <div class="card-header  bg-info  ">
                 <i class="fa fa-align-justify "></i> <strong> Pasantias realizadas por los estudiantes </strong>
                 <div class="input-group mb-4 input-group">
-                  <input type="text" class="form-control" placeholder="Buscar por Codigo, Autor, Tipo Pasantia, Estado" [(ngModel)]="searchTerm">
+                  <input type="text" class="form-control" placeholder="Filtrar por Codigo, Autor, Tipo Pasantia, Estado" [(ngModel)]="searchTerm">
                   <span class="input-group-prepend">
                       <button type="submit" class="btn btn-light" ><i class="fa fa-search"></i>  </button>
                   </span>
@@ -45,8 +45,8 @@
                     </td>
                     <td>
                       <div class="col-lg-12">
-                        <button class="btn btn-primary col-lg-3" (click)="showDataInternship(internship)">Ver</button>
-                        <button class="btn btn-danger col-lg-5" (click)="editState(internship)">Cambiar Estado</button>
+                        <button class="btn btn-primary col-lg-4" (click)="showDataInternship(internship)">Ver</button>
+                        <button class="btn btn-danger col-lg-7" (click)="editState(internship)">Cambiar Estado</button>
                       </div>
                     </td>
                   </tr>

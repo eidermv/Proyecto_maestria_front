@@ -8,7 +8,7 @@
     *ngIf="fielstudentEmpty">
      No ha digitado un nombre, apellido o identificacion para el estudiante
     </i>
-    <div class="input-group mb-3 input-group-lg">
+    <div class="input-group mb-3 input-group">
       <input type="text" placeholder="Didite nombre, apellido o identificacion del estudiante a buscar" aria-label="Number"
               [matAutocomplete]="auto" class="form-control"  (keyup)="determineAction($event)"
               formControlName="nameStudent"  >
@@ -19,8 +19,8 @@
   </div>
 
   <mat-autocomplete #auto="matAutocomplete" >
-    <mat-option *ngFor="let option of options" [value]="option" (click)="determineAction($event)" >
-      {{option}}
+    <mat-option *ngFor="let option of options" [value]="option" (click)="determineAction($event, option)" >
+      {{option['nombres'] + ' ' + option['apellidos']}}
     </mat-option>
   </mat-autocomplete>
 </form>

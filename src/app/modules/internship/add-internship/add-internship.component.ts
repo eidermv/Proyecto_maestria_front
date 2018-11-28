@@ -44,6 +44,8 @@ export class AddInternshipComponent implements OnInit {
 
       },err =>
       {
+        this.showProgressRequest = false;
+        this.showFail = false;
         this.msjFail = 'No es posible registrar la pasantía';
         this.showFail = true;
       });

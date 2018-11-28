@@ -11,7 +11,7 @@ const PLACEHOLDER_CERTIFICATE: string= 'Archivo PDF, PNG o JPG que contenga el c
 const teachingCoursePre: string = 'Docencia curso pregrado';
 const teachingCoursePos: string = 'Docencia curso posgrado';
 const shortCourse: string = 'Curso corto (seminario actualizacion)';
-const monitoria: string = 'Monitorías cursos';
+const monitoria: string = 'Monitorias cursos';
 const gradeWorkDirection: string = 'Direccion de Trabajo de Grado en pregrado/posgrado';
 const consultingBusinessInternship: string = 'Asesoria de pasantía empresarial';
 const participationIntheProgramCommittee: string = 'Participacion en el Comite de Programa';
@@ -56,7 +56,7 @@ export class FormTeachingPracticeComponent implements OnInit {
     this.utilitiesDate = new UtilitiesDate();
     this.teachingP = new TeachingPractice();
     this.optionsTypeTeachingPractice = ['Diseno curricular de curso teorico/practico nuevos - pregrado',
-                                        'Diseño curricular de curso teorico/practico nuevos - posgrado',
+                                        'Diseno curricular de curso teorico/practico nuevos - posgrado',
                                         'Preparacion de cursos teoricos/practicos nuevos – pregrado',
                                         'Preparacion de cursos teoricos/practicos nuevos – posgrado',
                                         teachingCoursePre, teachingCoursePos, shortCourse, monitoria,
@@ -196,17 +196,17 @@ export class FormTeachingPracticeComponent implements OnInit {
 
   onSubmit()
   {
-   
+
     if(this.verifyContentCertificate())
     {
-     
+
       if(this.verifyDates())
       {
-       
+
         const dateEnd = this.fieldsForm.get('dateActivityEnd').value;
         const dateStart = this.fieldsForm.get('dateActivityStart').value;
         const valueOptionTypePublication = this.cbx_typePractice.nativeElement.value;
-       
+
         if(dateEnd.length === 0)
         {
           this.showErrorDateFinish = true;

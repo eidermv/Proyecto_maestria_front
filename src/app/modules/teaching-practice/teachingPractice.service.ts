@@ -27,6 +27,10 @@ export class TeachingPracticeService
     return  this.httpClient.get(this.stringApp.URL_SERVICIO_GET_STUDENT_WHIT_TOKEN + sessionStorage.getItem('token'));
   }
 
+  getHoursAndCredits(codeStudent: string)
+  {
+    return this.httpClient.get(this.stringApp.URL_SERVICIO_GET_HOURS_AND_CREDITS_TEACHINGPRACTICE_STUDENT + codeStudent );
+  }
   getAllTeachingPractice(code: string)
   {
     return this.httpClient.get<Array<any>>(this.stringApp.URL_SERVICIO_GET_ALL_TEACHINGPRACTICE + code);

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild, AfterViewInit, Output, EventEmitter, AfterContentInit } from '@angular/core';
 import { TeachingPractice } from '../../../models/teachingPractice/teachingPractice';
 import { TeachingPracticeService } from '../teachingPractice.service';
+import { ModalBackdropOptions } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-show-teaching-practice',
@@ -22,7 +23,6 @@ export class ShowTeachingPracticeComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-
    this.viewModalTeachingPractice.show();
   }
   verifyDates()
@@ -48,6 +48,13 @@ export class ShowTeachingPracticeComponent implements OnInit, AfterViewInit {
   {
     this.teachingPracticeService.getFileTeachingPractice(this.teachingPractice.getIdPractice() , type);
   }
+
+  nn()
+  {
+    console.log('click fuera');
+  }
+
+
 
 
 }

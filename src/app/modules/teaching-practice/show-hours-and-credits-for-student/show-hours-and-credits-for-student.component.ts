@@ -48,6 +48,8 @@ export class ShowHoursAndCreditsForStudentComponent implements OnInit {
 
   close()
   {
+    this.hours = '0';
+    this.credits = '0';
     this.showButon = true;
     this.showForm = false;
   }

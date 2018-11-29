@@ -95,6 +95,7 @@ export class LoginComponent implements OnInit {
         {
         if(err.status == 403)
         {
+          this.viewProgressRequest.hide();
           this.showErrorDates = true;
         }
         });

@@ -63,7 +63,7 @@ export class SearchStudentComponent implements OnInit {
 
 
 
-  private searchStudent()
+  searchStudent()
   {
     this.txt_fieldNameStudent = this.fieldsForm.get('nameStudent').value;
     if(this.txt_fieldNameStudent.length == 0)

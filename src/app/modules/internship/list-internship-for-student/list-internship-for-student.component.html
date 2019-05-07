@@ -39,9 +39,9 @@
                     <span class="badge badge-secondary" *ngIf="internship['estado'] == 'Rechazado'">Rechazada</span>
                   </td>
                   <td>
-                    <div class="col-lg-12">
-                      <button class="btn btn-primary col-lg-3" (click)="showDataInternship(internship)">Ver</button>
-                      <button class="btn btn-danger col-lg-4" (click)="deleteInternship(internship['id'])"
+                    <div>
+                      <button class="btn btn-primary col-4" (click)="showDataInternship(internship)">Ver</button>
+                      <button class="btn btn-danger col-8" (click)="deleteInternship(internship['id'])"
                       *ngIf="internship['estado'] == 'Por verificar'">Eliminar</button>
                     </div>
                   </td>

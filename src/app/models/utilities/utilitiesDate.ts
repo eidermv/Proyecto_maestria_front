@@ -8,12 +8,21 @@ export class UtilitiesDate
   {
     let maxDate: string;
     const today = new Date();
-    if(today.getDate() < 10)
+
+    if(today.getMonth()+1 < 10)
     {
-      maxDate = today.getFullYear() + '-' + (today.getMonth()+ 1) + '-' +'0'+ today.getDate();
+      maxDate = today.getFullYear() + '-' +'0'+  (today.getMonth()+ 1);
     }
     else{
-      maxDate = today.getFullYear() + '-' + (today.getMonth()+ 1) + '-' + today.getDate();
+      maxDate = today.getFullYear() + '-' + (today.getMonth()+ 1);
+    }
+
+    if(today.getDate() < 10)
+    {
+      maxDate = maxDate + '-' +'0'+ today.getDate();
+    }
+    else{
+      maxDate = maxDate + '-' + today.getDate();
     }
     return maxDate;
   }

@@ -17,7 +17,7 @@ export class AddStudentComponent implements OnInit {
   titleForm: string;
   titleBtnForm: string;
   subTitleForm: string;
-  resetForm:string;
+  resetForm: string;
   isFormAddStudent: boolean;
   textErrorService: string;
   progressRequest: string;
@@ -33,8 +33,7 @@ export class AddStudentComponent implements OnInit {
   /*************************VARIABLES DE INSTANCIA************* */
   student: Student;
 
-  constructor( private studentService: StudentService, private router: Router)
-  {
+  constructor( private studentService: StudentService, private router: Router) {
     this.titleForm = 'Registrar Estudiante';
     this.subTitleForm = 'En este formulario podrá registrar a los estudiantes de maestría. Los campos con * son obligatorios';
     this.titleBtnForm = 'Registrar';
@@ -53,8 +52,7 @@ export class AddStudentComponent implements OnInit {
   }
 
   getDataFormStudent(dateFormAdd: {id: string, name: string, surname: string, tutor: string, email: string,
-                                  cohorte: string,state: string, semesterEntered: string, enteredBy: string})
-  {
+                                  cohorte: string, state: string, semesterEntered: string, enteredBy: string}) {
     this.student.setId(dateFormAdd.id);
     this.student.setName(dateFormAdd.name);
     this.student.setSurname(dateFormAdd.surname);
@@ -65,33 +63,27 @@ export class AddStudentComponent implements OnInit {
     this.student.setCohorte(dateFormAdd.cohorte);
     this.student.setState(dateFormAdd.state);
     this.studentService.createStudent(this.student)
-    .subscribe(event =>
-      {
+    .subscribe(event => {
         this.eveent = event;
         this.showProgressRequest = true;
       },
-      err =>
-      {
+      err => {
        this.showProgressRequest = false;
-        if(err.error['error'] == '102' && err.error['campo'] == '100')
-        {
+        if (err.error['error'] === '102' && err.error['campo'] === '100') {
           this.textErrorService = 'La identificación digitada ya existe en el sistema';
         }
-        if(err.error['error'] == '102' && err.error['campo'] == '103')
-        {
+        if (err.error['error'] === '102' && err.error['campo'] === '103') {
           this.textErrorService = 'El correo digitado ya existe en el sistema';
         }
         this.showModalFail();
       });
   }
 
-  private showModalFail()
-  {
+  private showModalFail() {
     this.viewModalFail.show();
   }
 
-  redirectToListStudent()
-  {
+  redirectToListStudent() {
     this.router.navigate(['/student/listStudent', 'Estudiante Registrado exitosamente']);
   }
 

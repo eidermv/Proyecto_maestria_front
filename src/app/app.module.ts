@@ -24,7 +24,7 @@ import { AppRoutingModule } from './app.routing';
 // Import 3rd party components
 
 import { TabsModule } from 'ngx-bootstrap/tabs';
-import { ChartsModule } from 'ng2-charts/ng2-charts';
+// import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { CoreModule } from './core/core.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -32,6 +32,7 @@ import { SeekersModule } from './modules/seekers/seekers.module';
 import { TokenInterceptorService } from './modules/auth/token-interceptor.service';
 import { InternshipModule } from './modules/internship/internship.module';
 import { ModalWindowsModule } from './modules/modal-windows/modal-windows.module';
+import {ChartsModule} from 'ng2-charts';
 
 
 @NgModule({

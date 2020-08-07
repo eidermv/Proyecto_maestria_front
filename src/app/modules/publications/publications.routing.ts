@@ -56,4 +56,4 @@ const publicationsRoutes: Routes = [
   }
 )
 
-export class PublicationRoutingModule{}
+export class PublicationRoutingModule {}

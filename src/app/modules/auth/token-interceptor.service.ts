@@ -11,24 +11,21 @@ export class TokenInterceptorService implements HttpInterceptor {
 
   constructor() { }
 
-  intercept(req: HttpRequest<any>, next: HttpHandler) : Observable<HttpEvent<any>>
-  {
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const idToken = sessionStorage.getItem('token');
 
-    let aux = req.url.split('.');
-    if(aux[1] == 'geonames' )
-    {
+    const aux = req.url.split('.');
+    // tslint:disable-next-line:triple-equals
+    if (aux[1] === 'geonames' ) {
       return next.handle(req);
-    }else if (idToken)
-    {
+    } else if (idToken) {
       const reqClone = req.clone(
         {
           headers: req.headers.set('Authorization', sessionStorage.getItem('token')),
         }
       ) ;
       return next.handle(reqClone);
-    }
-    else{
+    } else {
       return next.handle(req);
 
     }

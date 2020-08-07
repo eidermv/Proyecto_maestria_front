@@ -1,8 +1,7 @@
 import { Publication } from './publication';
 
-export class Magazine extends Publication
-{
-   private doi:string;
+export class Magazine extends Publication {
+   private doi: string;
    private titleArticle: string;
    private nameMagazine: string;
    private categoryMagazine: string;
@@ -10,60 +9,46 @@ export class Magazine extends Publication
    private screenShotEmail: File;
    private screenShotClasification: File;
 
-   public getDoi()
-   {
+   public getDoi() {
      return this.doi;
    }
-   public setDoi(doi: string)
-   {
+   public setDoi(doi: string) {
      this.doi = doi;
    }
-   public getTitleArticle()
-   {
+   public getTitleArticle() {
      return this.titleArticle;
    }
-   public setTitleArticle(titleArticle: string)
-   {
+   public setTitleArticle(titleArticle: string) {
      this.titleArticle = titleArticle;
    }
-   public getNameMagazine()
-   {
+   public getNameMagazine() {
      return this.nameMagazine;
    }
-   public setNameMagazine(nameMagazine: string)
-   {
+   public setNameMagazine(nameMagazine: string) {
     this.nameMagazine = nameMagazine;
    }
-   public getCategoryMagazine()
-   {
+   public getCategoryMagazine() {
      return this.categoryMagazine;
    }
-   public setCategoryMagazine(categoryMagazine: string)
-   {
+   public setCategoryMagazine(categoryMagazine: string) {
      this.categoryMagazine = categoryMagazine;
    }
-   public getArticlePDF()
-   {
+   public getArticlePDF() {
      return this.articlePDF;
    }
-   public setArticlePDF(articlePDF: File)
-   {
+   public setArticlePDF(articlePDF: File) {
       this.articlePDF = articlePDF;
    }
-   public getScreenShotEmail()
-   {
+   public getScreenShotEmail() {
      return this.screenShotEmail;
    }
-   public setScreenShotEmail(screenShotEmail: File)
-   {
+   public setScreenShotEmail(screenShotEmail: File) {
      this.screenShotEmail = screenShotEmail;
    }
-   public getScreenShotClasification()
-   {
+   public getScreenShotClasification() {
      return this.screenShotClasification;
    }
-   public setScreenShotClasification(screenShotClasification: File)
-   {
+   public setScreenShotClasification(screenShotClasification: File) {
      this.screenShotClasification = screenShotClasification;
    }
 }

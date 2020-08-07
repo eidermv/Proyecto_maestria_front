@@ -7,57 +7,50 @@ import { Magazine } from '../../models/publications/magazine';
 import { Book } from '../../models/publications/book';
 import { EventPublication } from '../../models/publications/event';
 import { CapBook } from '../../models/publications/capLibro';
-import 'rxjs/Rx';
+// import 'rxjs/Rx';
 import { UtilitiesFile } from '../../models/utilities/utilitiesFiles';
 import { UtilitiesDate } from '../../models/utilities/utilitiesDate';
 
 /***************************VARIABLES GLOBALES*********** */
-const MAGAZINE: string = 'Revista';
-const BOOK: string = 'Libro';
-const CAP_BOK: string = 'Capítulo de libro';
-const EVENT: string = 'Evento';
+const MAGAZINE = 'Revista';
+const BOOK = 'Libro';
+const CAP_BOK = 'Capítulo de libro';
+const EVENT = 'Evento';
 
 
-//{ headers : new HttpHeaders({ 'Acept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8'})
-//,reportProgress: true, observe: 'events'});
+// { headers : new HttpHeaders({ 'Acept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8'})
+// ,reportProgress: true, observe: 'events'});
 
-const httpOptions =
-{
+const httpOptions = {
   headers : new HttpHeaders({ 'Content-Type': 'application/json'})
-}
+};
 
 
 
 
 @Injectable()
-export class PublicationService
-{
+export class PublicationService {
   stringApp: StringApp = new StringApp();
   utilitiesFiles: UtilitiesFile;
   utilitiesDate: UtilitiesDate;
-  constructor(private httpClient: HttpClient,  private router: Router)
-  {
+  constructor(private httpClient: HttpClient,  private router: Router) {
     this.utilitiesFiles = new UtilitiesFile();
     this.utilitiesDate = new UtilitiesDate();
   }
 
-    getStudent()
-    {
+    getStudent() {
      return  this.httpClient.get(this.stringApp.URL_SERVICIO_GET_STUDENT_WHIT_TOKEN + sessionStorage.getItem('token'));
     }
 
-    getPublicationStudent(studentCode: string)
-    {
+    getPublicationStudent(studentCode: string) {
       return this.httpClient.get<Array<any>>(this.stringApp.URL_SERVICIO_GETPUBLICATIONS_STUDENT + studentCode);
     }
 
-    getAllPublications()
-    {
+    getAllPublications() {
       return this.httpClient.get<Array<any>>(this.stringApp.URL_SERVICIO_GETALL_PUBLICATION, httpOptions);
     }
 
-    updateStatePublication(id: string, credits: string, state: string, commentary: string)
-    {
+    updateStatePublication(id: string, credits: string, state: string, commentary: string) {
       const data = JSON.stringify(
                                   {
                                     idPublicacion: id,
@@ -69,10 +62,8 @@ export class PublicationService
       return this.httpClient.post(this.stringApp.URL_SERVICIO_UPDATE_STATE, data, httpOptions);
     }
 
-    getPublication(typePublication: string, idPublication: string)
-    {
-      switch (typePublication)
-      {
+    getPublication(typePublication: string, idPublication: string) {
+      switch (typePublication) {
         case MAGAZINE:
             return this.httpClient.get<Array<any>>(this.stringApp.URL_SERVICIO_GETPUBLICATION_MAGAZINE + idPublication);
 
@@ -86,58 +77,50 @@ export class PublicationService
       }
     }
 
-    getFile(typePublication: string, typeFile: string, idPublication: string)
-    {
-      switch (typePublication)
-      {
+    getFile(typePublication: string, typeFile: string, idPublication: string) {
+      switch (typePublication) {
         case MAGAZINE:
-             this.httpClient.get(this.stringApp.URL_SERVICIO_GETFILES_MAGAZINE + idPublication+ '/' + typeFile,
+             this.httpClient.get(this.stringApp.URL_SERVICIO_GETFILES_MAGAZINE + idPublication + '/' + typeFile,
              {responseType: 'blob'})
-             .subscribe(data =>
-             {
+             .subscribe(data => {
                this.utilitiesFiles.showFile(data);
              });
             break;
 
         case BOOK:
-             this.httpClient.get(this.stringApp.URL_SERVICIO_GETFILES_BOOK+ idPublication + '/' + typeFile,{responseType: 'blob'})
-             .subscribe(data =>
-              {
+             this.httpClient.get(this.stringApp.URL_SERVICIO_GETFILES_BOOK + idPublication + '/' + typeFile, {responseType: 'blob'})
+             .subscribe(data => {
                 this.utilitiesFiles.showFile(data);
               });
             break;
 
         case CAP_BOK:
-             this.httpClient.get(this.stringApp.URL_SERVICIO_GETFILES_CAPBOKK + idPublication + '/' + typeFile,{responseType: 'blob'})
-             .subscribe(data =>
-              {
+             this.httpClient.get(this.stringApp.URL_SERVICIO_GETFILES_CAPBOKK + idPublication + '/' + typeFile, {responseType: 'blob'})
+             .subscribe(data => {
                 this.utilitiesFiles.showFile(data);
               });
             break;
 
         case EVENT:
-           this.httpClient.get(this.stringApp.URL_SERVICIO_GETFILES_EVENT + idPublication + '/' + typeFile,{responseType: 'blob'})
-           .subscribe(data =>
-            {
+           this.httpClient.get(this.stringApp.URL_SERVICIO_GETFILES_EVENT + idPublication + '/' + typeFile, {responseType: 'blob'})
+           .subscribe(data => {
               this.utilitiesFiles.showFile(data);
             });
           break;
       }
     }
 
-    deletePublication(id: string)
-    {
+    deletePublication(id: string) {
       const data = JSON.stringify(
         {
           idPublicacion: id
         });
-      return this.httpClient.post(this.stringApp.URL_sERVICIO_DELETE_PUBLICATION, data,httpOptions);
+      return this.httpClient.post(this.stringApp.URL_sERVICIO_DELETE_PUBLICATION, data, httpOptions);
     }
 
-    registryMagazine(magazine: Magazine)
-    {
+    registryMagazine(magazine: Magazine) {
       const formData: FormData = new FormData();
-      const metaData= JSON.stringify(
+      const metaData = JSON.stringify(
         {
           codigoEstudiante: magazine.getCode(),
           autor: magazine.getAuthor(),
@@ -159,13 +142,12 @@ export class PublicationService
       formData.append('articulo', magazine.getArticlePDF());
       formData.append('correoAceptacion', magazine.getScreenShotEmail());
       formData.append('clasificacionRevista', magazine.getScreenShotClasification());
-      return this.httpClient.post(this.stringApp.URL_SERVICIO_REGISTRY_PUBLICATIONS, formData,{reportProgress: true, observe: 'events'});
+      return this.httpClient.post(this.stringApp.URL_SERVICIO_REGISTRY_PUBLICATIONS, formData, {reportProgress: true, observe: 'events'});
     }
 
-    registryBook(book: Book)
-    {
+    registryBook(book: Book) {
       const formData: FormData = new FormData();
-      const metaData= JSON.stringify(
+      const metaData = JSON.stringify(
         {
           codigoEstudiante: book.getCode(),
           autor: book.getAuthor(),
@@ -190,8 +172,7 @@ export class PublicationService
       return this.httpClient.post(this.stringApp.URL_SERVICIO_REGISTRY_BOOK, formData, {reportProgress: true, observe: 'events'});
     }
 
-    registryEvent(event: EventPublication)
-    {
+    registryEvent(event: EventPublication) {
       const formData: FormData = new FormData();
       const metaData = JSON.stringify(
         {
@@ -222,8 +203,7 @@ export class PublicationService
         return this.httpClient.post(this.stringApp.URL_SERVICIO_REGISTRY_EVENT, formData, {reportProgress: true, observe: 'events'});
     }
 
-    registyCapBook(capBook: CapBook)
-    {
+    registyCapBook(capBook: CapBook) {
       const formData: FormData = new FormData();
       const metaData = JSON.stringify(
         {
@@ -247,30 +227,24 @@ export class PublicationService
         return this.httpClient.post(this.stringApp.URL_SERVICIO_REGISTRY_CAP_BOOK, formData, {reportProgress: true, observe: 'events'});
     }
 
-    determineTypeFile(file: File)
-    {
+    determineTypeFile(file: File) {
       const returnFile = file.type.split('/');
-      if(returnFile[1] == 'jpeg')
-      {
+      if (returnFile[1] === 'jpeg') {
         returnFile[1] = 'jpg';
       }
       return returnFile[1];
     }
 
-    invertToDate(date: string)
-    {
+    invertToDate(date: string) {
       const dateAux = date.split('-');
-      var dateReturn: string;
+      let dateReturn: string;
       dateReturn = '';
-      for(let i = dateAux.length; i > 0; i--)
-      {
+      for (let i = dateAux.length; i > 0; i--) {
 
-        if((i-1) == 0)
-        {
-          dateReturn = dateReturn + dateAux[i-1];
-        }
-        else{
-          dateReturn = dateReturn + dateAux[i-1] + '-';
+        if ((i - 1) === 0) {
+          dateReturn = dateReturn + dateAux[i - 1];
+        } else {
+          dateReturn = dateReturn + dateAux[i - 1] + '-';
         }
       }
       return dateReturn;

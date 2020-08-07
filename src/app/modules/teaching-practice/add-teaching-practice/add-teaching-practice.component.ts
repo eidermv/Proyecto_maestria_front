@@ -23,8 +23,7 @@ export class AddTeachingPracticeComponent implements OnInit {
   eveent: any;
 
 
-  constructor(private teachingPracticeService: TeachingPracticeService)
-  {
+  constructor(private teachingPracticeService: TeachingPracticeService) {
     this.titleForm = 'Registrar Práctica Docente';
     this.subTitleForm = 'En este formulario podra registrar sus actividades de práctica docente';
     this.buttonAction = 'Registrar Practica Docente';
@@ -39,22 +38,18 @@ export class AddTeachingPracticeComponent implements OnInit {
 
   }
 
-  getDataTeachingPractice(dataTeachingPractice: {teachingPractice: TeachingPractice})
-  {
+  getDataTeachingPractice(dataTeachingPractice: {teachingPractice: TeachingPractice}) {
 
     this.teachingPracticeService.registryTeachingPractice(dataTeachingPractice.teachingPractice)
-    .subscribe(event =>
-      {
+    .subscribe(event => {
         this.eveent = event;
         this.showProgressRequest = true;
-      }, errr =>
-      {
+      }, errr => {
         this.showModalFail();
       });
   }
 
-  showModalFail()
-  {
+  showModalFail() {
     this.showProgressRequest = false;
     this.viewModalFail.show();
   }

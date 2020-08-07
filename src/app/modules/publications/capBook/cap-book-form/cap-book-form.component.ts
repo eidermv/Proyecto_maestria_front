@@ -9,7 +9,7 @@ import { StringValidation } from '../../../../resources/stringValidation';
 export class CapBookFormComponent implements OnInit {
 
    /****************************VARIABLE GLOBALE********** */
-   public TAM_MAX_FILE: number = 10240;
+   public TAM_MAX_FILE = 10240;
    /*************************STRINGS APP********************* */
     stringValidation: StringValidation;
     /***********************VARIABLES LOCALES**************** */
@@ -29,8 +29,7 @@ export class CapBookFormComponent implements OnInit {
     fieldsForm: FormGroup;
     fileToBook: null;
     fileToCertificate: null;
-  constructor(private formBuilder: FormBuilder)
-  {
+  constructor(private formBuilder: FormBuilder) {
     this.stringValidation = new StringValidation();
     this.placeholderCapBook = 'Archivo PDF que contenga el capitulo del libro';
     this.placeholderCertificate = 'Archivo PDF, JPG o PNG que contenga el Certificado';
@@ -47,90 +46,74 @@ export class CapBookFormComponent implements OnInit {
                           Validators.pattern('^[0-9]+(-[0-9]+)+$')
                         ]
                     ],
-        tittleBook:  ['',[Validators.required,
+        tittleBook:  ['', [Validators.required,
                         Validators.maxLength(this.stringValidation.MAX_LONG_TITLE_BOOK),
                         Validators.minLength(this.stringValidation.MIN_LONG_TEX)
                         ]
                 ],
-        editorial:  ['',[Validators.required,
+        editorial:  ['', [Validators.required,
                         Validators.maxLength(this.stringValidation.MAX_LONG_EDITORIAL),
                         Validators.minLength(this.stringValidation.MIN_LONG_TEX)
                         ]
                       ],
-        capTitleBook: ['',[Validators.required,
+        capTitleBook: ['', [Validators.required,
                         Validators.maxLength(this.stringValidation.MAX_LONG_TITLE_CAP_BOOK),
                         Validators.minLength(this.stringValidation.MIN_LONG_TEX)
                         ]
                       ],
     });
   }
-  handleFileInpuCapBook(event: any)
-  {
+  handleFileInpuCapBook(event: any) {
     const tam_file = event.target.files[0].size / 1024;
     const type_file = event.target.files[0].type.split('/');
-    if(type_file[1] == 'pdf')
-    {
-      if(tam_file > this.TAM_MAX_FILE)
-      {
+    if (type_file[1] === 'pdf') {
+      if (tam_file > this.TAM_MAX_FILE) {
         this.msjErroBook = 'El archivo supera el limite de 10 MB';
         this.showErrorCapBook = true;
-      }
-      else{
+      } else {
         this.fileToBook = event.target.files[0];
         this.placeholderCapBook = event.target.files[0].name;
         this.showErrorCapBook = false;
       }
-    }
-    else{
+    } else {
       this.msjErroBook = 'Solo se permiten archivos PDF';
       this.showErrorCapBook = true;
     }
   }
 
-  handleFileInputCertificate(event: any)
-  {
+  handleFileInputCertificate(event: any) {
     const tam_file = event.target.files[0].size / 1024;
     const type_file = event.target.files[0].type.split('/');
-    if(type_file[1] == 'png' || type_file[1] == 'jpeg' || type_file[1] == 'pdf')
-    {
-      if(tam_file > this.TAM_MAX_FILE)
-      {
-        this.msjErrorCertificate= 'El archivo supera el limite de 10 MB';
+    if (type_file[1] === 'png' || type_file[1] === 'jpeg' || type_file[1] === 'pdf') {
+      if (tam_file > this.TAM_MAX_FILE) {
+        this.msjErrorCertificate = 'El archivo supera el limite de 10 MB';
         this.showErrorCertificate = true;
-      }
-      else{
+      } else {
         this.fileToCertificate = event.target.files[0];
         this.placeholderCertificate = event.target.files[0].name;
         this.showErrorCertificate = false;
       }
-    }
-    else{
+    } else {
       this.msjErrorCertificate = 'Solo se permiten archivos PNG, JPG o PDF';
       this.showErrorCertificate = true;
     }
   }
 
-  onSubmit()
-  {
-    if(this.fileToBook == null)
-    {
+  onSubmit() {
+    if (this.fileToBook === null) {
       this.showErrorCapBook = true;
       this.msjErroBook = 'Debe cargar un PDF del capitulo del libro';
-    }
-    else if(this.fileToCertificate == null)
-    {
+    } else if (this.fileToCertificate === null) {
       this.showErrorCertificate = true;
       this.msjErrorCertificate = 'Debe cargar una imagen PDF, PNG o JPG que muestre el certificado de la editorial';
-    }
-    else{
+    } else {
       this.showErrorCapBook = false;
       this.showErrorCertificate = false;
       this.getDatePublicationCapBook();
     }
   }
 
-  getDatePublicationCapBook()
-  {
+  getDatePublicationCapBook() {
     this.getDateCapBook.emit(
                               {
                                 isbn: this.fieldsForm.get('isbnBook').value,

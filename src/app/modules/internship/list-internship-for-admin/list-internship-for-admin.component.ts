@@ -4,9 +4,9 @@ import { Internship } from '../../../models/internship/internship';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { StringValidation } from '../../../resources/stringValidation';
 /***************************VARIABLES GLOBALES******** */
-const APROBADA: string = 'Aprobado';
-const REPROBADA: string = 'Rechazado';
-const POR_VERIFICAR: string = 'Por verificar';
+const APROBADA = 'Aprobado';
+const REPROBADA = 'Rechazado';
+const POR_VERIFICAR = 'Por verificar';
 
 @Component({
   selector: 'app-list-internship-for-admin',
@@ -40,8 +40,7 @@ export class ListInternshipForAdminComponent implements OnInit {
   fieldsForm: FormGroup;
 
 
-  constructor(private internshipService: InternshipService, private formBuilder: FormBuilder)
-  {
+  constructor(private internshipService: InternshipService, private formBuilder: FormBuilder) {
     this.stringValidation = new StringValidation();
     this.internship = new Internship();
     this.optionState = [POR_VERIFICAR, APROBADA, REPROBADA];
@@ -55,37 +54,31 @@ export class ListInternshipForAdminComponent implements OnInit {
     this.selectedState = POR_VERIFICAR;
   }
 
-  getAllInternshipAdmin()
-  {
+  getAllInternshipAdmin() {
     this.internshipService.getAllInternshipForAdmin()
-    .subscribe(data =>
-      {
+    .subscribe(data => {
         this.optionsInternship = data;
-        if(this.optionsInternship.length == 0)
-        {
+        if (this.optionsInternship.length === 0) {
           this.showEmpty = true;
-        }
-        else{
+        } else {
           this.showEmpty = false;
         }
-      }, err =>
-      {
+      }, err => {
         this.msjFail = 'Error al obtener todas las pasantias';
         this.showFail = true;
-      })
+      });
   }
 
   ngOnInit() {
 
     this.fieldsForm = this.formBuilder.group(
       {
-       observation: ['', [Validators.maxLength(this.stringValidation.MAX_LONG_OBSERVATION),]]
+       observation: ['', [Validators.maxLength(this.stringValidation.MAX_LONG_OBSERVATION), ]]
                   });
     this.getAllInternshipAdmin();
   }
 
-  showDataInternship(dataInternship: any)
-  {
+  showDataInternship(dataInternship: any) {
     this.internship.setIdInternship(dataInternship['id']);
     this.internship.setNameStudent(dataInternship['estudiante']['nombres'] + dataInternship['estudiante']['apellidos']);
     this.internship.setCodeStudent(dataInternship['estudiante']['codigo']);
@@ -102,30 +95,24 @@ export class ListInternshipForAdminComponent implements OnInit {
     this.internship.setObservation(dataInternship['observacion']);
     this.showInternship = true;
   }
-  destroyModal(destruir: {cerrar: boolean})
-  {
+  destroyModal(destruir: {cerrar: boolean}) {
     this.showInternship = false;
   }
 
-  handleState(event: any)
-  {
+  handleState(event: any) {
     this.selectedState =  event.target.value;
-    if(this.selectedState == APROBADA)
-    {
+    if (this.selectedState === APROBADA) {
       this.showCredits = true;
-    }
-    else{
+    } else {
       this.showCredits = false;
     }
   }
 
-  handleCredits(event: any)
-  {
+  handleCredits(event: any) {
     this.totalCredits = event.target.value;
   }
 
-  editState(aux: any)
-  {
+  editState(aux: any) {
     this.nameStudent = aux['estudiante']['nombres'] + ' ' + aux['estudiante']['apellidos'];
     this.codeStudent = aux['estudiante']['codigo'];
     this.idInternship = aux['id'];
@@ -133,25 +120,20 @@ export class ListInternshipForAdminComponent implements OnInit {
     this.viewEditState.show();
   }
 
-  updateState()
-  {
-    if(this.fieldsForm.get('observation').value.length <= 300)
-    {
-      if(this.selectedState != APROBADA)
-      {
+  updateState() {
+    if (this.fieldsForm.get('observation').value.length <= 300) {
+      if (this.selectedState !== APROBADA) {
         this.totalCredits = '0';
       }
       this.comentary = this.fieldsForm.get('observation').value;
       this.fieldsForm.get('observation').setValue('');
       this.internshipService.updateStateInternship(this.idInternship, this.totalCredits , this.selectedState, this.comentary)
-      .subscribe(data =>
-                {
+      .subscribe(data => {
                   this.viewEditState.hide();
                   this.getAllInternshipAdmin();
                   this.comentary = '';
                   this.showCredits = false;
-                }, err =>
-                {
+                }, err => {
                   this.viewEditState.hide();
                   this.msjFail = 'Error al actualizar el estado de la pasantia';
                   this.showFail = true;

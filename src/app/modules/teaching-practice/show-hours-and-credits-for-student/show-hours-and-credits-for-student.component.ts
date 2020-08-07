@@ -13,9 +13,8 @@ export class ShowHoursAndCreditsForStudentComponent implements OnInit {
   showForm: boolean;
   showButon: boolean;
   /**********************************VARIABLES DE INSTANCIA********** */
-  student : Student;
-  constructor(private teachingPracticeService: TeachingPracticeService)
-  {
+  student: Student;
+  constructor(private teachingPracticeService: TeachingPracticeService) {
     this.student = new Student();
     this.hours = '0';
     this.credits = '0';
@@ -26,28 +25,23 @@ export class ShowHoursAndCreditsForStudentComponent implements OnInit {
   ngOnInit() {
   }
 
-  getStudent(student: {student: Student})
-  {
+  getStudent(student: {student: Student}) {
     this.student = student.student;
     this.teachingPracticeService.getHoursAndCredits(this.student.getCodigo())
-    .subscribe(data =>
-      {
+    .subscribe(data => {
         this.hours = data['horas'];
         this.credits = data['creditos'];
-      },err =>
-      {
+      }, err => {
 
       });
   }
 
-  showFormm()
-  {
+  showFormm() {
     this.showButon = false;
     this.showForm = true;
   }
 
-  close()
-  {
+  close() {
     this.hours = '0';
     this.credits = '0';
     this.showButon = true;

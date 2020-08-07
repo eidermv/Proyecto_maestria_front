@@ -23,8 +23,7 @@ export class ListTeachingPracticeForStudentComponent implements OnInit {
   teachingPractice: TeachingPractice;
 
   constructor(private teachingPracticeService: TeachingPracticeService,
-              private route: ActivatedRoute,private router: Router)
-  {
+              private route: ActivatedRoute, private router: Router) {
     this.teachingPractice = new TeachingPractice();
     this.optionsTeachingPractice = [];
     this.showTeachingPractice = false;
@@ -33,35 +32,27 @@ export class ListTeachingPracticeForStudentComponent implements OnInit {
     this.showEmpty = false;
   }
 
-  getDateStudent()
-  {
+  getDateStudent() {
    this.teachingPracticeService.getStudent()
-   .subscribe(data =>
-    {
+   .subscribe(data => {
       this.codeStudent = data['codigo'];
       this.getAllTeachingPractice();
-    },err =>
-    {
+    }, err => {
       this.msjFail = 'Error al obtener informacion del estudiante';
       this.showFail = true;
     });
   }
 
-  getAllTeachingPractice()
-  {
+  getAllTeachingPractice() {
     this.teachingPracticeService.getAllTeachingPractice(this.codeStudent)
-    .subscribe(data =>
-      {
+    .subscribe(data => {
         this.optionsTeachingPractice = data;
-        if(this.optionsTeachingPractice.length == 0)
-        {
+        if (this.optionsTeachingPractice.length === 0) {
           this.showEmpty = true;
-        }
-        else{
+        } else {
           this.showEmpty = false;
         }
-      }, err =>
-      {
+      }, err => {
         this.msjFail = 'Error al obtener mis practicas docente';
         this.showFail = false;
       });
@@ -69,16 +60,14 @@ export class ListTeachingPracticeForStudentComponent implements OnInit {
 
   ngOnInit() {
     const msj: string = this.route.snapshot.params['msj'];
-    if(msj != null)
-    {
+    if (msj != null) {
       this.msjOk = msj;
       this.showModalOk = true;
     }
     this.getDateStudent();
   }
 
-  showDataTeachingPractice(teachigP: any)
-  {
+  showDataTeachingPractice(teachigP: any) {
     this.teachingPractice.setTypePractice(teachigP['tipoPracticaDocente']);
     this.teachingPractice.setDateRegister(teachigP['fechaRegistro']);
     this.teachingPractice.setDateStart(teachigP['fechaInicio']);
@@ -87,25 +76,21 @@ export class ListTeachingPracticeForStudentComponent implements OnInit {
     this.teachingPractice.setHours(teachigP['horas']);
     this.teachingPractice.setObservation(teachigP['observaciones']);
     this.teachingPractice.setIdPractice(teachigP['id']);
-    this.teachingPractice.setNameStudent(teachigP['estudiante']['nombres'] +' ' + teachigP['estudiante']['apellidos']);
+    this.teachingPractice.setNameStudent(teachigP['estudiante']['nombres'] + ' ' + teachigP['estudiante']['apellidos']);
     this.teachingPractice.setCodeStudent(this.codeStudent);
     this.teachingPractice.setObservation(teachigP['observacion']);
     this.showTeachingPractice = true;
   }
 
-  destroyModal(destruir: {cerrar: boolean})
-  {
+  destroyModal(destruir: {cerrar: boolean}) {
     this.showTeachingPractice = false;
   }
 
-  deleteTeachingPractice(idTeachingPractice: string)
-  {
+  deleteTeachingPractice(idTeachingPractice: string) {
     this.teachingPracticeService.deleteTeachingPractice(idTeachingPractice)
-   .subscribe(data =>
-     {
+   .subscribe(data => {
         this.getAllTeachingPractice();
-     },err =>
-     {
+     }, err => {
         this.msjFail = 'Error al eliminar la practica docente';
         this.showFail = true;
      }

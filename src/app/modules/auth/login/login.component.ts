@@ -26,8 +26,7 @@ export class LoginComponent implements OnInit {
   showProgressRequest: boolean;
   eventt: any;
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router)
-  {
+  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) {
     this.stringValidation = new StringValidation();
     this.stringApp = new StringApp();
     this.showErrorPass = false;
@@ -53,48 +52,36 @@ export class LoginComponent implements OnInit {
     );
   }
 
-  onSubmit()
-  {
-    let user: string = this.fieldsForm.get('userLogin').value;
-    let pass: string = this.fieldsForm.get('passLogin').value;
+  onSubmit() {
+    const user: string = this.fieldsForm.get('userLogin').value;
+    const pass: string = this.fieldsForm.get('passLogin').value;
 
-    if(this.validateField(user, pass))
-    {
+    if (this.validateField(user, pass)) {
       this.authService.login(user, pass)
-      .subscribe( event =>
-        {
+      .subscribe( event => {
 
-          if(event.type === HttpEventType.UploadProgress)
-          {
+          if (event.type === HttpEventType.UploadProgress) {
             this.viewProgressRequest.show();
-          }
-          else{
-          if(event.type === HttpEventType.Response)
-          {
+          } else {
+          if (event.type === HttpEventType.Response) {
             this.viewProgressRequest.hide();
             this.showErrorDates = false;
             this.showErrorPass = false;
             this.showErrorUser = false;
             this.authService.setSession(event.body);
-            if(sessionStorage.getItem('rol') == this.stringApp.COORDINATOR)
-            {
+            if (sessionStorage.getItem('rol') === this.stringApp.COORDINATOR) {
               this.router.navigate(['/student/listStudent']);
-            }
-            else if(sessionStorage.getItem('rol') == this.stringApp.STUDENT)
-            {
+            } else if (sessionStorage.getItem('rol') === this.stringApp.STUDENT) {
 
               this.router.navigate(['/publication/listPublicationsEstudent']);
-            }
-            else{
+            } else {
               this.router.navigate(['/login']);
             }
           }
         }
         },
-        err =>
-        {
-        if(err.status == 403)
-        {
+        err => {
+        if (err.status === 403) {
           this.viewProgressRequest.hide();
           this.showErrorDates = true;
         }
@@ -102,35 +89,26 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  validateField(user: string, pass: string)
-  {
+  validateField(user: string, pass: string) {
     this.showErrorDates = false;
-    if (user.length == 0)
-    {
+    if (user.length === 0) {
       this.showErrorUser = true;
-    }
-    else{
+    } else {
       this.showErrorUser = false;
     }
-    if(pass.length == 0)
-    {
+    if (pass.length === 0) {
       this.showErrorPass = true;
-    }
-    else{
+    } else {
       this.showErrorPass = false;
     }
-    if(user.length> 0 && pass.length >0)
-    {
+    if (user.length > 0 && pass.length > 0) {
       return true;
-    }
-    else
-    {
+    } else {
       return false;
     }
   }
 
-  closeMsjError()
-  {
+  closeMsjError() {
     this.showErrorDates = false;
   }
 

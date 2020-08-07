@@ -11,34 +11,28 @@ const httpOptions = {
 
 
 @Injectable()
-export class AuthService
-{
+export class AuthService {
 
-  stringApp : StringApp;
+  stringApp: StringApp;
 
-  constructor(private httpClient: HttpClient, private router: Router)
-  {
+  constructor(private httpClient: HttpClient, private router: Router) {
     this.stringApp = new StringApp();
   }
 
 
-  login(user: string, password: string)
-  {
+  login(user: string, password: string) {
     const newStudent = JSON.stringify({usuario: user,
                                      contrasena: password});
-    return this.httpClient.post<any>(this.stringApp.URL_SERVICIO_LOGIN,newStudent, { reportProgress: true, observe: 'events'} );
+    return this.httpClient.post<any>(this.stringApp.URL_SERVICIO_LOGIN, newStudent, { reportProgress: true, observe: 'events'} );
   }
 
-  getStudent()
-  {
+  getStudent() {
     this.httpClient.get(this.stringApp.URL_SERVICIO_GET_STUDENT_WHIT_TOKEN + sessionStorage.getItem('token'))
-    .subscribe(data =>
-      {
+    .subscribe(data => {
         sessionStorage.setItem('code', data['codigo']);
-        sessionStorage.setItem('nameStudent', data['nombres']+' '+ data['apellidos']);
+        sessionStorage.setItem('nameStudent', data['nombres'] + ' ' + data['apellidos']);
       },
-      err=>
-      {
+      err => {
         this.router.navigate(['/404']);
       });
   }
@@ -49,8 +43,7 @@ export class AuthService
     sessionStorage.setItem('rol', authResult['roles']);
   }
 
-  autorizationView()
-  {
+  autorizationView() {
     return true;
   }
 

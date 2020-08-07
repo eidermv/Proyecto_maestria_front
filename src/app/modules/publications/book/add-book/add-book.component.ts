@@ -13,11 +13,10 @@ export class AddBookComponent implements OnInit {
   @Output() getDateBook = new EventEmitter<{isbn: string, title: string, editorial: string, city: string, country: string
     fileBook: File, fileCertificate: File}>();
 
-  constructor()
-  {
+  constructor() {
     this.titleAddBook = 'Datos de Libro';
     this.subtitleAddBook = 'En este formulario ingrese los datos del libro, recuerde los campos con * son obligatorios.'
-                                  +' No olvide cargar los archivos necesarios';
+                                  + ' No olvide cargar los archivos necesarios';
     this.nameBtnAddBook = 'Registrar Libro';
   }
 
@@ -25,8 +24,7 @@ export class AddBookComponent implements OnInit {
   }
 
   getDataPublicationBook(dataBook: {isbn: string, title: string, editorial: string, city: string, country: string
-                        fileBook: File, fileCertificate: File})
-  {
+                        fileBook: File, fileCertificate: File}) {
    this.getDateBook.emit(
                           {
                             isbn: dataBook.isbn,

@@ -17,10 +17,9 @@ export class ElementsTemplateComponent {
   private stringApp: StringApp = new StringApp();
   constructor(private route: Router) {
 
-    if(sessionStorage.getItem('rol') == this.stringApp.COORDINATOR)
-    {
+    if (sessionStorage.getItem('rol') === this.stringApp.COORDINATOR) {
       this.navItems = navAdministrator;
-    }else{
+    } else {
       this.navItems = navStudent;
     }
 
@@ -33,8 +32,7 @@ export class ElementsTemplateComponent {
     });
   }
 
-  redirectToLogin()
-  {
+  redirectToLogin() {
     sessionStorage.clear();
     this.route.navigate(['/login']);
   }

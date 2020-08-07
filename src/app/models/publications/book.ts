@@ -1,7 +1,6 @@
 import { Publication } from './publication';
 
-export class Book extends Publication
-{
+export class Book extends Publication {
   private _isbn: string;
 
   private _titleBook: string;

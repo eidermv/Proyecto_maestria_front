@@ -1,6 +1,5 @@
 
-export class TeachingPractice
-{
+export class TeachingPractice {
   private _nameStudent: string;
 
   private _codeStudent: string;

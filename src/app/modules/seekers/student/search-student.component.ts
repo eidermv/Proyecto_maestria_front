@@ -24,8 +24,7 @@ export class SearchStudentComponent implements OnInit {
     fieldsForm: FormGroup;
     student: Student;
 
-  constructor(private formBuilder: FormBuilder, private seekersServices: SeekersService)
-  {
+  constructor(private formBuilder: FormBuilder, private seekersServices: SeekersService) {
     this.stringValidation = new StringValidation();
     this.fielstudentEmpty = false;
     this.studentNotFound = false;
@@ -43,42 +42,33 @@ export class SearchStudentComponent implements OnInit {
       });
   }
 
-  clearOptions()
-  {
+  clearOptions() {
     this.options = [];
   }
 
-  determineAction(eventField: any, dataStudent: any)
-  {
+  determineAction(eventField: any, dataStudent: any) {
 
     this.fielstudentEmpty = false;
-      if((eventField.key === 'Enter') || (eventField.type === 'click'))
-        {
+      if ((eventField.key === 'Enter') || (eventField.type === 'click')) {
           this.getDataStudent(dataStudent);
-        }
-        else {
+        } else {
           this.searchStudent();
         }
   }
 
 
 
-  searchStudent()
-  {
+  searchStudent() {
     this.txt_fieldNameStudent = this.fieldsForm.get('nameStudent').value;
-    if(this.txt_fieldNameStudent.length == 0)
-    {
+    if (this.txt_fieldNameStudent.length === 0) {
         this.fielstudentEmpty = true;
         this.clearOptions();
-    }
-    else{
+    } else {
       this.seekersServices.searchStudent(this.txt_fieldNameStudent).
-      subscribe(data =>
-        {
+      subscribe(data => {
           this.proccessResponse(data);
         },
-        err =>
-        {
+        err => {
           this.clearOptions();
           this.fielstudentEmpty = true;
         }
@@ -86,35 +76,27 @@ export class SearchStudentComponent implements OnInit {
     }
   }
 
-  private proccessResponse(data: Array<any>)
-  {
+  private proccessResponse(data: Array<any>) {
     this.arrayStudent = data;
-    if(this.arrayStudent.length > 0)
-      {
+    if (this.arrayStudent.length > 0) {
       this.loadOptions();
       this.studentNotFound = false;
-      }
-      else
-      {
+      } else {
         this.clearOptions();
         this.studentNotFound = true;
       }
   }
 
-  private loadOptions()
-  {
+  private loadOptions() {
     this.clearOptions();
-    for(let i = 0 ; i < this.arrayStudent.length ; i++)
-      {
+    for (let i = 0 ; i < this.arrayStudent.length ; i++) {
         this.options.push(this.arrayStudent[i]);
       }
   }
 
-  getDataStudent(dataStudent: any)
-  {
+  getDataStudent(dataStudent: any) {
     this.fieldsForm.get('nameStudent').setValue(dataStudent['nombres'] + ' ' + dataStudent['apellidos']);
-    if(this.checkSelectedStudentValid())
-      {
+    if (this.checkSelectedStudentValid()) {
       this.student.setCodigo(dataStudent['codigo']);
       this.student.setName(dataStudent['nombres']);
       this.student.setSurname(dataStudent['apellidos']);
@@ -124,20 +106,16 @@ export class SearchStudentComponent implements OnInit {
       this.student.setEnteredBy(dataStudent['pertenece']);
       this.student.setTutor(dataStudent['tutor']['nombre']);
       this.getStudent.emit({student : this.student});
-      }
-      else
-      {
+      } else {
         this.studentNotFound = true;
       }
   }
 
-  checkSelectedStudentValid()
-  {
-    var aux = this.fieldsForm.get('nameStudent').value;
-    for(let i = 0; i < this.options.length; i ++)
-    {
-      if( aux === (this.options[i]['nombres'] + ' ' + this.options[i]['apellidos']))
-      {
+  checkSelectedStudentValid() {
+    // tslint:disable-next-line:prefer-const
+    let aux = this.fieldsForm.get('nameStudent').value;
+    for (let i = 0; i < this.options.length; i ++) {
+      if ( aux === (this.options[i]['nombres'] + ' ' + this.options[i]['apellidos'])) {
         return true;
       }
    }

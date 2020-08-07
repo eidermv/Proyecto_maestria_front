@@ -4,7 +4,7 @@ import { AuthService } from './auth.service';
 import { AuthGuard } from './auth-guard.service';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import {HTTP_INTERCEPTORS}  from '@angular/common/http';
+import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import { TokenInterceptorService } from './token-interceptor.service';
 import { AccesDenyInterceptorService } from './accesDeny-interceptor.service';
 import { ModalWindowsModule } from '../modal-windows/modal-windows.module';

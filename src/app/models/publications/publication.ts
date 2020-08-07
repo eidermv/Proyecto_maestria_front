@@ -1,5 +1,4 @@
-export class Publication
-{
+export class Publication {
   private _credits: string;
 
   public code: string;
@@ -25,52 +24,40 @@ export class Publication
     this._credits = value;
   }
 
-  public getAuthor()
-  {
+  public getAuthor() {
     return this.author;
   }
-  public setAuthor(author: string)
-  {
+  public setAuthor(author: string) {
     this.author = author;
   }
-  public getCode()
-  {
+  public getCode() {
     return this.code;
   }
-  public setCode(code: string)
-  {
+  public setCode(code: string) {
     this.code = code;
   }
-  public getSecondaryAuthors()
-  {
+  public getSecondaryAuthors() {
     return this.secondaryAuthors;
   }
-  public setSecondaryAuthors(secondaryAuthors: string)
-  {
+  public setSecondaryAuthors(secondaryAuthors: string) {
     this.secondaryAuthors = secondaryAuthors;
   }
-  public getDatePublication()
-  {
+  public getDatePublication() {
     return this.datePublication;
   }
-  public setDatePublication(datePublication: string)
-  {
+  public setDatePublication(datePublication: string) {
     this.datePublication = datePublication;
   }
-  public getDateAproved()
-  {
+  public getDateAproved() {
     return this.dateAproved;
   }
-  public setDateAproved(dateAproved: string)
-  {
+  public setDateAproved(dateAproved: string) {
     this.dateAproved = dateAproved;
   }
-  public getContenTable()
-  {
+  public getContenTable() {
     return this.contendTable;
   }
-  public setContenTable(contendTable: File)
-  {
+  public setContenTable(contendTable: File) {
     this.contendTable = contendTable;
   }
 

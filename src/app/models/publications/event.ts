@@ -1,7 +1,6 @@
 import { Publication } from './publication';
 
-export class EventPublication extends Publication
-{
+export class EventPublication extends Publication {
   private _doi: string;
   private _dataStart: string;
   private _dataFinish: string;

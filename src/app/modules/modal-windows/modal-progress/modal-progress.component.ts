@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input, SimpleChanges, OnChanges,} from '@angular/core';
+import { Component, OnInit, ViewChild, Input, SimpleChanges, OnChanges } from '@angular/core';
 import {HttpEventType} from '@angular/common/http';
 import { Router } from '@angular/router';
 
@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
   selector: 'app-modal-progress',
   templateUrl: './modal-progress.component.html'
 })
-export class ModalProgressComponent implements OnChanges{
+export class ModalProgressComponent implements OnChanges {
 
   /**********************VARIABLE LOCALES************ */
   @ViewChild('progressModal') viewProgressRequest: any;
@@ -22,28 +22,22 @@ export class ModalProgressComponent implements OnChanges{
     this.proccesResponse(changes.evento.currentValue);
   }
 
-  proccesResponse(event: any)
-  {
-        if(event.type === HttpEventType.UploadProgress)
-        {
-          this.progressRequest = 'Estamos trabajando espera un momento : ' + (Math.round(event.loaded / event.total * 100 ) -1 )+ '%';
+  proccesResponse(event: any) {
+        if (event.type === HttpEventType.UploadProgress) {
+          this.progressRequest = 'Estamos trabajando espera un momento : ' + (Math.round(event.loaded / event.total * 100 ) - 1 ) + '%';
           this.viewProgressRequest.show();
-        }
-        else{
-          if(event.type === HttpEventType.Response)
-          {
+        } else {
+          if (event.type === HttpEventType.Response) {
             this.redirectTo();
           }
         }
   }
 
-  redirectTo()
-  {
-    console.log('llegue a redirigir'+ this.urlRedirectTo);
+  redirectTo() {
+    console.log('llegue a redirigir' + this.urlRedirectTo);
     this.viewProgressRequest.hide();
-    if(this.enableRedirect)
-    {
-      this.router.navigate([''+ this.urlRedirectTo, this.paramsRedirecTo]);
+    if (this.enableRedirect) {
+      this.router.navigate(['' + this.urlRedirectTo, this.paramsRedirecTo]);
     }
   }
 

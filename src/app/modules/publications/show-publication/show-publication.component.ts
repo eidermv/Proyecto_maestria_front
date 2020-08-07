@@ -6,10 +6,10 @@ import { CapBook } from '../../../models/publications/capLibro';
 import { EventPublication } from '../../../models/publications/event';
 
  /***************************VARIABLES GLOBALES*********** */
- const MAGAZINE: string = 'Revista';
- const BOOK: string = 'Libro';
- const CAP_BOK: string = 'Capítulo de libro';
- const EVENT: string = 'Evento';
+ const MAGAZINE = 'Revista';
+ const BOOK = 'Libro';
+ const CAP_BOK = 'Capítulo de libro';
+ const EVENT = 'Evento';
 
 @Component({
   selector: 'app-show-publication',
@@ -38,8 +38,7 @@ export class ShowPublicationComponent implements OnInit {
    eventt: EventPublication;
 
 
-  constructor(private publicationsService: PublicationService)
-  {
+  constructor(private publicationsService: PublicationService) {
     this.magazine = new Magazine();
     this.book = new Book();
     this.capBook = new CapBook();
@@ -50,26 +49,21 @@ export class ShowPublicationComponent implements OnInit {
   ngOnInit(): void {
      this.getPublication();
   }
-  getPublication()
-  {
+  getPublication() {
     this.publicationsService.getPublication(this.typePublication, this.idPublication)
-    .subscribe(data =>
-      {
+    .subscribe(data => {
          this.showPublication(data);
-      }, err =>
-      {
-        //this.showFail();
+      }, err => {
+        // this.showFail();
       });
   }
 
-  showPublication(data: any)
-  {
-    switch (this.typePublication)
-    {
+  showPublication(data: any) {
+    switch (this.typePublication) {
       case MAGAZINE:
           this.magazine.setCredits(data['publicacion']['creditos']);
           this.magazine.setComentary(data['publicacion']['comentario']);
-          this.magazine.setAuthor(data['publicacion']['estudiante']['nombres']+ ' ' +
+          this.magazine.setAuthor(data['publicacion']['estudiante']['nombres'] + ' ' +
                                   data['publicacion']['estudiante']['apellidos']);
           this.magazine.setCode(data['publicacion']['estudiante']['codigo']);
           this.magazine.setSecondaryAuthors(data['publicacion']['autoresSecundarios']);
@@ -134,28 +128,23 @@ export class ShowPublicationComponent implements OnInit {
     }
   }
 
-  destroyModal()
-  {
+  destroyModal() {
     this.cerrar.emit({cerrar: true});
   }
 
-  showFilesMagazine(typeFile: string)
-  {
+  showFilesMagazine(typeFile: string) {
     this.publicationsService.getFile(MAGAZINE, typeFile , this.idPublication);
   }
 
-  showFilesBook(typeFile: string)
-  {
+  showFilesBook(typeFile: string) {
     this.publicationsService.getFile(BOOK, typeFile , this.idPublication);
   }
 
-  showFilesCapBook(typeFile: string)
-  {
+  showFilesCapBook(typeFile: string) {
     this.publicationsService.getFile(CAP_BOK, typeFile , this.idPublication);
   }
 
-  showFilesEvent(typeFile: string)
-  {
+  showFilesEvent(typeFile: string) {
     this.publicationsService.getFile(EVENT, typeFile , this.idPublication);
   }
 }

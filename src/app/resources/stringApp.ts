@@ -1,7 +1,6 @@
 
 
-export class StringApp
-{
+export class StringApp {
 
   /** URL DEL SERVICIO*********** */
 
@@ -11,7 +10,7 @@ export class StringApp
   public URL_SERVICIO_CREATE_STUDENT = this.URL_SERVICIO + 'estudiante/crear';
   public URL_SERVICIO_GET_ALL_STUDENTS = this.URL_SERVICIO + 'estudiante/buscar/todo';
   public URL_SERVICIO_SEARCH_STUDENT = this.URL_SERVICIO + 'estudiante/buscar/match/';
-  public URL_SERVICIO_SEARCH_STUDENT_BY_CODE = this.URL_SERVICIO +'estudiante/buscar/codigo/';
+  public URL_SERVICIO_SEARCH_STUDENT_BY_CODE = this.URL_SERVICIO + 'estudiante/buscar/codigo/';
   public URL_SERVICIO_UPDATE_STUDENT = this.URL_SERVICIO + 'estudiante/actualizar';
   public URL_SERVICIO_GET_STUDENT_WHIT_TOKEN = this.URL_SERVICIO + 'estudiante/buscar/token/';
 
@@ -59,7 +58,7 @@ export class StringApp
 
   /***************CONSTANTES DEL SERVICIO DE LOCALIZACION**********/
 
-  public API_CITIES= 'http://api.geonames.org/';
+  public API_CITIES = 'http://api.geonames.org/';
   public API_SERVICE_SEARCH = 'searchJSON?q=';
   public API_PARAMS_REQUEST = '&maxRows=5&fuzzy=0.8&username=mundialrusia2018';
 

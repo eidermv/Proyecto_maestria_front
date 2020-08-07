@@ -1,5 +1,4 @@
-export class Student
-{
+export class Student {
   private id: string;
   private codigo: string;
   private name: string;
@@ -11,94 +10,74 @@ export class Student
   private semesterEnterd: string;
   private enteredBy: string;
 
-  public getId()
-  {
+  public getId() {
     return this.id;
   }
-  public setId(id: string)
-  {
+  public setId(id: string) {
     this.id = id;
   }
 
-  public getName()
-  {
+  public getName() {
     return this.name;
   }
-  public setName(name: string)
-  {
+  public setName(name: string) {
     this.name = name;
   }
 
-  public getSurname()
-  {
+  public getSurname() {
     return this.surname;
   }
-  public setSurname(surname: string)
-  {
+  public setSurname(surname: string) {
     this.surname = surname;
   }
 
-  public getTutor()
-  {
+  public getTutor() {
     return this.tutor;
   }
-  public setTutor(tutor: string)
-  {
+  public setTutor(tutor: string) {
     this.tutor = tutor;
   }
 
-  public getEmail()
-  {
+  public getEmail() {
     return this.email;
   }
-  public setEmail(email: string)
-  {
+  public setEmail(email: string) {
     this.email = email;
   }
 
-  public getCohorte()
-  {
+  public getCohorte() {
     return this.cohorte;
   }
-  public setCohorte(cohorte: string)
-  {
+  public setCohorte(cohorte: string) {
     this.cohorte = cohorte;
   }
 
-  public getState()
-  {
+  public getState() {
     return this.state;
   }
-  public setState(state: string)
-  {
+  public setState(state: string) {
     this.state = state;
   }
 
-  public getEnteredSemester()
-  {
+  public getEnteredSemester() {
     return this.semesterEnterd;
   }
-  public setEnteredSemester(enteredSemester: string)
-  {
+  public setEnteredSemester(enteredSemester: string) {
     return this.semesterEnterd = enteredSemester;
   }
 
-  public getEnteredBy()
-  {
+  public getEnteredBy() {
     return this.enteredBy;
   }
-  public setEnteredBy(enteredBy: string)
-  {
+  public setEnteredBy(enteredBy: string) {
     this.enteredBy = enteredBy;
   }
 
-  public getCodigo()
-  {
+  public getCodigo() {
     return this.codigo;
   }
 
-  public setCodigo(code: string)
-  {
+  public setCodigo(code: string) {
     this.codigo = code;
   }
 

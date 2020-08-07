@@ -9,24 +9,20 @@ const httpOptions = new HttpHeaders({ 'Content-Type': 'application/json'});
 
 
 @Injectable()
-export class StudentService
-{
+export class StudentService {
   stringApp: StringApp;
   student: Student;
 
-  constructor(private httpClient: HttpClient)
-  {
-    this.stringApp= new StringApp();
+  constructor(private httpClient: HttpClient) {
+    this.stringApp = new StringApp();
     this.student = new Student();
   }
 
-  getAllTutors()
-  {
+  getAllTutors() {
     return this.httpClient.get<Array<any>>(this.stringApp.URL_SERVICIO_GET_ALL_TUTORS);
   }
 
-  createStudent(student: Student)
-  {
+  createStudent(student: Student) {
     const newStudent = JSON.stringify(
       {
         codigo: student.getId(),
@@ -45,19 +41,16 @@ export class StudentService
                                  reportProgress: true, observe: 'events'});
   }
 
-  getAllStudents()
-  {
+  getAllStudents() {
 
     return this.httpClient.get<Array<any>>(this.stringApp.URL_SERVICIO_GET_ALL_STUDENTS );
   }
 
-  getStudentByCode(code: string)
-  {
+  getStudentByCode(code: string) {
     return this.httpClient.get<Array<any>>(this.stringApp.URL_SERVICIO_SEARCH_STUDENT_BY_CODE + code);
   }
 
-  updateStudent(student: Student)
-  {
+  updateStudent(student: Student) {
     const updateStudent = JSON.stringify(
       {
         id: student.getId(),

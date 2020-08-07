@@ -5,9 +5,9 @@ import { TeachingPractice } from '../../../models/teachingPractice/teachingPract
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { StringValidation } from '../../../resources/stringValidation';
 
-const APROBADA: string = 'Aprobado';
-const REPROBADA: string = 'Rechazado';
-const POR_VERIFICAR: string = 'Por verificar';
+const APROBADA = 'Aprobado';
+const REPROBADA = 'Rechazado';
+const POR_VERIFICAR = 'Por verificar';
 
 @Component({
   selector: 'app-list-teaching-practice-for-admin',
@@ -39,12 +39,11 @@ export class ListTeachingPracticeForAdminComponent implements OnInit {
   teachingPractice: TeachingPractice;
   fieldsForm: FormGroup;
 
-  constructor(private teachingPracticeService: TeachingPracticeService, private formBuilder: FormBuilder)
-  {
+  constructor(private teachingPracticeService: TeachingPracticeService, private formBuilder: FormBuilder) {
     this.stringValidation = new StringValidation();
     this.teachingPractice = new TeachingPractice();
     this.optionState = [POR_VERIFICAR, APROBADA, REPROBADA];
-    this.showHours= false;
+    this.showHours = false;
     this.showErrorMax = false;
     this.optionsTeachingPractice = [];
     this.selectedState = POR_VERIFICAR;
@@ -52,21 +51,16 @@ export class ListTeachingPracticeForAdminComponent implements OnInit {
     this.showEmpty = false;
   }
 
-  getAllTeachingPractice()
-  {
+  getAllTeachingPractice() {
     this.teachingPracticeService.getAllTeachingPracticeAdmin()
-    .subscribe(data =>
-      {
+    .subscribe(data => {
         this.optionsTeachingPractice = data;
-        if(this.optionsTeachingPractice.length == 0)
-        {
+        if (this.optionsTeachingPractice.length === 0) {
           this.showEmpty = true;
-        }
-        else{
+        } else {
           this.showEmpty = false;
         }
-      }, err =>
-      {
+      }, err => {
         this.msjFail = 'Error al obtener todas las parcticas docente';
         this.showFail = true;
       });
@@ -81,14 +75,13 @@ export class ListTeachingPracticeForAdminComponent implements OnInit {
                           Validators.pattern('^([0-9])*$'),
                         ]
                     ],
-       observation: ['', [Validators.maxLength(this.stringValidation.MAX_LONG_OBSERVATION),]]
+       observation: ['', [Validators.maxLength(this.stringValidation.MAX_LONG_OBSERVATION), ]]
                   });
 
     this.getAllTeachingPractice();
   }
 
-  showDataTeachingPractice(teachigP: any)
-  {
+  showDataTeachingPractice(teachigP: any) {
     this.teachingPractice.setTypePractice(teachigP['tipoPracticaDocente']);
     this.teachingPractice.setDateRegister(teachigP['fechaRegistro']);
     this.teachingPractice.setDateStart(teachigP['fechaInicio']);
@@ -97,33 +90,28 @@ export class ListTeachingPracticeForAdminComponent implements OnInit {
     this.teachingPractice.setHours(teachigP['horas']);
     this.teachingPractice.setObservation(teachigP['observacion']);
     this.teachingPractice.setIdPractice(teachigP['id']);
-    this.teachingPractice.setNameStudent(teachigP['estudiante']['nombres'] +' ' + teachigP['estudiante']['apellidos']);
+    this.teachingPractice.setNameStudent(teachigP['estudiante']['nombres'] + ' ' + teachigP['estudiante']['apellidos']);
     this.teachingPractice.setCodeStudent(teachigP['estudiante']['codigo']);
     this.showTeachingPractice = true;
   }
 
-  destroyModal(destruir: {cerrar: boolean})
-  {
+  destroyModal(destruir: {cerrar: boolean}) {
     this.showTeachingPractice = false;
   }
 
 
-  handleState(event: any)
-  {
+  handleState(event: any) {
     this.selectedState =  event.target.value;
-    if(this.selectedState == APROBADA)
-    {
+    if (this.selectedState === APROBADA) {
       this.showHours = true;
-    }
-    else{
+    } else {
       this.showHours = false;
     }
   }
 
 
 
-  editState(aux: any)
-  {
+  editState(aux: any) {
     this.nameStudent = aux['estudiante']['nombres'] + ' ' + aux['estudiante']['apellidos'];
     this.codeStudent = aux['estudiante']['codigo'];
     this.idPublication = aux['id'];
@@ -132,51 +120,40 @@ export class ListTeachingPracticeForAdminComponent implements OnInit {
     this.viewEditState.show();
   }
 
-  updateState()
-  {
-    if(this.selectedState != APROBADA)
-    {
+  updateState() {
+    if (this.selectedState !== APROBADA) {
       this.totalHours = '0';
-      if(this.fieldsForm.get('observation').value.length <= 300)
-      {
+      if (this.fieldsForm.get('observation').value.length <= 300) {
         this.update();
       }
-    }
-    else{
+    } else {
       this.totalHours = this.fieldsForm.get('hours').value;
-      if(this.totalHours === '')
-      {
+      if (this.totalHours === '') {
         this.totalHours = '0';
       }
       const varAux = parseInt(this.totalHours , 10);
-      if((varAux > 288) || (varAux < 0))
-      {
+      if ((varAux > 288) || (varAux < 0)) {
         this.showErrorMax = true;
-      }
-      else{
-        if(this.fieldsForm.get('observation').value.length < 300)
-          {
+      } else {
+        if (this.fieldsForm.get('observation').value.length < 300) {
             this.update();
           }
       }
     }
   }
 
-  update()
-  {
+  update() {
     this.comentary = this.fieldsForm.get('observation').value;
     this.fieldsForm.get('observation').setValue('');
     this.teachingPracticeService.updateStateTeachingPractice(this.idPublication, this.totalHours , this.selectedState, this.comentary)
-        .subscribe(data =>
-              {
+        .subscribe(data => {
                 this.showHours = false;
                 this.viewEditState.hide();
                 this.comentary = '';
                 this.getAllTeachingPractice();
-              }, err =>
-              {
+              }, err => {
                this.viewEditState.hide();
-               this.msjFail ='Error al actualizar el estado de la practica';
+               this.msjFail = 'Error al actualizar el estado de la practica';
                this.showFail = true;
               });
   }

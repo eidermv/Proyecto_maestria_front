@@ -38,6 +38,5 @@ import { AppRoutingModule } from '../app.routing';
     }
 )
 
-export class CoreModule
-{
+export class CoreModule {
 }

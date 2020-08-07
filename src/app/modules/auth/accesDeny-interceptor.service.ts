@@ -11,24 +11,19 @@ export class AccesDenyInterceptorService implements HttpInterceptor {
 
   constructor(private route: Router) { }
 
-  intercept(req: HttpRequest<any>, next: HttpHandler) : Observable<HttpEvent<any>>
-  {
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(req).do(
      (event: any) => {},
-     (error: any) =>
-                    {
-                      if(error.status == 403)
-                      {
-                        let aux = error.url.split('/');// tomo el nombre del servicio para no usarlo en el login
+     (error: any) => {
+                      if (error.status === 403) {
+                        const aux = error.url.split('/'); // tomo el nombre del servicio para no usarlo en el login
                         console.log(aux[3]);
-                        if(aux[3] != 'login')
-                        {
+                        if (aux[3] !== 'login') {
                           sessionStorage.clear();
                           this.route.navigate(['/login']);
                         }
                       }
-                      if(error.status == 401)
-                      {
+                      if (error.status === 401) {
                         sessionStorage.clear();
                         this.route.navigate(['404']);
                       }

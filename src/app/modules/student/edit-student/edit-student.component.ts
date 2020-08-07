@@ -19,14 +19,14 @@ export class EditStudentComponent implements OnInit {
   titleForm: string;
   titleBtnForm: string;
   subTitleForm: string;
-  resetForm:string;
+  resetForm: string;
   isFormAddStudent: boolean;
   showFormEdit: boolean;
   textErrorService: string;
   studentEdit: {code: string, name: string, surname: string, tutor: string, email: string,
-                cohorte: string,state: string, semesterEntered: string, enteredBy: string};
-  studentOldEdit:{code: string, id: string, name: string, surname: string, tutor: string, email: string,
-                  cohorte: string,state: string, semesterEntered: string, enteredBy: string};
+                cohorte: string, state: string, semesterEntered: string, enteredBy: string};
+  studentOldEdit: {code: string, id: string, name: string, surname: string, tutor: string, email: string,
+                  cohorte: string, state: string, semesterEntered: string, enteredBy: string};
   progressRequest: string;
   titleModalSucces: string;
   subtitleModalSucces: string;
@@ -34,8 +34,7 @@ export class EditStudentComponent implements OnInit {
    student: Student;
 
   constructor(private studentService: StudentService, private route: ActivatedRoute,
-              private router: Router)
-              {
+              private router: Router) {
                 this.titleForm = 'Editar Estudiante';
                 this.subTitleForm = 'En este formulario podrá Editar a los estudiantes de maestría';
                 this.titleBtnForm = 'Editar';
@@ -47,29 +46,24 @@ export class EditStudentComponent implements OnInit {
                }
 
   ngOnInit() {
-    let id = this.route.snapshot.params['id'];
-    if(id != null)
-    {
+    const id = this.route.snapshot.params['id'];
+    if (id != null) {
       this.getStudentToEdit(id);
     }
   }
 
-  getStudentToEdit(id: string)
-  {
+  getStudentToEdit(id: string) {
     this.studentService.getStudentByCode(id)
-    .subscribe(data =>
-      {
+    .subscribe(data => {
         this.proccessResponseStudent(data);
       },
-      err =>
-      {
+      err => {
         this.textErrorService = 'ocurrio un error en el servidor comunicate con el personal de mantenimiento';
         this.showModalFail();
       });
   }
 
-  proccessResponseStudent(dateStudentEdit: Array<string>)
-  {
+  proccessResponseStudent(dateStudentEdit: Array<string>) {
     this.studentEdit = {
                           code: dateStudentEdit['codigo'],
                           name: dateStudentEdit ['nombres'],
@@ -81,8 +75,7 @@ export class EditStudentComponent implements OnInit {
                           semesterEntered: dateStudentEdit['semestre'],
                           enteredBy: dateStudentEdit['pertenece'],
                       };
-    this.studentOldEdit =
-                      {
+    this.studentOldEdit = {
                         id: dateStudentEdit['id'],
                         code: dateStudentEdit['codigo'],
                         name: dateStudentEdit ['nombres'],
@@ -98,11 +91,9 @@ export class EditStudentComponent implements OnInit {
   }
 
   getDataFormStudent(dateFormEdit: {id: string, name: string, surname: string, tutor: string, email: string,
-    cohorte: string,state: string, semesterEntered: string, enteredBy: string})
-    {
+    cohorte: string, state: string, semesterEntered: string, enteredBy: string}) {
 
-      if(this.verifyChangesOnEdit(dateFormEdit))
-      {
+      if (this.verifyChangesOnEdit(dateFormEdit)) {
         this.student.setId(this.studentOldEdit.id);
         this.student.setCodigo(dateFormEdit.id);
         this.student.setName(dateFormEdit.name);
@@ -115,57 +106,46 @@ export class EditStudentComponent implements OnInit {
         this.student.setState(dateFormEdit.state);
 
         this.studentService.updateStudent(this.student)
-        .subscribe(event =>
-          {
+        .subscribe(event => {
             this.proccesResponseEditStudentOk(event);
           },
-          err =>
-          {
+          err => {
             this.viewProgressRequest.hide();
-            if(err.error['error'] == '102' && err.error['campo'] == '100')
-            {
+            if (err.error['error'] === '102' && err.error['campo'] === '100') {
               this.textErrorService = 'El codigo digitado ya existe en el sistema';
             }
-            if(err.error['error'] == '102' && err.error['campo'] == '103')
-            {
+            if (err.error['error'] === '102' && err.error['campo'] === '103') {
               this.textErrorService = 'El correo digitado ya existe en el sistema';
             }
             this.showModalFail();
           });
 
-      }else{
+      } else {
         this.showModalWarnin();
       }
     }
 
-  verifyChangesOnEdit(newDateStudent: any)
-  {
+  verifyChangesOnEdit(newDateStudent: any) {
     console.log();
-    if(this.studentOldEdit.code == newDateStudent.id && this.studentOldEdit.name == newDateStudent.name &&
-      this.studentOldEdit.surname == newDateStudent.surname && this.studentOldEdit.tutor == newDateStudent.tutor &&
-      this.studentOldEdit.email == newDateStudent.email && this.studentOldEdit.cohorte == newDateStudent.cohorte &&
-      this.studentOldEdit.cohorte == newDateStudent.cohorte && this.studentOldEdit.enteredBy == newDateStudent.enteredBy &&
-      this.studentOldEdit.state == newDateStudent.state
-      )
-    {
+    if (this.studentOldEdit.code === newDateStudent.id && this.studentOldEdit.name === newDateStudent.name &&
+      this.studentOldEdit.surname === newDateStudent.surname && this.studentOldEdit.tutor === newDateStudent.tutor &&
+      this.studentOldEdit.email === newDateStudent.email && this.studentOldEdit.cohorte === newDateStudent.cohorte &&
+      this.studentOldEdit.cohorte === newDateStudent.cohorte && this.studentOldEdit.enteredBy === newDateStudent.enteredBy &&
+      this.studentOldEdit.state === newDateStudent.state
+      ) {
      return false;
-    }
-    else{
+    } else {
       return true;
     }
   }
 
 
-  proccesResponseEditStudentOk(event: any)
-  {
-        if(event.type === HttpEventType.UploadProgress)
-        {
+  proccesResponseEditStudentOk(event: any) {
+        if (event.type === HttpEventType.UploadProgress) {
           this.showModalProgressRequest();
-          this.progressRequest = (Math.round(event.loaded / event.total * 100 ) -1 )+ '%';
-        }
-        else{
-          if(event.type === HttpEventType.Response)
-          {
+          this.progressRequest = (Math.round(event.loaded / event.total * 100 ) - 1 ) + '%';
+        } else {
+          if (event.type === HttpEventType.Response) {
             this.viewProgressRequest.hide();
             this.showModalOk();
               this.redirectToListStudent();
@@ -173,19 +153,16 @@ export class EditStudentComponent implements OnInit {
         }
   }
 
-  showModalProgressRequest()
-  {
+  showModalProgressRequest() {
     this.viewProgressRequest.show();
   }
 
-  private showModalOk()
-  {
+  private showModalOk() {
       this.viewModalOk.show();
       this.resetForm = this.resetForm + 'ok';
   }
 
-  sleep(milliseconds)
-  {
+  sleep(milliseconds) {
     const start = new Date().getTime();
     for (let i = 0; i < 1e7; i++) {
       if ((new Date().getTime() - start) > milliseconds) {
@@ -194,18 +171,15 @@ export class EditStudentComponent implements OnInit {
     }
   }
 
-  private showModalFail()
-  {
+  private showModalFail() {
     this.viewModalFail.show();
   }
 
-  private showModalWarnin()
-  {
+  private showModalWarnin() {
     this.viewModalWarning.show();
   }
 
-  redirectToListStudent()
-  {
+  redirectToListStudent() {
     this.router.navigate(['/student/listStudent' , 'Estudiante editado exitosamente']);
   }
 }

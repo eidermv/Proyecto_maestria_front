@@ -27,8 +27,7 @@ export class CitysAndCountriesComponent implements OnInit {
     fieldsForm: FormGroup;
     localization: Localization;
 
-  constructor(private formBuilder: FormBuilder, private seekersServices: SeekersService)
-  {
+  constructor(private formBuilder: FormBuilder, private seekersServices: SeekersService) {
     this.stringValidation = new StringValidation();
     this.localization = new Localization();
     this.fieldCityEmpty = false;
@@ -45,78 +44,60 @@ export class CitysAndCountriesComponent implements OnInit {
       });
   }
 
-  ressetForm()
-  {
+  ressetForm() {
     this.form.reset();
     this.clearOptions();
   }
-  clearOptions()
-  {
+  clearOptions() {
     this.options = [];
   }
 
-  determineAction(eventField: any)
-  {
+  determineAction(eventField: any) {
     this.fieldCityEmpty = false;
-      if((eventField.key === 'Enter') || (eventField.type === 'click'))
-        {
+      if ((eventField.key === 'Enter') || (eventField.type === 'click')) {
           this.getDataCity();
-        }
-        else {
+        } else {
           this.searchLocation();
         }
   }
 
-  private searchLocation()
-  {
+  private searchLocation() {
     this.txt_fieldSearchToCity = this.fieldsForm.get('nameCity').value;
-    if(this.txt_fieldSearchToCity.length == 0)
-    {
+    if (this.txt_fieldSearchToCity.length === 0) {
         this.fieldCityEmpty = true;
         this.clearOptions();
-    }
-    else{
+    } else {
       this.seekersServices.searchCity(this.txt_fieldSearchToCity).
-      subscribe(data =>
-        {
+      subscribe(data => {
           this.proccessResponse( data);
         },
-        err =>
-        {
+        err => {
           this.clearOptions();
           this.fieldCityEmpty = true;
         }
       );
     }
   }
-  private proccessResponse(data: Array<any>)
-  {
+  private proccessResponse(data: Array<any>) {
     this.arrayCitys = data['geonames'];
-    if(this.arrayCitys.length > 0)
-      {
+    if (this.arrayCitys.length > 0) {
       this.loadOptions(this.arrayCitys);
       this.cityNotFound = false;
-      }
-      else
-      {
+      } else {
         this.clearOptions();
         this.cityNotFound = true;
       }
   }
 
-  private loadOptions(citys: Array<string>)
-  {
+  private loadOptions(citys: Array<string>) {
     this.clearOptions();
-    for(let i = 0 ; i < citys.length ; i++)
-      {
+    for (let i = 0 ; i < citys.length ; i++) {
         this.options.push(citys[i]['name'] + '-' + citys[i]['countryName']);
       }
   }
 
-  getDataCity()
-  {
-    if(this.checkSelectedStudentValid())
-    {
+  getDataCity() {
+    if (this.checkSelectedStudentValid()) {
       this.selectedCity();
       this.getLocalization.emit(
                                 {
@@ -143,18 +124,15 @@ export class CitysAndCountriesComponent implements OnInit {
     return str;
     }
 
-  checkSelectedStudentValid()
-  {
+  checkSelectedStudentValid() {
     return this.options.includes(this.fieldsForm.get('nameCity').value.trim());
   }
 
-  selectedCity()
-  {
-    for(let i=0 ; i < this.arrayCitys.length ; i++)
-    {
+  selectedCity() {
+    for (let i = 0 ; i < this.arrayCitys.length ; i++) {
       const citySelected = this.fieldsForm.get('nameCity').value.split('-');
-      if(this.arrayCitys[i]['name'].includes(citySelected[0].trim()) && this.arrayCitys[i]['countryName'].includes(citySelected[1].trim()))
-      {
+      if (this.arrayCitys[i]['name'].includes(
+        citySelected[0].trim()) && this.arrayCitys[i]['countryName'].includes(citySelected[1].trim())) {
         this.localization.setCity(this.arrayCitys[i]['name']);
         this.localization.setCountry(this.arrayCitys[i]['countryName']);
       }

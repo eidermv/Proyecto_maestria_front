@@ -20,8 +20,7 @@ export class AddInternshipComponent implements OnInit {
   msjFail: string;
   eventt: any;
 
-  constructor(private internshipService: InternshipService)
-  {
+  constructor(private internshipService: InternshipService) {
     this.titleForm = 'Registrar Pasantía';
     this.subTitleForm = 'En este formulario podra registrar sus pasantias';
     this.buttonAction = 'Registrar Pasantía';
@@ -34,16 +33,13 @@ export class AddInternshipComponent implements OnInit {
   ngOnInit() {
   }
 
-  getDataIntership(dataInternship: {internship: Internship})
-  {
+  getDataIntership(dataInternship: {internship: Internship}) {
     this.internshipService.registryInternship(dataInternship.internship)
-    .subscribe(event =>
-      {
+    .subscribe(event => {
         this.eventt = event;
         this.showProgressRequest = true;
 
-      },err =>
-      {
+      }, err => {
         this.showProgressRequest = false;
         this.showFail = false;
         this.msjFail = 'No es posible registrar la pasantía';

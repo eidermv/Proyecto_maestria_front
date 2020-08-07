@@ -8,7 +8,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 export class BookFormComponent implements OnInit {
   /****************************VARIABLE GLOBALE********** */
-  public TAM_MAX_FILE: number = 10240;
+  public TAM_MAX_FILE = 10240;
  /*************************STRINGS APP********************* */
   stringValidation: StringValidation;
   /***********************VARIABLES LOCALES**************** */
@@ -34,8 +34,7 @@ export class BookFormComponent implements OnInit {
   fileToCertificate: null;
 
 
-  constructor(private formBuilder: FormBuilder)
-  {
+  constructor(private formBuilder: FormBuilder) {
     this.stringValidation = new StringValidation();
     this.placeholderBook = 'Archivo PDF que contenga el Libro';
     this.placeholderCertificate = 'Archivo PDF, JPG o PNG que contenga el Certificado';
@@ -54,12 +53,12 @@ export class BookFormComponent implements OnInit {
                           Validators.pattern('^[0-9]+(-[0-9]+)+$'),
                         ]
                     ],
-        tittleBook:  ['',[Validators.required,
+        tittleBook:  ['', [Validators.required,
                         Validators.maxLength(this.stringValidation.MAX_LONG_TITLE_BOOK),
                         Validators.minLength(this.stringValidation.MIN_LONG_TEX)
                         ]
                 ],
-        editorial:  ['',[Validators.required,
+        editorial:  ['', [Validators.required,
                         Validators.maxLength(this.stringValidation.MAX_LONG_EDITORIAL),
                         Validators.minLength(this.stringValidation.MIN_LONG_TEX)
                         ]
@@ -67,70 +66,53 @@ export class BookFormComponent implements OnInit {
     });
   }
 
-  handleFileInputBook(event: any)
-  {
+  handleFileInputBook(event: any) {
     const tam_file = event.target.files[0].size / 1024;
     const type_file = event.target.files[0].type.split('/');
-    if(type_file[1] == 'pdf')
-    {
-      if(tam_file > this.TAM_MAX_FILE)
-      {
+    if (type_file[1] === 'pdf') {
+      if (tam_file > this.TAM_MAX_FILE) {
         this.msjErroBook = 'El archivo supera el límite de 10 MB';
         this.showErrorBook = true;
-      }
-      else{
+      } else {
         this.fileToBook = event.target.files[0];
         this.placeholderBook = event.target.files[0].name;
         this.showErrorBook = false;
       }
-    }
-    else{
+    } else {
       this.msjErroBook = 'Solo se permiten archivos PDF';
       this.showErrorBook = true;
     }
   }
 
-  handleFileInputCertificate(event: any)
-  {
+  handleFileInputCertificate(event: any) {
     const tam_file = event.target.files[0].size / 1024;
     const type_file = event.target.files[0].type.split('/');
-    if(type_file[1] == 'png' || type_file[1] == 'jpeg' || type_file[1] == 'pdf')
-    {
-      if(tam_file > this.TAM_MAX_FILE)
-      {
-        this.msjErrorCertificate= 'El archivo supera el límite de 10 MB';
+    if (type_file[1] === 'png' || type_file[1] === 'jpeg' || type_file[1] === 'pdf') {
+      if (tam_file > this.TAM_MAX_FILE) {
+        this.msjErrorCertificate = 'El archivo supera el límite de 10 MB';
         this.showErrorCertificate = true;
-      }
-      else{
+      } else {
         this.fileToCertificate = event.target.files[0];
         this.placeholderCertificate = event.target.files[0].name;
         this.showErrorCertificate = false;
       }
-    }
-    else{
+    } else {
       this.msjErrorCertificate = 'Solo se permiten archivos PNG, JPG o PDF';
       this.showErrorCertificate = true;
     }
   }
 
-  onSubmit()
-  {
-    if(this.fileToBook == null)
-    {
+  onSubmit() {
+    if (this.fileToBook === null) {
       this.showErrorBook = true;
       this.msjErroBook = 'Debe cargar un PDF para la el libro';
-    }
-    else if(this.fileToCertificate == null)
-    {
+    } else if (this.fileToCertificate === null) {
       this.showErrorCertificate = true;
       this.msjErrorCertificate = 'Debe cargar una imagen PDF, PNG o JPG que muestre el certificado de la editorial';
-    }
-    else if(this.city.length == 0 || this.contry.length == 0)
-    {
+    } else if (this.city.length === 0 || this.contry.length === 0) {
       this.showErrorLocalization = true;
       this.msjErrorLocalization = 'Debe de seleccionar una ciudad';
-    }
-    else{
+    } else {
       this.showErrorLocalization = false;
       this.showErrorBook = false;
       this.showErrorCertificate = false;
@@ -138,14 +120,12 @@ export class BookFormComponent implements OnInit {
     }
   }
 
-  getLocalization(localization: {city: string, country: string})
-  {
+  getLocalization(localization: {city: string, country: string}) {
     this.city = localization.city;
     this.contry = localization.country;
   }
 
-  getDatePublicationBook()
-  {
+  getDatePublicationBook() {
     this.getDateBook.emit(
                           {
                             isbn: this.fieldsForm.get('isbnBook').value,

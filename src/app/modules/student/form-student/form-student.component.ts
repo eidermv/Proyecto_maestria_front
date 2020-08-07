@@ -67,19 +67,19 @@ export class FormStudentComponent implements OnInit, OnChanges {
                           Validators.pattern('^([0-9])*$'),
                         ]
                     ],
-        nameStudent:  ['',[Validators.required,
+        nameStudent:  ['', [Validators.required,
                         Validators.maxLength(this.stringValidation.MAX_LONG_NAME),
                         Validators.minLength(this.stringValidation.MIN_LONG_TEX),
                         Validators.pattern('[ A-Za-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙñÑ.-]+$'),
                         ]
                 ],
-        surnameStudent:  ['',[Validators.required,
+        surnameStudent:  ['', [Validators.required,
                         Validators.maxLength(this.stringValidation.MAX_LONG_SURNAME),
                         Validators.minLength(this.stringValidation.MIN_LONG_TEX),
                         Validators.pattern('[ A-Za-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙñÑ.-]+$'),
                         ]
                       ],
-        emailStudent:  ['',[
+        emailStudent:  ['', [
                         Validators.required,
                         Validators.maxLength(this.stringValidation.MAX_LONG_EMAIL),
                         Validators.pattern('^[a-z0-9._%+-]+@unicauca.edu.co$'),
@@ -88,8 +88,7 @@ export class FormStudentComponent implements OnInit, OnChanges {
                       ],
       });
 
-      if(!this.isFormAddStudent)
-      {
+      if (!this.isFormAddStudent) {
 
         this.fieldsForm.get('idStudent').setValue(this.studenEdit.code);
         this.fieldsForm.get('nameStudent').setValue(this.studenEdit.name);
@@ -101,39 +100,32 @@ export class FormStudentComponent implements OnInit, OnChanges {
       }
   }
 
-   getTutors()
-   {
+   getTutors() {
      this.studentService.getAllTutors()
-     .subscribe(data =>
-      {
+     .subscribe(data => {
         this.proccessResponseTutors(data);
       });
    }
 
-   private proccessResponseTutors(data: Array<any>)
-  {
+   private proccessResponseTutors(data: Array<any>) {
     this.optionsTutor = data;
-    if(!this.isFormAddStudent)
-    {
+    if (!this.isFormAddStudent) {
       this.setTutor();
     }
   }
 
 
-   getAllCohorte()
-   {// se llena un array con los años desde el 2000 hasta la fecha actual para usarlas en el combo cohorte estudiante
-     var date = new Date();
-     var dateYear = date.getFullYear();
+   getAllCohorte() {// se llena un array con los años desde el 2000 hasta la fecha actual para usarlas en el combo cohorte estudiante
+     const date = new Date();
+     const dateYear = date.getFullYear();
      this.optionsCohorte = this.clearArray(this.optionsCohorte);
-     this.optionsCohorte[0]= ""+dateYear;
-     for(let i= 1; i <= (dateYear - this.YEAR_END_COHORTE); i++)
-     {
-       this.optionsCohorte[i] = "" + (dateYear - i);
+     this.optionsCohorte[0] = '' + dateYear;
+     for (let i = 1; i <= (dateYear - this.YEAR_END_COHORTE); i++) {
+       this.optionsCohorte[i] = '' + (dateYear - i);
      }
    }
 
-   clearArray(arrayClear: Array<string>)
-   {
+   clearArray(arrayClear: Array<string>) {
      return arrayClear = [];
    }
 
@@ -141,50 +133,37 @@ export class FormStudentComponent implements OnInit, OnChanges {
     this.ressetForm();
     }
 
-    ressetForm()
-    {
+    ressetForm() {
       this.form.reset();
     }
-    setCohorte()
-    {
+    setCohorte() {
       this.optionsCohorte = this.organizateOptions(this.optionsCohorte, this.studenEdit.cohorte, this.IS_NOT_TUTOR);
     }
-    setTutor()
-    {
+    setTutor() {
       this.optionsTutor = this.organizateOptions (this.optionsTutor, this.studenEdit.tutor, this.IS_TUTOR);
     }
-    setState()
-    {
+    setState() {
       this.optionsState = this.organizateOptions(this.optionsState, this.studenEdit.state, this.IS_NOT_TUTOR);
     }
-    setEnteredBy()
-    {
+    setEnteredBy() {
       this.optionsModeEntered = this.organizateOptions(this.optionsModeEntered, this.studenEdit.enteredBy, this.IS_NOT_TUTOR);
     }
 
-    organizateOptions(optionsOrganizate: Array<string>, dataSetFirst: string, isTutor: boolean)
-    {
+    organizateOptions(optionsOrganizate: Array<string>, dataSetFirst: string, isTutor: boolean) {
       const optionTypeAux = [];
-      if(isTutor)
-      {
+      if (isTutor) {
         optionTypeAux.push({nombre: dataSetFirst});
-      }
-      else{
+      } else {
         optionTypeAux.push(dataSetFirst);
       }
-      for(let i=0; i < optionsOrganizate.length; i++)
-      {
+      for (let i = 0; i < optionsOrganizate.length; i++) {
 
-        if(isTutor)
-        {
-          if(optionsOrganizate[i]['nombre'] != optionTypeAux[0]['nombre'])
-          {
+        if (isTutor) {
+          if (optionsOrganizate[i]['nombre'] !== optionTypeAux[0]['nombre']) {
             optionTypeAux.push(optionsOrganizate[i]);
           }
-        }else
-        {
-          if(optionsOrganizate[i] != optionTypeAux[0])
-          {
+        } else {
+          if (optionsOrganizate[i] !== optionTypeAux[0]) {
             optionTypeAux.push(optionsOrganizate[i]);
           }
         }
@@ -192,13 +171,11 @@ export class FormStudentComponent implements OnInit, OnChanges {
       return optionTypeAux;
     }
 
-    onSubmit()
-    {
+    onSubmit() {
       this.getDataStudent();
     }
 
-    getDataStudent()
-    {
+    getDataStudent() {
       this.getStudent.emit(
                             {
                               id: this.fieldsForm.get('idStudent').value.trim(),

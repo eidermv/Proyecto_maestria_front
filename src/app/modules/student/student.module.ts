@@ -9,7 +9,7 @@ import { StudentService } from './student.service';
 import { ListStudentComponent } from './list-student/list-student.component';
 import { EditStudentComponent } from './edit-student/edit-student.component';
 import { SeekersModule } from '../seekers/seekers.module';
-import { NgxPaginationModule} from 'ngx-pagination'
+import { NgxPaginationModule} from 'ngx-pagination';
 import { StudentFilterPipe } from './list-student/studentFilter.pipe';
 import { ModalWindowsModule } from '../modal-windows/modal-windows.module';
 
@@ -26,7 +26,7 @@ import { ModalWindowsModule } from '../modal-windows/modal-windows.module';
             NgxPaginationModule,
             ModalWindowsModule
             ],
-  providers:[StudentService],
+  providers: [StudentService],
   declarations: [AddStudentComponent,
                 FormStudentComponent,
                 ListStudentComponent,

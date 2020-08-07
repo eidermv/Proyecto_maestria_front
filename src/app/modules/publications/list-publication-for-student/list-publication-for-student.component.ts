@@ -22,8 +22,7 @@ export class ListPublicationForStudentComponent implements OnInit {
   msjOk: string;
   p: any;
   constructor(private publicationsService: PublicationService, private route: ActivatedRoute,
-    private router: Router)
-  {
+    private router: Router) {
 
     this.optionsPublicationsStudent = [];
     this.showModalPublication = false;
@@ -32,75 +31,59 @@ export class ListPublicationForStudentComponent implements OnInit {
     this.idPublication = '';
     this.typePublication = '';
   }
-  getDateStudent()
-  {
+  getDateStudent() {
     this.publicationsService.getStudent()
-    .subscribe(data =>
-      {
+    .subscribe(data => {
         this.codeStudent = data['codigo'];
         this.getAllPublicationsStudent();
-      },err =>
-      {
+      }, err => {
         this.viewErroServer.show();
       });
   }
 
-  getAllPublicationsStudent()
-  {
+  getAllPublicationsStudent() {
     this.publicationsService.getPublicationStudent(this.codeStudent)
-    .subscribe(data =>
-      {
+    .subscribe(data => {
          this.optionsPublicationsStudent = data;
-         if(this.optionsPublicationsStudent.length == 0)
-         {
+         if (this.optionsPublicationsStudent.length === 0) {
           this.showEmpty = true;
-         }
-         else{
+         } else {
            this.showEmpty = false;
          }
 
-      }, err =>
-      {
+      }, err => {
         this.viewErroServer.show();
       });
   }
 
   ngOnInit() {
     const msj: string = this.route.snapshot.params['msj'];
-    if(msj != null)
-    {
+    if (msj != null) {
       this.msjOk = msj;
       this.showModalOk = true;
     }
     this.getDateStudent();
   }
 
-  showPublication(aux: any)
-  {
+  showPublication(aux: any) {
     this.typePublication =  aux['tipoDocumento'];
     this.idPublication = aux['id'];
     this.showModalPublication = true;
   }
 
-  destroyModal(destruir: {cerrar: boolean})
-  {
+  destroyModal(destruir: {cerrar: boolean}) {
     this.showModalPublication = false;
   }
 
-  deletePublication(publication)
-  {
-    if(publication['estado'] === 'Por verificar')
-    {
+  deletePublication(publication) {
+    if (publication['estado'] === 'Por verificar') {
       this.publicationsService.deletePublication(publication['id'])
-    .subscribe(data =>
-      {
+    .subscribe(data => {
         this.getAllPublicationsStudent();
-      }, err =>
-      {
+      }, err => {
         this.viewErroServer.show();
       });
-    }
-    else{
+    } else {
       this.viewErrorDeletePublication.show();
     }
   }

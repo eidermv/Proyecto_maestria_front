@@ -1,27 +1,21 @@
 
-export class Localization
-{
+export class Localization {
   private city: string;
   private county: string;
 
-  constructor()
-  {
+  constructor() {
   }
 
-  public getCity()
-  {
+  public getCity() {
     return this.city;
   }
-  public setCity(city: string)
-  {
+  public setCity(city: string) {
     this.city = city;
   }
-  public getCountry()
-  {
+  public getCountry() {
     return this.county;
   }
-  public setCountry(county: string)
-  {
+  public setCountry(county: string) {
     this.county = county;
   }
 }

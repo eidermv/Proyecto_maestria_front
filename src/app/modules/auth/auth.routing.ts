@@ -31,4 +31,4 @@ const loginRoutes: Routes = [
   }
 )
 
-export class AuthRoutingModule{}
+export class AuthRoutingModule {}

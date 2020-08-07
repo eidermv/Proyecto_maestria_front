@@ -16,8 +16,7 @@ export class ShowTeachingPracticeComponent implements OnInit, AfterViewInit {
   /*************************VARIABLES DE INSTANCIA**************** */
   @Output() cerrar = new EventEmitter<{cerrar: boolean}>();
 
-  constructor(private teachingPracticeService: TeachingPracticeService)
-  {
+  constructor(private teachingPracticeService: TeachingPracticeService) {
     this.showData = false;
 
   }
@@ -25,32 +24,25 @@ export class ShowTeachingPracticeComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
    this.viewModalTeachingPractice.show();
   }
-  verifyDates()
-  {
-    if(this.teachingPractice.getDateStart() === null)
-    {
+  verifyDates() {
+    if (this.teachingPractice.getDateStart() === null) {
       this.showData = false;
-    }
-    else{
+    } else {
       this.showData = true;
     }
   }
 
-  ngOnInit()
-  {
+  ngOnInit() {
     this.verifyDates();
   }
-  destroyModal()
-  {
+  destroyModal() {
     this.cerrar.emit({cerrar: true});
   }
-  showFileTeachingPractice(type: string)
-  {
+  showFileTeachingPractice(type: string) {
     this.teachingPracticeService.getFileTeachingPractice(this.teachingPractice.getIdPractice() , type);
   }
 
-  nn()
-  {
+  nn() {
     console.log('click fuera');
   }
 

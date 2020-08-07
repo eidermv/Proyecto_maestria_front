@@ -4,45 +4,37 @@ import { StringApp } from '../../resources/stringApp';
 import { TeachingPractice } from '../../models/teachingPractice/teachingPractice';
 import { UtilitiesFile } from '../../models/utilities/utilitiesFiles';
 import { UtilitiesDate } from '../../models/utilities/utilitiesDate';
-const httpOptions =
-{
+const httpOptions = {
   headers : new HttpHeaders({ 'Content-Type': 'application/json'})
-}
+};
 
 @Injectable()
-export class TeachingPracticeService
-{
+export class TeachingPracticeService {
   stringApp: StringApp;
   utilitiesFile: UtilitiesFile;
   utilitiesData: UtilitiesDate;
-  constructor(private httpClient: HttpClient)
-  {
+  constructor(private httpClient: HttpClient) {
     this.stringApp = new StringApp();
     this.utilitiesFile = new UtilitiesFile();
     this.utilitiesData = new UtilitiesDate();
   }
 
-  getStudent()
-  {
+  getStudent() {
     return  this.httpClient.get(this.stringApp.URL_SERVICIO_GET_STUDENT_WHIT_TOKEN + sessionStorage.getItem('token'));
   }
 
-  getHoursAndCredits(codeStudent: string)
-  {
+  getHoursAndCredits(codeStudent: string) {
     return this.httpClient.get(this.stringApp.URL_SERVICIO_GET_HOURS_AND_CREDITS_TEACHINGPRACTICE_STUDENT + codeStudent );
   }
-  getAllTeachingPractice(code: string)
-  {
+  getAllTeachingPractice(code: string) {
     return this.httpClient.get<Array<any>>(this.stringApp.URL_SERVICIO_GET_ALL_TEACHINGPRACTICE + code);
   }
 
-  getAllTeachingPracticeAdmin()
-  {
+  getAllTeachingPracticeAdmin() {
     return this.httpClient.get<Array<any>>(this.stringApp.URL_SERVICIO_GET_ALL_TEACHINGPRACTICE_ADMIN);
   }
 
-  updateStateTeachingPractice(id: string, hours: string, state: string, observation: string)
-  {
+  updateStateTeachingPractice(id: string, hours: string, state: string, observation: string) {
     const data = JSON.stringify(
       {
         idPracticaDocente: id,
@@ -54,8 +46,7 @@ export class TeachingPracticeService
     return this.httpClient.post(this.stringApp.URL_SERVICIO_UPDATE_STATE_TEACHINGPRACTICE, data, httpOptions);
   }
 
-  registryTeachingPractice(teachingPractice: TeachingPractice)
-  {
+  registryTeachingPractice(teachingPractice: TeachingPractice) {
     const formData: FormData = new FormData();
     const metaData = JSON.stringify(
       {
@@ -72,20 +63,16 @@ export class TeachingPracticeService
                                 {reportProgress: true, observe: 'events'});
   }
 
-  getFileTeachingPractice(id: string, nameFile: string)
-  {
+  getFileTeachingPractice(id: string, nameFile: string) {
     this.httpClient.get(this.stringApp.URL_SERVICIO_GETFILE_TEACHING_PRACTICE + id + '/' + nameFile, {responseType: 'blob'})
-    .subscribe(data=>
-      {
+    .subscribe(data => {
         this.utilitiesFile.showFile(data);
-      },err =>
-      {
+      }, err => {
 
       });
   }
 
-  deleteTeachingPractice(idTeachingPractice: string)
-  {
+  deleteTeachingPractice(idTeachingPractice: string) {
     return this.httpClient.delete(this.stringApp.URL_SERVICIO_DELETE_TEACHING_PRACTICE + idTeachingPractice);
   }
 

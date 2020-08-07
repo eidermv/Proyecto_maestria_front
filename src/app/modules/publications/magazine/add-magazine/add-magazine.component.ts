@@ -9,7 +9,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class AddMagazineComponent implements OnInit {
 
   /***********************VARIABLES GLOBALES***************** */
-  TAM_MAX_FILE : number = 10240;
+  TAM_MAX_FILE = 10240;
   /*************************STRINGS APP********************* */
   stringValidation: StringValidation;
   /***********************VARIABLES LOCALES**************** */
@@ -38,8 +38,7 @@ export class AddMagazineComponent implements OnInit {
 
 
 
-  constructor(private formBuilder: FormBuilder)
-  {
+  constructor(private formBuilder: FormBuilder) {
     this.stringValidation = new StringValidation();
     this.optionCategoyMagazine = ['A1', 'A2', 'B', 'C'];
     this.placeholderScreenShotArticle = 'Archivo PDF que contenga el artículo';
@@ -60,12 +59,12 @@ export class AddMagazineComponent implements OnInit {
 
                         ]
                     ],
-        tittleArticle:  ['',[Validators.required,
+        tittleArticle:  ['', [Validators.required,
                         Validators.maxLength(this.stringValidation.MAX_LONG_TITLE_ARTICLE),
                         Validators.minLength(this.stringValidation.MIN_LONG_TEX)
                         ]
                 ],
-        nameMagazine:  ['',[Validators.required,
+        nameMagazine:  ['', [Validators.required,
                         Validators.maxLength(this.stringValidation.MAX_LONG_NAME_MAGAZINE),
                         Validators.minLength(this.stringValidation.MIN_LONG_TEX)
                         ]
@@ -73,94 +72,72 @@ export class AddMagazineComponent implements OnInit {
       });
   }
 
-  handleFileInputArticle(event: any)
-  {
+  handleFileInputArticle(event: any) {
     const tam_file = event.target.files[0].size / 1024;
     const type_file = event.target.files[0].type.split('/');
-    if(type_file[1] == 'pdf')
-    {
-      if(tam_file > this.TAM_MAX_FILE)
-      {
+    if (type_file[1] === 'pdf') {
+      if (tam_file > this.TAM_MAX_FILE) {
         this.msjErrorArticle = 'El archivo supera el límite de 10 MB';
         this.showErrorArticle = true;
-      }
-      else{
+      } else {
         this.fileToArticle = event.target.files[0];
         this.placeholderScreenShotArticle = event.target.files[0].name;
         this.showErrorArticle = false;
       }
-    }
-    else{
+    } else {
       this.msjErrorArticle = 'Solo se permiten archivos PDF';
       this.showErrorArticle = true;
     }
   }
 
-  handleFileInputScrenShotEmail(event: any)
-  {
+  handleFileInputScrenShotEmail(event: any) {
     const tam_file = event.target.files[0].size / 1024;
     const type_file = event.target.files[0].type.split('/');
-    if(type_file[1] == 'png' || type_file[1] == 'jpeg')
-    {
-      if(tam_file > this.TAM_MAX_FILE)
-      {
-        this.msjErrorScreenShotEmail= 'El archivo supera el límite de 10 MB';
+    if (type_file[1] === 'png' || type_file[1] === 'jpeg') {
+      if (tam_file > this.TAM_MAX_FILE) {
+        this.msjErrorScreenShotEmail = 'El archivo supera el límite de 10 MB';
         this.showErrorScreenShotEmail = true;
-      }
-      else{
+      } else {
         this.fileToScreenShotEmail = event.target.files[0];
         this.placeholderScreenShotEmail = event.target.files[0].name;
         this.showErrorScreenShotEmail = false;
       }
-    }
-    else{
+    } else {
       this.msjErrorScreenShotEmail = 'Solo se permiten archivos PNG O JPG';
       this.showErrorScreenShotEmail = true;
     }
   }
 
-  handleFileInputScreenShotClasification(event: any)
-  {
+  handleFileInputScreenShotClasification(event: any) {
     const tam_file = event.target.files[0].size / 1024;
     const type_file = event.target.files[0].type.split('/');
-    if(type_file[1] == 'png' || type_file[1] == 'jpeg')
-    {
-      if(tam_file > this.TAM_MAX_FILE)
-      {
-        this.msjErrorScreenShotClasification= 'El archivo supera el límite de 10 MB';
+    if (type_file[1] === 'png' || type_file[1] === 'jpeg') {
+      if (tam_file > this.TAM_MAX_FILE) {
+        this.msjErrorScreenShotClasification = 'El archivo supera el límite de 10 MB';
         this.showErrorScreenShotClasification = true;
-      }
-      else{
+      } else {
         this.fileToScreenShotClasification = event.target.files[0];
         this.placeholderScreenShotClasification = event.target.files[0].name;
         this.showErrorScreenShotClasification = false;
       }
-    }
-    else{
+    } else {
       this.msjErrorScreenShotClasification = 'Solo se permiten archivos PNG O JPG';
       this.showErrorScreenShotClasification = true;
     }
   }
 
 
-  onSubmit()
-  {
-    if(this.fileToArticle == null)
-    {
+  onSubmit() {
+    if (this.fileToArticle === null) {
       this.showErrorArticle = true;
       this.msjErrorArticle = 'Debe cargar un PDF del artículo ';
-    }
-    else if(this.fileToScreenShotEmail == null)
-    {
+    } else if (this.fileToScreenShotEmail === null) {
       this.showErrorScreenShotEmail = true;
       this.msjErrorScreenShotEmail = 'Debe cargar una imagen PNG o JPG que muestre el correo de aceptación del artículo';
-    }
-    else if(this.fileToScreenShotClasification == null)
-    {
+    } else if (this.fileToScreenShotClasification === null) {
       this.showErrorScreenShotClasification = true;
       this.msjErrorScreenShotClasification = 'Debe cargar una imagen PNG o JPG que muestre la categoria de la revista';
-    }
-    else{
+    } else {
       this.showErrorArticle = false;
       this.showErrorScreenShotClasification = false;
       this.showErrorScreenShotEmail = false;
@@ -168,8 +145,7 @@ export class AddMagazineComponent implements OnInit {
     }
   }
 
-  getDataMagazine()
-  {
+  getDataMagazine() {
     this.getDateMagazine.emit({
                                doi: this.fieldsForm.get('doiMagazine').value.trim(),
                                title: this.fieldsForm.get('tittleArticle').value.trim(),

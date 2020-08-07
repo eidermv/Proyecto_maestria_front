@@ -4,12 +4,9 @@ import {PipeTransform, Pipe} from '@angular/core';
   name: 'studentFilter'
 })
 
-export class StudentFilterPipe implements PipeTransform
-{
-  transform(optionsDataStudents: Array<string>, searchTerm: string): Array<string>
-  {
-    if(!optionsDataStudents || !searchTerm)
-    {
+export class StudentFilterPipe implements PipeTransform {
+  transform(optionsDataStudents: Array<string>, searchTerm: string): Array<string> {
+    if (!optionsDataStudents || !searchTerm) {
       return optionsDataStudents;
     }
 

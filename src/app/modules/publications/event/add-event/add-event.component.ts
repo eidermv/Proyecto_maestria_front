@@ -7,15 +7,14 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 export class AddEventComponent implements OnInit {
 /*****************************VARIABLES LOCALES********** */
 @Output() getDataEvent = new EventEmitter<{doi: string, issn: string, typEvent: string, city: string, country: string
-  titlePresentation: string,nameEvent: string,dateStart: string,dateFinish: string,filePresentation: File, fileCertificate: File}>();
+  titlePresentation: string, nameEvent: string, dateStart: string, dateFinish: string, filePresentation: File, fileCertificate: File}>();
 titleAddEvent: string;
 subtitleAddEvent: string;
 nameBtnAddEvent: string;
-  constructor()
-  {
+  constructor() {
     this.titleAddEvent = 'Datos de Evento';
     this.subtitleAddEvent = 'En este formulario ingrese los datos para el evento, recuerde los campos con * son obligatorios.'
-                                  +' No olvide cargar los archivos necesarios';
+                                  + ' No olvide cargar los archivos necesarios';
     this.nameBtnAddEvent = 'Registrar Evento';
    }
 
@@ -23,9 +22,8 @@ nameBtnAddEvent: string;
   }
 
   getDataaEvent(dataEvent: {doi: string, issn: string, typEvent: string, city: string, country: string
-                           titlePresentation: string,nameEvent: string,dateStart: string,dateFinish: string,filePresentation: File,
-                           fileCertificate: File})
-  {
+                           titlePresentation: string, nameEvent: string, dateStart: string, dateFinish: string, filePresentation: File,
+                           fileCertificate: File}) {
     this.getDataEvent.emit(
                             {
                               doi: dataEvent.doi,

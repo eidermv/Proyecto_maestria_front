@@ -16,17 +16,16 @@ export class ListStudentComponent implements OnInit {
   optionsDataStudents: Array<string>;
   searchTerm: string;
   msjOk: string;
-  msjFail : string;
+  msjFail: string;
   showEmpty: boolean;
   showFail: boolean;
-  p:any;
+  p: any;
 
   /************************VARIABLES DE INSTANCIA ********/
   studentShow: Student;
 
   constructor( private studentService: StudentService, private route: ActivatedRoute,
-    private router: Router)
-  {
+    private router: Router) {
     this.studentShow = new Student();
     this.optionsDataStudents = [];
     this.getAllStudents();
@@ -35,31 +34,24 @@ export class ListStudentComponent implements OnInit {
     this.showFail = false;
   }
 
-  showMSJ()
-  {
-    if(this.msjOk != null)
-    {
+  showMSJ() {
+    if (this.msjOk != null) {
       this.viewModalMsjOk.show();
     }
   }
 
-  getAllStudents()
-  {
+  getAllStudents() {
     this.studentService.getAllStudents()
-    .subscribe(data =>
-      {
+    .subscribe(data => {
         this.optionsDataStudents = data;
-        if(this.optionsDataStudents.length == 0)
-        {
+        if (this.optionsDataStudents.length === 0) {
           this.showEmpty = true;
-        }
-        else{
+        } else {
           this.showEmpty = false;
         }
         this.showMSJ();
       },
-      err =>
-      {
+      err => {
         this.msjFail = 'No fue posible obtener el listado de estudiantes';
         this.showFail = true;
       }
@@ -68,14 +60,12 @@ export class ListStudentComponent implements OnInit {
 
   ngOnInit() {
     const msj: string = this.route.snapshot.params['msj'];
-    if(msj != null)
-    {
+    if (msj != null) {
       this.msjOk = msj;
     }
   }
 
-  showModalOk(aux: any)
-  {
+  showModalOk(aux: any) {
     this.studentShow.setId(aux['codigo']);
     this.studentShow.setName(aux['nombres']);
     this.studentShow.setSurname(aux['apellidos']);
@@ -88,13 +78,11 @@ export class ListStudentComponent implements OnInit {
     this.viewModalOk.show();
   }
 
-  sendInfoToEditStudentComponent(aux: any)
-  {
+  sendInfoToEditStudentComponent(aux: any) {
     this.router.navigate(['/student/editStudent', aux['codigo']]);
   }
 
-  navigateToAddStudent()
-  {
+  navigateToAddStudent() {
     this.router.navigate(['/student/addStudent']);
   }
 

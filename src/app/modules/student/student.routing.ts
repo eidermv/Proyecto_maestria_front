@@ -62,4 +62,4 @@ const studentRoutes: Routes = [
   }
 )
 
-export class StudentRoutingModule{}
+export class StudentRoutingModule {}

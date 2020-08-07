@@ -6,16 +6,16 @@ import { TeachingPracticeService } from '../teachingPractice.service';
 import { Router } from '@angular/router';
 import { TeachingPractice } from '../../../models/teachingPractice/teachingPractice';
 
-const TAM_MAX_FILE: number = 10240;
-const PLACEHOLDER_CERTIFICATE: string= 'Archivo PDF, PNG o JPG que contenga el certificado del evento';
-const teachingCoursePre: string = 'Docencia curso pregrado';
-const teachingCoursePos: string = 'Docencia curso posgrado';
-const shortCourse: string = 'Curso corto (seminario actualizacion)';
-const monitoria: string = 'Monitorias cursos';
-const gradeWorkDirection: string = 'Direccion de Trabajo de Grado en pregrado/posgrado';
-const consultingBusinessInternship: string = 'Asesoria de pasantía empresarial';
-const participationIntheProgramCommittee: string = 'Participacion en el Comite de Programa';
-const otherActivities: string = 'Otras actividades de apoyo al departamento';
+const TAM_MAX_FILE = 10240;
+const PLACEHOLDER_CERTIFICATE = 'Archivo PDF, PNG o JPG que contenga el certificado del evento';
+const teachingCoursePre = 'Docencia curso pregrado';
+const teachingCoursePos = 'Docencia curso posgrado';
+const shortCourse = 'Curso corto (seminario actualizacion)';
+const monitoria = 'Monitorias cursos';
+const gradeWorkDirection = 'Direccion de Trabajo de Grado en pregrado/posgrado';
+const consultingBusinessInternship = 'Asesoria de pasantía empresarial';
+const participationIntheProgramCommittee = 'Participacion en el Comite de Programa';
+const otherActivities = 'Otras actividades de apoyo al departamento';
 
 @Component({
   selector: 'app-form-teaching-practice',
@@ -51,8 +51,7 @@ export class FormTeachingPracticeComponent implements OnInit {
    utilitiesDate: UtilitiesDate;
    teachingP: TeachingPractice;
 
-  constructor(private formBuilder: FormBuilder, private teachingPracticeService: TeachingPracticeService, private router: Router)
-  {
+  constructor(private formBuilder: FormBuilder, private teachingPracticeService: TeachingPracticeService, private router: Router) {
     this.utilitiesDate = new UtilitiesDate();
     this.teachingP = new TeachingPractice();
     this.optionsTypeTeachingPractice = ['Diseno curricular de curso teorico/practico nuevos - pregrado',
@@ -74,24 +73,21 @@ export class FormTeachingPracticeComponent implements OnInit {
     this.msjErrorDateStart = '';
     this.msjErrorDateFinish = '';
     this.msjErrorCertificate = '';
-    this.dataStart ='';
+    this.dataStart = '';
     this.dateEnd = '';
     this.placeholderCertificate = PLACEHOLDER_CERTIFICATE;
     this.max_date = this.utilitiesDate.getMaxDate();
   }
 
-  getStudent()
-  {
+  getStudent() {
     this.teachingPracticeService.getStudent()
-    .subscribe(data =>
-      {
-        this.nameStudent = data['nombres'] +' ' + data['apellidos'];
+    .subscribe(data => {
+        this.nameStudent = data['nombres'] + ' ' + data['apellidos'];
         this.codeStudent = data['codigo'];
         this.fieldsForm.get('author').setValue(this.nameStudent);
         this.fieldsForm.get('author').disable();
       },
-      err=>
-      {
+      err => {
         this.router.navigate(['/login']);
       });
   }
@@ -99,28 +95,23 @@ export class FormTeachingPracticeComponent implements OnInit {
   ngOnInit() {
     this.fieldsForm = this.formBuilder.group(
       {
-        author:['', Validators.required],
+        author: ['', Validators.required],
         dateActivityStart:  [''],
         dateActivityEnd:  [''],
       });
       this.getStudent();
   }
 
-  handleDateFinish(event: any)
-  {
+  handleDateFinish(event: any) {
     const dateEnd = this.fieldsForm.get('dateActivityEnd').value;
     const dateStart = this.fieldsForm.get('dateActivityStart').value;
-    if (dateEnd < dateStart)
-    {
+    if (dateEnd < dateStart) {
       this.showErrorDateFinish = true;
       this.msjErrorDateFinish = 'La fecha de finalización no puede ser menor que la fecha de inicio';
-    }
-    else if(dateEnd == dateStart)
-    {
+    } else if (dateEnd === dateStart) {
       this.showErrorDateFinish = true;
       this.msjErrorDateFinish = 'La fecha de finalización no puede ser igual que la fecha de inicio';
-    }
-    else{
+    } else {
       this.dataStart = dateStart;
       this.dateEnd = dateEnd;
       this.showErrorDateFinish = false;
@@ -128,120 +119,93 @@ export class FormTeachingPracticeComponent implements OnInit {
     }
   }
 
-  handleFileInputCertificate(event: any)
-  {
+  handleFileInputCertificate(event: any) {
     const tam_file = event.target.files[0].size / 1024;
     const type_file = event.target.files[0].type.split('/');
-    if(type_file[1] == 'png' || type_file[1] == 'jpeg' || type_file[1] == 'pdf')
-    {
-      if(tam_file > TAM_MAX_FILE)
-      {
-        this.msjErrorCertificate= 'El archivo supera el límite de 10 MB';
+    if (type_file[1] === 'png' || type_file[1] === 'jpeg' || type_file[1] === 'pdf') {
+      if (tam_file > TAM_MAX_FILE) {
+        this.msjErrorCertificate = 'El archivo supera el límite de 10 MB';
         this.showErrorCertificate = true;
-      }
-      else{
+      } else {
         this.fileToCertificate = event.target.files[0];
         this.placeholderCertificate = event.target.files[0].name;
         this.showErrorCertificate = false;
       }
-    }
-    else{
+    } else {
       this.msjErrorCertificate = 'Solo se permiten archivos PNG, JPG o PDF';
       this.showErrorCertificate = true;
     }
   }
 
-  handleTypePractice(event: any)
-  {
+  handleTypePractice(event: any) {
     const valueOptionTypePublication = this.cbx_typePractice.nativeElement.value;
     this.showDatesStartAndEnd = this.veryIfItemSelectedHaveDates(valueOptionTypePublication);
   }
 
-  veryIfItemSelectedHaveDates(item: string): boolean
-  {
-    if((item === teachingCoursePos) || (item === teachingCoursePre) || (item === shortCourse) || (item === monitoria) ||
+  veryIfItemSelectedHaveDates(item: string): boolean {
+    if ((item === teachingCoursePos) || (item === teachingCoursePre) || (item === shortCourse) || (item === monitoria) ||
        (item === gradeWorkDirection) || (item === consultingBusinessInternship) || (item === participationIntheProgramCommittee) ||
-       (item == otherActivities))
-       {
+       (item === otherActivities)) {
          return true;
-       }
-       else{
+       } else {
          return false;
        }
   }
 
-  verifyContentCertificate(): boolean
-  {
-    if(this.placeholderCertificate == PLACEHOLDER_CERTIFICATE)
-    {
-      this.showErrorCertificate= true;
+  verifyContentCertificate(): boolean {
+    if (this.placeholderCertificate === PLACEHOLDER_CERTIFICATE) {
+      this.showErrorCertificate = true;
       this.msjErrorCertificate = 'Este campo es obligatorio';
       return false;
-    }
-    else{
+    } else {
       return true;
     }
   }
 
-  verifyDates(): boolean
-  {
-    if(this.showErrorDateFinish)
-    {
+  verifyDates(): boolean {
+    if (this.showErrorDateFinish) {
       return true;
-    }
-    else{
+    } else {
       return false;
     }
   }
 
-  onSubmit()
-  {
+  onSubmit() {
 
-    if(this.verifyContentCertificate())
-    {
+    if (this.verifyContentCertificate()) {
 
-      if(this.verifyDates())
-      {
+      if (this.verifyDates()) {
 
         const dateEnd = this.fieldsForm.get('dateActivityEnd').value;
         const dateStart = this.fieldsForm.get('dateActivityStart').value;
         const valueOptionTypePublication = this.cbx_typePractice.nativeElement.value;
 
-        if(dateEnd.length === 0)
-        {
+        if (dateEnd.length === 0) {
           this.showErrorDateFinish = true;
           this.msjErrorDateFinish = 'Campo Obligatorio para este tipo de práctica';
-        }
-        else if(dateStart.length === 0)
-        {
+        } else if (dateStart.length === 0) {
           this.showErrorDateStart = true;
           this.msjErrorDateStart = 'Campo Obligatorio para este tipo de práctica';
-        }
-        else{
+        } else {
           this.getDataTeachingPractice();
         }
-      }
-      else{
+      } else {
         this.getDataTeachingPractice();
       }
     }
   }
 
-  getDates()
-  {
+  getDates() {
     const valueOptionTypePublication = this.cbx_typePractice.nativeElement.value;
-    if(this.veryIfItemSelectedHaveDates(valueOptionTypePublication))
-    {
+    if (this.veryIfItemSelectedHaveDates(valueOptionTypePublication)) {
       this.dataStart = this.fieldsForm.get('dateActivityStart').value;
       this.dateEnd = this.fieldsForm.get('dateActivityEnd').value;
-    }
-    else{
+    } else {
       this.dataStart = '';
       this.dateEnd = '';
     }
   }
-  getDataTeachingPractice()
-  {
+  getDataTeachingPractice() {
 
     this.getDates();
     this.teachingP.setNameStudent(this.nameStudent);

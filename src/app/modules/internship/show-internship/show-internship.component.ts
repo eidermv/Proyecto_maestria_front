@@ -15,8 +15,7 @@ export class ShowInternshipComponent implements OnInit, AfterViewInit {
   /*************************VARIABLES DE INSTANCIA**************** */
   @Output() cerrar = new EventEmitter<{cerrar: boolean}>();
 
-  constructor(private internshipService: InternshipService)
-  {
+  constructor(private internshipService: InternshipService) {
   }
   ngAfterViewInit(): void {
     this.viewModalInternship.show();
@@ -26,13 +25,11 @@ export class ShowInternshipComponent implements OnInit, AfterViewInit {
 
   }
 
-  destroyModal()
-  {
+  destroyModal() {
     this.cerrar.emit({cerrar: true});
   }
 
-  showFileInternship(type: string)
-  {
+  showFileInternship(type: string) {
     this.internshipService.getFileInternship(this.internship.getIdInternship(), type);
   }
 

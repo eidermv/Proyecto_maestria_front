@@ -23,8 +23,7 @@ export class ListInternshipForStudentComponent implements OnInit {
   /****************************VARIABLES DE INSTANCIA*********************/
   internship: Internship;
 
-  constructor(private internshipService: InternshipService,private route: ActivatedRoute,private router: Router)
-  {
+  constructor(private internshipService: InternshipService, private route: ActivatedRoute, private router: Router) {
     this.internship = new Internship();
     this.optionsInternship = [];
     this.showInternship = false;
@@ -33,35 +32,27 @@ export class ListInternshipForStudentComponent implements OnInit {
     this.showEmpty = false;
   }
 
-  getDateStudent()
-  {
+  getDateStudent() {
    this.internshipService.getStudent()
-   .subscribe(data =>
-    {
+   .subscribe(data => {
       this.codeStudent = data['codigo'];
      this.getAllInternship();
-    },err =>
-    {
+    }, err => {
       this.msjFail = 'Error al obtener informacion del estudiante';
       this.showFail = true;
     });
   }
 
-  getAllInternship()
-  {
+  getAllInternship() {
     this.internshipService.getAllInternshipForStudent(this.codeStudent)
-    .subscribe(data=>
-      {
+    .subscribe(data => {
         this.optionsInternship = data;
-        if(this.optionsInternship.length == 0)
-        {
+        if (this.optionsInternship.length === 0) {
           this.showEmpty = true;
-        }
-        else{
+        } else {
           this.showEmpty = false;
         }
-      }, err =>
-      {
+      }, err => {
         this.msjFail = 'Error al obtener mis pasantias';
         this.showFail = true;
       });
@@ -69,16 +60,14 @@ export class ListInternshipForStudentComponent implements OnInit {
 
   ngOnInit() {
     const msj: string = this.route.snapshot.params['msj'];
-    if(msj != null)
-    {
+    if (msj != null) {
       this.msjOk = msj;
       this.showModalOk = true;
     }
    this.getDateStudent();
   }
 
-  showDataInternship(dataInternship: any)
-  {
+  showDataInternship(dataInternship: any) {
     this.internship.setIdInternship(dataInternship['id']);
     this.internship.setNameStudent(dataInternship['estudiante']['nombres'] + dataInternship['estudiante']['apellidos']);
     this.internship.setCodeStudent(dataInternship['estudiante'['codigigo']]);
@@ -96,20 +85,16 @@ export class ListInternshipForStudentComponent implements OnInit {
     this.showInternship = true;
   }
 
-  destroyModal(destruir: {cerrar: boolean})
-  {
+  destroyModal(destruir: {cerrar: boolean}) {
     this.showInternship = false;
   }
 
-  deleteInternship(idInternship: string)
-  {
+  deleteInternship(idInternship: string) {
     this.internshipService.deleteInternship(idInternship)
-    .subscribe(data =>
-      {
+    .subscribe(data => {
         this.getAllInternship();
-      },err =>
-      {
-        this.msjFail ='Error al eliminar la pasantia';
+      }, err => {
+        this.msjFail = 'Error al eliminar la pasantia';
         this.showFail = true;
       });
   }

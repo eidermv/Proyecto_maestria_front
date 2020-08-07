@@ -4,9 +4,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { StringValidation } from '../../../resources/stringValidation';
 
 /***************************VARIABLES GLOBALES******** */
-const APROBADA: string = 'Aprobado';
-const REPROBADA: string = 'Rechazado';
-const POR_VERIFICAR: string = 'Por verificar';
+const APROBADA = 'Aprobado';
+const REPROBADA = 'Rechazado';
+const POR_VERIFICAR = 'Por verificar';
 
 @Component({
   selector: 'app-list-publication-for-admin',
@@ -39,8 +39,7 @@ export class ListPublicationForAdminComponent implements OnInit {
   fieldsForm: FormGroup;
 
 
-  constructor(private publicationsService: PublicationService, private formBuilder: FormBuilder)
-  {
+  constructor(private publicationsService: PublicationService, private formBuilder: FormBuilder) {
     this.stringValidation = new StringValidation();
     this.optionsPublicationsStudents = [];
     this.optionState = [POR_VERIFICAR, APROBADA, REPROBADA];
@@ -59,59 +58,48 @@ export class ListPublicationForAdminComponent implements OnInit {
   ngOnInit() {
     this.fieldsForm = this.formBuilder.group(
       {
-       observation: ['', [Validators.maxLength(this.stringValidation.MAX_LONG_OBSERVATION),]]
+       observation: ['', [Validators.maxLength(this.stringValidation.MAX_LONG_OBSERVATION), ]]
                   });
   }
 
-  getAllStudent()
-  {
+  getAllStudent() {
     this.publicationsService.getAllPublications()
-    .subscribe(data =>{
+    .subscribe(data => {
       this.optionsPublicationsStudents =  data;
-      if(this.optionsPublicationsStudents.length == 0)
-      {
+      if (this.optionsPublicationsStudents.length === 0) {
         this.showEmpty = true;
-      }
-      else{
+      } else {
         this.showEmpty = false;
       }
-    },err =>
-    {
+    }, err => {
       this.viewErroServer.show();
     });
   }
 
-  showPublication(aux: any)
-  {
+  showPublication(aux: any) {
     this.typePublication =  aux['tipoDocumento'];
     this.idPublication = aux['id'];
     this.showModalPublication = true;
   }
 
-  destroyModal(destruir: {cerrar: boolean})
-  {
+  destroyModal(destruir: {cerrar: boolean}) {
     this.showModalPublication = false;
   }
 
-  handleState(event: any)
-  {
+  handleState(event: any) {
     this.selectedState =  event.target.value;
-    if(this.selectedState == APROBADA)
-    {
+    if (this.selectedState === APROBADA) {
       this.showCredits = true;
-    }
-    else{
+    } else {
       this.showCredits = false;
     }
   }
 
-  handleCredits(event: any)
-  {
+  handleCredits(event: any) {
     this.totalCredits = event.target.value;
   }
 
-  editState(aux: any)
-  {
+  editState(aux: any) {
     this.nameStudent = aux['estudiante']['nombres'] + ' ' + aux['estudiante']['apellidos'];
     this.codeStudent = aux['estudiante']['codigo'];
     this.idPublication = aux['id'];
@@ -119,38 +107,30 @@ export class ListPublicationForAdminComponent implements OnInit {
     this.viewEditState.show();
   }
 
-  organizateOptions(state: string)
-  {
+  organizateOptions(state: string) {
     const optionTypeAux = [];
     optionTypeAux.push(state);
-    for(let i = 0; i < this.optionState.length; i++)
-    {
-      if(this.optionState[i] != state)
-      {
+    for (let i = 0; i < this.optionState.length; i++) {
+      if (this.optionState[i] !== state) {
         optionTypeAux.push(this.optionState[i]);
       }
     }
     return optionTypeAux;
   }
 
-  updateState()
-  {
-    if(this.fieldsForm.get('observation').value.length <= 300)
-    {
-      if(this.selectedState != APROBADA)
-      {
+  updateState() {
+    if (this.fieldsForm.get('observation').value.length <= 300) {
+      if (this.selectedState !== APROBADA) {
         this.totalCredits = '0';
       }
       this.comentary = this.fieldsForm.get('observation').value;
       this.fieldsForm.get('observation').setValue('');
       this.publicationsService.updateStatePublication(this.idPublication, this.totalCredits , this.selectedState, this.comentary)
-      .subscribe(data =>
-                {
+      .subscribe(data => {
                   this.viewEditState.hide();
                   this.getAllStudent();
                   this.comentary = '';
-                }, err =>
-                {
+                }, err => {
                   this.viewErroServer.show();
                 });
     }

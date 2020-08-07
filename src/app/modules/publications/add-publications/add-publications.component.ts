@@ -17,12 +17,12 @@ import { UtilitiesDate } from '../../../models/utilities/utilitiesDate';
 })
 export class AddPublicationsComponent implements OnInit {
   /***************************VARIABLES GLOBALES*********** */
-  MAGAZINE: string = 'Revista';
-  BOOK: string = 'Libro';
-  CAP_BOK: string = 'Capitulo Libro';
-  EVENT: string = 'Evento';
-  TAM_MAX_FILE : number = 10240;
-  PLACEHOLDER_CONTENT_TABLE: string = 'Archivo PDF que contenga la tabla de contenido';
+  MAGAZINE = 'Revista';
+  BOOK = 'Libro';
+  CAP_BOK = 'Capitulo Libro';
+  EVENT = 'Evento';
+  TAM_MAX_FILE = 10240;
+  PLACEHOLDER_CONTENT_TABLE = 'Archivo PDF que contenga la tabla de contenido';
    /*************************STRINGS APP********************* */
    stringValidation: StringValidation;
 
@@ -35,7 +35,7 @@ export class AddPublicationsComponent implements OnInit {
   titleFormAddMagazine: string;
   subtitleFormAddMagazine: string;
   nameBtnAddMagazine: string;
-  optionTypePublication:Array<string>;
+  optionTypePublication: Array<string>;
   showMagazine: boolean;
   showBook: boolean;
   showCapBook: boolean;
@@ -75,8 +75,7 @@ export class AddPublicationsComponent implements OnInit {
   capBook: CapBook;
   event: EventPublication;
 
-  constructor(private publicationsService: PublicationService, private formBuilder: FormBuilder, private router: Router)
-  {
+  constructor(private publicationsService: PublicationService, private formBuilder: FormBuilder, private router: Router) {
     this.stringValidation = new StringValidation();
     this.utilitiesDate = new UtilitiesDate();
     this.magizine = new Magazine();
@@ -85,20 +84,20 @@ export class AddPublicationsComponent implements OnInit {
     this.event = new EventPublication();
     this.titleFormAddMagazine = 'Datos Para la Revista';
     this.subtitleFormAddMagazine = 'En este formulario ingrese los datos para la revista, recuerde los campos con * son obligatorios.'
-                                  +' No olvide cargar los archivos necesarios';
+                                  + ' No olvide cargar los archivos necesarios';
     this.nameBtnAddMagazine = 'Registrar Revista';
-    this.optionTypePublication= ['Elija el tipo de publicación', this.MAGAZINE, this.BOOK, this.CAP_BOK, this.EVENT];
+    this.optionTypePublication = ['Elija el tipo de publicación', this.MAGAZINE, this.BOOK, this.CAP_BOK, this.EVENT];
     this.msjErroContentTable = '';
     this.msjErrorDateApproved = '';
     this.msjErrorDatePublication = '';
-    this.nameStudent ='';
+    this.nameStudent = '';
     this.codeStudent = '';
     this.authorSecondary = '';
     this.dateAproved = '';
     this.datePublication = '';
     this.elementSelect = '';
     this.progressRequest = '0%';
-    this.placeholderContentTable =this.PLACEHOLDER_CONTENT_TABLE;
+    this.placeholderContentTable = this.PLACEHOLDER_CONTENT_TABLE;
     this.showMagazine = false;
     this.showBook = false;
     this.showCapBook = false;
@@ -113,18 +112,15 @@ export class AddPublicationsComponent implements OnInit {
     this.max_date = this.utilitiesDate.getMaxDate();
   }
 
-  getStudent()
-  {
+  getStudent() {
     this.publicationsService.getStudent()
-    .subscribe(data =>
-      {
-        this.nameStudent = data['nombres'] +' ' + data['apellidos'];
+    .subscribe(data => {
+        this.nameStudent = data['nombres'] + ' ' + data['apellidos'];
         this.codeStudent = data['codigo'];
         this.fieldsForm.get('author').setValue(this.nameStudent);
         this.fieldsForm.get('author').disable();
       },
-      err=>
-      {
+      err => {
         this.router.navigate(['/login']);
       });
   }
@@ -140,193 +136,151 @@ export class AddPublicationsComponent implements OnInit {
                               Validators.maxLength(this.stringValidation.MAX_LONG_SECONDARY_AUTHORS),
                             ]
                           ] ,
-        author:['', Validators.required],
+        author: ['', Validators.required],
       });
       this.getStudent();
   }
 
-  handleContentTable(event: any)
-  {
+  handleContentTable(event: any) {
     const tam_file = event.target.files[0].size / 1024;
     const type_file = event.target.files[0].type.split('/');
-    if(type_file[1] == 'pdf')
-    {
-      if(tam_file > this.TAM_MAX_FILE)
-      {
+    if (type_file[1] === 'pdf') {
+      if (tam_file > this.TAM_MAX_FILE) {
         this.msjErroContentTable = 'El archivo supera el límite de 10 MB';
         this.showErrorContentTable = true;
-      }
-      else{
+      } else {
         this.fileToContentTable = event.target.files[0];
-        this.placeholderContentTable= event.target.files[0].name;
+        this.placeholderContentTable = event.target.files[0].name;
         this.showErrorContentTable = false;
         this.showOptionPublication(this.elementSelect);
       }
-    }
-    else{
-      this.msjErroContentTable= 'Solo se permiten archivos PDF';
+    } else {
+      this.msjErroContentTable = 'Solo se permiten archivos PDF';
       this.showErrorContentTable = true;
     }
   }
 
-  handleTypePublication(event: any)
-  {
+  handleTypePublication(event: any) {
     this.elementSelect = event.target.value;
     this.showOptionPublication(this.elementSelect);
   }
 
-  handleDateapproved(event: any)
-  {
+  handleDateapproved(event: any) {
     const valueOptionTypePublication = this.cbx_typePublication.nativeElement.value;
     const dateAprrov = this.fieldsForm.get('dateApproved').value;
     const datePublic = this.fieldsForm.get('datePublitaion').value;
 
-    if(datePublic.length == 0)
-    {
+    if (datePublic.length === 0) {
       this.showErrorDatePublication = false;
       this.showErrorDateApproved = false;
       this.msjErrorDatePublication = 'Campo opcional';
-      if (valueOptionTypePublication != 'Elija el tipo de publicación' )
-      {
+      if (valueOptionTypePublication !== 'Elija el tipo de publicación' ) {
         this.showOptionPublication(valueOptionTypePublication);
       }
-    }
-    else if (dateAprrov > datePublic)
-    {
+    } else if (dateAprrov > datePublic) {
       this.showErrorDatePublication = true;
       this.msjErrorDatePublication = 'La fecha de publicación no puede ser menor que la fecha de aceptación. Campo opcional';
       this.closeTypePublication();
-    }
-    else if(dateAprrov == datePublic)
-    {
+    } else if (dateAprrov === datePublic) {
       this.showErrorDatePublication = true;
       this.msjErrorDatePublication = 'La fecha de publicación no puede ser igual que la fecha de aceptación. Campo opcional';
       this.closeTypePublication();
-    }
-    else{
+    } else {
       this.showErrorDatePublication = false;
       this.showErrorDateApproved = false;
-      if (valueOptionTypePublication != 'Elija el tipo de publicación' )
-      {
+      if (valueOptionTypePublication !== 'Elija el tipo de publicación' ) {
         this.showOptionPublication(valueOptionTypePublication);
       }
     }
   }
 
-  handleApproved(event: any)
-  {
+  handleApproved(event: any) {
     const valueOptionTypePublication = this.cbx_typePublication.nativeElement.value;
     const dateAprrov = this.fieldsForm.get('dateApproved').value;
-    if(dateAprrov.length == 0)
-    {
+    if (dateAprrov.length === 0) {
       this.verifySelectDates();
       this.closeTypePublication();
-    }
-    else{
+    } else {
       this.showErrorDateApproved = false;
-      if (valueOptionTypePublication != 'Elija el tipo de publicación' )
-      {
+      if (valueOptionTypePublication !== 'Elija el tipo de publicación' ) {
         this.showOptionPublication(valueOptionTypePublication);
       }
     }
   }
 
-  closeTypePublication()
-  {
+  closeTypePublication() {
     this.showBook = false;
     this.showCapBook = false;
     this.showEvent = false;
     this.showMagazine = false;
   }
 
-  showOptionPublication(elementSelected: string)
-  {
-    if(elementSelected == this.MAGAZINE)
-    {
-      if(this.verifySelectDates() && this.verifyContentTable())
-      {
+  showOptionPublication(elementSelected: string) {
+    if (elementSelected === this.MAGAZINE) {
+      if (this.verifySelectDates() && this.verifyContentTable()) {
         this.showMagazine = true;
         this.showBook = false;
         this.showCapBook = false;
       }
-    }
-    else if(elementSelected == this.BOOK)
-    {
-      if(this.verifySelectDates()  && this.verifyContentTable())
-      {
+    } else if (elementSelected === this.BOOK) {
+      if (this.verifySelectDates()  && this.verifyContentTable()) {
         this.showMagazine = false;
         this.showBook = true;
-        this.showCapBook =false;
+        this.showCapBook = false;
         this.showEvent = false;
       }
-    }
-    else if(elementSelected == this.CAP_BOK)
-    {
-      if(this.verifySelectDates()  && this.verifyContentTable())
-      {
+    } else if (elementSelected === this.CAP_BOK) {
+      if (this.verifySelectDates()  && this.verifyContentTable()) {
         this.showMagazine = false;
         this.showBook = false;
         this.showCapBook = true;
         this.showEvent = false;
       }
-    }
-    else if(elementSelected == this.EVENT)
-    {
-      if(this.verifySelectDates()  && this.verifyContentTable())
-      {
+    } else if (elementSelected === this.EVENT) {
+      if (this.verifySelectDates()  && this.verifyContentTable()) {
       this.showMagazine = false;
       this.showBook = false;
       this.showCapBook = false;
       this.showEvent = true;
       }
-    }
-    else{
+    } else {
       this.closeTypePublication();
     }
 
   }
 
-  verifySelectDates()
-  {
-    if( this.showErrorDatePublication)
-    {
+  verifySelectDates() {
+    if ( this.showErrorDatePublication) {
       return false;
     }
-    if((this.fieldsForm.get('dateApproved').value.length == 0) || this.showErrorDateApproved)
-    {
-      if( this.showErrorDateApproved)
-      {
+    if ((this.fieldsForm.get('dateApproved').value.length === 0) || this.showErrorDateApproved) {
+      if ( this.showErrorDateApproved) {
         this.showErrorDateApproved = true;
         this.msjErrorDateApproved = 'Este campo es obligatorio y presenta un error';
-      }else{
+      } else {
         this.showErrorDateApproved = true;
         this.msjErrorDateApproved = 'Este campo es obligatorio';
       }
       return false;
-    }
-    else{
+    } else {
       this.showErrorDateApproved = false;
       this.showErrorDatePublication = false;
       return true;
     }
   }
 
-  verifyContentTable()
-  {
-    if(this.placeholderContentTable == this.PLACEHOLDER_CONTENT_TABLE)
-    {
-      this.showErrorContentTable= true;
+  verifyContentTable() {
+    if (this.placeholderContentTable === this.PLACEHOLDER_CONTENT_TABLE) {
+      this.showErrorContentTable = true;
       this.msjErroContentTable = 'Este campo es obligatorio';
       return false;
-    }
-    else{
+    } else {
       return true;
     }
   }
 
   getDataMagazine(dateMagazine: {doi: string, title: string, name: string, category: string, filePDFArticle: File,
-                  fileScreenShotEmail: File, fileScreenshotClasification: File })
-  {
+                  fileScreenShotEmail: File, fileScreenshotClasification: File }) {
       this.getDefaultInfoPublication();
       this.magizine.setAuthor(this.nameStudent);
       this.magizine.setCode(this.codeStudent);
@@ -343,19 +297,16 @@ export class AddPublicationsComponent implements OnInit {
       this.magizine.setScreenShotClasification(dateMagazine.fileScreenshotClasification);
 
     this.publicationsService.registryMagazine(this.magizine)
-    .subscribe(event =>
-      {
+    .subscribe(event => {
         this.eveent = event;
         this.showProgressRequest = true;
-      },err =>
-      {
+      }, err => {
         this.showModalFail('No se pudo registrar la publicación de revista');
       });
   }
 
   getDataBook(dataBook: {isbn: string, title: string, editorial: string, city: string, country: string
-              fileBook: File, fileCertificate: File})
-  {
+              fileBook: File, fileCertificate: File}) {
     this.getDefaultInfoPublication();
     this.book.setAuthor(this.nameStudent);
     this.book.setCode(this.codeStudent);
@@ -372,19 +323,16 @@ export class AddPublicationsComponent implements OnInit {
     this.book.setCertificateEditorial(dataBook.fileCertificate);
 
     this.publicationsService.registryBook(this.book)
-    .subscribe(event =>
-      {
+    .subscribe(event => {
         this.eveent = event;
         this.showProgressRequest = true;
-      },err =>
-      {
+      }, err => {
         this.showModalFail('No se pudo registrar la publicación de libro');
       });
   }
 
   getDatePublicationCapBook(dataCapBook: {isbn: string, title: string, editorial: string, titleCapLibro: string
-    fileBook: File, fileCertificate: File})
-  {
+    fileBook: File, fileCertificate: File}) {
     this.getDefaultInfoPublication();
     this.capBook.setAuthor(this.nameStudent);
     this.capBook.setCode(this.codeStudent);
@@ -400,20 +348,17 @@ export class AddPublicationsComponent implements OnInit {
     this.capBook.setCertificateCapBook(dataCapBook.fileCertificate);
 
     this.publicationsService.registyCapBook(this.capBook)
-    .subscribe(event =>
-      {
+    .subscribe(event => {
         this.eveent = event;
         this.showProgressRequest = true;
-      },err =>
-      {
+      }, err => {
         this.showModalFail('No se pudo registrar la publicación de capitulo de libro');
       });
   }
 
   getDataaEvent(dataEvent: {doi: string, issn: string, typEvent: string, city: string, country: string
-    titlePresentation: string,nameEvent: string,dateStart: string,dateFinish: string,filePresentation: File,
-    fileCertificate: File})
-  {
+    titlePresentation: string, nameEvent: string, dateStart: string, dateFinish: string, filePresentation: File,
+    fileCertificate: File}) {
     this.getDefaultInfoPublication();
     this.event.setAuthor(this.nameStudent);
     this.event.setCode(this.codeStudent);
@@ -434,26 +379,22 @@ export class AddPublicationsComponent implements OnInit {
     this.event.setCertificateEvent(dataEvent.fileCertificate);
 
     this.publicationsService.registryEvent(this.event)
-    .subscribe(event =>
-      {
+    .subscribe(event => {
         this.eveent = event;
         this.showProgressRequest = true;
-      },err =>
-      {
+      }, err => {
         this.showModalFail('No se pudo registrar la publicación de evento');
       });
   }
 
-  showModalFail(titleModal: string)
-  {
+  showModalFail(titleModal: string) {
     this.showProgressRequest = false;
     this.titleModalError = titleModal;
     this.subtitleModaErro = 'Error interno en el servidor';
     this.viewModalFail.show();
   }
 
-  getDefaultInfoPublication()
-  {
+  getDefaultInfoPublication() {
     this.authorSecondary = this.fieldsForm.get('secondaryAuthors').value;
     this.dateAproved = this.fieldsForm.get('dateApproved').value;
     this.datePublication = this.fieldsForm.get('datePublitaion').value;

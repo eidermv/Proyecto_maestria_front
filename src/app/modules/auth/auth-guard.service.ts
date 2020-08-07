@@ -4,18 +4,15 @@ import { AuthService } from './auth.service';
 
 
 @Injectable()
-export class AuthGuard implements CanActivate
-{
-  constructor(private authService: AuthService, private router: Router){}
+export class AuthGuard implements CanActivate {
+  constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    let url: string = state.url;
+    const url: string = state.url;
 
-      if (sessionStorage.getItem('token') != null)
-      {
+      if (sessionStorage.getItem('token') != null) {
         return true;
-      }
-      else{
+      } else {
         this.router.navigate(['404']);
       }
     }

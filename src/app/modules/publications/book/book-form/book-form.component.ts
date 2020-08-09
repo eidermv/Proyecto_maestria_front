@@ -30,8 +30,8 @@ export class BookFormComponent implements OnInit {
   @Output() getDateBook = new EventEmitter<{isbn: string, title: string, editorial: string, city: string, country: string
     fileBook: File, fileCertificate: File}>();
   fieldsForm: FormGroup;
-  fileToBook: null;
-  fileToCertificate: null;
+  fileToBook = null;
+  fileToCertificate = null;
 
 
   constructor(private formBuilder: FormBuilder) {
@@ -48,7 +48,7 @@ export class BookFormComponent implements OnInit {
   ngOnInit() {
     this.fieldsForm = this.formBuilder.group(
       {
-        isbnBook:    ['', [Validators.required,
+        isbnBook:    ['', [// Validators.required,
                           Validators.maxLength(this.stringValidation.MAX_LONG_ISBN),
                           Validators.pattern('^[0-9]+(-[0-9]+)+$'),
                         ]

@@ -41,13 +41,13 @@ export class EventFormComponent implements OnInit {
    @Output() getDataEvent = new EventEmitter<{doi: string, issn: string, typEvent: string, city: string, country: string
     titlePresentation: string, nameEvent: string, dateStart: string, dateFinish: string, filePresentation: File, fileCertificate: File}>();
    fieldsForm: FormGroup;
-   fileToCertificate: null;
-   fileToPresentation: null;
+   fileToCertificate = null;
+   fileToPresentation = null;
    utilitiesDate: UtilitiesDate;
   constructor(private formBuilder: FormBuilder) {
     this.stringValidation = new StringValidation();
     this.utilitiesDate = new UtilitiesDate();
-    this.optionEventType = ['Congreso', 'Seminario', 'Simposio'];
+    this.optionEventType = ['Congreso', 'Seminario', 'Simposio', 'Otro'];
     this.placeholderPresentation = 'Archivo PDF que contenga la ponencia';
     this.placeholderCertificate = 'Archivo PDF, PNG o JPG que contenga el certificado del evento';
     this.showErrorLocalization = false;
@@ -61,14 +61,14 @@ export class EventFormComponent implements OnInit {
   ngOnInit() {
     this.fieldsForm = this.formBuilder.group(
       {
-        doiEvent:    ['', [Validators.required,
+        doiEvent:    ['', [// Validators.required,
                           Validators.maxLength(this.stringValidation.MAX_LONG_DOI),
                           Validators.minLength(this.stringValidation.MIN_LONG_TEX)
                         ]
                     ],
         dateStartEvent:  ['', [Validators.required]],
         dateEndEvent:  ['', [Validators.required]],
-        issnEvent: ['', [Validators.required,
+        issnEvent: ['', [// Validators.required,
                         Validators.maxLength(this.stringValidation.MAX_LONG_ISSN),
                         Validators.minLength(this.stringValidation.MIN_LONG_TEX),
                         Validators.pattern('^([0-9]{4})+([-]{1})+([0-9]{3})+([0-9X]{1})$'),

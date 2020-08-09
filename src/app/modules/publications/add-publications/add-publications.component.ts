@@ -217,27 +217,28 @@ export class AddPublicationsComponent implements OnInit {
 
   showOptionPublication(elementSelected: string) {
     if (elementSelected === this.MAGAZINE) {
-      if (this.verifySelectDates() && this.verifyContentTable()) {
+      if (this.verifySelectDates()) {
         this.showMagazine = true;
         this.showBook = false;
         this.showCapBook = false;
       }
     } else if (elementSelected === this.BOOK) {
-      if (this.verifySelectDates()  && this.verifyContentTable()) {
+      // if (this.verifySelectDates()  && this.verifyContentTable()) {
+      if (this.verifySelectDates()) {
         this.showMagazine = false;
         this.showBook = true;
         this.showCapBook = false;
         this.showEvent = false;
       }
     } else if (elementSelected === this.CAP_BOK) {
-      if (this.verifySelectDates()  && this.verifyContentTable()) {
+      if (this.verifySelectDates()) {
         this.showMagazine = false;
         this.showBook = false;
         this.showCapBook = true;
         this.showEvent = false;
       }
     } else if (elementSelected === this.EVENT) {
-      if (this.verifySelectDates()  && this.verifyContentTable()) {
+      if (this.verifySelectDates()) {
       this.showMagazine = false;
       this.showBook = false;
       this.showCapBook = false;

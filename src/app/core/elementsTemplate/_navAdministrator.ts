@@ -35,6 +35,18 @@ export const navAdministrator = [
       },
 
     ]
-  },
+  }, 
+  {
+    name: 'Seguimientos',
+    url: '/seguimientos',
+    icon: 'fa fa-search',
+    children: [
+      {
+        name: 'Listar Seguimiento',
+        url: '/listar',
+        icon: 'fa fa-cloud-upload'
+      }
+    ]
+  }
 
 ];

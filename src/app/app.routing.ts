@@ -9,6 +9,7 @@ import { P500Component } from './views/error/500.component';
 import { LoginComponent } from './modules/auth/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
 import { AuthGuard } from './modules/auth/auth-guard.service';
+import { ListSeguimientosComponent } from './seguimientos/componentes/list-seguimientos/list-seguimientos.component';
 
 export const routes: Routes = [
   {
@@ -44,6 +45,7 @@ export const routes: Routes = [
       title: 'Register Page'
     }
   },
+
   {
     path: '',
     component: ElementsTemplateComponent,
@@ -71,6 +73,11 @@ export const routes: Routes = [
         canActivate: [AuthGuard],
         loadChildren: './modules/internship/internship.module#InternshipModule'
       },
+      {
+        path: 'seguimiento',
+        canActivate: [AuthGuard],
+        loadChildren: './seguimientos/modulos/seguimiento.module#SeguimientoModule'
+      }
     ]
   }
 ];

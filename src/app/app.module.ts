@@ -33,6 +33,8 @@ import { TokenInterceptorService } from './modules/auth/token-interceptor.servic
 import { InternshipModule } from './modules/internship/internship.module';
 import { ModalWindowsModule } from './modules/modal-windows/modal-windows.module';
 import {ChartsModule} from 'ng2-charts';
+import { ListSeguimientosComponent } from './seguimientos/componentes/list-seguimientos/list-seguimientos.component';
+import { SeguimientoModule } from './seguimientos/modulos/seguimiento.module';
 
 
 @NgModule({
@@ -48,12 +50,14 @@ import {ChartsModule} from 'ng2-charts';
     ModalWindowsModule,
     BrowserAnimationsModule,
     InternshipModule,
+    SeguimientoModule,
   ],
   declarations: [
     AppComponent,
     P404Component,
     P500Component,
     RegisterComponent,
+    ListSeguimientosComponent,
   ],
   providers: [{
     provide: LocationStrategy,

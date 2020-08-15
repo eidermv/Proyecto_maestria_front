@@ -4,18 +4,22 @@ import { ListSeguimientosComponent } from '../componentes/list-seguimientos/list
 
 const routes: Routes = [
   {
-    path:'',
-    children: 
-    [
+    path: '',
+    data: {
+      title: 'seguimiento'
+    },
+    children: [
       {
-        path: 'listar', component:ListSeguimientosComponent,
+        path: 'listar',
+        component: ListSeguimientosComponent,
+        data:
+        {
+          title: 'Listar Seguimiento'
+        }
       }
     ]
-},
-  {
-    path: '**', redirectTo: 'login', pathMatch: 'full'
-  }
-  
+  },
+  {path: '**', redirectTo: 'login', pathMatch: 'full'}
 ];
 
 @NgModule({

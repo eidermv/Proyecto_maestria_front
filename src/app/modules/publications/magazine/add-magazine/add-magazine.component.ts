@@ -32,15 +32,15 @@ export class AddMagazineComponent implements OnInit {
   @Output() getDateMagazine = new EventEmitter<{doi: string, title: string, name: string, category: string,
                                                 filePDFArticle: File, fileScreenShotEmail: File, fileScreenshotClasification: File }>();
   fieldsForm: FormGroup;
-  fileToArticle: null;
-  fileToScreenShotEmail: null;
-  fileToScreenShotClasification: null;
+  fileToArticle = null;
+  fileToScreenShotEmail = null;
+  fileToScreenShotClasification = null;
 
 
 
   constructor(private formBuilder: FormBuilder) {
     this.stringValidation = new StringValidation();
-    this.optionCategoyMagazine = ['A1', 'A2', 'B', 'C'];
+    this.optionCategoyMagazine = ['A1', 'A2', 'B', 'C', 'Sin Clasificacion'];
     this.placeholderScreenShotArticle = 'Archivo PDF que contenga el artículo';
     this.placeholderScreenShotClasification = 'Archivo (PNG o JPG) que contenga la clasificación de la revista';
     this.placeholderScreenShotEmail = 'Archivo (PNG o JPG) que contenga pantallazo de correo de aceptación';
@@ -53,7 +53,7 @@ export class AddMagazineComponent implements OnInit {
 
     this.fieldsForm = this.formBuilder.group(
       {
-        doiMagazine:    ['', [Validators.required,
+        doiMagazine:    ['', [
                           Validators.maxLength(this.stringValidation.MAX_LONG_DOI),
                           Validators.minLength(this.stringValidation.MIN_LONG_TEX),
 
@@ -128,16 +128,17 @@ export class AddMagazineComponent implements OnInit {
 
 
   onSubmit() {
+    console.log('revisa aqui');
     if (this.fileToArticle === null) {
       this.showErrorArticle = true;
       this.msjErrorArticle = 'Debe cargar un PDF del artículo ';
     } else if (this.fileToScreenShotEmail === null) {
       this.showErrorScreenShotEmail = true;
       this.msjErrorScreenShotEmail = 'Debe cargar una imagen PNG o JPG que muestre el correo de aceptación del artículo';
-    } else if (this.fileToScreenShotClasification === null) {
+    } else {/*if (this.fileToScreenShotClasification === null) {
       this.showErrorScreenShotClasification = true;
       this.msjErrorScreenShotClasification = 'Debe cargar una imagen PNG o JPG que muestre la categoria de la revista';
-    } else {
+    }  else {*/
       this.showErrorArticle = false;
       this.showErrorScreenShotClasification = false;
       this.showErrorScreenShotEmail = false;

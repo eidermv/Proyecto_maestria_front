@@ -27,8 +27,8 @@ export class CapBookFormComponent implements OnInit {
    @Output() getDateCapBook = new EventEmitter<{isbn: string, title: string, editorial: string, titleCapLibro: string
     fileBook: File, fileCertificate: File}>();
     fieldsForm: FormGroup;
-    fileToBook: null;
-    fileToCertificate: null;
+    fileToBook = null;
+    fileToCertificate = null;
   constructor(private formBuilder: FormBuilder) {
     this.stringValidation = new StringValidation();
     this.placeholderCapBook = 'Archivo PDF que contenga el capitulo del libro';
@@ -40,7 +40,7 @@ export class CapBookFormComponent implements OnInit {
   ngOnInit() {
     this.fieldsForm = this.formBuilder.group(
       {
-        isbnBook:    ['', [Validators.required,
+        isbnBook:    ['', [// Validators.required,
                           Validators.maxLength(this.stringValidation.MAX_LONG_ISBN),
                           Validators.minLength(this.stringValidation.MIN_LONG_TEX),
                           Validators.pattern('^[0-9]+(-[0-9]+)+$')

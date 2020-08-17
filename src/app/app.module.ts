@@ -40,6 +40,10 @@ import { MatSortModule } from '@angular/material/sort';
 import {MatInputModule} from '@angular/material/input';
 import {FormsModule} from '@angular/forms';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import { AgregarSeguimientoComponent } from './seguimientos/componentes/agregarSeguimiento/agregar-seguimiento/agregar-seguimiento.component';
+import { VerSeguimientoComponent } from './seguimientos/componentes/verSeguimiento/ver-seguimiento/ver-seguimiento.component';
+import { EditarSeguimientoComponent } from './seguimientos/componentes/editarSeguimiento/editar-seguimiento/editar-seguimiento.component';
+import { EliminarSeguimientoComponent } from './seguimientos/componentes/eliminarSeguimiento/eliminar-seguimiento/eliminar-seguimiento.component';
 
 @NgModule({
   imports: [
@@ -67,6 +71,10 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     P500Component,
     RegisterComponent,
     ListSeguimientosComponent,
+    AgregarSeguimientoComponent,
+    VerSeguimientoComponent,
+    EditarSeguimientoComponent,
+    EliminarSeguimientoComponent,
   ],
   providers: [{
     provide: LocationStrategy,

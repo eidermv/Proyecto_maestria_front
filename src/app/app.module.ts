@@ -44,6 +44,8 @@ import { AgregarSeguimientoComponent } from './seguimientos/componentes/agregarS
 import { VerSeguimientoComponent } from './seguimientos/componentes/verSeguimiento/ver-seguimiento/ver-seguimiento.component';
 import { EditarSeguimientoComponent } from './seguimientos/componentes/editarSeguimiento/editar-seguimiento/editar-seguimiento.component';
 import { EliminarSeguimientoComponent } from './seguimientos/componentes/eliminarSeguimiento/eliminar-seguimiento/eliminar-seguimiento.component';
+import {MatPaginatorIntl} from '@angular/material/paginator';
+import {MyMatPaginatorInt} from './seguimientos/componentes/traduccion/my-mat-paginator-int';
 
 @NgModule({
   imports: [
@@ -79,7 +81,9 @@ import { EliminarSeguimientoComponent } from './seguimientos/componentes/elimina
   providers: [{
     provide: LocationStrategy,
     useClass: HashLocationStrategy,
-  }],
+  },
+  { provide: MatPaginatorIntl, useClass: MyMatPaginatorInt}
+],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

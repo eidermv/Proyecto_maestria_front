@@ -35,7 +35,7 @@ export const navAdministrator = [
       },
 
     ]
-  }, 
+  },
   {
     name: 'Seguimientos',
     url: '/seguimiento',

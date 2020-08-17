@@ -35,7 +35,11 @@ import { ModalWindowsModule } from './modules/modal-windows/modal-windows.module
 import {ChartsModule} from 'ng2-charts';
 import { ListSeguimientosComponent } from './seguimientos/componentes/list-seguimientos/list-seguimientos.component';
 import { SeguimientoModule } from './seguimientos/modulos/seguimiento.module';
-
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import {MatInputModule} from '@angular/material/input';
+import {FormsModule} from '@angular/forms';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 @NgModule({
   imports: [
@@ -50,7 +54,12 @@ import { SeguimientoModule } from './seguimientos/modulos/seguimiento.module';
     ModalWindowsModule,
     BrowserAnimationsModule,
     InternshipModule,
-    SeguimientoModule,
+    SeguimientoModule, 
+    MatTableModule,
+    MatSortModule,
+    MatInputModule,
+    FormsModule,
+    MatPaginatorModule
   ],
   declarations: [
     AppComponent,

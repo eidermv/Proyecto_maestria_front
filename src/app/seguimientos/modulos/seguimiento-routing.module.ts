@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ListSeguimientosComponent } from '../componentes/list-seguimientos/list-seguimientos.component';
+import { AgregarSeguimientoComponent } from '../componentes/agregarSeguimiento/agregar-seguimiento/agregar-seguimiento.component';
 
 const routes: Routes = [
   {
@@ -15,6 +16,14 @@ const routes: Routes = [
         data:
         {
           title: 'Listar Seguimiento'
+        }
+      },
+      {
+        path: 'agregar',
+        component: AgregarSeguimientoComponent,
+        data:
+        {
+          title: 'Agregar Seguimiento'
         }
       }
     ]

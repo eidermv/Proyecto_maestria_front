@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -36,7 +37,7 @@ export class ListSeguimientosComponent implements OnInit {
   id:number=0;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
-  constructor() {
+  constructor( private router: Router) {
     // Create 100 users
     const seguimientos = Array.from({ length: 100 }, (_, k) => this.crearSeguimiento(k + 1));
 
@@ -55,9 +56,12 @@ export class ListSeguimientosComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
+  agregar(){
+    this.router.navigateByUrl('/seguimiento/agregar');
+  }
   /** Builds and returns a new User. */
   crearSeguimiento(id: number): Seguimiento {
-    
+
     const student = NAMES[Math.round(Math.random() * (NAMES.length - 1))] + ' ' +
       NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) + '.';
     const tut = TUTORS[Math.round(Math.random() * (TUTORS.length - 1))] + ' ' +
@@ -77,9 +81,9 @@ export class ListSeguimientosComponent implements OnInit {
     };
 
   }
-  
-  
-  
-  
+
+
+
+
 }
 

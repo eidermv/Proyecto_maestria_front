@@ -44,6 +44,7 @@ import { AgregarSeguimientoComponent } from './seguimientos/componentes/agregarS
 import { VerSeguimientoComponent } from './seguimientos/componentes/verSeguimiento/ver-seguimiento/ver-seguimiento.component';
 import { EditarSeguimientoComponent } from './seguimientos/componentes/editarSeguimiento/editar-seguimiento/editar-seguimiento.component';
 import { EliminarSeguimientoComponent } from './seguimientos/componentes/eliminarSeguimiento/eliminar-seguimiento/eliminar-seguimiento.component';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   imports: [
@@ -58,12 +59,13 @@ import { EliminarSeguimientoComponent } from './seguimientos/componentes/elimina
     ModalWindowsModule,
     BrowserAnimationsModule,
     InternshipModule,
-    SeguimientoModule, 
+    SeguimientoModule,
     MatTableModule,
     MatSortModule,
     MatInputModule,
     FormsModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatIconModule
   ],
   declarations: [
     AppComponent,

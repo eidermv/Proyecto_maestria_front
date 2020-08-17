@@ -1,3 +1,19 @@
 table {
     width: 100%;
   }
+.color-negro{
+  color: black;
+}
+  .full{
+    width: 100%;
+    display: flex;
+    justify-content: right;
+    justify-items: right;
+  }
+
+  .izq {
+    margin-right: 0%;
+    margin-left: auto;
+    display: inline-flex;
+    justify-self: right;
+  }

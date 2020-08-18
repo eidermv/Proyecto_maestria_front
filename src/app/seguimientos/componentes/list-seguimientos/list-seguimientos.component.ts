@@ -57,7 +57,7 @@ export class ListSeguimientosComponent implements OnInit {
     }
   }
   agregar(){
-    this.router.navigateByUrl('/seguimiento/agregar');
+    this.router.navigate(['/seguimiento/agregar']);
   }
   /** Builds and returns a new User. */
   crearSeguimiento(id: number): Seguimiento {

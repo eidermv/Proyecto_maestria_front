@@ -1,0 +1,7 @@
+.sinborde {
+    border: 0;
+  }
+  #wrapper {
+    display: flex;
+    justify-content: center;
+  }

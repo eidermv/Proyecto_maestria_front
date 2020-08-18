@@ -44,13 +44,13 @@ import { AgregarSeguimientoComponent } from './seguimientos/componentes/agregarS
 import { VerSeguimientoComponent } from './seguimientos/componentes/verSeguimiento/ver-seguimiento/ver-seguimiento.component';
 import { EditarSeguimientoComponent } from './seguimientos/componentes/editarSeguimiento/editar-seguimiento/editar-seguimiento.component';
 import { EliminarSeguimientoComponent } from './seguimientos/componentes/eliminarSeguimiento/eliminar-seguimiento/eliminar-seguimiento.component';
-<<<<<<< HEAD
 import {MatIconModule} from '@angular/material/icon';
-=======
-import {MatPaginatorIntl} from '@angular/material/paginator';
+import {MatPaginatorIntl} from '@angular/material/paginator'
 import {MyMatPaginatorInt} from './seguimientos/componentes/traduccion/my-mat-paginator-int';
->>>>>>> bc5bb4286980886d140c94aa5481b9568633ad3f
-
+import {MatCardModule} from '@angular/material/card';
+import{ReactiveFormsModule} from '@angular/forms'
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { CrearTutorComponent } from './tutores/crear-tutor/crear-tutor.component';
 @NgModule({
   imports: [
     BrowserModule,
@@ -69,8 +69,11 @@ import {MyMatPaginatorInt} from './seguimientos/componentes/traduccion/my-mat-pa
     MatSortModule,
     MatInputModule,
     FormsModule,
+    MatIconModule,    
     MatPaginatorModule,
-    MatIconModule
+    MatCardModule,
+    ReactiveFormsModule,
+    MatAutocompleteModule
   ],
   declarations: [
     AppComponent,
@@ -82,6 +85,7 @@ import {MyMatPaginatorInt} from './seguimientos/componentes/traduccion/my-mat-pa
     VerSeguimientoComponent,
     EditarSeguimientoComponent,
     EliminarSeguimientoComponent,
+    CrearTutorComponent,
   ],
   providers: [{
     provide: LocationStrategy,

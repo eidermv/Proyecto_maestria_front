@@ -25,12 +25,11 @@
                     <input type="search" placeholder="Buscar Tutor" aria-label="Number" matInput
                         [formControl]="myControl" [matAutocomplete]="auto">
                     <button type="button" class="fa fa-plus-circle sinborde" (click)="crearTutor()"></button>
-                    
-            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                  <p >{{option}}</p>
-                </mat-option>
-              </mat-autocomplete>
+                    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                            <p>{{option}}</p>
+                        </mat-option>
+                    </mat-autocomplete>
                 </div>
                 <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <span class="input-group-text col-lg-3 col-md-3 col-sm-3 col-xs-3">Estudiante: </span>

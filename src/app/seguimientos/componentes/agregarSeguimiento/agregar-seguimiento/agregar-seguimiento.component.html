@@ -1,41 +1,80 @@
 <mat-card>
-    <mat-card-header>
-        <mat-card-title>Nuevo Seguimiento</mat-card-title>
+    <mat-card-header class="bg-info">
+        <mat-card-title style="background-color:#5bc0de;"> <br> <strong>Nuevo Seguimiento</strong> <br></mat-card-title>
         <!-- <mat-card-subtitle>Agregar Seguimiento</mat-card-subtitle> -->
     </mat-card-header>
     <mat-card-content>
-        <form [formGroup]="formulario" (ngSubmit)="onSubmit($event)">
+        <form [formGroup]="formulario" (ngSubmit)="onSubmit($event)"> <br>
             <div class="row">
                 <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <span class="input-group-text col-lg-2 col-md-2 col-sm-2 col-xs-2">Nombre:</span>
-                    <input type="text" formControlName="nombre">
+                    <span class="input-group-text col-lg-3 col-md-4 col-sm-4 col-xs-4"
+                        style="position: relative; left: 2cm;">Nombre</span>
+                    <input type="text " class="col-lg-3 col-md-3 col-sm-2 col-xs-2" placeholder="Nombre Seguimiento"
+                        style="position: relative; left: 2cm;" formControlName="nombre">
                 </div>
                 <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <span class="input-group-text col-lg-3 col-md-3 col-sm-3 col-xs-3">Tipo: </span>
-                    <select formControlName="tipo">
+                    <span class="input-group-text col-lg-3 col-md-4 col-sm-4 col-xs-4">Tipo: </span>
+                    <select formControlName="tipo" class="col-lg-3 col-md-3 col-sm-2 col-xs-2" formControlName="tipo">
                         <option value="1">Tesis</option>
                         <option value="2">Propuesta</option>
                     </select>
                 </div>
             </div> <br>
             <div class="row">
-
-                <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <span class="input-group-text col-lg-2 col-md-2 col-sm-2 col-xs-2">Tutor: </span>
-                    <input type="search" placeholder="Buscar Tutor" aria-label="Number" matInput
-                        [formControl]="myControl" [matAutocomplete]="auto">
-                    <button type="button" class="fa fa-plus-circle sinborde" (click)="crearTutor()"></button>
-                    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                <div id="tutor" class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <span class="input-group-text col-lg-3 col-md-4 col-sm-4 col-xs-4"
+                        style="position: relative; left: 2cm;">Tutor: </span>
+                    <input type="search" placeholder="Buscar Tutor" aria-label="tutor" matInput
+                         [matAutocomplete]="autoTutor" class="col-lg-3 col-md-3 col-sm-2 col-xs-2"
+                        style="position: relative; left: 2cm;" formControlName="tutor">
+                    <i class="fa fa-plus-circle sinborde iconos fa-2x"
+                        style="color:blue; position: relative; left: 2cm;" data-toggle="modal" data-target="#myModal"
+                        (click)="crearTutor()"></i>
+                    <mat-autocomplete autoActiveFirstOption #autoTutor="matAutocomplete">
                         <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
                             <p>{{option}}</p>
                         </mat-option>
                     </mat-autocomplete>
                 </div>
-                <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <span class="input-group-text col-lg-3 col-md-3 col-sm-3 col-xs-3">Estudiante: </span>
-                    <input type="text" formControlName="estudiante">
+                <div id="estudiante" class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <span class="input-group-text col-lg-3 col-md-4 col-sm-4 col-xs-4"
+                        >Estudiante: </span>
+                    <input type="search" placeholder="Buscar Estudiante" aria-label="estudiante" matInput
+                         [matAutocomplete]="autoEstudiante" class="col-lg-3 col-md-3 col-sm-2 col-xs-2"
+                        formControlName="estudiante">                   
+                    <mat-autocomplete autoActiveFirstOption #autoEstudiante="matAutocomplete">
+                        <mat-option *ngFor="let option2 of filteredOptions2 | async" [value]="option2">
+                            <p>{{option2}}</p>
+                        </mat-option>
+                    </mat-autocomplete>
                 </div>
-            </div> <br><br>
+                
+            </div><br>
+            <div class="row">
+                <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <span class="input-group-text col-lg-3 col-md-4 col-sm-4 col-xs-4" style="position: relative; left: 2cm;">Estado: </span>
+                    <select formControlName="tipo" class="col-lg-3 col-md-3 col-sm-2 col-xs-2" style="position: relative; left: 2cm;">
+                        <option value="1">Iniciado</option>
+                        <option value="2">Aprobado</option>
+                        <option value="3">No Aprobado</option>
+                    </select>
+                </div>
+                <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <span class="input-group-text col-lg-3 col-md-4 col-sm-4 col-xs-4"
+                        >Cohorte: </span>
+                        <select formControlName="tipo" class="col-lg-3 col-md-3 col-sm-2 col-xs-2">
+                            <option [ngValue]="years" *ngFor="let years of optionsCohorte">{{years}}</option>
+                        </select>
+                </div>
+                
+            </div>
+            <br><br>
+            <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12"
+                style="position: relative; left: 25%;">
+                <span class="input-group-text col-lg-4 col-md-6 col-sm-6 col-xs-6">Objetivo General: </span>
+                <textarea name="objetivoGeneral" id="" cols="30" rows="3" formControlName="objetivo"></textarea>
+            </div>
+            <br><br>
             <button style="position: relative; left: 40%;" type="submit" class="btn btn-primary">Guardar</button>
         </form>
     </mat-card-content>

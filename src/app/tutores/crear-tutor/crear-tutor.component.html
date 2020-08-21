@@ -1,1 +1,60 @@
-<p>crear-tutor works!</p>
+<!-- HAY QUE VOLVERLA MODAL -->
+<h2 mat-dialog-title style="background-color:#5bc0de; color: white;text-align-last: center;">  CREAR TUTOR</h2>
+<div mat-dialog-content class="mat-typography">
+                <div class="card col-lg-12 col-md-12 col-sm-12 col-xs-12"><br><br>
+                    <form [formGroup]="formulario" (ngSubmit)="onSubmit($event)">
+                        <div class="row">
+                            <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <span class="input-group-text col-lg-6 col-md-6 col-sm-5 col-xs-6">Nombres:</span>
+                                <input class="col-lg-6 col-md-6 col-sm-6 col-xs-6" type="text" id="nombres" formControlName="nombre">
+                            </div>
+                            <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <span class="input-group-text col-lg-6 col-md-5 col-sm-6 col-xs-6">Apellidos:</span>
+                                <input class="col-lg-6 col-md-6 col-sm-6 col-xs-6" type="text" id="apellidos" formControlName="apellido">
+                            </div>
+                        </div><br>
+                        <div class="row">
+                            <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <span class="input-group-text col-lg-6 col-md-6 col-sm-6 col-xs-6">Identificación:</span>
+                                <input class="col-lg-6 col-md-6 col-sm-6 col-xs-6" type="text" id="identificación" formControlName="identificacion">
+                            </div>
+                            <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <span class="input-group-text col-lg-6 col-md-6 col-sm-6 col-xs-6">Telefono:</span>
+                                <input class="col-lg-6 col-md-6 col-sm-6 col-xs-6" type="text" id="telefono" formControlName="telefono" >
+                            </div>
+                        </div> <br>
+                        <div class="row">
+                            <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <span class="input-group-text col-lg-6 col-md-6 col-sm-6 col-xs-6">Correo:</span>
+                                <input class="col-lg-6 col-md-6 col-sm-6 col-xs-6" type="email" id="correo"formControlName="correo">
+                            </div>
+                            <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <span class="input-group-text col-lg-6 col-md-6 col-sm-6 col-xs-6">Departamento</span>
+                                <input class="col-lg-6 col-md-6 col-sm-6 col-xs-6" type="text" id="departamento" formControlName="departamento">
+                            </div>
+                        </div> <br>
+                        <div class="row">
+                            <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <span class="input-group-text col-lg-6 col-md-6 col-sm-6 col-xs-6">G.Investigación</span>
+                                <input class="col-lg-6 col-md-6 col-sm-6 col-xs-6" type="text" id="departamento" formControlName="departamento">
+                            </div>
+                            <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <span class="input-group-text col-lg-6 col-md-6 col-sm-6 col-xs-6">Tipo:</span>
+                                <select class="input-group-text col-lg-6 col-md-6 col-sm-6 col-xs-6" id="tipo" formControlName="tipo">
+                                    <option value="" selected disabled hidden>Seleccione</option>
+                                    <option class="col-lg-6 col-md-6 col-sm-6 col-xs-6" selected="selected" value="1">Interno</option>
+                                    <option class="col-lg-6 col-md-6 col-sm-6 col-xs-6" value="2">Externo</option>
+                                </select>
+                            </div>                            
+                        </div> <br>
+                        <div class="row">
+                            <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12" *ngIf="externo">
+                                <span class="input-group-text col-lg-6 col-md-6 col-sm-6 col-xs-6">Universidad:</span>
+                                <input class="col-lg-6 col-md-6 col-sm-6 col-xs-6" type="text" id="universidad" formControlName="universidad">
+                            </div>
+                        </div>
+                        <button class="btn btn-danger" mat-button mat-dialog-close>Cancel</button>
+                        <button class="btn btn-primary" type="submit" mat-button [mat-dialog-close]="true" cdkFocusInitial>Crear</button>
+                    </form>
+                </div>
+</div>

@@ -1,97 +1,136 @@
 import { Component, OnInit } from '@angular/core';
 import { debounceTime, debounce, startWith, map } from 'rxjs/operators';
-import { FormGroup, FormControl, ReactiveFormsModule, FormBuilder,Validators } from '@angular/forms';
+import { FormGroup, FormControl, ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { Seguimiento } from '../../../modelos/seguimiento.model';
 import { Observable } from 'rxjs/internal/Observable';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import Swal from 'sweetalert2';
 import { Tutor } from '../../../modelos/tutor.model';
 import { TutorService } from '../../../servicios/tutor.service';
+import {MatDialog} from '@angular/material/dialog';
+import { CrearTutorComponent } from '../../../../tutores/crear-tutor/crear-tutor.component';
+import { EstudianteService } from '../../../servicios/estudiante.service';
+import { Student } from '../../../../models/student';
+
+
 @Component({
   selector: 'app-agregar-seguimiento',
   templateUrl: './agregar-seguimiento.component.html',
   styleUrls: ['./agregar-seguimiento.component.css']
 })
 export class AgregarSeguimientoComponent implements OnInit {
+  YEAR_END_COHORTE: number;
   formulario: FormGroup;
-  options:Tutor[]=[];  
-  filteredOptions: Observable<string[]>;
-  myControl = new FormControl();
-  constructor(private formBuilder: FormBuilder, private tutorService:TutorService) {
+  options: Tutor[] = [];
+  filteredOptions: Observable<string[]>;  
+  optionsCohorte: Array<string>;
+  options2: Student[]=[];
+  filteredOptions2: Observable<string[]>;
+  cTutor: boolean = false;
+  constructor(private formBuilder: FormBuilder, private tutorService: TutorService, private estudianteService:EstudianteService, private dialog: MatDialog) {
     this.tutorService.onTutores();
-   }
+    this.estudianteService.onEstudiantes();
+    this.YEAR_END_COHORTE = 2008;
+    this.optionsCohorte = [];
+  }
+  crearTutor() {
+    const dialogRef = this.dialog.open(CrearTutorComponent, {
+      width: '600px',
+      data:{}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+  
   ngOnInit(): void {
-    this.options=this.tutorService.tutores; 
+    this.getAllCohorte();
+    this.options = this.tutorService.tutores;
+    this.options2=this.estudianteService.estudiantes;
     this.formulario = this.formBuilder.group(
       {
         nombre: ['', [Validators.required,
-                              Validators.maxLength(50)]
-                         ],
-        tipo:  ['', [Validators.required]],
-        tutor:  ['', [Validators.required]],
-        estudiante:  ['', [Validators.required]],
-      }); 
-      console.log("Lista filtro: ",this.filteredOptions);
-    this.filteredOptions = this.myControl.valueChanges.pipe(debounceTime(350),
-      startWith(''),
-      map(value => this._filter(value).map(v2=>v2.nombre))
-    ); 
-      /* this.formulario.valueChanges.pipe(
-        debounceTime(350)
-        ).subscribe(
-          value=>{
-            console.log(value);            
-          }
-        );
-        
-     */
+        Validators.maxLength(50)]
+        ],
+        tipo: ['', [Validators.required]],
+        tutor: ['', [Validators.required]],
+        estudiante: ['', [Validators.required]],
+        estado: ['', [Validators.required]],
+        objetivo:['',[Validators.required]]
+      });
+      this.filteredOptions = this.formulario.get('tutor').valueChanges.pipe(debounceTime(350),
+      /* startWith(''), */
+      map(value => this._filter(value).map(v2 => v2.nombre))
+    );
+    this.filteredOptions2 = this.formulario.get('estudiante').valueChanges.pipe(debounceTime(350),
+      /* startWith(''), */
+      map(value => this._filter2(value).map(v2 => v2.getName()))
+    );
+     this.formulario.valueChanges.pipe(
+      debounceTime(350)
+      ).subscribe(
+        value=>{
+          console.log(value);            
+        }
+      );
   }
   private _filter(value: string): Tutor[] {
     const filterValue = value.toLowerCase();
     return this.options.filter(option => {
-      if(option.nombre.toLowerCase().indexOf(filterValue) === 0)
-      {
+      if (option.nombre.toLowerCase().indexOf(filterValue) === 0) {
         return option
-      }     
-      });
+      }
+    });
   }
-  listar(event)
-  {
+  private _filter2(value: string): Student[] {
+    const filterValue = value.toLowerCase();
+    return this.options2.filter(option => {
+      if (option.getName().toLowerCase().indexOf(filterValue) === 0) {
+        return option
+      }
+    });
+  }
+  getAllCohorte() {// se llena un array con los años desde el 2000 hasta la fecha actual para usarlas en el combo cohorte estudiante
+    const date = new Date();
+    const dateYear = date.getFullYear();
+    this.optionsCohorte = this.clearArray(this.optionsCohorte);
+    this.optionsCohorte[0] = '' + dateYear;
+    for (let i = 1; i <= (dateYear - this.YEAR_END_COHORTE); i++) {
+      this.optionsCohorte[i] = '' + (dateYear - i);
+    }
+  }
+  listar(event) {
 
   }
-  getNombreField()
-  {
+  getNombreField() {
     this.formulario.get('nombre');
   }
-  getTipoField()
-  {
+  getTipoField() {
     this.formulario.get('tipo');
   }
-  getTutorField()
-  {
+  getTutorField() {
     this.formulario.get('tutor');
   }
-  getEstudianteField()
-  {
+  getEstudianteField() {
     this.formulario.get('estudiante');
   }
+  clearArray(arrayClear: Array<string>) {
+    return arrayClear = [];
+  }
+  onSubmit(event: Event) {
 
-  onSubmit(event:Event) 
-  {
-    
-    event.preventDefault(); 
+    event.preventDefault();
     console.log("COMPROBANDO");
-    if(this.formulario.valid)
-    {
-      const value= this.formulario.value;
-      console.log(value);  
+    if (this.formulario.valid) {
+      const value = this.formulario.value;
+      console.log(value);
     }
-    else {this.formulario.markAllAsTouched();
-    //this.errorFormulario();
+    else {
+      this.formulario.markAllAsTouched();
+      //this.errorFormulario();
     }
   }
-  errorFormulario()
-  {
+  errorFormulario() {
     Swal.fire({
       title: 'Campos sin Llenar',
       allowOutsideClick: true,
@@ -100,135 +139,11 @@ export class AgregarSeguimientoComponent implements OnInit {
       },
       hideClass: {
         popup: 'animate__animated animate__fadeOutUp'
-      }, 
-        confirmButtonText: 'Ok',
-        reverseButtons: true,
+      },
+      confirmButtonText: 'Ok',
+      reverseButtons: true,
       confirmButtonColor: '#3085d6',
-  });
+    });
   }
- crearTutor()
-  {
-    /* console.log("ROW OBTENIDA:  ",row); */
-    Swal.fire({
-      title: 'CREAR TUTOR',
-      allowOutsideClick: false,
-      showClass: {
-        popup: 'animate__animated animate__fadeInDown'
-      },
-      hideClass: {
-        popup: 'animate__animated animate__fadeOutUp'
-      },
-      html:
-      '<div class="card col-lg-12 col-md-12 col-sm-12 col-xs-12">'+'<br>'+'<br>'+
-      '<div class="row">' +
-      '    <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">' +
-      '  <span class="input-group-text col-lg-6 col-md-6 col-sm-5 col-xs-6">Nombres:</span>' +
-      '  <input class="col-lg-6 col-md-6 col-sm-6 col-xs-6" type="text" id="nombres">' +
-      '</div>'+
-      '    <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">' +
-        '  <span class="input-group-text col-lg-6 col-md-5 col-sm-6 col-xs-6">Apellidos:</span>' +
-        '  <input class="col-lg-6 col-md-6 col-sm-6 col-xs-6" type="text" id="apellidos">' +
-        '</div>'+
-        '</div>\n'+'<br>'+
-        '<div class="row">' +
-        '    <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">' +
-        '  <span class="input-group-text col-lg-6 col-md-6 col-sm-6 col-xs-6">Identificación:</span>' +
-        '  <input class="col-lg-6 col-md-6 col-sm-6 col-xs-6" type="text" id="identificación">' +
-        '</div>'+
-        '    <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">' +
-          '  <span class="input-group-text col-lg-6 col-md-6 col-sm-6 col-xs-6">Telefono:</span>' +
-          '  <input class="col-lg-6 col-md-6 col-sm-6 col-xs-6" type="text"  id="telefono">' +
-          '</div>'+
-          '</div>\n'+'<br>'+
-          '<div class="row">' +
-        '    <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">' +
-        '  <span class="input-group-text col-lg-6 col-md-6 col-sm-6 col-xs-6">Direccion:</span>' +
-        '  <input class="col-lg-6 col-md-6 col-sm-6 col-xs-6" type="text" id="direccion">' +
-        '</div>'+
-        '    <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">' +
-          '  <span class="input-group-text col-lg-6 col-md-6 col-sm-6 col-xs-6">Correo:</span>' +
-          '  <input class="col-lg-6 col-md-6 col-sm-6 col-xs-6" type="text"  id="correo">' +
-          '</div>'+
-          '</div>\n'+'<br>'+
-          
-          '<div class="row">' +
-        '    <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">' +
-        '      <span class="input-group-text col-lg-6 col-md-6 col-sm-6 col-xs-6">Tipo:</span>' +
-        '      <select class="input-group-text col-lg-6 col-md-6 col-sm-6 col-xs-6" id="tipo">' +
-        '        <option class="col-lg-6 col-md-6 col-sm-6 col-xs-6" selected value="1">Interno</option> '+
-        '        <option class="col-lg-6 col-md-6 col-sm-6 col-xs-6" value="2">Externo</option> '+
-        '  </div>'+
-        '</div>'+    
-          '</div>\n' + '<br>'+'<br>'
-        
-        , 
-        showCancelButton: true,
-        confirmButtonText: 'Agregar',
-        cancelButtonText: 'Cancelar',
-        reverseButtons: true,
-      confirmButtonColor: '#3085d6',
-       preConfirm: () => {
-        /*  this.ejemploService.consulta.next(Number((document.getElementById('nombre') as HTMLInputElement).value));
-         */
-        let nombre = (document.getElementById('nombres') as HTMLInputElement).value;
-        let apellido = (document.getElementById('apellidos') as HTMLInputElement).value;
-        let identificación = (document.getElementById('identificación') as HTMLInputElement).value;
-        let tipo = (document.getElementById('tipo') as HTMLSelectElement).options[(document.getElementById('tipo') as HTMLSelectElement).selectedIndex].value;
-        let bandNombre=true; let bandApellido=true; let bandidentificación=true; let bandTipo=true;
-        if (nombre === ''){
-          bandNombre=false;
-          (document.getElementById('nombres') as HTMLStyleElement).style.borderColor = 'red';
-          Swal.showValidationMessage('Ingrese Nombres');
-        } else {
-          (document.getElementById('identificación') as HTMLStyleElement).style.borderColor = 'black';
-         bandNombre=true;
-        }
-        
-        
-        
-        if (identificación === ''){
-          bandApellido=false;
-          (document.getElementById('identificación') as HTMLStyleElement).style.borderColor = 'red';
-          Swal.showValidationMessage('Ingrese identificación');
-        } else {
-          bandApellido=true;
-          (document.getElementById('identificación') as HTMLStyleElement).style.borderColor = 'black';
-        }
-        console.log("TIPO:    ",tipo);
-        if (tipo === '1'){
-          bandTipo=false;
-          (document.getElementById('tipo') as HTMLStyleElement).style.borderColor = 'red';
-          Swal.showValidationMessage('Selecciona Tipo');
-        } else {
-          bandTipo=true;
-          (document.getElementById('tipo') as HTMLStyleElement).style.borderColor = 'black';          
-        }
-        if(bandNombre&&bandApellido&&bandidentificación&&bandTipo)
-        return [
-          nombre
-        ];
-        
-      }  
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire(
-          {
-            title: 'Tutor creado!',
-          text: 'El Tutor ha sido Creado.' /* + JSON.stringify(result) */,
-          icon: 'success',
-          timer: 2500}
-        );
-      } else if (
-        /* Read more about handling dismissals below */
-        result.isDismissed
-      ) {
-        Swal.fire(
-          'Cancelado',
-          'El tutor No se Creó',
-          'error'
-        );
-      }
-  });
-}
-
+  
 }

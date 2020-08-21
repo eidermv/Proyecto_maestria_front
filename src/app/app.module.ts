@@ -51,6 +51,7 @@ import {MatCardModule} from '@angular/material/card';
 import{ReactiveFormsModule} from '@angular/forms'
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { CrearTutorComponent } from './tutores/crear-tutor/crear-tutor.component';
+import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 @NgModule({
   imports: [
     BrowserModule,
@@ -73,7 +74,8 @@ import { CrearTutorComponent } from './tutores/crear-tutor/crear-tutor.component
     MatPaginatorModule,
     MatCardModule,
     ReactiveFormsModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatDialogModule
   ],
   declarations: [
     AppComponent,
@@ -91,7 +93,8 @@ import { CrearTutorComponent } from './tutores/crear-tutor/crear-tutor.component
     provide: LocationStrategy,
     useClass: HashLocationStrategy,
   },
-  { provide: MatPaginatorIntl, useClass: MyMatPaginatorInt}
+  { provide: MatPaginatorIntl, useClass: MyMatPaginatorInt},
+  CrearTutorComponent, {provide: MatDialogRef, useValue: {}},
 ],
   bootstrap: [ AppComponent ]
 })

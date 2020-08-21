@@ -9,6 +9,7 @@ export class TutorService {
     tutores:Tutor[]=[];
     onTutores():void
     {
+        this.tutores=[];
         let nuevo :Tutor;
         nuevo={
             nombre:"Carlos",

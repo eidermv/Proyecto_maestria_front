@@ -1,0 +1,7 @@
+.bordeRedondeado
+{
+    border-radius: 45px 45px 45px 45px;
+-moz-border-radius: 45px 45px 45px 45px;
+-webkit-border-radius: 45px 45px 45px 45px;
+border: 0px solid #000000;
+}

@@ -74,7 +74,10 @@ export class LoginComponent implements OnInit {
             } else if (sessionStorage.getItem('rol') === this.stringApp.STUDENT) {
 
               this.router.navigate(['/publication/listPublicationsEstudent']);
-            } else {
+            } else if (sessionStorage.getItem('rol') === 'Tutor') {
+
+              this.router.navigate(['/publication/listPublicationsEstudent']);
+            }  else {
               this.router.navigate(['/login']);
             }
           }

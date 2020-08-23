@@ -10,6 +10,8 @@ import { LoginComponent } from './modules/auth/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
 import { AuthGuard } from './modules/auth/auth-guard.service';
 import { ListSeguimientosComponent } from './seguimientos/componentes/list-seguimientos/list-seguimientos.component';
+import {PermisoAdminGuard} from './guards/permiso-admin.guard';
+import {PermisoEstudianteGuard} from './guards/permiso-estudiante.guard';
 
 export const routes: Routes = [
   {
@@ -76,7 +78,14 @@ export const routes: Routes = [
       {
         path: 'seguimiento',
         canActivate: [AuthGuard],
+        canActivateChild: [PermisoAdminGuard],
         loadChildren: './seguimientos/modulos/seguimiento.module#SeguimientoModule'
+      },
+      {
+        path: 'seguimiento-estudiante',
+        canActivate: [AuthGuard],
+        canActivateChild: [PermisoEstudianteGuard],
+        loadChildren: './seguimiento_estudiante/modulos/seguimiento-estudiante.module#SeguimientoEstudianteModule'
       }
     ]
   }

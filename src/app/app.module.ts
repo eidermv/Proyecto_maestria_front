@@ -52,6 +52,8 @@ import{ReactiveFormsModule} from '@angular/forms'
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { CrearTutorComponent } from './tutores/crear-tutor/crear-tutor.component';
 import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
+import { SeguimientoEstudianteModule } from './seguimiento_estudiante/modulos/seguimiento-estudiante.module';
+import { ListarSeguimientoEstudianteComponent } from './seguimiento_estudiante/componentes/listar-seguimiento-estudiante/listar-seguimiento-estudiante.component';
 @NgModule({
   imports: [
     BrowserModule,
@@ -70,12 +72,13 @@ import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
     MatSortModule,
     MatInputModule,
     FormsModule,
-    MatIconModule,    
+    MatIconModule,
     MatPaginatorModule,
     MatCardModule,
     ReactiveFormsModule,
     MatAutocompleteModule,
-    MatDialogModule
+    MatDialogModule,
+    SeguimientoEstudianteModule
   ],
   declarations: [
     AppComponent,

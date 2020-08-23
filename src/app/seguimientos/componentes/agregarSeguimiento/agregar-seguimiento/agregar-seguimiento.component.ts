@@ -152,6 +152,7 @@ export class AgregarSeguimientoComponent implements OnInit {
       //this.errorFormulario();
     }
   }
+  
   errorFormulario() {
     Swal.fire({
       title: 'Campos sin Llenar',

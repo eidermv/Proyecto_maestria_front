@@ -54,6 +54,7 @@ export class StringApp {
 
   public COORDINATOR =  'Coordinador';
   public STUDENT = 'Estudiante';
+  public TUTOR = 'Tutor';
 
 
   /***************CONSTANTES DEL SERVICIO DE LOCALIZACION**********/

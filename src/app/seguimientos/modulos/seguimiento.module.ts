@@ -7,7 +7,8 @@ import { EstudianteService } from '../servicios/estudiante.service';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+  ],
   imports: [
     CommonModule,
     SeguimientoRoutingModule

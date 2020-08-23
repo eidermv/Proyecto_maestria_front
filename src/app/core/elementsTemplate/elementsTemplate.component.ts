@@ -3,6 +3,7 @@ import { navAdministrator } from './_navAdministrator';
 import { navStudent} from './_navStudent';
 import { Route, Router } from '@angular/router';
 import { StringApp } from '../../resources/stringApp';
+import { navTutor } from './_navTutor';
 
 @Component({
   selector: 'app-dashboard',
@@ -19,8 +20,10 @@ export class ElementsTemplateComponent {
 
     if (sessionStorage.getItem('rol') === this.stringApp.COORDINATOR) {
       this.navItems = navAdministrator;
-    } else {
+    } else if (sessionStorage.getItem('rol') === this.stringApp.STUDENT){
       this.navItems = navStudent;
+    } else {
+      this.navItems = navTutor;
     }
 
     this.changes = new MutationObserver((mutations) => {

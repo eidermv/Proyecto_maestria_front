@@ -48,10 +48,11 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatPaginatorIntl} from '@angular/material/paginator'
 import {MyMatPaginatorInt} from './seguimientos/componentes/traduccion/my-mat-paginator-int';
 import {MatCardModule} from '@angular/material/card';
-import{ReactiveFormsModule} from '@angular/forms'
+import {ReactiveFormsModule} from '@angular/forms'
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { CrearTutorComponent } from './tutores/crear-tutor/crear-tutor.component';
 import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
+import { SeguimientosTutorModule } from './seguimientos_tutor/modulos/seguimientos-tutor.module';
 @NgModule({
   imports: [
     BrowserModule,
@@ -70,12 +71,13 @@ import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
     MatSortModule,
     MatInputModule,
     FormsModule,
-    MatIconModule,    
+    MatIconModule,
     MatPaginatorModule,
     MatCardModule,
     ReactiveFormsModule,
     MatAutocompleteModule,
-    MatDialogModule
+    MatDialogModule,
+    SeguimientosTutorModule
   ],
   declarations: [
     AppComponent,
@@ -87,7 +89,7 @@ import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
     VerSeguimientoComponent,
     EditarSeguimientoComponent,
     EliminarSeguimientoComponent,
-    CrearTutorComponent,
+    CrearTutorComponent
   ],
   providers: [{
     provide: LocationStrategy,

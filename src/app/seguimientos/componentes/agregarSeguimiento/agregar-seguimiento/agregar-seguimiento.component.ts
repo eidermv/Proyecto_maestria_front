@@ -11,6 +11,7 @@ import {MatDialog} from '@angular/material/dialog';
 import { CrearTutorComponent } from '../../../../tutores/crear-tutor/crear-tutor.component';
 import { EstudianteService } from '../../../servicios/estudiante.service';
 import { Student } from '../../../../models/student';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 
 @Component({
@@ -27,6 +28,8 @@ export class AgregarSeguimientoComponent implements OnInit {
   options2: Student[]=[];
   filteredOptions2: Observable<string[]>;
   cTutor: boolean = false;
+  nuevoTutor:Tutor;
+  porcentaje:number=0;
   constructor(private formBuilder: FormBuilder, private tutorService: TutorService, private estudianteService:EstudianteService, private dialog: MatDialog) {
     this.tutorService.onTutores();
     this.estudianteService.onEstudiantes();
@@ -41,6 +44,11 @@ export class AgregarSeguimientoComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
+    dialogRef.componentInstance.tutor.subscribe(
+      result => {
+        this.formulario.get('tutor').setValue(result.nombre+" "+result.apellido);
+      }
+    )
   }
   
   ngOnInit(): void {
@@ -70,7 +78,21 @@ export class AgregarSeguimientoComponent implements OnInit {
       debounceTime(350)
       ).subscribe(
         value=>{
-          console.log(value);            
+          let p=0;
+          if(value.nombre!="")
+            p++;
+          if(value.tipo!="")
+            p++;
+          if(value.tutor!="")
+            p++;
+          if(value.estudiante!="")
+            p++;
+          if(value.estado!="")
+            p++;
+          if(value.objetivo!="")
+            p++;
+          this.porcentaje=(100*p)/5;
+          
         }
       );
   }

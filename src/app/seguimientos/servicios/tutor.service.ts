@@ -17,8 +17,10 @@ export class TutorService {
             identificacion:"10618776564",
             correo:"ccobos@unicauca.edu.co",
             telefono:"3008765666",
-            direccion:"carrera 33N 45-34",
-            tipo:"Interno"          
+            departamento:"Sistemas",
+            grupoInvestigacion:"SIR",
+            tipo:"Interno",
+            universidad:"Universidad del Cauca"          
         };
         this.tutores.push(nuevo);
         nuevo={
@@ -27,8 +29,10 @@ export class TutorService {
             identificacion:"10618776564",
             correo:"ccobos@unicauca.edu.co",
             telefono:"3008765666",
-            direccion:"carrera 33N 45-34",
-            tipo:"Interno"          
+            departamento:"Sistemas",
+            grupoInvestigacion:"SIR",
+            tipo:"Interno",
+            universidad:"Universidad del Cauca"            
         };
         this.tutores.push(nuevo);
     }

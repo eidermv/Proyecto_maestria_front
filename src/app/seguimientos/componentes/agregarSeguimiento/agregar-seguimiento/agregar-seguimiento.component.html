@@ -10,8 +10,10 @@
                     <span class="input-group-text col-lg-3 col-md-4 col-sm-4 col-xs-4"
                         style="position: relative; left: 2cm;">Nombre</span>
                     <input type="text " class="col-lg-3 col-md-3 col-sm-2 col-xs-2" placeholder="Nombre Seguimiento"
-                        style="position: relative; left: 2cm;" formControlName="nombre">
+                        style="position: relative; left: 2cm;" formControlName="nombre">                                              
                 </div>
+                
+                        
                 <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <span class="input-group-text col-lg-3 col-md-4 col-sm-4 col-xs-4">Tipo: </span>
                     <select formControlName="tipo" class="col-lg-3 col-md-3 col-sm-2 col-xs-2" formControlName="tipo">
@@ -66,7 +68,6 @@
                             <option [ngValue]="years" *ngFor="let years of optionsCohorte">{{years}}</option>
                         </select>
                 </div>
-                
             </div>
             <br><br>
             <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12"
@@ -74,6 +75,8 @@
                 <span class="input-group-text col-lg-4 col-md-6 col-sm-6 col-xs-6">Objetivo General: </span>
                 <textarea name="objetivoGeneral" id="" cols="30" rows="3" formControlName="objetivo"></textarea>
             </div>
+            <br>
+            <mat-progress-bar mode="determinate" value="{{porcentaje}}"></mat-progress-bar>
             <br><br>
             <button style="position: relative; left: 40%;" type="submit" class="btn btn-primary">Guardar</button>
         </form>

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {ListSeguimientosComponent} from '../../seguimientos/componentes/list-seguimientos/list-seguimientos.component';
 import {ListarSeguimientoEstudianteComponent} from '../componentes/listar-seguimiento-estudiante/listar-seguimiento-estudiante.component';
 
 const routes: Routes = [

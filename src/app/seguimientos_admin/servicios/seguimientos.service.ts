@@ -25,11 +25,10 @@ const PROYECTS: string[] = [
 
 @Injectable()
 export class SeguimientosService {
-    id:number=0;
-    seguimientos:Array<Seguimiento>=[]; 
-    onSeguimientos():Array<Seguimiento>
-    {
-        this.seguimientos=Array.from({ length: 100 }, (_, k) => this.crearSeguimiento(k + 1));
+    id = 0;
+    seguimientos: Array<Seguimiento> = [];
+    onSeguimientos(): Array<Seguimiento> {
+        this.seguimientos = Array.from({ length: 100 }, (_, k) => this.crearSeguimiento(k + 1));
         return this.seguimientos;
     }
     crearSeguimiento(id: number): Seguimiento {
@@ -41,8 +40,8 @@ export class SeguimientosService {
         const proy = PROYECTS[Math.round(Math.random() * (PROYECTS.length - 1))];
         const type = TYPES[Math.round(Math.random() * (TYPES.length - 1))];
         const state = STATUS[Math.round(Math.random() * (STATUS.length - 1))];
-        this.id+=1;
-        const identificador=this.id;
+        this.id += 1;
+        const identificador = this.id;
         return {
           id: identificador,
           nombre: proy,
@@ -50,10 +49,10 @@ export class SeguimientosService {
           tutor: tut,
           estudiante: student,
           estado: state,
-          cohorte:"2020",
-          oGeneral:"Nuevo objetivo",
-          oEspecificos:[]
+          cohorte: '2020',
+          oGeneral: 'Nuevo objetivo',
+          oEspecificos: []
         };
-    
+
       }
 }

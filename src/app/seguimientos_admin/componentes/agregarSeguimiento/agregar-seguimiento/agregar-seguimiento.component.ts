@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
 import { Tutor } from '../../../modelos/tutor.model';
 import { TutorService } from '../../../servicios/tutor.service';
 import {MatDialog} from '@angular/material/dialog';
-import { CrearTutorComponent } from '../../../../tutores/crear-tutor/crear-tutor.component';
+import { CrearTutorComponent } from '../../tutores/crear-tutor/crear-tutor.component';
 import { EstudianteService } from '../../../servicios/estudiante.service';
 import { Student } from '../../../../models/student';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
@@ -23,7 +23,7 @@ export class AgregarSeguimientoComponent implements OnInit {
   YEAR_END_COHORTE: number;
   formulario: FormGroup;
   options: Tutor[] = [];
-  filteredOptions: Observable<string[]>;  
+  filteredOptions: Observable<string[]>;
   optionsCohorte: Array<string>;
   options2: Student[]=[];
   filteredOptions2: Observable<string[]>;
@@ -50,7 +50,7 @@ export class AgregarSeguimientoComponent implements OnInit {
       }
     )
   }
-  
+
   ngOnInit(): void {
     this.getAllCohorte();
     this.options = this.tutorService.tutores;
@@ -92,7 +92,7 @@ export class AgregarSeguimientoComponent implements OnInit {
           if(value.objetivo!="")
             p++;
           this.porcentaje=(100*p)/5;
-          
+
         }
       );
   }
@@ -167,5 +167,5 @@ export class AgregarSeguimientoComponent implements OnInit {
       confirmButtonColor: '#3085d6',
     });
   }
-  
+
 }

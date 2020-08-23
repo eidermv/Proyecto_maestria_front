@@ -19,15 +19,15 @@ import { SeguimientosService } from '../../servicios/seguimientos.service';
 export class ListSeguimientosComponent implements OnInit {
   displayedColumns: string[] = ['nombre', 'tipo', 'tutor', 'estudiante', 'estado', 'opciones'];
   dataSource: MatTableDataSource<Seguimiento>;
-  
+
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
-  seguimientos:Array<Seguimiento>=[];
-  constructor( private router: Router, private seguimientoService:SeguimientosService) {
+  seguimientos: Array<Seguimiento> = [];
+  constructor( private router: Router, private seguimientoService: SeguimientosService) {
     // Create 100 users
-    
-    this.seguimientos= this.seguimientoService.onSeguimientos();
-    
+
+    this.seguimientos = this.seguimientoService.onSeguimientos();
+
     // Assign the data to the data source for the table to render
     this.dataSource = new MatTableDataSource(this.seguimientos);
   }
@@ -43,11 +43,11 @@ export class ListSeguimientosComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-  agregar(){
+  agregar() {
     this.router.navigate(['/seguimiento/agregar']);
   }
   /** Builds and returns a new User. */
-  
+
 
 
 

@@ -5,4 +5,7 @@ export interface Seguimiento {
     tutor: string;
     estudiante: string;
     estado: string;
+    cohorte:string,
+    oGeneral:string,
+    oEspecificos:string[]
   }

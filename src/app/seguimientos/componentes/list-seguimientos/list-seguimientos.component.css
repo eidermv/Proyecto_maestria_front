@@ -1,5 +1,7 @@
 table {
     width: 100%;
+    position: relative;
+    left: 1cm;
   }
 .color-negro{
   color: black;

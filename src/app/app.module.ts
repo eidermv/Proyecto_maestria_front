@@ -51,6 +51,7 @@ import {MatCardModule} from '@angular/material/card';
 import{ReactiveFormsModule} from '@angular/forms'
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { CrearTutorComponent } from './tutores/crear-tutor/crear-tutor.component';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 @NgModule({
   imports: [
@@ -75,7 +76,8 @@ import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
     MatCardModule,
     ReactiveFormsModule,
     MatAutocompleteModule,
-    MatDialogModule
+    MatDialogModule,
+    MatProgressBarModule
   ],
   declarations: [
     AppComponent,

@@ -53,7 +53,7 @@
                                 <input class="col-lg-6 col-md-6 col-sm-6 col-xs-6" type="text" id="universidad" formControlName="universidad">
                             </div>
                         </div>
-                        <button class="btn btn-danger" mat-button mat-dialog-close>Cancel</button>
+                        <button class="btn btn-danger" mat-button mat-dialog-close (click)="onCancel()">Cancel</button>
                         <button class="btn btn-primary" type="submit" mat-button [mat-dialog-close]="true" cdkFocusInitial>Crear</button>
                     </form>
                 </div>

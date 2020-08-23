@@ -33,29 +33,34 @@ import { TokenInterceptorService } from './modules/auth/token-interceptor.servic
 import { InternshipModule } from './modules/internship/internship.module';
 import { ModalWindowsModule } from './modules/modal-windows/modal-windows.module';
 import {ChartsModule} from 'ng2-charts';
-import { ListSeguimientosComponent } from './seguimientos/componentes/list-seguimientos/list-seguimientos.component';
-import { SeguimientoModule } from './seguimientos/modulos/seguimiento.module';
+import { ListSeguimientosComponent } from './seguimientos_admin/componentes/list-seguimientos/list-seguimientos.component';
+import { SeguimientoModule } from './seguimientos_admin/modulos/seguimiento.module';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import {MatInputModule} from '@angular/material/input';
 import {FormsModule} from '@angular/forms';
 import {MatPaginatorModule} from '@angular/material/paginator';
-import { AgregarSeguimientoComponent } from './seguimientos/componentes/agregarSeguimiento/agregar-seguimiento/agregar-seguimiento.component';
-import { VerSeguimientoComponent } from './seguimientos/componentes/verSeguimiento/ver-seguimiento/ver-seguimiento.component';
-import { EditarSeguimientoComponent } from './seguimientos/componentes/editarSeguimiento/editar-seguimiento/editar-seguimiento.component';
-import { EliminarSeguimientoComponent } from './seguimientos/componentes/eliminarSeguimiento/eliminar-seguimiento/eliminar-seguimiento.component';
+import { AgregarSeguimientoComponent } from './seguimientos_admin/componentes/agregarSeguimiento/agregar-seguimiento/agregar-seguimiento.component';
+import { VerSeguimientoComponent } from './seguimientos_admin/componentes/verSeguimiento/ver-seguimiento/ver-seguimiento.component';
+import { EditarSeguimientoComponent } from './seguimientos_admin/componentes/editarSeguimiento/editar-seguimiento/editar-seguimiento.component';
+import { EliminarSeguimientoComponent } from './seguimientos_admin/componentes/eliminarSeguimiento/eliminar-seguimiento/eliminar-seguimiento.component';
 import {MatIconModule} from '@angular/material/icon';
-import {MatPaginatorIntl} from '@angular/material/paginator'
-import {MyMatPaginatorInt} from './seguimientos/componentes/traduccion/my-mat-paginator-int';
+import {MatPaginatorIntl} from '@angular/material/paginator';
+import {MyMatPaginatorInt} from './seguimientos_admin/componentes/traduccion/my-mat-paginator-int';
 import {MatCardModule} from '@angular/material/card';
-import {ReactiveFormsModule} from '@angular/forms'
+import {ReactiveFormsModule} from '@angular/forms';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import { CrearTutorComponent } from './tutores/crear-tutor/crear-tutor.component';
+import { CrearTutorComponent } from './seguimientos_admin/componentes/tutores/crear-tutor/crear-tutor.component';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 import { SeguimientosTutorModule } from './seguimientos_tutor/modulos/seguimientos-tutor.module';
 import { SeguimientoEstudianteModule } from './seguimiento_estudiante/modulos/seguimiento-estudiante.module';
 import { ListarSeguimientoEstudianteComponent } from './seguimiento_estudiante/componentes/listar-seguimiento-estudiante/listar-seguimiento-estudiante.component';
+import { ListarActividadesEstudianteComponent } from './seguimiento_estudiante/componentes/listar-actividades-estudiante/listar-actividades-estudiante.component';
+import { VerSeguimientoEstudianteComponent } from './seguimiento_estudiante/componentes/ver-seguimiento-estudiante/ver-seguimiento-estudiante.component';
+import {MatButtonModule} from '@angular/material/button';
+import {MatExpansionModule} from '@angular/material/expansion';
+import { VerActividadEstudianteComponent } from './seguimiento_estudiante/componentes/ver-actividad-estudiante/ver-actividad-estudiante.component';
 @NgModule({
   imports: [
     BrowserModule,
@@ -83,7 +88,9 @@ import { ListarSeguimientoEstudianteComponent } from './seguimiento_estudiante/c
     SeguimientosTutorModule,
     MatProgressBarModule,
     MatDialogModule,
-    SeguimientoEstudianteModule
+    SeguimientoEstudianteModule,
+    MatButtonModule,
+    MatExpansionModule
   ],
   declarations: [
     AppComponent,
@@ -95,7 +102,10 @@ import { ListarSeguimientoEstudianteComponent } from './seguimiento_estudiante/c
     VerSeguimientoComponent,
     EditarSeguimientoComponent,
     EliminarSeguimientoComponent,
-    CrearTutorComponent
+    CrearTutorComponent,
+    ListarActividadesEstudianteComponent,
+    VerSeguimientoEstudianteComponent,
+    VerActividadEstudianteComponent
   ],
   providers: [{
     provide: LocationStrategy,

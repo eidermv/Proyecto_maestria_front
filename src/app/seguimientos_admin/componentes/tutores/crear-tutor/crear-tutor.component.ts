@@ -2,7 +2,7 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
-import { Tutor } from '../../seguimientos/modelos/tutor.model';
+import { Tutor } from '../../../modelos/tutor.model';
 
 @Component({
   selector: 'app-crear-tutor',
@@ -13,9 +13,9 @@ export class CrearTutorComponent implements OnInit {
   formulario: FormGroup;
   externo:boolean=false;
   @Output() tutor= new EventEmitter<Tutor>();
-  constructor(public dialogoReg:MatDialogRef<CrearTutorComponent>,private formBuilder: FormBuilder) { 
+  constructor(public dialogoReg:MatDialogRef<CrearTutorComponent>,private formBuilder: FormBuilder) {
 
-    
+
   }
   ngOnInit(): void {
     this.formulario = this.formBuilder.group(
@@ -28,9 +28,9 @@ export class CrearTutorComponent implements OnInit {
           ],
         identificacion: ['', [Validators.required]],
         telefono: ['', [Validators.required]],
-        correo: ['', [Validators.required,Validators.email]],  
-        grupoInvestigacion:['',[Validators.required]],     
-        departamento:['',[Validators.required]], 
+        correo: ['', [Validators.required,Validators.email]],
+        grupoInvestigacion:['',[Validators.required]],
+        departamento:['',[Validators.required]],
         tipo: ['', [Validators.required]],
         universidad:['',[Validators.required]]
       });
@@ -41,7 +41,7 @@ export class CrearTutorComponent implements OnInit {
               this.externo=true;
               this.formulario.get('universidad').setValue('');
             }
-              
+
             else
             {
               this.externo=false;
@@ -52,13 +52,13 @@ export class CrearTutorComponent implements OnInit {
   }
   onSubmit(event:Event)
   {
-   
+
       console.log("Guardado",event);
       Swal.fire({
         icon: 'success',
         title: 'Guardado' ,
         text: 'Tutor Almacenado!'/* ,
-        footer: 'El tutor no fué almacenado' */ 
+        footer: 'El tutor no fué almacenado' */
       });
       let nuevo :Tutor;
         nuevo={
@@ -67,13 +67,13 @@ export class CrearTutorComponent implements OnInit {
             identificacion:this.formulario.get('identificacion').value,
             correo:this.formulario.get('correo').value,
             telefono:this.formulario.get('telefono').value,
-            departamento:this.formulario.get('departamento').value,  
-            grupoInvestigacion:this.formulario.get('grupoInvestigacion').value,  
+            departamento:this.formulario.get('departamento').value,
+            grupoInvestigacion:this.formulario.get('grupoInvestigacion').value,
             tipo:   this.formulario.get('tipo').value,
             universidad:this.formulario.get('universidad').value
         };
         this.tutor.emit(nuevo);
-    
+
 
   }
   onCancel()
@@ -82,7 +82,7 @@ export class CrearTutorComponent implements OnInit {
       icon: 'error',
       title: 'Cancelado' ,
       text: 'Tutor no Creado!',
-      footer: 'El tutor no fué almacenado' 
+      footer: 'El tutor no fué almacenado'
     })
 
   }

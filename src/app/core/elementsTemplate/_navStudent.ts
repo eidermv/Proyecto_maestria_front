@@ -66,5 +66,17 @@ export const navStudent = [
         icon: 'fa fa-cloud-upload'
       }
     ]
+  },
+  {
+    name: 'Seguimiento',
+    url: '/seguimientos',
+    icon: 'fa fa-search',
+    children: [
+      {
+        name: 'Listar Seguimiento',
+        url: '/seguimiento-estudiante/listar',
+        icon: 'fa fa-cloud-upload'
+      }
+    ]
   }
 ];

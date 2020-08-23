@@ -19,12 +19,14 @@ export class ElementsTemplateComponent {
   private stringApp: StringApp = new StringApp();
   constructor(private route: Router, private permisoService: PermisosService) {
 
-    if (sessionStorage.getItem('rol') === this.stringApp.COORDINATOR && this.permisoService.valor === this.stringApp.COORDINATOR) {
+    if (sessionStorage.getItem('rol') === this.stringApp.COORDINATOR) {
       this.navItems = navAdministrator;
-    } else if (sessionStorage.getItem('rol') === this.stringApp.STUDENT && this.permisoService.valor === this.stringApp.STUDENT) {
+    } else if (sessionStorage.getItem('rol') === this.stringApp.STUDENT) {
       this.navItems = navStudent;
-    } else {
+    } else if (sessionStorage.getItem('rol') === this.stringApp.TUTOR) {
       this.navItems = navTutor;
+    } else {
+      this.route.navigate(['/login']);
     }
 
     this.changes = new MutationObserver((mutations) => {

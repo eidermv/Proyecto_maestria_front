@@ -1,11 +1,11 @@
 <p class="full">
   <button class="izq" mat-raised-button color="primary" (click)="agregar()"><mat-icon>add_circle</mat-icon></button>
 </p>
-<mat-form-field>
-    <mat-label class="color-negro"><mat-icon>search</mat-icon>Buscar</mat-label>
+<mat-form-field style="position: relative; left: 2cm; width: 35%;">
+    <mat-label class="color-negro " ><mat-icon>search</mat-icon>Filtrar por Nombre, Tipo, Tutor, Estudiante, Estado</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
   </mat-form-field>
-  <div class="mat-elevation-z8">
+  <div class="mat-elevation-z8" style="position: relative; left: 2cm;">
     <table mat-table [dataSource]="dataSource" matSort>
 
       <!-- nombre Column -->

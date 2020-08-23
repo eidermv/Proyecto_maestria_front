@@ -1,9 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { navAdministrator } from './_navAdministrator';
 import { navStudent} from './_navStudent';
+import {navTutor} from './_navTutor';
 import { Route, Router } from '@angular/router';
 import { StringApp } from '../../resources/stringApp';
-import { navTutor } from './_navTutor';
+import {PermisosService} from '../../guards/permisos.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,11 +17,11 @@ export class ElementsTemplateComponent {
   private changes: MutationObserver;
   public element: HTMLElement = document.body;
   private stringApp: StringApp = new StringApp();
-  constructor(private route: Router) {
+  constructor(private route: Router, private permisoService: PermisosService) {
 
-    if (sessionStorage.getItem('rol') === this.stringApp.COORDINATOR) {
+    if (sessionStorage.getItem('rol') === this.stringApp.COORDINATOR && this.permisoService.valor === this.stringApp.COORDINATOR) {
       this.navItems = navAdministrator;
-    } else if (sessionStorage.getItem('rol') === this.stringApp.STUDENT){
+    } else if (sessionStorage.getItem('rol') === this.stringApp.STUDENT && this.permisoService.valor === this.stringApp.STUDENT) {
       this.navItems = navStudent;
     } else {
       this.navItems = navTutor;
@@ -37,6 +38,7 @@ export class ElementsTemplateComponent {
 
   redirectToLogin() {
     sessionStorage.clear();
+    this.permisoService.limpiarServicio();
     this.route.navigate(['/login']);
   }
 

@@ -4,6 +4,8 @@ export interface Tutor {
     identificacion: string;
     correo: string;
     telefono: string;
-    direccion: string;    
     tipo: string;
+    departamento: string;
+    grupoInvestigacion:string;
+    universidad:string;
   }

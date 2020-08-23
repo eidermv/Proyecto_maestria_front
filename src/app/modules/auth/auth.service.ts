@@ -3,6 +3,8 @@ import { HttpHeaders, HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { StringApp } from '../../resources/stringApp';
 import { Router } from '@angular/router';
+import {PermisosService} from '../../guards/permisos.service';
+import Swal from "sweetalert2";
 const httpOptions = {
 
   observe: 'response' as 'response',
@@ -15,7 +17,7 @@ export class AuthService {
 
   stringApp: StringApp;
 
-  constructor(private httpClient: HttpClient, private router: Router) {
+  constructor(private httpClient: HttpClient, private router: Router, private permiso: PermisosService) {
     this.stringApp = new StringApp();
   }
 
@@ -27,20 +29,29 @@ export class AuthService {
   }
 
   getStudent() {
-    this.httpClient.get(this.stringApp.URL_SERVICIO_GET_STUDENT_WHIT_TOKEN + sessionStorage.getItem('token'))
-    .subscribe(data => {
-        sessionStorage.setItem('code', data['codigo']);
-        sessionStorage.setItem('nameStudent', data['nombres'] + ' ' + data['apellidos']);
-      },
-      err => {
-        this.router.navigate(['/404']);
-      });
+    if (this.permiso.valor === 'Estudiante') {
+      this.httpClient.get(this.stringApp.URL_SERVICIO_GET_STUDENT_WHIT_TOKEN + sessionStorage.getItem('token'))
+        .subscribe(data => {
+            sessionStorage.setItem('code', data['codigo']);
+            sessionStorage.setItem('nameStudent', data['nombres'] + ' ' + data['apellidos']);
+          },
+          err => {
+            this.router.navigate(['/404']);
+          });
+    } else if (this.permiso.valor === 'Tutor') {
+      Swal.fire(
+        'Tutor',
+        'Logeado como tutur',
+        'error'
+      );
+    }
   }
 
 
    setSession(authResult) {
     sessionStorage.setItem('token', authResult['token']);
     sessionStorage.setItem('rol', authResult['roles']);
+    this.permiso.rolActivo(authResult['roles']);
   }
 
   autorizationView() {

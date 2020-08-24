@@ -61,6 +61,7 @@ import { VerSeguimientoEstudianteComponent } from './seguimiento_estudiante/comp
 import {MatButtonModule} from '@angular/material/button';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { VerActividadEstudianteComponent } from './seguimiento_estudiante/componentes/ver-actividad-estudiante/ver-actividad-estudiante.component';
+import { ListarActividadesComponent } from './seguimientos_admin/componentes/listar-actividades/listar-actividades.component';
 @NgModule({
   imports: [
     BrowserModule,
@@ -105,7 +106,8 @@ import { VerActividadEstudianteComponent } from './seguimiento_estudiante/compon
     CrearTutorComponent,
     ListarActividadesEstudianteComponent,
     VerSeguimientoEstudianteComponent,
-    VerActividadEstudianteComponent
+    VerActividadEstudianteComponent,
+    ListarActividadesComponent
   ],
   providers: [{
     provide: LocationStrategy,

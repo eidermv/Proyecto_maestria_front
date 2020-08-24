@@ -1,20 +1,57 @@
 import { Component, OnInit, Input } from '@angular/core';
 import Swal from 'sweetalert2';
 import { Seguimiento } from '../../../modelos/seguimiento.model';
+import { MatDialogRef } from '@angular/material/dialog';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { debounceTime } from 'rxjs/operators';
 @Component({
   selector: 'app-ver-seguimiento',
   templateUrl: './ver-seguimiento.component.html',
   styleUrls: ['./ver-seguimiento.component.css']
 })
 export class VerSeguimientoComponent implements OnInit {
-@Input() seguimiento:Seguimiento;
-  constructor() { }
-
+seguimiento:Seguimiento;
+  constructor(public dialogoReg:MatDialogRef<VerSeguimientoComponent>,private formBuilder: FormBuilder) { }
+  formulario:FormGroup;
+  texto:string="";
+  objEspec:string[];
+  panelOpenState = false;
   ngOnInit(): void {
+    let oe:string="";
+    let cont=1;
+    this.objEspec=[];
+   /*  for(let i of this.seguimiento.oEspecificos)
+     {
+        oe+=cont+". "+i+"\n";
+        cont++;
+     } 
+    console.log("OBJETIVOS ESPEC:  ",this.seguimiento.oEspecificos);
+     */
+    this.formulario = this.formBuilder.group(
+      {
+        nombre: [this.seguimiento.nombre, [Validators.required,
+        Validators.maxLength(50)]
+        ],
+        tipo: [this.seguimiento.tipo, []],
+        tutor: [this.seguimiento.tutor, []],
+        estudiante: [this.seguimiento.estudiante, []],
+        estado: [this.seguimiento.estado, []],
+        objetivoGeneral:[this.seguimiento.oGeneral,[]],
+        objetivosEspec:[this.seguimiento.oEspecificos,[]]
+      });
+      
+
+      this.formulario.valueChanges.pipe(
+        debounceTime(350)
+        ).subscribe(
+          value=>{})
+  }
+  separar()
+  {
+    console.log("PRESIONO ENTER")
   }
   consultarSeguimiento()
   {
-    
     Swal.fire({
       title: 'SEGUIMIENTO',
       allowOutsideClick: false,

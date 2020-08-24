@@ -51,7 +51,8 @@ export class SeguimientosService {
           estado: state,
           cohorte: '2020',
           oGeneral: 'Nuevo objetivo',
-          oEspecificos: []
+          oEspecificos: "HACER UN PROTOTIPO DE INTERFAZ QUE PERMITA TALES COSAS",
+          estadoSeguimiento:"Aprobado"
         };
 
       }

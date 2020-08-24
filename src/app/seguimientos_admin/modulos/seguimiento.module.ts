@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 import { SeguimientoRoutingModule } from './seguimiento-routing.module';
 import { TutorService } from '../servicios/tutor.service';
@@ -14,6 +14,6 @@ import { SeguimientosService } from '../servicios/seguimientos.service';
     CommonModule,
     SeguimientoRoutingModule
   ],
-  providers: [TutorService, EstudianteService, SeguimientosService],
+  providers: [TutorService, EstudianteService, SeguimientosService, DatePipe],
 })
 export class SeguimientoModule { }

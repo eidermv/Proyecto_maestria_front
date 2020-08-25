@@ -61,11 +61,12 @@ export class AgregarSeguimientoComponent implements OnInit {
         nombre: ['', [Validators.required,
         Validators.maxLength(50)]
         ],
-        tipo: ['', /* [Validators.required] */],
+        tipo: ['',  [Validators.required]],
         tutor: ['', [Validators.required]],
         estudiante: ['', [Validators.required]],
-        estado: ['', /* [Validators.required] */],
-        objetivo:['',/* [Validators.required] */]
+        cohorte:['', [Validators.required]],
+        estado: ['', [Validators.required] ],
+        objetivo:['', [Validators.required] ]
       });
       this.filteredOptions = this.formulario.get('tutor').valueChanges.pipe(debounceTime(350),
       /* startWith(''), */
@@ -80,18 +81,12 @@ export class AgregarSeguimientoComponent implements OnInit {
       ).subscribe(
         value=>{
           let p=0;
-          if(value.nombre!="")
-            p++;
-          if(value.tipo!="")
-            p++;
-          if(value.tutor!="")
-            p++;
-          if(value.estudiante!="")
-            p++;
-          if(value.estado!="")
-            p++;
-          if(value.objetivo!="")
-            p++;
+          if(value.nombre!="") p++;
+          if(value.tipo!="") p++;
+          if(value.tutor!="") p++;
+          if(value.estudiante!="") p++;
+          if(value.estado!="") p++;
+          if(value.objetivo!="") p++;
           this.porcentaje=(100*p)/5;
           console.log(value);
         }
@@ -162,6 +157,7 @@ export class AgregarSeguimientoComponent implements OnInit {
         'Seguimiento Almacenado!',
         'success'
       )
+      this.bandAgregar.emit(true); 
     }
     else {
       console.log("FORMULARIO IN VALIDO");

@@ -1,1 +1,80 @@
-<p>editar-seguimiento-tutor works!</p>
+
+<mat-card>
+  <mat-card-header class="bg-info">
+    <mat-card-title style="background-color:#5bc0de;">
+      <br> editar seguimiento<br>
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <br>
+    <div mat-dialog-content class="mat-typography">
+    <form [formGroup]="formulario">
+        <div class="row">
+            <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <span class="input-group-text col-lg-6 col-md-6 col-sm-5 col-xs-6">Nombre:</span>
+                <input disabled class="col-lg-6 col-md-6 col-sm-6 col-xs-6" type="text" id="nombres"
+                    formControlName="nombre">
+            </div>
+            <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <span class="input-group-text col-lg-6 col-md-5 col-sm-6 col-xs-6">Tipo:</span>
+                <input disabled class="col-lg-6 col-md-6 col-sm-6 col-xs-6" type="text" id="apellidos"
+                    formControlName="tipo">
+            </div>
+        </div><br>
+        <div class="row">
+            <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <span class="input-group-text col-lg-6 col-md-6 col-sm-6 col-xs-6">Tutor:</span>
+                <input disabled class="col-lg-6 col-md-6 col-sm-6 col-xs-6" type="text" id="identificación"
+                    formControlName="tutor">
+            </div>
+            <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <span class="input-group-text col-lg-6 col-md-6 col-sm-6 col-xs-6">Estudiante:</span>
+                <input disabled class="col-lg-6 col-md-6 col-sm-6 col-xs-6" type="text" id="telefono"
+                    formControlName="estudiante">
+            </div>
+        </div> <br>
+        <div class="row">
+            <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <span class="input-group-text col-lg-6 col-md-6 col-sm-6 col-xs-6">Estado:</span>
+                <input disabled class="col-lg-6 col-md-6 col-sm-6 col-xs-6" type="email" id="correo"
+                    formControlName="estado">
+            </div>
+
+
+        </div>
+        <br>
+        <div class="row">
+            <div class="input-group-prepend col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <span class="input-group-text col-lg-3 col-md-3 col-sm-3 col-xs-3">O. General</span>
+                <textarea disabled name="" id="" cols="60" rows="2" formControlName="objetivoGeneral"></textarea>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="input-group-prepend col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <span class="input-group-text col-lg-3 col-md-3 col-sm-3 col-xs-3">O. Especificos</span>
+                <textarea disabled name="" id="" cols="60" rows="6" formControlName="objetivosEspec" (keyup.enter)="separar()"></textarea>
+            </div>
+        </div> <br>
+
+        <mat-accordion>
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Actividades
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        {{panelOpenState ? 'Ocultar ' : 'Ver '}} actividades asignadas a este seguimiento
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+            </mat-expansion-panel>
+        </mat-accordion>
+        <p>  </p>
+
+    </form>
+
+</div>
+  </mat-card-content>
+</mat-card>
+
+<button type="button" class="btn-lg btn btn-primary btn float-right" (click)="volver()">Volver</button>

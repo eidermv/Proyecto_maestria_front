@@ -21,7 +21,7 @@ import { VerSeguimientoComponent } from '../verSeguimiento/ver-seguimiento/ver-s
 export class ListSeguimientosComponent implements OnInit {
   displayedColumns: string[] = ['nombre', 'tipo', 'tutor', 'estudiante', 'estado', 'opciones'];
   dataSource: MatTableDataSource<Seguimiento>;
-  bandListar:boolean;
+  bandListar: boolean;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   seguimientos: Array<Seguimiento> = [];
@@ -60,9 +60,9 @@ export class ListSeguimientosComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
-    });   
+    });
     dialogRef.componentInstance.seguimiento=row;
-    
+
   }
   cambiar(event)
   {

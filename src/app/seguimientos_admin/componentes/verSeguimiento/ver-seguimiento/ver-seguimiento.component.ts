@@ -24,7 +24,7 @@ seguimiento:Seguimiento;
      {
         oe+=cont+". "+i+"\n";
         cont++;
-     } 
+     }
     console.log("OBJETIVOS ESPEC:  ",this.seguimiento.oEspecificos);
      */
     this.formulario = this.formBuilder.group(
@@ -39,7 +39,7 @@ seguimiento:Seguimiento;
         objetivoGeneral:[this.seguimiento.oGeneral,[]],
         objetivosEspec:[this.seguimiento.oEspecificos,[]]
       });
-      
+
 
       this.formulario.valueChanges.pipe(
         debounceTime(350)
@@ -95,7 +95,7 @@ seguimiento:Seguimiento;
       confirmButtonText: 'Aceptar',
       reverseButtons: true,
       confirmButtonColor: '#3085d6',
-      
+
     }).then((result) => {
      if (
         /* Read more about handling dismissals below */

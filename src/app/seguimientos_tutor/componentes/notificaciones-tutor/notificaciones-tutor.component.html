@@ -1,57 +1,52 @@
-<mat-card>
-  <mat-card-header class="bg-info">
-    <mat-card-title style="background-color:#5bc0de;">
-      <br>Notificaciones de seguimientos<br>
-    </mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <p></p>
-    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
-      <!-- Position Column -->
-      <ng-container matColumnDef="Codigo">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> No. </th>
-        <td mat-cell *matCellDef="let element"> {{element.Codigo}} </td>
-      </ng-container>
+<h2 mat-dialog-title>Notificaciones de seguimientos</h2>
+<mat-dialog-content>
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+    <!-- Position Column -->
+    <ng-container matColumnDef="Codigo">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> No. </th>
+      <td mat-cell *matCellDef="let element"> {{element.Codigo}} </td>
+    </ng-container>
 
-      <!-- Name Column -->
-      <ng-container matColumnDef="Nombre">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
-        <td mat-cell *matCellDef="let element"> {{element.Nombre}} </td>
-      </ng-container>
+    <!-- Name Column -->
+    <ng-container matColumnDef="Nombre">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.Nombre}} </td>
+    </ng-container>
 
-      <!-- Weight Column -->
-      <ng-container matColumnDef="Tipo">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Weight </th>
-        <td mat-cell *matCellDef="let element"> {{element.Tipo}} </td>
-      </ng-container>
+    <!-- Weight Column -->
+    <ng-container matColumnDef="Tipo">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Weight </th>
+      <td mat-cell *matCellDef="let element"> {{element.Tipo}} </td>
+    </ng-container>
 
-      <!-- Symbol Column -->
-      <ng-container matColumnDef="Estudiante">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Symbol </th>
-        <td mat-cell *matCellDef="let element"> {{element.Estudiante}} </td>
-      </ng-container>
-      <!-- Symbol Column -->
-      <ng-container matColumnDef="Estado">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Symbol </th>
-        <td mat-cell *matCellDef="let element"> {{element.Estado}} </td>
-      </ng-container>
-      <!-- Symbol Column -->
-      <ng-container matColumnDef="Accion">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Symbol </th>
-        <td mat-cell *matCellDef="let element">
-          <div class="btn-group">
-            <button type="button" class="btn btn-success">Aceptar</button>
-          </div>
-          <div class="btn-group">
-            <button type="button" class="btn btn-danger">Rechazar</button>
-          </div>
-        </td>
-      </ng-container>
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
-    <button type="button" class="btn-lg btn btn-primary btn float-right" (click)="volver()">Volver</button>
-    <br><br/>
-  </mat-card-content>
-</mat-card>
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="Estudiante">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Symbol </th>
+      <td mat-cell *matCellDef="let element"> {{element.Estudiante}} </td>
+    </ng-container>
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="Estado">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Symbol </th>
+      <td mat-cell *matCellDef="let element"> {{element.Estado}} </td>
+    </ng-container>
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="Accion">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Symbol </th>
+      <td mat-cell *matCellDef="let element">
+        <div class="btn-group">
+          <button type="button" class="btn btn-success">Aceptar</button>
+        </div>
+        <div class="btn-group">
+          <button type="button" class="btn btn-danger">Rechazar</button>
+        </div>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  <br><br/>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="true" class="btn-lg btn btn-primary izq">Aceptar</button>
+</mat-dialog-actions>

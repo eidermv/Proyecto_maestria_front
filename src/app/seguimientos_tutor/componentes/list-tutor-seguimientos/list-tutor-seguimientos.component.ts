@@ -3,6 +3,8 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
+import { MatDialog } from '@angular/material/dialog';
+import { NotificacionesTutorComponent } from '../notificaciones-tutor/notificaciones-tutor.component';
 
 @Component({
   selector: 'app-list-tutor-seguimientos',
@@ -21,25 +23,34 @@ export class ListTutorSeguimientosComponent implements OnInit {
     {titulo: 'Estado', name: 'Estado' },
     {titulo: 'Accion', name: 'Accion' },
   ];*/
-  constructor(private router: Router) { }
+  constructor(private router: Router, private dialog: MatDialog) { }
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   ngOnInit(): void {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
   }
-  notificaciones() {
-    //this.router.navigate(['/seguimientos_tutor/notificacionesTutor']);
+  editarSeguimientoTutor() {
     this.bandera = !this.bandera;
   }
   notificar(event) {
     this.bandera = event;
     console.log('imprimiendo desde notificaciones: ', this.bandera);
   }
-  editarSeguimientoTutor(){
-    this.router.navigate(['/seguimientos_tutor/editarSeguimientoTutor']);
+  notificaciones(row: PeriodicElement)
+  {
+    const dialogRef = this.dialog.open(NotificacionesTutorComponent, {
+      width: '800px',
+      data:{}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+    dialogRef.componentInstance.notificaciones = row;
+
   }
 }
+
 export interface PeriodicElement {
   Codigo: number;
   Nombre: string;

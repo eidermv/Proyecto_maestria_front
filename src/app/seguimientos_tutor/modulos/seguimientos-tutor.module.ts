@@ -12,6 +12,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { NotificacionesTutorComponent } from '../componentes/notificaciones-tutor/notificaciones-tutor.component';
 import { EditarSeguimientoTutorComponent } from '../componentes/editar-seguimiento-tutor/editar-seguimiento-tutor.component';
 import { MatCardModule } from '@angular/material/card';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 
 @NgModule({
@@ -29,7 +31,9 @@ import { MatCardModule } from '@angular/material/card';
     MatIconModule,
     MatSortModule,
     MatPaginatorModule,
-    MatCardModule
+    MatCardModule,
+    MatDialogModule,
+    MatExpansionModule
   ],
   providers: [SeguimientosService],
 })

@@ -56,6 +56,12 @@ import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 import { SeguimientosTutorModule } from './seguimientos_tutor/modulos/seguimientos-tutor.module';
 import { SeguimientoEstudianteModule } from './seguimiento_estudiante/modulos/seguimiento-estudiante.module';
 import { ListarSeguimientoEstudianteComponent } from './seguimiento_estudiante/componentes/listar-seguimiento-estudiante/listar-seguimiento-estudiante.component';
+import { ListarActividadesEstudianteComponent } from './seguimiento_estudiante/componentes/listar-actividades-estudiante/listar-actividades-estudiante.component';
+import { VerSeguimientoEstudianteComponent } from './seguimiento_estudiante/componentes/ver-seguimiento-estudiante/ver-seguimiento-estudiante.component';
+import {MatButtonModule} from '@angular/material/button';
+import {MatExpansionModule} from '@angular/material/expansion';
+import { VerActividadEstudianteComponent } from './seguimiento_estudiante/componentes/ver-actividad-estudiante/ver-actividad-estudiante.component';
+import { ListarActividadesComponent } from './seguimientos_admin/componentes/listar-actividades/listar-actividades.component';
 @NgModule({
   imports: [
     BrowserModule,
@@ -83,7 +89,9 @@ import { ListarSeguimientoEstudianteComponent } from './seguimiento_estudiante/c
     SeguimientosTutorModule,
     MatProgressBarModule,
     MatDialogModule,
-    SeguimientoEstudianteModule
+    SeguimientoEstudianteModule,
+    MatButtonModule,
+    MatExpansionModule
   ],
   declarations: [
     AppComponent,
@@ -95,7 +103,11 @@ import { ListarSeguimientoEstudianteComponent } from './seguimiento_estudiante/c
     VerSeguimientoComponent,
     EditarSeguimientoComponent,
     EliminarSeguimientoComponent,
-    CrearTutorComponent
+    CrearTutorComponent,
+    ListarActividadesEstudianteComponent,
+    VerSeguimientoEstudianteComponent,
+    VerActividadEstudianteComponent,
+    ListarActividadesComponent
   ],
   providers: [{
     provide: LocationStrategy,

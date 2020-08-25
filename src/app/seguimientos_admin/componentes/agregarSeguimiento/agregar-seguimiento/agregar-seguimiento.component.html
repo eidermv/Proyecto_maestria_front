@@ -17,8 +17,9 @@
                 <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <span class="input-group-text col-lg-3 col-md-4 col-sm-4 col-xs-4">Tipo: </span>
                     <select formControlName="tipo" class="col-lg-3 col-md-3 col-sm-2 col-xs-2" formControlName="tipo">
-                        <option value="1">Tesis</option>
-                        <option value="2">Propuesta</option>
+                        <option value=" " [selected]="' '" disabled>Seleccione</option>
+                        <option value="tesis">Tesis</option>
+                        <option value="propuesta">Propuesta</option>
                     </select>
                 </div>
             </div> <br>
@@ -55,30 +56,35 @@
             <div class="row">
                 <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <span class="input-group-text col-lg-3 col-md-4 col-sm-4 col-xs-4" style="position: relative; left: 2cm;">Estado: </span>
-                    <select formControlName="tipo" class="col-lg-3 col-md-3 col-sm-2 col-xs-2" style="position: relative; left: 2cm;">
-                        <option value="1">Iniciado</option>
-                        <option value="2">Aprobado</option>
-                        <option value="3">No Aprobado</option>
-                    </select>
+                    <select formControlName="estado" class="col-lg-3 col-md-3 col-sm-2 col-xs-2" style="position: relative; left: 2cm;">
+                        <option value=" " [selected]="' '" disabled>Seleccione</option>
+                        <option value="iniciado">Iniciado</option>
+                        <option value="aprobado">Aprobado</option>
+                        <option value="no aprobado">No Aprobado</option>
+                    </select>                    
                 </div>
+
                 <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <span class="input-group-text col-lg-3 col-md-4 col-sm-4 col-xs-4"
                         >Cohorte: </span>
-                        <select formControlName="tipo" class="col-lg-3 col-md-3 col-sm-2 col-xs-2">
+                        <select formControlName="cohorte" class="col-lg-3 col-md-3 col-sm-2 col-xs-2">
+                            <option value="" [selected]="''" disabled>Seleccione</option>
                             <option [ngValue]="years" *ngFor="let years of optionsCohorte">{{years}}</option>
                         </select>
                 </div>
+                
             </div>
             <br><br>
             <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12"
                 style="position: relative; left: 25%;">
-                <span class="input-group-text col-lg-4 col-md-6 col-sm-6 col-xs-6">Objetivo General: </span>
+                <span class="input-group-text col-lg-4 col-md-10 col-sm-12 col-xs-12">Objetivo General: </span>
                 <textarea name="objetivoGeneral" id="" cols="30" rows="3" formControlName="objetivo"></textarea>
             </div>
             <br>
             <mat-progress-bar mode="determinate" value="{{porcentaje}}"></mat-progress-bar>
             <br><br>
-            <button style="position: relative; left: 40%;" type="submit" class="btn btn-primary">Guardar</button>
+            <button  style="position: relative; left: 40%;" type="submit" class="btn btn-primary">Guardar</button>
+            <button  style="position: relative; left: 41%;"  class="btn btn-danger" (click)="cancelar()">Cancelar</button>
         </form>
     </mat-card-content>
 </mat-card>

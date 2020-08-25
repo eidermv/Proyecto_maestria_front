@@ -7,5 +7,6 @@ export interface Seguimiento {
     estado: string;
     cohorte:string,
     oGeneral:string,
-    oEspecificos:string[]
+    oEspecificos:string,
+    estadoSeguimiento:string
   }

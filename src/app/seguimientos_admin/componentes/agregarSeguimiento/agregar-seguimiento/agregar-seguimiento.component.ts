@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { debounceTime, debounce, startWith, map } from 'rxjs/operators';
 import { FormGroup, FormControl, ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { Seguimiento } from '../../../modelos/seguimiento.model';
@@ -30,6 +30,7 @@ export class AgregarSeguimientoComponent implements OnInit {
   cTutor: boolean = false;
   nuevoTutor:Tutor;
   porcentaje:number=0;
+  @Output() bandAgregar= new EventEmitter<boolean>();
   constructor(private formBuilder: FormBuilder, private tutorService: TutorService, private estudianteService:EstudianteService, private dialog: MatDialog) {
     this.tutorService.onTutores();
     this.estudianteService.onEstudiantes();
@@ -60,11 +61,12 @@ export class AgregarSeguimientoComponent implements OnInit {
         nombre: ['', [Validators.required,
         Validators.maxLength(50)]
         ],
-        tipo: ['', [Validators.required]],
+        tipo: ['',  [Validators.required]],
         tutor: ['', [Validators.required]],
         estudiante: ['', [Validators.required]],
-        estado: ['', [Validators.required]],
-        objetivo:['',[Validators.required]]
+        cohorte:['', [Validators.required]],
+        estado: ['', [Validators.required] ],
+        objetivo:['', [Validators.required] ]
       });
       this.filteredOptions = this.formulario.get('tutor').valueChanges.pipe(debounceTime(350),
       /* startWith(''), */
@@ -79,20 +81,14 @@ export class AgregarSeguimientoComponent implements OnInit {
       ).subscribe(
         value=>{
           let p=0;
-          if(value.nombre!="")
-            p++;
-          if(value.tipo!="")
-            p++;
-          if(value.tutor!="")
-            p++;
-          if(value.estudiante!="")
-            p++;
-          if(value.estado!="")
-            p++;
-          if(value.objetivo!="")
-            p++;
+          if(value.nombre!="") p++;
+          if(value.tipo!="") p++;
+          if(value.tutor!="") p++;
+          if(value.estudiante!="") p++;
+          if(value.estado!="") p++;
+          if(value.objetivo!="") p++;
           this.porcentaje=(100*p)/5;
-
+          console.log(value);
         }
       );
   }
@@ -139,19 +135,37 @@ export class AgregarSeguimientoComponent implements OnInit {
   clearArray(arrayClear: Array<string>) {
     return arrayClear = [];
   }
+  cancelar()
+  {
+    this.bandAgregar.emit(true); 
+    Swal.fire(
+      'Cancelado!',
+      'Seguimiento no Almacenado!',
+      'error'
+    )
+  }
   onSubmit(event: Event) {
-
+  
     event.preventDefault();
-    console.log("COMPROBANDO");
-    if (this.formulario.valid) {
-      const value = this.formulario.value;
-      console.log(value);
+    
+    if (this.formulario.valid) 
+    {
+      console.log("FORMULARIO VALIDO");
+      this.bandAgregar.emit(true);
+      Swal.fire(
+        'Exito!',
+        'Seguimiento Almacenado!',
+        'success'
+      )
+      this.bandAgregar.emit(true); 
     }
     else {
+      console.log("FORMULARIO IN VALIDO");
       this.formulario.markAllAsTouched();
       //this.errorFormulario();
     }
   }
+  
   errorFormulario() {
     Swal.fire({
       title: 'Campos sin Llenar',

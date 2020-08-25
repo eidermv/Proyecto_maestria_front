@@ -1,24 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import {MatDialogRef} from '@angular/material/dialog';
-import { Seguimiento } from '../../../seguimientos_admin/modelos/seguimiento.model';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Seguimiento } from '../../modelos/seguimiento.model';
+import { MatDialogRef } from '@angular/material/dialog';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-ver-seguimiento-estudiante',
-  templateUrl: './ver-seguimiento-estudiante.component.html',
-  styleUrls: ['./ver-seguimiento-estudiante.component.css']
+  selector: 'app-editar-seguimiento',
+  templateUrl: './editar-seguimiento.component.html',
+  styleUrls: ['./editar-seguimiento.component.scss']
 })
-export class VerSeguimientoEstudianteComponent implements OnInit {
-  panelOpenState = false;
+export class EditarSeguimientoComponent implements OnInit {
   seguimiento:Seguimiento;
   formulario:FormGroup;
   texto:string="";
   objEspec:string[];
-  constructor(public dialogRef: MatDialogRef<VerSeguimientoEstudianteComponent> ,private formBuilder: FormBuilder) { }
+  panelOpenState = false;
+  constructor(public dialogoReg:MatDialogRef<EditarSeguimientoComponent>,private formBuilder: FormBuilder) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
     let oe:string="";
     let cont=1;
     this.objEspec=[];
@@ -47,11 +47,6 @@ export class VerSeguimientoEstudianteComponent implements OnInit {
         debounceTime(350)
         ).subscribe(
           value=>{})
- 
-  }
-
-  okClick() {
-    this.dialogRef.close();
   }
   separar()
   {
@@ -108,6 +103,7 @@ export class VerSeguimientoEstudianteComponent implements OnInit {
         /* Read more about handling dismissals below */
         result.isDismissed
       ) {
+        
         Swal.fire(
           'Cancelled',
           'Your imaginary file is safe :)',
@@ -116,5 +112,6 @@ export class VerSeguimientoEstudianteComponent implements OnInit {
       }
     });
   }
+
 
 }

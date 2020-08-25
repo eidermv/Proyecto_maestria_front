@@ -56,7 +56,7 @@ export class ListarActividadesComponent implements OnInit {
   verActividad(row) {
     console.log("ROW ENTRANTE:  ",row);
     const dialogRef = this.dialog.open(VerActividadesComponent, {
-      width: '400px',
+      width: '400px', position:{top: '65px' },
       data: {
       }
     });

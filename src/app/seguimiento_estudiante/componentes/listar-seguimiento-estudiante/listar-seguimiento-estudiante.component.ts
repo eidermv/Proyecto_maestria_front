@@ -44,16 +44,17 @@ export class ListarSeguimientoEstudianteComponent implements OnInit {
     }
   }
   /** Builds and returns a new User. */
-  verSeguimiento() {
+  verSeguimiento(row) {
+  
     const dialogRef = this.dialog.open(VerSeguimientoEstudianteComponent, {
-      width: '700px',
-      // height: '600px',
-      data: {
-      }
+      width: '850px',position: { top: '65px', left: '270px'},
+      data:{}
     });
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
-
-    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });   
+    dialogRef.componentInstance .seguimiento=row;
+    
+    
   }
 }

@@ -62,6 +62,8 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { VerActividadEstudianteComponent } from './seguimiento_estudiante/componentes/ver-actividad-estudiante/ver-actividad-estudiante.component';
 import { ListarActividadesComponent } from './seguimientos_admin/componentes/listar-actividades/listar-actividades.component';
+import { TutorModule } from './tutores/modulos/tutores.module';
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -91,7 +93,8 @@ import { ListarActividadesComponent } from './seguimientos_admin/componentes/lis
     MatDialogModule,
     SeguimientoEstudianteModule,
     MatButtonModule,
-    MatExpansionModule
+    MatExpansionModule,
+    TutorModule
   ],
   declarations: [
     AppComponent,

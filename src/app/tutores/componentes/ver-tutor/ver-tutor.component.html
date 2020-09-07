@@ -1,0 +1,79 @@
+<h1 mat-dialog-title style="text-align: center" class="titulo primary">VER TUTOR</h1>
+<div mat-dialog-content>
+  <form [formGroup]="formulario">
+    <div class="row">
+      <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <span class="input-group-text col-lg-6 col-md-6 col-sm-5 col-xs-6">Nombre:</span>
+        <input disabled class="col-lg-6 col-md-6 col-sm-6 col-xs-6" type="text" id="nombre" formControlName="nombre">
+      </div>
+      <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <span class="input-group-text col-lg-6 col-md-5 col-sm-6 col-xs-6">Apellido:</span>
+        <input disabled class="col-lg-6 col-md-6 col-sm-6 col-xs-6" type="text" id="apellido" formControlName="apellido">
+      </div>
+    </div><br>
+    <div class="row">
+      <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <span class="input-group-text col-lg-6 col-md-6 col-sm-6 col-xs-6">Identificacion:</span>
+        <input disabled class="col-lg-6 col-md-6 col-sm-6 col-xs-6" type="text" id="identificación"
+          formControlName="identificación">
+      </div>
+      <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <span class="input-group-text col-lg-6 col-md-6 col-sm-6 col-xs-6">Correo:</span>
+        <input disabled class="col-lg-6 col-md-6 col-sm-6 col-xs-6" type="text" id="correo"
+          formControlName="correo">
+      </div>
+    </div> <br>
+    <div class="row">
+      <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <span class="input-group-text col-lg-6 col-md-6 col-sm-6 col-xs-6">Telefono:</span>
+        <input disabled class="col-lg-6 col-md-6 col-sm-6 col-xs-6" type="text" id="telefono"
+          formControlName="telefono">
+      </div>
+      <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <span class="input-group-text col-lg-6 col-md-6 col-sm-6 col-xs-6">Tipo:</span>
+        <input disabled class="col-lg-6 col-md-6 col-sm-6 col-xs-6" type="text" id="tipo"
+          formControlName="tipo">
+      </div>
+    </div> <br>
+    <div class="row">
+      <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <span class="input-group-text col-lg-6 col-md-6 col-sm-6 col-xs-6">Departamento:</span>
+        <input disabled class="col-lg-6 col-md-6 col-sm-6 col-xs-6" type="text" id="departamento"
+          formControlName="departamento">
+      </div>
+      <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <span class="input-group-text col-lg-6 col-md-6 col-sm-6 col-xs-6">G. Investigación:</span>
+        <input disabled class="col-lg-6 col-md-6 col-sm-6 col-xs-6" type="text" id="grupoInvestigacion"
+          formControlName="grupoInvestigacion">
+      </div>
+    </div> <br>
+    <div class="row">
+      <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <span class="input-group-text col-lg-6 col-md-6 col-sm-6 col-xs-6">Universidad:</span>
+        <input disabled class="col-lg-6 col-md-6 col-sm-6 col-xs-6" type="text" id="universidad"
+          formControlName="universidad">
+      </div>
+    </div> <br>
+
+
+    <mat-accordion>
+      <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Actividades
+          </mat-panel-title>
+          <mat-panel-description>
+            {{panelOpenState ? 'Ocultar ' : 'Ver '}} actividades asignadas a este seguimiento
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <app-listar-actividades></app-listar-actividades>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <p> </p>
+
+  </form>
+
+</div>
+<div mat-dialog-actions>
+  <button mat-button class="btn btn-primary" (click)="okClick()" cdkFocusInitial>Ok</button>
+</div>

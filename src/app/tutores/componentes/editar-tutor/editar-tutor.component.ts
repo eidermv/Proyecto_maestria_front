@@ -3,14 +3,13 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { debounceTime } from 'rxjs/operators';
 import { Tutor } from '../../../seguimientos_admin/modelos/tutor.model';
-import { VerTutorComponent } from '../ver-tutor/ver-tutor.component';
 
 @Component({
-  selector: 'app-crear-tutor',
-  templateUrl: './crear-tutor.component.html',
-  styleUrls: ['./crear-tutor.component.scss']
+  selector: 'app-editar-tutor',
+  templateUrl: './editar-tutor.component.html',
+  styleUrls: ['./editar-tutor.component.scss']
 })
-export class CrearTutorComponent implements OnInit {
+export class EditarTutorComponent implements OnInit {
 
   panelOpenState = false;
   tutor:Tutor;
@@ -18,7 +17,7 @@ export class CrearTutorComponent implements OnInit {
   texto:string="";
   objEspec:string[];
   
-  constructor(public dialogRef: MatDialogRef<CrearTutorComponent>,private formBuilder: FormBuilder) { }
+  constructor(public dialogRef: MatDialogRef<EditarTutorComponent>,private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     let oe:string="";
@@ -34,7 +33,7 @@ export class CrearTutorComponent implements OnInit {
             Validators.maxLength(50)]
             ],
         identificacion: [this.tutor.identificacion, [Validators.required]],
-        correo: [this.tutor.correo, [Validators.email, Validators.required]],
+        correo: [this.tutor.correo, [Validators.email,Validators.required]],
         telefono: [this.tutor.telefono, []],
         tipo: [this.tutor.tipo, []],
         departamento:[this.tutor.departamento,[]],
@@ -47,7 +46,6 @@ export class CrearTutorComponent implements OnInit {
         ).subscribe(
           value=>{})
   }
-  
   okClick() {
     this.dialogRef.close();
   }

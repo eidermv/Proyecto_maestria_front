@@ -27,7 +27,7 @@ export class VerTutorComponent implements OnInit {
     console.log("Asignando tutor al form:  ",this.tutor);
     this.formulario = this.formBuilder.group(
       {
-        nombre: [this.tutor.nombre, [Validators.required,
+        nombre: [this.tutor.nombre+"", [Validators.required,
           Validators.maxLength(50)]
           ],
           apellido: [this.tutor.apellido, [Validators.required,

@@ -36,4 +36,8 @@ export class TutorService {
         };
         this.tutores.push(nuevo);
     }
+    public eliminarTutor(id:number)
+    {
+        console.log("Eliminando TUTOR:  "+id);
+    }
 }

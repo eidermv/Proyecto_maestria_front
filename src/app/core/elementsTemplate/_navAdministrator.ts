@@ -51,7 +51,7 @@ export const navAdministrator = [
   {
     name: 'Tutores',
     url: '/tutor',
-    icon: 'fa fa-chalkboard-teacher',
+    icon: 'fa fa-users',
     children: [
       {
         name: 'Listar Tutores',

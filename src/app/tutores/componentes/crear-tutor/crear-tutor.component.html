@@ -1,3 +1,62 @@
-<p>
-  crear-tutor works!
-</p>
+<br>
+<h1 mat-dialog-title style="text-align: center; background-color:#5bc0de;" class="redondeado titulo primary"><strong>CREAR TUTOR <br></strong> </h1>
+<div mat-dialog-content>
+  <form [formGroup]="formulario">
+    <div class="row">
+      <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <span class="input-group-text col-lg-6 col-md-6 col-sm-5 col-xs-6">Nombre:</span>
+        <input  class="redondeado col-lg-6 col-md-6 col-sm-6 col-xs-6" type="text" id="nombre" formControlName="nombre" >
+      </div>
+      <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <span class="input-group-text col-lg-6 col-md-5 col-sm-6 col-xs-6">Apellido:</span>
+        <input  class="redondeado col-lg-6 col-md-6 col-sm-6 col-xs-6" type="text" id="apellido" formControlName="apellido" >
+      </div>
+    </div><br>
+    <div class="row">
+      <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <span class="input-group-text col-lg-6 col-md-6 col-sm-6 col-xs-6">Identificacion:</span>
+        <input  class="redondeado col-lg-6 col-md-6 col-sm-6 col-xs-6" type="text" id="identificación" 
+          formControlName="identificación">
+      </div>
+      <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <span class="input-group-text col-lg-6 col-md-6 col-sm-6 col-xs-6">Correo:</span>
+        <input  class="redondeado col-lg-6 col-md-6 col-sm-6 col-xs-6" type="text" id="correo" 
+          formControlName="correo">
+      </div>
+    </div> <br>
+    <div class="row">
+      <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <span class="input-group-text col-lg-6 col-md-6 col-sm-6 col-xs-6">Telefono:</span>
+        <input  class="redondeado col-lg-6 col-md-6 col-sm-6 col-xs-6" type="text" id="telefono" 
+          formControlName="telefono">
+      </div>
+      <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <span class="input-group-text col-lg-6 col-md-6 col-sm-6 col-xs-6">Tipo:</span>
+        <input  class="redondeado col-lg-6 col-md-6 col-sm-6 col-xs-6" type="text" id="tipo" 
+          formControlName="tipo">
+      </div>
+    </div> <br>
+    <div class="row">
+      <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <span class="input-group-text col-lg-6 col-md-6 col-sm-6 col-xs-6">Departamento:</span>
+        <input  class="redondeado col-lg-6 col-md-6 col-sm-6 col-xs-6" type="text" id="departamento" 
+          formControlName="departamento">
+      </div>
+      <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <span class="input-group-text col-lg-6 col-md-6 col-sm-6 col-xs-6">G. Investigación:</span>
+        <input  class="redondeado col-lg-6 col-md-6 col-sm-6 col-xs-6" type="text" id="grupoInvestigacion" 
+          formControlName="grupoInvestigacion">
+      </div>
+    </div> <br>
+    <div class="row">
+      <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <span class="input-group-text col-lg-6 col-md-6 col-sm-6 col-xs-6">Universidad:</span>
+        <input  class="redondeado col-lg-6 col-md-6 col-sm-6 col-xs-6" type="text" id="universidad" 
+          formControlName="universidad">
+      </div>
+    </div> <br>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button type="submit" class="btn btn-primary" (click)="okClick()" cdkFocusInitial>Ok</button>
+</div>

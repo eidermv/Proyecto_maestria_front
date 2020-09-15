@@ -1,3 +1,5 @@
+import { Tutor } from './seguimientos_admin/modelos/tutor.model';
+import { TutorModule } from './tutores/modulos/tutores.module';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -91,6 +93,12 @@ export const routes: Routes = [
         canActivate: [AuthGuard],
         canActivateChild: [PermisoEstudianteGuard],
         loadChildren: './seguimiento_estudiante/modulos/seguimiento-estudiante.module#SeguimientoEstudianteModule'
+      } ,
+      {
+        path: 'tutor',
+        canActivate: [AuthGuard],
+        canActivateChild: [PermisoAdminGuard],
+        loadChildren: './tutores/modulos/tutores.module#TutorModule'
       }
     ]
   }

@@ -8,10 +8,10 @@ import Swal from 'sweetalert2';
 import { Tutor } from '../../../modelos/tutor.model';
 import { TutorService } from '../../../servicios/tutor.service';
 import {MatDialog} from '@angular/material/dialog';
-import { CrearTutorComponent } from '../../tutores/crear-tutor/crear-tutor.component';
 import { EstudianteService } from '../../../servicios/estudiante.service';
 import { Student } from '../../../../models/student';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { CrearTutorComponent } from '../../tutores/crear-tutor/crear-tutor.component';
 
 
 @Component({

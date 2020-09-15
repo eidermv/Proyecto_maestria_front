@@ -9,14 +9,14 @@
                 <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <span class="input-group-text col-lg-3 col-md-4 col-sm-4 col-xs-4"
                         style="position: relative; left: 2cm;">Nombre</span>
-                    <input type="text " class="col-lg-3 col-md-3 col-sm-2 col-xs-2" placeholder="Nombre Seguimiento"
+                    <input type="text " class="redondeado col-lg-3 col-md-3 col-sm-2 col-xs-2" placeholder="Nombre Seguimiento"
                         style="position: relative; left: 2cm;" formControlName="nombre">                                              
                 </div>
                 
                         
                 <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <span class="input-group-text col-lg-3 col-md-4 col-sm-4 col-xs-4">Tipo: </span>
-                    <select formControlName="tipo" class="col-lg-3 col-md-3 col-sm-2 col-xs-2" formControlName="tipo">
+                    <select formControlName="tipo" class="redondeado col-lg-3 col-md-3 col-sm-2 col-xs-2" formControlName="tipo">
                         <option value=" " [selected]="' '" disabled>Seleccione</option>
                         <option value="tesis">Tesis</option>
                         <option value="propuesta">Propuesta</option>
@@ -28,7 +28,7 @@
                     <span class="input-group-text col-lg-3 col-md-4 col-sm-4 col-xs-4"
                         style="position: relative; left: 2cm;">Tutor: </span>
                     <input type="search" placeholder="Buscar Tutor" aria-label="tutor" matInput
-                         [matAutocomplete]="autoTutor" class="col-lg-3 col-md-3 col-sm-2 col-xs-2"
+                         [matAutocomplete]="autoTutor" class="redondeado col-lg-3 col-md-3 col-sm-2 col-xs-2"
                         style="position: relative; left: 2cm;" formControlName="tutor">
                     <i class="fa fa-plus-circle sinborde iconos fa-2x"
                         style="color:blue; position: relative; left: 2cm;" data-toggle="modal" data-target="#myModal"
@@ -43,7 +43,7 @@
                     <span class="input-group-text col-lg-3 col-md-4 col-sm-4 col-xs-4"
                         >Estudiante: </span>
                     <input type="search" placeholder="Buscar Estudiante" aria-label="estudiante" matInput
-                         [matAutocomplete]="autoEstudiante" class="col-lg-3 col-md-3 col-sm-2 col-xs-2"
+                         [matAutocomplete]="autoEstudiante" class="redondeado col-lg-3 col-md-3 col-sm-2 col-xs-2"
                         formControlName="estudiante">                   
                     <mat-autocomplete autoActiveFirstOption #autoEstudiante="matAutocomplete">
                         <mat-option *ngFor="let option2 of filteredOptions2 | async" [value]="option2">
@@ -56,7 +56,7 @@
             <div class="row">
                 <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <span class="input-group-text col-lg-3 col-md-4 col-sm-4 col-xs-4" style="position: relative; left: 2cm;">Estado: </span>
-                    <select formControlName="estado" class="col-lg-3 col-md-3 col-sm-2 col-xs-2" style="position: relative; left: 2cm;">
+                    <select formControlName="estado" class="redondeado col-lg-3 col-md-3 col-sm-2 col-xs-2" style="position: relative; left: 2cm;">
                         <option value=" " [selected]="' '" disabled>Seleccione</option>
                         <option value="iniciado">Iniciado</option>
                         <option value="aprobado">Aprobado</option>
@@ -67,7 +67,7 @@
                 <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <span class="input-group-text col-lg-3 col-md-4 col-sm-4 col-xs-4"
                         >Cohorte: </span>
-                        <select formControlName="cohorte" class="col-lg-3 col-md-3 col-sm-2 col-xs-2">
+                        <select formControlName="cohorte" class="redondeado col-lg-3 col-md-3 col-sm-2 col-xs-2">
                             <option value="" [selected]="''" disabled>Seleccione</option>
                             <option [ngValue]="years" *ngFor="let years of optionsCohorte">{{years}}</option>
                         </select>
@@ -78,7 +78,7 @@
             <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12"
                 style="position: relative; left: 25%;">
                 <span class="input-group-text col-lg-4 col-md-10 col-sm-12 col-xs-12">Objetivo General: </span>
-                <textarea name="objetivoGeneral" id="" cols="30" rows="3" formControlName="objetivo"></textarea>
+                <textarea name="objetivoGeneral" id="" class="redondeado" cols="30" rows="3" formControlName="objetivo"></textarea>
             </div>
             <br>
             <mat-progress-bar mode="determinate" value="{{porcentaje}}"></mat-progress-bar>

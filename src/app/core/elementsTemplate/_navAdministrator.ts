@@ -47,6 +47,18 @@ export const navAdministrator = [
         icon: 'fa fa-cloud-upload'
       }
     ]
+  },
+  {
+    name: 'Tutores',
+    url: '/tutor',
+    icon: 'fa fa-users',
+    children: [
+      {
+        name: 'Listar Tutores',
+        url: '/tutor/listar',
+        icon: 'fa fa-cloud-upload'
+      }
+    ]
   }
 
 ];

@@ -12,6 +12,7 @@ import { NotificacionesTutorComponent } from '../notificaciones-tutor/notificaci
   styleUrls: ['./list-tutor-seguimientos.component.css'],
 })
 export class ListTutorSeguimientosComponent implements OnInit {
+  hidden = false;
   displayedColumns: string[] = ['Codigo', 'Nombre', 'Tipo', 'Estudiante', 'Estado', 'Accion'];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
   bandera = true;
@@ -37,8 +38,10 @@ export class ListTutorSeguimientosComponent implements OnInit {
     this.bandera = event;
     console.log('imprimiendo desde notificaciones: ', this.bandera);
   }
-  notificaciones(row: PeriodicElement)
-  {
+  contarNoticaciones(){
+    this.hidden = !this.hidden;
+  }
+  notificaciones(row: PeriodicElement) {
     const dialogRef = this.dialog.open(NotificacionesTutorComponent, {
       width: '800px',
       data:{}
@@ -47,7 +50,6 @@ export class ListTutorSeguimientosComponent implements OnInit {
       console.log(`Dialog result: ${result}`);
     });
     dialogRef.componentInstance.notificaciones = row;
-
   }
 }
 

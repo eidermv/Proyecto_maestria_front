@@ -7,39 +7,43 @@
     </mat-card-header>
     <mat-card-content>
       <br>
-      <button type="button" class="btn-lg btn btn-danger btn float-right" (click)="notificaciones()">Notificaciones: 1</button>
+      <p class="full">
+        <button mat-raised-button class="btn btn-primary izq" matBadge="2" matBadgeColor="warn" matBadgeSize="medium" [matBadgeHidden]="hidden" (click)="notificaciones()">
+          Notificaciones
+        </button>
+      </p>
       <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
         <!-- Position Column -->
         <ng-container matColumnDef="Codigo">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> No. </th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Código </th>
           <td mat-cell *matCellDef="let element"> {{element.Codigo}} </td>
         </ng-container>
 
         <!-- Name Column -->
         <ng-container matColumnDef="Nombre">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
           <td mat-cell *matCellDef="let element"> {{element.Nombre}} </td>
         </ng-container>
 
         <!-- Weight Column -->
         <ng-container matColumnDef="Tipo">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Weight </th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo </th>
           <td mat-cell *matCellDef="let element"> {{element.Tipo}} </td>
         </ng-container>
 
         <!-- Symbol Column -->
         <ng-container matColumnDef="Estudiante">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Symbol </th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Estudiante </th>
           <td mat-cell *matCellDef="let element"> {{element.Estudiante}} </td>
         </ng-container>
         <!-- Symbol Column -->
         <ng-container matColumnDef="Estado">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Symbol </th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
           <td mat-cell *matCellDef="let element"> {{element.Estado}} </td>
         </ng-container>
         <!-- Symbol Column -->
         <ng-container matColumnDef="Accion">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Symbol </th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Acción </th>
           <td mat-cell *matCellDef="let element">
             <div class="btn-group">
               <a class="btn" (click)="editarSeguimientoTutor()"><i class="fa fa-pencil"></i></a>

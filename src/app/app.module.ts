@@ -62,6 +62,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { VerActividadEstudianteComponent } from './seguimiento_estudiante/componentes/ver-actividad-estudiante/ver-actividad-estudiante.component';
 import { ListarActividadesComponent } from './seguimientos_admin/componentes/listar-actividades/listar-actividades.component';
+import { EditarActividadTutorComponent } from './seguimientos_tutor/componentes/editar-actividad-tutor/editar-actividad-tutor.component';
 @NgModule({
   imports: [
     BrowserModule,
@@ -107,7 +108,8 @@ import { ListarActividadesComponent } from './seguimientos_admin/componentes/lis
     ListarActividadesEstudianteComponent,
     VerSeguimientoEstudianteComponent,
     VerActividadEstudianteComponent,
-    ListarActividadesComponent
+    ListarActividadesComponent,
+    EditarActividadTutorComponent
   ],
   providers: [{
     provide: LocationStrategy,

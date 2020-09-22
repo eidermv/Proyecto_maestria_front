@@ -1,14 +1,15 @@
 import { TutorService } from './../../servicios/tutor.service';
 import { Tutor } from './../../modelos/tutor.model';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { CommonModule } from '@angular/common';  
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { VerTutorComponent } from '../ver-tutor/ver-tutor.component';
-import { CrearTutorComponent } from '../crear-tutor/crear-tutor.component';
-import { EditarTutorComponent } from '../editar-tutor/editar-tutor.component';
+import { CrearTutorComponent } from '../../../seguimientos_admin/componentes/tutores/crear-tutor/crear-tutor.component';
+import { EditarTutorComponent } from '../../../seguimientos_admin/componentes/tutores/editar-tutor/editar-tutor.component';
 import Swal from 'sweetalert2';
 
 @Component({

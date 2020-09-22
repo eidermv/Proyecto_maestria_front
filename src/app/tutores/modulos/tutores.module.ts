@@ -2,6 +2,7 @@ import { ListarTutorComponent } from './../componentes/listar-tutor/listar-tutor
 import { TutoresRoutingModule } from './tutores-routing.module';
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
+import { BrowserModule } from '@angular/platform-browser';
 import { TutorService } from '../servicios/tutor.service';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';

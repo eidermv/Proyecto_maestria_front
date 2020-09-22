@@ -7,43 +7,45 @@ import Swal from 'sweetalert2';
 import { Tutor } from '../../../modelos/tutor.model';
 
 @Component({
-  selector: 'app-crear-tutor',
-  templateUrl: './crear-tutor.component.html',
-  styleUrls: ['./crear-tutor.component.css']
+  selector: 'app-editar-tutor',
+  templateUrl: './editar-tutor.component.html',
+  styleUrls: ['./editar-tutor.component.scss']
 })
-export class CrearTutorComponent implements OnInit {
+export class EditarTutorComponent implements OnInit {
+
   formulario: FormGroup;
   externo:boolean=false;
-  @Output() tutor= new EventEmitter<Tutor>();
-  constructor(public dialogoReg:MatDialogRef<CrearTutorComponent>,private formBuilder: FormBuilder) {
+  tutor:Tutor;
+  constructor(public dialogoReg:MatDialogRef<EditarTutorComponent>,private formBuilder: FormBuilder) {
 
 
   }
   ngOnInit(): void {
     this.formulario = this.formBuilder.group(
       {
-        nombre: ['', [Validators.required,
+        nombre: [this.tutor.nombre, [Validators.required,
           Validators.maxLength(50)]
           ],
-        apellido: ['', [Validators.required,
+        apellido: [this.tutor.apellido, [Validators.required,
           Validators.maxLength(50)]
           ],
-        identificacion: ['', [Validators.required]],
-        telefono: ['', [Validators.required]],
-        correo: ['', [Validators.required,Validators.email]],
-        grupoInvestigacion:['',[Validators.required]],
-        departamento:['',[Validators.required]],
+        identificacion: [this.tutor.identificacion, [Validators.required]],
+        telefono: [this.tutor.telefono, [Validators.required]],
+        correo: [this.tutor.correo, [Validators.required,Validators.email]],
+        grupoInvestigacion:[this.tutor.grupoInvestigacion,[Validators.required]],
+        departamento:[this.tutor.departamento,[Validators.required]],
         tipo: [null,[Validators.required]],
-        universidad:['',[Validators.required]]
+        universidad:[this.tutor.universidad,[Validators.required]]
       });
+      console.log("TUTOR:   ",this.tutor);
       this.formulario.get('tipo').valueChanges.subscribe(
           value=>{
+            console.log("TIPO:  ",value);
             if(value==2)
             {
               this.externo=true;
-              this.formulario.get('universidad').setValue('');
+              this.formulario.get('universidad').setValue('');              
             }
-
             else
             {
               this.externo=false;
@@ -59,7 +61,7 @@ export class CrearTutorComponent implements OnInit {
       Swal.fire({
         icon: 'success',
         title: 'Guardado' ,
-        text: 'Tutor Almacenado!'/* ,
+        text: 'Tutor Editado!'/* ,
         footer: 'El tutor no fué almacenado' */
       });
       let nuevo :Tutor;
@@ -74,7 +76,7 @@ export class CrearTutorComponent implements OnInit {
             tipo:   this.formulario.get('tipo').value,
             universidad:this.formulario.get('universidad').value
         };
-        this.tutor.emit(nuevo);
+        //GUARDAR 
 
 
   }
@@ -83,9 +85,10 @@ export class CrearTutorComponent implements OnInit {
     Swal.fire({
       icon: 'error',
       title: 'Cancelado' ,
-      text: 'Tutor no Creado!',
-      footer: 'El tutor no fué almacenado'
+      text: 'Tutor no Editado!',
+      footer: 'El tutor no fué Editado'
     })
 
   }
+
 }

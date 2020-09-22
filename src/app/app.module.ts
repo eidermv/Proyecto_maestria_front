@@ -1,4 +1,3 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
@@ -51,6 +50,7 @@ import {MatCardModule} from '@angular/material/card';
 import {ReactiveFormsModule} from '@angular/forms';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { CrearTutorComponent } from './seguimientos_admin/componentes/tutores/crear-tutor/crear-tutor.component';
+import {EditarTutorComponent}from './seguimientos_admin/componentes/tutores/editar-tutor/editar-tutor.component'
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 import { SeguimientosTutorModule } from './seguimientos_tutor/modulos/seguimientos-tutor.module';
@@ -66,7 +66,6 @@ import { EditarActividadTutorComponent } from './seguimientos_tutor/componentes/
 import { TutorModule } from './tutores/modulos/tutores.module';
 @NgModule({
   imports: [
-    BrowserModule,
     AppRoutingModule,
     TabsModule.forRoot(),
     ChartsModule,
@@ -106,7 +105,7 @@ import { TutorModule } from './tutores/modulos/tutores.module';
     VerSeguimientoComponent,
     EditarSeguimientoComponent,
     EliminarSeguimientoComponent,
-    CrearTutorComponent,
+    CrearTutorComponent,EditarTutorComponent,
     ListarActividadesEstudianteComponent,
     VerSeguimientoEstudianteComponent,
     VerActividadEstudianteComponent,

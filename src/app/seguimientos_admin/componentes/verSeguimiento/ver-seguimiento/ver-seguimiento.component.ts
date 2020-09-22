@@ -29,13 +29,13 @@ seguimiento:Seguimiento;
      */
     this.formulario = this.formBuilder.group(
       {
-        nombre: [this.seguimiento.nombre, [Validators.required,
-        Validators.maxLength(50)]
+        nombre: [this.seguimiento.nombre,[]
         ],
         tipo: [this.seguimiento.tipo, []],
         tutor: [this.seguimiento.tutor, []],
         estudiante: [this.seguimiento.estudiante, []],
         estado: [this.seguimiento.estado, []],
+        coodirector: [this.seguimiento.coodirector, []],
         objetivoGeneral:[this.seguimiento.oGeneral,[]],
         objetivosEspec:[this.seguimiento.oEspecificos,[]]
       });

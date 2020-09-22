@@ -4,6 +4,7 @@ export interface Seguimiento {
     tipo: string;
     tutor: string;
     estudiante: string;
+    coodirector: string;
     estado: string;
     cohorte:string,
     oGeneral:string,

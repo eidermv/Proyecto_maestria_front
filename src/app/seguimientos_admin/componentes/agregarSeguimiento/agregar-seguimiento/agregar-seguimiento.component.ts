@@ -66,7 +66,8 @@ export class AgregarSeguimientoComponent implements OnInit {
         estudiante: ['', [Validators.required]],
         cohorte:['', [Validators.required]],
         estado: ['', [Validators.required] ],
-        objetivo:['', [Validators.required] ]
+        objetivo:['', [Validators.required] ],        
+        coodirector:['', [Validators.required] ],
       });
       this.filteredOptions = this.formulario.get('tutor').valueChanges.pipe(debounceTime(350),
       /* startWith(''), */

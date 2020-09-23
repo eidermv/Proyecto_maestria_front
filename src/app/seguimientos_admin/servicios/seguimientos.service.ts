@@ -48,7 +48,7 @@ export class SeguimientosService {
           tipo: type,
           tutor: tut,
           estudiante: student,
-          coodirector: "Cood Nuevo",
+          coodirector: "nuevo",
           estado: state,
           cohorte: '2020',
           oGeneral: 'Nuevo objetivo',

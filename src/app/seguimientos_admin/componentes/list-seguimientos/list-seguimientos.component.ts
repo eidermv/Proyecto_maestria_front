@@ -8,9 +8,9 @@ import { Seguimiento } from '../../modelos/seguimiento.model';
 import { SeguimientosService } from '../../servicios/seguimientos.service';
 import { MatDialog } from '@angular/material/dialog';
 import { VerSeguimientoComponent } from '../verSeguimiento/ver-seguimiento/ver-seguimiento.component';
-
-
-
+import { PdfMakeWrapper, Table, Txt } from 'pdfmake-wrapper';
+import pdfFonts from "pdfmake/build/vfs_fonts"; 
+PdfMakeWrapper.setFonts(pdfFonts);
 
 
 @Component({
@@ -25,6 +25,7 @@ export class ListSeguimientosComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   seguimientos: Array<Seguimiento> = [];
+  
   constructor( private router: Router, private seguimientoService: SeguimientosService,private dialog: MatDialog) {
     // Create 100 users
 
@@ -38,6 +39,60 @@ export class ListSeguimientosComponent implements OnInit {
     this.bandListar=true;
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+  }
+
+
+
+  async crearPDF()
+  {
+    const pdf = new PdfMakeWrapper();
+    pdf.defaultStyle({
+      bold: false,
+      fontSize: 10
+  });
+  pdf.pageMargins([ 40, 60 ]);
+    console.log("CREANDO PDF");
+    pdf.header(".  LISTA DE SEGUIMIENTOS - ADMIN\n"); 
+    pdf.add(new Txt('Listado Total de Seguimientos!').alignment('center').italics().end );  
+    pdf.add("\n\n\n");
+    pdf.watermark('UNIVERSIDAD DEL CAUCA'); 
+    pdf.add(this.crearTabla(this.seguimientos));
+    pdf.create().download();
+  }
+  crearTabla(body:any[])
+  {
+    let contf=0;
+    let contc=0;
+   /*  let row:any[]=[];
+    row[0]="Nombre";row[1]="Tipo";row[2]="Tutor";row[3]="Estudiante";row[4]="Estado";row[5]="Coodirector";
+    body[0]=row; */
+    for(let seg of this.seguimientos)
+    {
+      let fila:any[]=[];
+      if(contf==0)
+      {
+        fila[contc]="Nombre";contc++;
+        fila[contc]="Tipo";contc++;
+        fila[contc]="Tutor";contc++;
+        fila[contc]="Estudiante";contc++;
+        fila[contc]="Estado";contc++;
+        fila[contc]="Coodirector";contc++; 
+        console.log("FILA:  ",fila);
+      }
+      else
+      {
+        fila[contc]=seg.nombre;contc++;
+        fila[contc]=seg.tipo;contc++;
+        fila[contc]=seg.tutor;contc++;
+        fila[contc]=seg.estudiante;contc++;
+        fila[contc]=seg.estado;contc++;
+        fila[contc]=seg.coodirector;contc++; 
+        console.log("FILA:  ",fila);
+      }      
+      body[contf]=fila;contc=0;contf++;
+    } 
+    console.log("BODY:   ",body);
+    return new Table(body).end;
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

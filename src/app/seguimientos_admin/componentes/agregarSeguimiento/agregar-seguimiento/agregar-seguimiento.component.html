@@ -1,3 +1,10 @@
+Nombre valido? {{getNombreValid()}} -  Nombre Invalido? {{getNombreInvalid()}}  Nombre Touched: {{formulario.get('nombre').touched}}<br><br>
+Tipo valido? {{getTipoValid()}}<br>
+Tutor valido? {{getTutorValid()}}<br>
+Estudiante valido? {{getEstudianteValid()}}<br>
+Estado valido? {{getEstadoValid()}}<br>
+Cohorte valido? {{getCohorteValid()}}<br>
+Coodirector valido? {{getCoodirectorValid()}}<br>
 <mat-card>
     <mat-card-header class="bg-info">
         <mat-card-title style="background-color:#5bc0de;"> <br> <strong>Nuevo Seguimiento</strong> <br></mat-card-title>
@@ -5,12 +12,30 @@
     </mat-card-header>
     <mat-card-content>
         <form [formGroup]="formulario" (ngSubmit)="onSubmit($event)"> <br>
-            <div class="row">
+            
+            <div class="row">                
                 <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <span class="input-group-text col-lg-3 col-md-4 col-sm-4 col-xs-4"
                         style="position: relative; left: 2cm;">Nombre</span>
-                    <input type="text " class="redondeado col-lg-3 col-md-3 col-sm-2 col-xs-2" placeholder="Nombre Seguimiento"
-                        style="position: relative; left: 2cm;" formControlName="nombre">                                              
+                        <div *ngIf="!formulario.get('nombre').touched">
+                            <input    type="text " class="input col-lg-3 col-md-3 col-sm-2 col-xs-2" 
+                                placeholder="Nombre SIN TOCAR"
+                                style="position: relative; left: 2cm;" formControlName="nombre">
+                        </div>
+                        <div *ngIf="!formulario.get('nombre').valid && formulario.get('nombre').dirty">
+                            <input    type="text " class="is-danger input col-lg-3 col-md-3 col-sm-2 col-xs-2" 
+                                placeholder="Nombre CAMBIANDO"
+                                style="position: relative; left: 2cm;" formControlName="nombre"> 
+                                
+                        </div>
+                        <div *ngIf="formulario.get('nombre').valid&&formulario.get('nombre').dirty">
+                            <input   type="text " class="is-sucess input col-lg-3 col-md-3 col-sm-2 col-xs-2" 
+                           
+                            placeholder="Nombre CAMBIANDO"
+                            style="position: relative; left: 2cm;" formControlName="nombre">
+                        </div>
+                            <br>
+                       
                 </div>
                 
                         
@@ -94,7 +119,8 @@
             <br>
             <mat-progress-bar mode="determinate" value="{{porcentaje}}"></mat-progress-bar>
             <br><br>
-            <button  style="position: relative; left: 40%;" type="submit" class="btn btn-primary">Guardar</button>
+            <button  *ngIf="formularioValido()"  style="position: relative; left: 40%;" type="submit" class="btn btn-primary">Guardar</button>
+            <button  *ngIf="!formularioValido()"  style="position: relative; left: 40%;" disabled type="submit" class="btn btn-primary">Guardar</button>
             <button  style="position: relative; left: 41%;"  class="btn btn-danger" (click)="cancelar()">Cancelar</button>
         </form>
     </mat-card-content>

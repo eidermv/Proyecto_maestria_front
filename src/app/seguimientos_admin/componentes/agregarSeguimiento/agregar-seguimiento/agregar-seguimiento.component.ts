@@ -61,7 +61,7 @@ export class AgregarSeguimientoComponent implements OnInit {
         nombre: ['', [Validators.required,
         Validators.maxLength(50)]
         ],
-        tipo: ['',  [Validators.required]],
+        tipo: ['',  [Validators.required, Validators.maxLength(20)]],
         tutor: ['', [Validators.required]],
         estudiante: ['', [Validators.required]],
         cohorte:['', [Validators.required]],
@@ -88,7 +88,8 @@ export class AgregarSeguimientoComponent implements OnInit {
           if(value.estudiante!="") p++;
           if(value.estado!="") p++;
           if(value.objetivo!="") p++;
-          this.porcentaje=(100*p)/5;
+          if(value.coodirector!="") p++;
+          this.porcentaje=(100*p)/7;
           console.log(value);
         }
       );
@@ -182,5 +183,17 @@ export class AgregarSeguimientoComponent implements OnInit {
       confirmButtonColor: '#3085d6',
     });
   }
+  formularioValido():boolean
+  {
+    return this.formulario.valid;
+  }
+  getNombreValid():boolean{return this.formulario.get('nombre').valid}
+  getNombreInvalid():boolean{return !this.formulario.get('nombre').valid }
+  getTipoValid():boolean{return this.formulario.get('tipo').valid;}
+  getTutorValid():boolean{return this.formulario.get('tutor').valid;}
+  getEstudianteValid():boolean{return this.formulario.get('estudiante').valid;}
+  getEstadoValid():boolean{return this.formulario.get('estado').valid;}
+  getCohorteValid():boolean{return this.formulario.get('cohorte').valid;}
+  getCoodirectorValid():boolean{return this.formulario.get('coodirector').valid;}
 
 }

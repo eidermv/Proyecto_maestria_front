@@ -86,7 +86,7 @@ en esta petición se adjunta el id del tutor al cual pertenecen esos seguimiento
 	};
 ]
 
-#### GET /seguimientos/obtenerNotificacionesTutor
+#### GET /seguimientos/obtenerNotificacionesTutor/3
 Esta solicitud consulta la lista o catalogo de seguimientos que  están en estado_seguimiento:"en espera" de aceptar o rechazar por parte de un tutor,
 a esta petición se adjunta el id del tutor.
 [

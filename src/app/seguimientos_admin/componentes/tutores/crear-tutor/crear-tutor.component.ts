@@ -29,10 +29,10 @@ export class CrearTutorComponent implements OnInit {
           Validators.maxLength(50)]
           ],
         identificacion: ['', [Validators.required]],
-        telefono: ['', [Validators.required]],
-        correo: ['', [Validators.required,Validators.email]],
-        grupoInvestigacion:['',[Validators.required]],
-        departamento:['',[Validators.required]],
+        telefono: ['', []],
+        correo: ['', [Validators.required,Validators.email]],        
+        departamento:['',/* [Validators.required] */],
+        grupoInvestigacion:['',/* [Validators.required] */],
         tipo: [null,[Validators.required]],
         universidad:['',[Validators.required]]
       });
@@ -52,6 +52,7 @@ export class CrearTutorComponent implements OnInit {
           }
         );
   }
+  
   onSubmit(event:Event)
   {
 
@@ -75,6 +76,7 @@ export class CrearTutorComponent implements OnInit {
             universidad:this.formulario.get('universidad').value
         };
         this.tutor.emit(nuevo);
+        this.dialogoReg.close();
 
 
   }
@@ -86,6 +88,6 @@ export class CrearTutorComponent implements OnInit {
       text: 'Tutor no Creado!',
       footer: 'El tutor no fué almacenado'
     })
-
+    this.dialogoReg.close();
   }
 }

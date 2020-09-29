@@ -56,18 +56,23 @@ export class AgregarSeguimientoComponent implements OnInit {
     this.getAllCohorte();
     this.options = this.tutorService.tutores;
     this.options2=this.estudianteService.estudiantes;
+    this.crearFormulario();
+   
+  }
+  private crearFormulario():void{
     this.formulario = this.formBuilder.group(
       {
         nombre: ['', [Validators.required,
-        Validators.maxLength(50)]
+        Validators.maxLength(30)]
         ],
-        tipo: ['',  [Validators.required, Validators.maxLength(20)]],
-        tutor: ['', [Validators.required]],
-        estudiante: ['', [Validators.required]],
-        cohorte:['', [Validators.required]],
+        tipo: ['',  [Validators.required]],
+        tutor: [null, [Validators.required]],
+        estudiante: [null, [Validators.required]],
+        cohorte:[null, [Validators.required]],
         estado: ['', [Validators.required] ],
         objetivo:['', [Validators.required] ],        
         coodirector:['', [Validators.required] ],
+        estadoSeguimiento:['', [Validators.required]]
       });
       this.filteredOptions = this.formulario.get('tutor').valueChanges.pipe(debounceTime(350),
       /* startWith(''), */
@@ -139,6 +144,7 @@ export class AgregarSeguimientoComponent implements OnInit {
   }
   cancelar()
   {
+    this.crearFormulario();
     this.bandAgregar.emit(true); 
     Swal.fire(
       'Cancelado!',
@@ -147,8 +153,6 @@ export class AgregarSeguimientoComponent implements OnInit {
     )
   }
   onSubmit(event: Event) {
-  
-    event.preventDefault();
     
     if (this.formulario.valid) 
     {

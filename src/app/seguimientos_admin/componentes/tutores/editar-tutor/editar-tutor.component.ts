@@ -16,11 +16,13 @@ export class EditarTutorComponent implements OnInit {
   formulario: FormGroup;
   externo:boolean=false;
   tutor:Tutor;
+  defaultValue="";
   constructor(public dialogoReg:MatDialogRef<EditarTutorComponent>,private formBuilder: FormBuilder) {
 
 
   }
   ngOnInit(): void {
+    this.defaultValue=this.tutor.tipo;
     this.formulario = this.formBuilder.group(
       {
         nombre: [this.tutor.nombre, [Validators.required,
@@ -34,7 +36,7 @@ export class EditarTutorComponent implements OnInit {
         correo: [this.tutor.correo, [Validators.required,Validators.email]],
         grupoInvestigacion:[this.tutor.grupoInvestigacion,[Validators.required]],
         departamento:[this.tutor.departamento,[Validators.required]],
-        tipo: [null,[Validators.required]],
+        tipo: [this.tutor.tipo,[Validators.required]],
         universidad:[this.tutor.universidad,[Validators.required]]
       });
       console.log("TUTOR:   ",this.tutor);
@@ -77,6 +79,7 @@ export class EditarTutorComponent implements OnInit {
             universidad:this.formulario.get('universidad').value
         };
         //GUARDAR 
+        this.dialogoReg.close();
 
 
   }
@@ -87,7 +90,8 @@ export class EditarTutorComponent implements OnInit {
       title: 'Cancelado' ,
       text: 'Tutor no Editado!',
       footer: 'El tutor no fué Editado'
-    })
+    });
+    this.dialogoReg.close();
 
   }
 

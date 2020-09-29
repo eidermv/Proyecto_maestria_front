@@ -1,61 +1,171 @@
-<br>
-<h2 mat-dialog-title style="background-color:#5bc0de; color: white;text-align-last: center;">  CREAR TUTOR</h2>
-<div mat-dialog-content class="mat-typography">
-                <div class="card col-lg-12 col-md-12 col-sm-12 col-xs-12"><br><br>
-                    <form [formGroup]="formulario" (ngSubmit)="onSubmit($event)">
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-lg-12 ">
+            <div class="card ">
+                <div class="card-header bg-info" style="text-align: center;">
+                    <strong>CREAR TUTOR</strong>
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="formulario" (ngSubmit)="onSubmit()" #f="ngForm">
+                        <h1 class="title text-center">CREAR TUTOR</h1>
+                        <p class="text-muted text-center">Crear un Nuevo tutor. Campos con * son obligatorios</p>
+
                         <div class="row">
-                            <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <span class="input-group-text col-lg-6 col-md-6 col-sm-5 col-xs-6">Nombres:</span>
-                                <input class="col-lg-6 col-md-6 col-sm-6 col-xs-6" type="text" id="nombres" formControlName="nombre">
+                            <div class="formGroup col-6">
+                                <i class="fa fa-exclamation-circle uncheck"
+                                    *ngIf="(formulario.get('nombre').errors?.required && formulario.get('nombre').touched ) ">
+                                    Nombre de Tutor vacio. Este campo es obligatorio.
+                                </i>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i
+                                                class="fa fa-id-card-o"></i><small>Nombre</small></span>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="* Digite nombre del tutor"
+                                        formControlName="nombre">
+                                </div>
                             </div>
-                            <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <span class="input-group-text col-lg-6 col-md-6 col-sm-6 col-xs-6">Apellidos:</span>
-                                <input class="col-lg-6 col-md-6 col-sm-6 col-xs-6" type="text" id="apellidos" formControlName="apellido">
-                            </div>
-                        </div><br>
-                        <div class="row">
-                            <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <span class="input-group-text col-lg-6 col-md-6 col-sm-6 col-xs-6">Identificación:</span>
-                                <input class="col-lg-6 col-md-6 col-sm-6 col-xs-6" type="text" id="identificación" formControlName="identificacion">
-                            </div>
-                            <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <span class="input-group-text col-lg-6 col-md-6 col-sm-6 col-xs-6">Telefono:</span>
-                                <input class="col-lg-6 col-md-6 col-sm-6 col-xs-6" type="text" id="telefono" formControlName="telefono" >
-                            </div>
-                        </div> <br>
-                        <div class="row">
-                            <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <span class="input-group-text col-lg-6 col-md-6 col-sm-6 col-xs-6">Correo:</span>
-                                <input class="col-lg-6 col-md-6 col-sm-6 col-xs-6" type="email" id="correo"formControlName="correo">
-                            </div>
-                            <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <span class="input-group-text col-lg-6 col-md-6 col-sm-6 col-xs-6">Departamento</span>
-                                <input class="col-lg-6 col-md-6 col-sm-6 col-xs-6" type="text" id="departamento" formControlName="departamento">
-                            </div>
-                        </div> <br>
-                        <div class="row">
-                            <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <span class="input-group-text col-lg-6 col-md-6 col-sm-6 col-xs-6">G.Investigación</span>
-                                <input class="col-lg-6 col-md-6 col-sm-6 col-xs-6" type="text" id="grupoInvestigacion" formControlName="grupoInvestigacion">
-                            </div>
-                            <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <span class="input-group-text col-lg-6 col-md-6 col-sm-6 col-xs-6">Tipo:</span>
-                                <select class="input-group-text col-lg-6 col-md-6 col-sm-6 col-xs-6" id="tipo" formControlName="tipo">
-                                    <option [ngValue]="null" disabled hidden >Seleccione</option> 
-                                    <option class="col-lg-6 col-md-6 col-sm-6 col-xs-6" selected="selected" value="1">Interno</option>
-                                    <option class="col-lg-6 col-md-6 col-sm-6 col-xs-6" value="2">Externo</option>
-                                </select>
-                            </div>                            
-                        </div> <br>
-                        <div class="row">
-                            <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12" *ngIf="externo">
-                                <span class="input-group-text col-lg-6 col-md-6 col-sm-6 col-xs-6">Universidad:</span>
-                                <input class="col-lg-6 col-md-6 col-sm-6 col-xs-6" type="text" id="universidad" formControlName="universidad">
+
+                            <div class="formGroup col-6">
+                                <i class="fa fa-exclamation-circle uncheck"
+                                    *ngIf="( formulario.get('apellido').errors?.required && formulario.get('apellido').touched ) ">
+                                    Apellido de tutor vacío. Este campo es obligatorio.
+                                </i>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i
+                                                class="fa fa-envelope-o"></i><small>Apellido</small></span>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="* Digite apellido del tutor"
+                                        formControlName="apellido">
+                                </div>
                             </div>
                         </div>
-                        <button mat-raised-button mat-dialog-close color="warn" (click)="onCancel()">Cancel</button>
-                        <button  *ngIf="formulario.valid"  type="submit" mat-raised-button style="background-color:#5bc0de; color: white;text-align-last: center;" [mat-dialog-close]="true" (click)="onSubmit()"    cdkFocusInitial>Crear</button>
-                        <button class="btn btn-primary" *ngIf="!formulario.valid"  disabled type="submit" mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial>Crear</button>
+
+                        <div class="row">
+                            <div class="formGroup col-6">
+                                <i class="fa fa-exclamation-circle uncheck"
+                                    *ngIf="(formulario.get('identificacion').errors?.required  && formulario.get('identificacion').touched)">
+                                    Identificación vacía. Este campo es obligatorio.
+                                </i>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i
+                                                class="fa fa-user-circle"></i><small>Identificación</small></span>
+                                    </div>
+                                    <input type="text" class="form-control"
+                                        placeholder="* Digite Identificación del tutor"
+                                        formControlName="identificacion">
+                                </div>
+                            </div>
+
+                            <div class="formGroup col-6">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-user-circle"></i>
+                                            <small>Telefono</small></span>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder=" Ingrese teléfono tutor"
+                                        formControlName="telefono">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="formGroup col-6">
+                                <div *ngIf="formulario.get('correo').errors && formulario.get('correo').touched" >
+                                    <i class="fa fa-exclamation-circle uncheck"
+                                    *ngIf="(formulario.get('correo').errors?.required  && formulario.get('correo').touched)">
+                                    Correo vacío. Este campo es Obligatorio
+                                    </i>
+                                    <i class="fa fa-exclamation-circle uncheck"
+                                    *ngIf="formulario.get('correo').errors?.email">
+                                    Formato de correo Incorrecto. 
+                                </i>
+                                </div>                               
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i
+                                                class="fa fa-user-circle"></i><small>Correo</small></span>
+                                    </div>
+                                    <input type="email" class="form-control" placeholder="* Ingrese correo Ej: correo@dominio.com"
+                                        formControlName="correo">
+                                </div>
+                            </div>
+
+                            <div class="formGroup col-6">
+                               <!--  <i class="fa fa-exclamation-circle uncheck"
+                                    *ngIf="(formulario.get('departamento').errors?.required  && formulario.get('departamento').touched)">
+                                    Departamento vacío. Este campo es Obligatorio.
+                                </i> -->
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-user-circle"></i>
+                                            <small>Departamento.</small></span>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="* Departamento"
+                                        formControlName="departamento">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="formGroup col-6">
+                               <!--  <i class="fa fa-exclamation-circle uncheck"
+                                    *ngIf="(formulario.get('grupoInvestigacion').errors?.required  && formulario.get('grupoInvestigacion').touched)">
+                                    G. Investigación Vacío. Este campo es Obligatorio
+                                </i> -->
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-user-circle"></i><small>G.
+                                                Investigación</small></span>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="* Grupo Investigación"
+                                        formControlName="grupoInvestigacion">
+                                </div>
+                            </div>
+                            <div class="formGroup col-6">
+                                <i class="fa fa-exclamation-circle uncheck"
+                                    *ngIf="(formulario.get('tipo').errors?.required  && formulario.get('tipo').touched)">
+                                    Tipo Vacío. Este campo es Obligatorio
+                                </i>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i
+                                                class="fa fa-user-circle"></i><small>Tipo</small></span>
+                                    </div>
+                                    <select type="text" class="form-control" formControlName="tipo" #tipo>
+                                        <option [ngValue]="null" disabled hidden >Seleccione</option>
+                                        <option value="externo"> Externo</option>
+                                        <option value="interno"> Interno</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="formulario.get('tipo').value==='externo'" >
+                            <div class="formGroup col-6">
+                                <i class="fa fa-exclamation-circle uncheck"
+                                    *ngIf="(formulario.get('universidad').errors?.required  && formulario.get('universidad').touched)">
+                                    Universidad Vacío. Este campo es Obligatorio
+                                </i>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-user-circle"></i><small>Universidad</small></span>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="* Ingrese Universidad"
+                                        formControlName="universidad">
+                                </div>
+                            </div>                          
+                        </div>
+                        <div style="text-align:right">
+                            <button type="button" class="button is-danger" (click)="onCancel()" 
+                               >Cancelar
+                            </button>
+                            <button type="submit" class="btn btn-lg  btn-primary"
+                                [disabled]="formulario.invalid">Guardar
+                            </button>
+                        </div>
                     </form>
                 </div>
+            </div>
+        </div>
+    </div>
 </div>

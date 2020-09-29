@@ -1,7 +1,7 @@
 <br>
 <h1 mat-dialog-title style="text-align: center; background-color:#5bc0de;" class="redondeado titulo primary"><strong>VER TUTOR <br> </strong></h1>
 <div mat-dialog-content>
-  <form [formGroup]="formulario">
+  <form [formGroup]="formulario" >
     <div class="row">
       <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <span class="input-group-text col-lg-6 col-md-6 col-sm-5 col-xs-6">Nombre:</span>
@@ -58,5 +58,8 @@
   </form>
 </div>
 <div mat-dialog-actions>
-  <button mat-button class="btn btn-primary" (click)="okClick()" cdkFocusInitial>Ok</button>
+  <div style="text-align:right">
+    <button mat-button class="btn btn-primary" (click)="okClick()" cdkFocusInitial>Ok</button>
+</div>
+  
 </div>

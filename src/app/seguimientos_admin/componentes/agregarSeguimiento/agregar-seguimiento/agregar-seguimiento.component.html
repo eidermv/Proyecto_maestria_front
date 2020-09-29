@@ -1,127 +1,187 @@
-Nombre valido? {{getNombreValid()}} -  Nombre Invalido? {{getNombreInvalid()}}  Nombre Touched: {{formulario.get('nombre').touched}}<br><br>
-Tipo valido? {{getTipoValid()}}<br>
-Tutor valido? {{getTutorValid()}}<br>
-Estudiante valido? {{getEstudianteValid()}}<br>
-Estado valido? {{getEstadoValid()}}<br>
-Cohorte valido? {{getCohorteValid()}}<br>
-Coodirector valido? {{getCoodirectorValid()}}<br>
-<mat-card>
-    <mat-card-header class="bg-info">
-        <mat-card-title style="background-color:#5bc0de;"> <br> <strong>Nuevo Seguimiento</strong> <br></mat-card-title>
-        <!-- <mat-card-subtitle>Agregar Seguimiento</mat-card-subtitle> -->
-    </mat-card-header>
-    <mat-card-content>
-        <form [formGroup]="formulario" (ngSubmit)="onSubmit($event)"> <br>
-            
-            <div class="row">                
-                <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <span class="input-group-text col-lg-3 col-md-4 col-sm-4 col-xs-4"
-                        style="position: relative; left: 2cm;">Nombre</span>
-                        <div *ngIf="!formulario.get('nombre').touched">
-                            <input    type="text " class="input col-lg-3 col-md-3 col-sm-2 col-xs-2" 
-                                placeholder="Nombre SIN TOCAR"
-                                style="position: relative; left: 2cm;" formControlName="nombre">
-                        </div>
-                        <div *ngIf="!formulario.get('nombre').valid && formulario.get('nombre').dirty">
-                            <input    type="text " class="is-danger input col-lg-3 col-md-3 col-sm-2 col-xs-2" 
-                                placeholder="Nombre CAMBIANDO"
-                                style="position: relative; left: 2cm;" formControlName="nombre"> 
-                                
-                        </div>
-                        <div *ngIf="formulario.get('nombre').valid&&formulario.get('nombre').dirty">
-                            <input   type="text " class="is-sucess input col-lg-3 col-md-3 col-sm-2 col-xs-2" 
-                           
-                            placeholder="Nombre CAMBIANDO"
-                            style="position: relative; left: 2cm;" formControlName="nombre">
-                        </div>
-                            <br>
-                       
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-lg-12 ">
+            <div class="card ">
+                <div class="card-header bg-info" style="text-align: center;">
+                    <strong>AGREGAR SEGUIMIENTO</strong>
                 </div>
-                
-                        
-                <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <span class="input-group-text col-lg-3 col-md-4 col-sm-4 col-xs-4">Tipo: </span>
-                    <select formControlName="tipo" class="redondeado col-lg-3 col-md-3 col-sm-2 col-xs-2" formControlName="tipo">
-                        <option value=" " [selected]="' '" disabled>Seleccione</option>
-                        <option value="tesis">Tesis</option>
-                        <option value="propuesta">Propuesta</option>
-                    </select>
-                </div>
-            </div> <br>
-            <div class="row">
-                <div id="tutor" class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <span class="input-group-text col-lg-3 col-md-4 col-sm-4 col-xs-4"
-                        style="position: relative; left: 2cm;">Tutor: </span>
-                    <input type="search" placeholder="Buscar Tutor" aria-label="tutor" matInput
-                         [matAutocomplete]="autoTutor" class="redondeado col-lg-3 col-md-3 col-sm-2 col-xs-2"
-                        style="position: relative; left: 2cm;" formControlName="tutor">
-                    <i class="fa fa-plus-circle sinborde iconos fa-2x"
-                        style="color:blue; position: relative; left: 2cm;" data-toggle="modal" data-target="#myModal"
-                        (click)="crearTutor()"></i>
-                    <mat-autocomplete autoActiveFirstOption #autoTutor="matAutocomplete">
-                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                            <p>{{option}}</p>
-                        </mat-option>
-                    </mat-autocomplete>
-                </div>
-                <div id="estudiante" class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <span class="input-group-text col-lg-3 col-md-4 col-sm-4 col-xs-4"
-                        >Estudiante: </span>
-                    <input type="search" placeholder="Buscar Estudiante" aria-label="estudiante" matInput
-                         [matAutocomplete]="autoEstudiante" class="redondeado col-lg-3 col-md-3 col-sm-2 col-xs-2"
-                        formControlName="estudiante">                   
-                    <mat-autocomplete autoActiveFirstOption #autoEstudiante="matAutocomplete">
-                        <mat-option *ngFor="let option2 of filteredOptions2 | async" [value]="option2">
-                            <p>{{option2}}</p>
-                        </mat-option>
-                    </mat-autocomplete>
-                </div>
-                
-            </div><br>
-            <div class="row">
-                <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <span class="input-group-text col-lg-3 col-md-4 col-sm-4 col-xs-4" style="position: relative; left: 2cm;">Estado: </span>
-                    <select formControlName="estado" class="redondeado col-lg-3 col-md-3 col-sm-2 col-xs-2" style="position: relative; left: 2cm;">
-                        <option value=" " [selected]="' '" disabled>Seleccione</option>
-                        <option value="iniciado">Iniciado</option>
-                        <option value="aprobado">Aprobado</option>
-                        <option value="no aprobado">No Aprobado</option>
-                    </select>                    
-                </div>
+                <div class="card-body">
+                    <form [formGroup]="formulario" (ngSubmit)="onSubmit()" #f="ngForm">
+                        <h1 class="title text-center">AGREGAR SEGUIMIENTO</h1>
+                        <p class="text-muted text-center">En este formulario podrá registrar los Seguimientos, los
+                            campos con * son obligatorios</p>
 
-                <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <span class="input-group-text col-lg-3 col-md-4 col-sm-4 col-xs-4"
-                        >Cohorte: </span>
-                        <select formControlName="cohorte" class="redondeado col-lg-3 col-md-3 col-sm-2 col-xs-2">
-                            <option value="" [selected]="''" disabled>Seleccione</option>
-                            <option [ngValue]="years" *ngFor="let years of optionsCohorte">{{years}}</option>
-                        </select>
+                        <div class="row">
+                            <div class="formGroup col-6">
+                                <i class="fa fa-exclamation-circle uncheck"
+                                    *ngIf="(formulario.get('nombre').errors?.required && formulario.get('nombre').touched ) ">
+                                    Nombre de Seguimiento vacio o digitó mas de 30 caracteres
+                                </i>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend ">
+                                        <span class="input-group-text"><i
+                                                class="fa fa-id-card-o"></i><small>Nombre</small></span>
+                                    </div>
+                                    <input type="text" class="form-control"
+                                        placeholder="* Digite nombre del seguimiento" formControlName="nombre">
+                                </div>
+                            </div>
+
+                            <div class="formGroup col-6">
+                                <i class="fa fa-exclamation-circle uncheck"
+                                    *ngIf="( formulario.get('tipo').errors?.required && formulario.get('tipo').touched ) ">
+                                    Este campo es obligatorio
+                                </i>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i
+                                                class="fa fa-envelope-o"></i><small>TIPO</small></span>
+                                    </div>
+                                    <select formControlName="tipo" class="form-control">
+                                        <option value=" " [selected]="' '" disabled>Seleccione</option>
+                                        <option value="tesis">Tesis</option>
+                                        <option value="propuesta">Propuesta</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="formGroup col-6">
+                                <i class="fa fa-exclamation-circle uncheck"
+                                    *ngIf="(formulario.get('tutor').errors?.required  && formulario.get('tutor').touched)">
+                                    Tutor vacio. Campo Obligatorio
+                                </i>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i
+                                                class="fa fa-user-circle"></i><small>tutor</small></span>
+                                    </div>
+                                    <select type="text" class="form-control" formControlName="tutor" #tutor>
+                                        <option [ngValue]="null" disabled hidden >Seleccione</option>
+                                        <option [ngValue]="o" *ngFor="let o of options">{{o.nombre+" "+o.apellido}}
+                                        </option>
+                                    </select>
+                                    <i class="button is-primary fa fa-plus-circle sinborde iconos fa-2x"
+                                        data-toggle="modal"
+                                        data-target="#myModal" (click)="crearTutor()"></i>                                    
+                                </div>
+                            </div>
+
+                            <div class="formGroup col-6">
+                                <i class="fa fa-exclamation-circle uncheck"
+                                    *ngIf="(formulario.get('estudiante').errors?.required  && formulario.get('estudiante').touched)">
+                                    Nombre de Estudiante vacío
+                                </i>
+
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-user-circle"></i>
+                                            <small>Estudiante</small></span>
+                                    </div>
+                                    <select type="text" class="form-control" formControlName="estudiante" #estudiante>
+                                        <option [ngValue]="null" disabled hidden >Seleccione</option>
+                                        <option [ngValue]="oe" *ngFor="let oe of options2">{{oe.getName()+" "+oe.getSurname()}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="formGroup col-6">
+                                <i class="fa fa-exclamation-circle uncheck"
+                                    *ngIf="(formulario.get('estado').errors?.required  && formulario.get('estado').touched)">
+                                    Estado sin seleccionar. Campo Obligatorio
+                                </i>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i
+                                                class="fa fa-user-circle"></i><small>Estado Proyecto</small></span>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="* Estado"
+                                        formControlName="estado">
+                                </div>
+                            </div>
+
+                            <div class="formGroup col-6">
+                                <i class="fa fa-exclamation-circle uncheck"
+                                    *ngIf="(formulario.get('cohorte').errors?.required  && formulario.get('cohorte').touched)">
+                                    Cohorte sin Seleccionar
+                                </i>
+
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-user-circle"></i>
+                                            <small>Cohorte</small></span>
+                                    </div>
+                                   
+                                    <select type="text" class="form-control" formControlName="cohorte" #cohorteStudent>
+                                        <option [ngValue]="null" disabled hidden >Seleccione</option>
+                                        <option [ngValue]="years" *ngFor="let years of optionsCohorte">{{years}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="formGroup col-6">
+                                <i class="fa fa-exclamation-circle uncheck"
+                                    *ngIf="(formulario.get('coodirector').errors?.required  && formulario.get('coodirector').touched)">
+                                    Coodirector Vacío. Campo Obligatorio
+                                </i>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i
+                                                class="fa fa-user-circle"></i><small>Coodirector</small></span>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="* Coodirector"
+                                        formControlName="coodirector">
+                                </div>
+                            </div>
+                            <div class="formGroup col-6">
+                                <i class="fa fa-exclamation-circle uncheck"
+                                    *ngIf="(formulario.get('estado').errors?.required  && formulario.get('estado').touched)">
+                                    Estado sin seleccionar. Campo Obligatorio
+                                </i>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend ">
+                                        <span class="input-group-text"><i
+                                                class="fa fa-user-circle"></i><small>Estado Seguimiento</small></span>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="* Estado Seguimiento. ej. Aceptado, Rechazado"
+                                        formControlName="estadoSeguimiento">
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="formGroup col-6">
+                                <i class="fa fa-exclamation-circle uncheck"
+                                    *ngIf="(formulario.get('objetivo').errors?.required  && formulario.get('objetivo').touched)">
+                                    Objetivo Vacío. Campo Obligatorio
+                                </i>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i
+                                                class="fa fa-user-circle"></i><small>Objetivo General</small></span>
+                                    </div>
+                                    
+                                        <textarea type="text" placeholder="* O. General" formControlName="objetivo" cols="50" rows="5"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="text-align:right">
+                            <button type="button" class="button is-danger" (click)="cancelar()" 
+                                >Cancelar
+                            </button>
+                            <button type="submit"  class="button is-info"
+                                [disabled]="formulario.invalid">Guardar
+                            </button>
+                            
+                        </div>
+                    </form>
                 </div>
-                
             </div>
-            <br>
-            <div class="row">
-                <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <span class="input-group-text col-lg-3 col-md-4 col-sm-4 col-xs-4"
-                        style="position: relative; left: 2cm;">Coodirector</span>
-                    <input type="text " class="redondeado col-lg-3 col-md-3 col-sm-2 col-xs-2" placeholder="Nombre Coodirector"
-                        style="position: relative; left: 2cm;" formControlName="coodirector">                                              
-                </div>
-                
-                        
-                
-            </div> <br><br>
-            <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12"
-                style="position: relative; left: 25%;">
-                <span class="input-group-text col-lg-4 col-md-10 col-sm-12 col-xs-12">Objetivo General: </span>
-                <textarea name="objetivoGeneral" id="" class="redondeado" cols="30" rows="3" formControlName="objetivo"></textarea>
-            </div>
-            <br>
-            <mat-progress-bar mode="determinate" value="{{porcentaje}}"></mat-progress-bar>
-            <br><br>
-            <button  *ngIf="formularioValido()"  style="position: relative; left: 40%;" type="submit" class="btn btn-primary">Guardar</button>
-            <button  *ngIf="!formularioValido()"  style="position: relative; left: 40%;" disabled type="submit" class="btn btn-primary">Guardar</button>
-            <button  style="position: relative; left: 41%;"  class="btn btn-danger" (click)="cancelar()">Cancelar</button>
-        </form>
-    </mat-card-content>
-</mat-card>
+        </div>
+    </div>
+</div>

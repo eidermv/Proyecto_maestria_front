@@ -50,6 +50,7 @@ export class VerTutorComponent implements OnInit {
   okClick() {
     this.dialogRef.close();
   }
+ 
   separar()
   {
     console.log("PRESIONO ENTER")

@@ -109,5 +109,8 @@ seguimiento:Seguimiento;
       }
     });
   }
-
+  ok()
+  {
+    this.dialogoReg.close();
+  }
 }

@@ -1,3 +1,7 @@
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { ActividadesTutorServices } from './../../servicios/actividadesTutor.service';
+import { ActividadTutor } from './../../modelos/actividadTutor.model';
+import { SeguimientosTutorServices } from './../../servicios/seguimientosTutor.service';
 import { Seguimiento } from './../../../seguimientos_admin/modelos/seguimiento.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { EditarSeguimientoComponent } from './../../../seguimientos_admin/componentes/editarSeguimiento/editar-seguimiento/editar-seguimiento.component';
@@ -17,7 +21,8 @@ import { EditarActividadTutorComponent } from '../editar-actividad-tutor/editar-
 })
 export class EditarSeguimientoTutorComponent implements OnInit {
   displayedColumns: string[] = ['Codigo', 'Nombre', 'Tipo', 'Estudiante', 'Estado', 'Accion'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+  actividades: ActividadTutor[] = [];
+  dataSource = new MatTableDataSource(this.actividades);
   panelOpenState = false;
   formulario: FormGroup;
   seguimiento: Seguimiento;
@@ -25,11 +30,14 @@ export class EditarSeguimientoTutorComponent implements OnInit {
   objEspec: string[];
   @Output()banNotificaciones = new EventEmitter<boolean>();
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private dialog: MatDialog) { }
+  constructor(private formBuilder: FormBuilder, private router: Router, private dialog: MatDialog,
+    private seguimientoTutorService: SeguimientosTutorServices, private actividadesTutorService: ActividadesTutorServices) { }
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   ngOnInit(): void {
+    this.actividades = this.actividadesTutorService.obtenerActividades();
+    this.dataSource = new MatTableDataSource(this.actividades);
     let oe = '';
     let cont = 1;
     this.objEspec = [];
@@ -42,10 +50,11 @@ export class EditarSeguimientoTutorComponent implements OnInit {
         ],
         tipo: [this.seguimiento.tipo, []],
         tutor: [this.seguimiento.tutor, []],
+        coodirector : [this.seguimiento.tutor, []],
         estudiante: [this.seguimiento.estudiante, []],
         estado: [this.seguimiento.estado, []],
-        objetivoGeneral:[this.seguimiento.oGeneral,[]],
-        objetivosEspec:[this.seguimiento.oEspecificos,[]]
+        objetivoGeneral:[this.seguimiento.oGeneral, []],
+        objetivosEspec:[this.seguimiento.oEspecificos, []]
       });
       this.formulario.valueChanges.pipe(
         debounceTime(350)
@@ -81,23 +90,3 @@ export class EditarSeguimientoTutorComponent implements OnInit {
   }
 
 }
-
-export interface PeriodicElement {
-  Codigo: number;
-  Nombre: string;
-  Tipo: string;
-  Estudiante: string;
-  Estado: string;
-  Accion: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {Codigo: 1, Nombre: 'Requisitos NF', Tipo: 'tesis', Estudiante: 'Santiago Castillo', Estado: 'inicio', Accion: ''},
-  {Codigo: 2, Nombre: 'Modelo de NF', Tipo: 'tesis', Estudiante: 'Jhonatan Zuñiga', Estado: 'inicio', Accion: ''},
-  {Codigo: 3, Nombre: 'Modelo de NF', Tipo: 'tesis', Estudiante: 'Jhonatan Zuñiga', Estado: 'inicio', Accion: ''},
-  {Codigo: 4, Nombre: 'Modelo de NF', Tipo: 'tesis', Estudiante: 'Jhonatan Zuñiga', Estado: 'inicio', Accion: ''},
-  {Codigo: 5, Nombre: 'Modelo de NF', Tipo: 'tesis', Estudiante: 'Jhonatan Zuñiga', Estado: 'inicio', Accion: ''},
-  {Codigo: 6, Nombre: 'Modelo de NF', Tipo: 'tesis', Estudiante: 'Jhonatan Zuñiga', Estado: 'inicio', Accion: ''},
-  {Codigo: 7, Nombre: 'Modelo de NF', Tipo: 'tesis', Estudiante: 'Jhonatan Zuñiga', Estado: 'inicio', Accion: ''},
-  {Codigo: 8, Nombre: 'Modelo de NF', Tipo: 'tesis', Estudiante: 'Jhonatan Zuñiga', Estado: 'inicio', Accion: ''},
-];

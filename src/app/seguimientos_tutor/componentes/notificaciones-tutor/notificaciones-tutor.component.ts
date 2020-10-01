@@ -1,3 +1,4 @@
+import { SeguimientoTutor } from './../../modelos/seguimientoTutor.model';
 import { Router } from '@angular/router';
 import { Component, OnInit, Input, ViewChild} from '@angular/core';
 import { MatSort } from '@angular/material/sort';
@@ -7,6 +8,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatDialogRef } from '@angular/material/dialog';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
+import { SeguimientosTutorServices } from '../../servicios/seguimientosTutor.service';
 // tslint:disable-next-line: class-name
 export interface notificacionesTutor {
   Codigo: number;
@@ -27,9 +29,10 @@ const ELEMENT_DATA: notificacionesTutor[] = [
   styleUrls: ['./notificaciones-tutor.component.css']
 })
 export class NotificacionesTutorComponent implements OnInit {
-  notificaciones: notificacionesTutor;
+  notificacionesInstance: SeguimientoTutor;
+  notificaciones: SeguimientoTutor[]=[];
   displayedColumns: string[] = ['Codigo', 'Nombre', 'Tipo', 'Estudiante', 'Estado', 'Accion'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+  dataSource = new MatTableDataSource(this.notificaciones);
   /*columnas = [
     {titulo: 'Codigo', name: 'Codigo' },
     {titulo: 'Nombre', name: 'Nombre' },
@@ -38,10 +41,12 @@ export class NotificacionesTutorComponent implements OnInit {
     {titulo: 'Estado', name: 'Estado' },
     {titulo: 'Accion', name: 'Accion' },
   ];*/
-  constructor(private router: Router, public dialogoReg: MatDialogRef<NotificacionesTutorComponent>) { }
+  constructor(private router: Router, public dialogoReg: MatDialogRef<NotificacionesTutorComponent>, private segumientoTutorService:SeguimientosTutorServices) {}
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   ngOnInit(): void {
+    this.notificaciones = this.segumientoTutorService.obtenerNotificaciones();
+    this.dataSource = new MatTableDataSource(this.notificaciones);
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
   }

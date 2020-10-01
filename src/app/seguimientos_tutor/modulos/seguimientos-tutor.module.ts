@@ -1,7 +1,6 @@
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { SeguimientosService } from './../../seguimientos_admin/servicios/seguimientos.service';
+import { ActividadesTutorServices } from './../servicios/actividadesTutor.service';
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 import { SeguimientosTutorRoutingModule } from './seguimientos-tutor-routing.module';
 import { ListTutorSeguimientosComponent } from '../componentes/list-tutor-seguimientos/list-tutor-seguimientos.component';
@@ -27,6 +26,8 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatRadioModule} from '@angular/material/radio';
+// Importaciones de los servicios
+import { SeguimientosTutorServices } from '../servicios/seguimientosTutor.service';
 
 @NgModule({
   declarations: [
@@ -43,11 +44,11 @@ import {MatRadioModule} from '@angular/material/radio';
     MatIconModule,
     MatPaginatorModule,
     MatCardModule,
-
     MatDialogModule,
     MatExpansionModule,
     MatBadgeModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatCheckboxModule
   ],
   exports:[
     MatDatepickerModule,
@@ -59,6 +60,6 @@ import {MatRadioModule} from '@angular/material/radio';
     MatButtonModule,
     MatExpansionModule
   ],
-  providers: [SeguimientosService],
+  providers: [SeguimientosTutorServices, ActividadesTutorServices, DatePipe],
 })
 export class SeguimientosTutorModule { }

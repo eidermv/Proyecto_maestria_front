@@ -1,3 +1,4 @@
+import { notificacionesTutor } from './../notificaciones-tutor/notificaciones-tutor.component';
 import {Router} from '@angular/router';
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
@@ -5,7 +6,9 @@ import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { NotificacionesTutorComponent } from '../notificaciones-tutor/notificaciones-tutor.component';
-
+// Servicios
+import { SeguimientosTutorServices } from '../../servicios/seguimientosTutor.service';
+import { SeguimientoTutor } from '../../modelos/seguimientoTutor.model';
 @Component({
   selector: 'app-list-tutor-seguimientos',
   templateUrl: './list-tutor-seguimientos.component.html',
@@ -14,20 +17,16 @@ import { NotificacionesTutorComponent } from '../notificaciones-tutor/notificaci
 export class ListTutorSeguimientosComponent implements OnInit {
   hidden = false;
   displayedColumns: string[] = ['Codigo', 'Nombre', 'Tipo', 'Estudiante', 'Estado', 'Accion'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+  segumientos: SeguimientoTutor[] = [];
+  dataSource = new MatTableDataSource(this.segumientos);
   bandera = true;
-  /*columnas = [
-    {titulo: 'Codigo', name: 'Codigo' },
-    {titulo: 'Nombre', name: 'Nombre' },
-    {titulo: 'Tipo', name: 'Tipo' },
-    {titulo: 'Estudiante', name: 'Estudiante' },
-    {titulo: 'Estado', name: 'Estado' },
-    {titulo: 'Accion', name: 'Accion' },
-  ];*/
-  constructor(private router: Router, private dialog: MatDialog) { }
+
+  constructor(private router: Router, private dialog: MatDialog, private seguimientosServiceTutor: SeguimientosTutorServices) {}
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   ngOnInit(): void {
+    this.segumientos = this.seguimientosServiceTutor.obtenerSeguimientosTutor();
+    this.dataSource = new MatTableDataSource(this.segumientos);
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
   }
@@ -38,10 +37,10 @@ export class ListTutorSeguimientosComponent implements OnInit {
     this.bandera = event;
     console.log('imprimiendo desde notificaciones: ', this.bandera);
   }
-  contarNoticaciones(){
+  contarNoticaciones() {
     this.hidden = !this.hidden;
   }
-  notificaciones(row: PeriodicElement) {
+  notificaciones(row: SeguimientoTutor) {
     const dialogRef = this.dialog.open(NotificacionesTutorComponent, {
       width: '800px',
       data:{}
@@ -49,29 +48,9 @@ export class ListTutorSeguimientosComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
-    dialogRef.componentInstance.notificaciones = row;
+    dialogRef.componentInstance.notificacionesInstance = row;
   }
 }
-
-export interface PeriodicElement {
-  Codigo: number;
-  Nombre: string;
-  Tipo: string;
-  Estudiante: string;
-  Estado: string;
-  Accion: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {Codigo: 1, Nombre: 'Requisitos NF', Tipo: 'tesis', Estudiante: 'Santiago Castillo', Estado: 'inicio', Accion: ''},
-  {Codigo: 2, Nombre: 'Modelo de NF', Tipo: 'tesis', Estudiante: 'Jhonatan Zuñiga', Estado: 'inicio', Accion: ''},
-  {Codigo: 3, Nombre: 'Modelo de NF', Tipo: 'tesis', Estudiante: 'Jhonatan Zuñiga', Estado: 'inicio', Accion: ''},
-  {Codigo: 4, Nombre: 'Modelo de NF', Tipo: 'tesis', Estudiante: 'Jhonatan Zuñiga', Estado: 'inicio', Accion: ''},
-  {Codigo: 5, Nombre: 'Modelo de NF', Tipo: 'tesis', Estudiante: 'Jhonatan Zuñiga', Estado: 'inicio', Accion: ''},
-  {Codigo: 6, Nombre: 'Modelo de NF', Tipo: 'tesis', Estudiante: 'Jhonatan Zuñiga', Estado: 'inicio', Accion: ''},
-  {Codigo: 7, Nombre: 'Modelo de NF', Tipo: 'tesis', Estudiante: 'Jhonatan Zuñiga', Estado: 'inicio', Accion: ''},
-  {Codigo: 8, Nombre: 'Modelo de NF', Tipo: 'tesis', Estudiante: 'Jhonatan Zuñiga', Estado: 'inicio', Accion: ''},
-];
 
 
 

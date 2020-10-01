@@ -24,23 +24,22 @@
         <div class="row">
             <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <span class="input-group-text col-lg-6 col-md-6 col-sm-6 col-xs-6">Tutor:</span>
-                <input disabled class="col-lg-6 col-md-6 col-sm-6 col-xs-6" type="text" id="identificación"
-                    >
+                <input disabled class="col-lg-6 col-md-6 col-sm-6 col-xs-6" type="text" id="identificación">
             </div>
             <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <span class="input-group-text col-lg-6 col-md-6 col-sm-6 col-xs-6">Estudiante:</span>
-                <input disabled class="col-lg-6 col-md-6 col-sm-6 col-xs-6" type="text" id="telefono"
-                    >
+                <span class="input-group-text col-lg-6 col-md-6 col-sm-6 col-xs-6">Coodirector:</span>
+                <input disabled class="col-lg-6 col-md-6 col-sm-6 col-xs-6" type="text" id="telefono">
             </div>
         </div> <br>
         <div class="row">
             <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <span class="input-group-text col-lg-6 col-md-6 col-sm-6 col-xs-6">Estado:</span>
-                <input disabled class="col-lg-6 col-md-6 col-sm-6 col-xs-6" type="email" id="correo"
-                   >
+                <span class="input-group-text col-lg-6 col-md-6 col-sm-6 col-xs-6">Estudiante:</span>
+                <input disabled class="col-lg-6 col-md-6 col-sm-6 col-xs-6" type="email" id="correo">
             </div>
-
-
+            <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <span class="input-group-text col-lg-6 col-md-6 col-sm-6 col-xs-6">Estado:</span>
+                <input disabled class="col-lg-6 col-md-6 col-sm-6 col-xs-6" type="email" id="correo">
+            </div>
         </div>
         <br>
         <div class="row">
@@ -67,6 +66,8 @@
                         {{panelOpenState ? 'Ocultar ' : 'Ver '}} actividades asignadas a este seguimiento
                     </mat-panel-description>
                 </mat-expansion-panel-header>
+                <h3>¿Desea que el coordinador vea todas las actividad?</h3>
+                <mat-checkbox class="example-margin">Mostrar actividades</mat-checkbox>
                 <p class="full">
                   <button class="btn btn-primary izq" (click)="agregarActividad()">Agregar</button>
                 </p>
@@ -74,30 +75,30 @@
                   <!-- Position Column -->
                   <ng-container matColumnDef="Codigo">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Código </th>
-                    <td mat-cell *matCellDef="let element"> {{element.Codigo}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
                   </ng-container>
 
                   <!-- Name Column -->
                   <ng-container matColumnDef="Nombre">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
-                    <td mat-cell *matCellDef="let element"> {{element.Nombre}} </td>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Semana </th>
+                    <td mat-cell *matCellDef="let element"> {{element.semana}} </td>
                   </ng-container>
 
                   <!-- Weight Column -->
                   <ng-container matColumnDef="Tipo">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo </th>
-                    <td mat-cell *matCellDef="let element"> {{element.Tipo}} </td>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha inicio </th>
+                    <td mat-cell *matCellDef="let element"> {{element.fecha_inicio|date}} </td>
                   </ng-container>
 
                   <!-- Symbol Column -->
                   <ng-container matColumnDef="Estudiante">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Estudiante </th>
-                    <td mat-cell *matCellDef="let element"> {{element.Estudiante}} </td>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha entrega </th>
+                    <td mat-cell *matCellDef="let element"> {{element.fecha_entrega|date}} </td>
                   </ng-container>
                   <!-- Symbol Column -->
                   <ng-container matColumnDef="Estado">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
-                    <td mat-cell *matCellDef="let element"> {{element.Estado}} </td>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Cumplido </th>
+                    <td mat-cell *matCellDef="let element"> {{element.cumplido}} </td>
                   </ng-container>
                   <!-- Symbol Column -->
                   <ng-container matColumnDef="Accion">

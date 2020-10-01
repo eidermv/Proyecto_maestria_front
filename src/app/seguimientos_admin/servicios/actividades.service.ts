@@ -43,7 +43,7 @@ crearActividad(id: number): Actividad {
     if(this.cump==0)
     this.cump=1;
     else this.cump=0;
-
+    console.log("FECHAAAA:  ",fi);
     return {
       id:this.id,
     semana:sem,

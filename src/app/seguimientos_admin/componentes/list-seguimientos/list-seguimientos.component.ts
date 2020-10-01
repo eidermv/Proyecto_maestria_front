@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { VerSeguimientoComponent } from '../verSeguimiento/ver-seguimiento/ver-seguimiento.component';
 import { PdfMakeWrapper, Table, Txt } from 'pdfmake-wrapper';
 import pdfFonts from "pdfmake/build/vfs_fonts"; 
+import { EditarSeguimientoComponent } from '../editarSeguimiento/editar-seguimiento/editar-seguimiento.component';
 PdfMakeWrapper.setFonts(pdfFonts);
 
 
@@ -58,6 +59,21 @@ export class ListSeguimientosComponent implements OnInit {
     pdf.watermark('UNIVERSIDAD DEL CAUCA'); 
     pdf.add(this.crearTabla(this.seguimientos));
     pdf.create().download();
+  }
+  editarSeguimiento(row:Seguimiento)
+  {
+    console.log("EDITAR");
+    const dialogRef = this.dialog.open(EditarSeguimientoComponent, {
+      width: '800px',
+      height:'500px',
+      data:{}
+    });
+    dialogRef.componentInstance.seguimiento=row;
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+    
+
   }
   crearTabla(body:any[])
   {

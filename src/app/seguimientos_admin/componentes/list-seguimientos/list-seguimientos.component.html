@@ -48,7 +48,7 @@
         <td mat-cell *matCellDef="let row">
           <div class="btn-group">
             <a class="btn" (click)="verSeguimiento(row)"><i class="fa fa-eye"></i></a>
-            <app-editar-seguimiento [seguimiento]=row></app-editar-seguimiento>
+            <a class="btn" (click)="editarSeguimiento(row)"><i class="fa fa-pencil"></i></a>
             <app-eliminar-seguimiento [seguimiento]=row></app-eliminar-seguimiento>
           </div>
         </td>

@@ -19,7 +19,7 @@ import { CrearTutorComponent } from '../../tutores/crear-tutor/crear-tutor.compo
   styleUrls: ['./editar-seguimiento.component.css']
 })
 export class EditarSeguimientoComponent implements OnInit {
-  seguimiento:Seguimiento;
+  @Input() seguimiento:Seguimiento;
   formulario: FormGroup;
   porcentaje:number;
   YEAR_END_COHORTE: number;

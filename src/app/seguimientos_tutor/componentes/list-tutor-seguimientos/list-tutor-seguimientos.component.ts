@@ -20,6 +20,7 @@ export class ListTutorSeguimientosComponent implements OnInit {
   segumientos: SeguimientoTutor[] = [];
   dataSource = new MatTableDataSource(this.segumientos);
   bandera = true;
+  seguimiento:SeguimientoTutor;
 
   constructor(private router: Router, private dialog: MatDialog, private seguimientosServiceTutor: SeguimientosTutorServices) {}
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -29,9 +30,11 @@ export class ListTutorSeguimientosComponent implements OnInit {
     this.dataSource = new MatTableDataSource(this.segumientos);
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
+    this.seguimiento= this.seguimientosServiceTutor.Seguimiento[0];
   }
-  editarSeguimientoTutor() {
+  editarSeguimientoTutor(element:SeguimientoTutor) {
     this.bandera = !this.bandera;
+    this.seguimiento=element;
   }
   notificar(event) {
     this.bandera = event;

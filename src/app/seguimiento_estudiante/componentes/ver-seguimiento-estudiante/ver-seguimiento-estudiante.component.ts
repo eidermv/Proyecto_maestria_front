@@ -37,7 +37,8 @@ export class VerSeguimientoEstudianteComponent implements OnInit {
         tipo: [this.seguimiento.tipo, []],
         tutor: [this.seguimiento.tutor, []],
         estudiante: [this.seguimiento.estudiante, []],
-        estado: [this.seguimiento.estado, []],
+        estado: [this.seguimiento.estado, []],        
+        coodirector: [this.seguimiento.coodirector, []],
         objetivoGeneral:[this.seguimiento.oGeneral,[]],
         objetivosEspec:[this.seguimiento.oEspecificos,[]]
       });

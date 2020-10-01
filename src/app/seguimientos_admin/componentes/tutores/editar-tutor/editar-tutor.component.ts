@@ -38,10 +38,10 @@ export class EditarTutorComponent implements OnInit {
           Validators.maxLength(50)]
           ],
         identificacion: [this.tutor.identificacion, [Validators.required]],
-        telefono: [this.tutor.telefono, [Validators.required]],
+        telefono: [this.tutor.telefono, []],
         correo: [this.tutor.correo, [Validators.required,Validators.email]],
-        grupoInvestigacion:[this.tutor.grupoInvestigacion,[Validators.required]],
-        departamento:[this.tutor.departamento,[Validators.required]],
+        grupoInvestigacion:[this.tutor.grupoInvestigacion,[]],
+        departamento:[this.tutor.departamento,[]],
         tipo: [this.tutor.tipo,[Validators.required]],
         universidad:[this.tutor.universidad,[Validators.required]]
       });

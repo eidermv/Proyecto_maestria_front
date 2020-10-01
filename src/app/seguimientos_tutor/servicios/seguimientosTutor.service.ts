@@ -4,6 +4,9 @@ import { DataSource } from '@angular/cdk/table';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { SeguimientoTutor } from '../modelos/seguimientoTutor.model';
+import { TipoSeguimiento } from '../../seguimientos_admin/modelos/tipoSeguimiento.model';
+import { EstadoProyecto } from '../../seguimientos_admin/modelos/estadosProyecto.model';
+import { EstadoSeguimiento } from '../../seguimientos_admin/modelos/estadoSeguimiento.model';
 
 @Injectable()
 // tslint:disable-next-line: class-name
@@ -121,6 +124,46 @@ export class SeguimientosTutorServices {
   //Se usa para recibir la información de los seguimientos relacionados con un tutor
   obtenerSeguimientosTutor() {
     return this.seguimientos;
+  }
+  onEstadosSeguimientos()
+  {
+    
+  }
+  estadosSeguimientos():EstadoSeguimiento[]
+  {
+    this.onEstadosSeguimientos(); //Hago peticion
+    let nuevo:EstadoSeguimiento[] =[
+      {id:1, nombre:"Aceptado"},
+      {id:2, nombre:"Rechazado"}
+    ];
+    console.log("Retornando desde estados:  ",nuevo);
+    return nuevo;
+  }
+  onEstadosProyecto()
+  {
+    
+  }
+  estadosProyecto():EstadoProyecto[]
+  {
+    this.onEstadosProyecto(); //Hago peticion
+    let nuevo:EstadoProyecto[] =[
+      {id:1, nombre:"Cancelado"},
+      {id:2, nombre:"Iniciado"}
+    ];
+    return nuevo;
+  }
+  onTiposSeguimiento()
+  {
+    
+  }
+  tiposSeguimiento():TipoSeguimiento[]
+  {
+    this.onTiposSeguimiento(); //Hago peticion
+    let nuevo:TipoSeguimiento[] =[
+      {id:1, nombre:"Tesis"},
+      {id:2, nombre:"Propuesta"}
+    ];
+    return nuevo;
   }
 
   // Se usa para enviar la informacion editada por el tutor

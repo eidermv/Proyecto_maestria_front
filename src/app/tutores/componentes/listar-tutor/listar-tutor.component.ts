@@ -83,7 +83,7 @@ export class ListarTutorComponent implements OnInit {
   {
     this.tutorService.eliminarTutor(identificacion);
     Swal.fire({
-      title: 'ELIMINAR SEGUIMIENTO',
+      title: 'ELIMINAR TUTOR',
       allowOutsideClick: false,
       showClass: {
         popup: 'animate__animated animate__fadeInDown'

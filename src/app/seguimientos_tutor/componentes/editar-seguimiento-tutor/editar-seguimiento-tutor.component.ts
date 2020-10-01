@@ -43,23 +43,10 @@ export class EditarSeguimientoTutorComponent implements OnInit {
     this.objEspec = [];
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
-    this.formulario = this.formBuilder.group(
-      {
-        nombre: [this.seguimiento.nombre, [Validators.required,
-        Validators.maxLength(50)]
-        ],
-        tipo: [this.seguimiento.tipo, []],
-        tutor: [this.seguimiento.tutor, []],
-        coodirector : [this.seguimiento.tutor, []],
-        estudiante: [this.seguimiento.estudiante, []],
-        estado: [this.seguimiento.estado, []],
-        objetivoGeneral:[this.seguimiento.oGeneral, []],
-        objetivosEspec:[this.seguimiento.oEspecificos, []]
-      });
-      this.formulario.valueChanges.pipe(
-        debounceTime(350)
-        ).subscribe(
-          value=>{})
+    this.seguimiento=this.seguimientoTutorService.Seguimiento[0];
+    console.log("Seguimiento a Cargar",this.seguimiento);
+    this.crearFormulario();
+    
   }
   volver() {
     //this.router.navigate(['/seguimientos_tutor/']);
@@ -76,6 +63,25 @@ export class EditarSeguimientoTutorComponent implements OnInit {
       console.log('The dialog was closed');
 
     });
+  }
+  crearFormulario()
+  {
+    this.formulario = this.formBuilder.group(
+      {
+        nombre: [this.seguimiento.nombre, 
+        ],
+        tipo: [this.seguimiento.tipo, []],
+        tutor: [this.seguimiento.tutor, []],
+        coodirector : [this.seguimiento.tutor, []],
+        estudiante: [this.seguimiento.estudiante, []],
+        estado: [this.seguimiento.estado, []],
+        objetivoGeneral:[this.seguimiento.oGeneral, []],
+        objetivosEspec:[this.seguimiento.oEspecificos, []]
+      });
+      this.formulario.valueChanges.pipe(
+        debounceTime(350)
+        ).subscribe(
+          value=>{})
   }
   agregarActividad(){
     const dialogRef = this.dialog.open(EditarActividadTutorComponent, {

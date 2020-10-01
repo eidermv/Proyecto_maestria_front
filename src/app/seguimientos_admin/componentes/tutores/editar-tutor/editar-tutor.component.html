@@ -132,16 +132,16 @@
                                         <span class="input-group-text"><i
                                                 class="fa fa-user-circle"></i><small>Tipo</small></span>
                                     </div>
-                                    <select  type="text" class="form-control" formControlName="tipo" #tipo>
-                                        <option [ngValue]="defaultValue" disabled hidden >{{defaultValue}}</option>
-                                        <option value="externo" > Externo</option>
-                                        <option value="interno"> Interno</option>
+                                    <select type="text" class="form-control" formControlName="tipo" #tipo>
+                                        <option [ngValue]="tutor.tipo" disabled hidden >{{tutor.tipo}}</option>
+                                        <option [ngValue]="oe" *ngFor="let oe of optionsTiposTutor">{{oe.nombre}}
+                                        </option>
                                     </select>
                                    
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row" *ngIf="formulario.get('tipo').value!=null&&formulario.get('tipo').value.nombre==='Externo'"  >
                             <div class="formGroup col-6">
                                 <i class="fa fa-exclamation-circle uncheck"
                                     *ngIf="(formulario.get('universidad').errors?.required  && formulario.get('universidad').touched)">

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Tutor } from '../modelos/tutor.model';
+import { TipoTutor } from '../modelos/tipoTutor.model';
 const httpOptions = new HttpHeaders({ 'Content-Type': 'application/json'});
 
 @Injectable()
@@ -35,5 +36,18 @@ export class TutorService {
             universidad:"Universidad del Cauca"            
         };
         this.tutores.push(nuevo);
+    }
+    onTiposTutor()
+    {
+      
+    }
+    tiposTutor():TipoTutor[]
+    {
+      this.onTiposTutor(); //Hago peticion
+      let nuevo:TipoTutor[] =[
+        {id:1, nombre:"Externo"},
+        {id:2, nombre:"Interno"}
+      ];
+      return nuevo;
     }
 }

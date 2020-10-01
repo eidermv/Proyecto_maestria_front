@@ -28,30 +28,32 @@
                             </div>
 
                             <div class="formGroup col-6">
-                                <i class="fa fa-exclamation-circle uncheck"
+                               <!--  <i class="fa fa-exclamation-circle uncheck"
                                     *ngIf="( formulario.get('tipo').errors?.required && formulario.get('tipo').touched ) ">
                                     Este campo es obligatorio
-                                </i>
+                                </i> -->
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i
                                                 class="fa fa-envelope-o"></i><small>TIPO</small></span>
                                     </div>
-                                    <select formControlName="tipo" class="form-control">
-                                        <option value=" " [selected]="' '" disabled>Seleccione</option>
-                                        <option value="tesis">Tesis</option>
-                                        <option value="propuesta">Propuesta</option>
+                                   
+                                    <select type="text" class="form-control" formControlName="tipo" #tipoSeguimiento>
+                                        <option [ngValue]="null" disabled hidden >Seleccione</option>
+                                        <option [ngValue]="oe" *ngFor="let oe of optionsTiposSeguimiento">{{oe.nombre}}
+                                        </option>
                                     </select>
+                                    
                                 </div>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="formGroup col-6">
-                                <i class="fa fa-exclamation-circle uncheck"
+                                <!-- <i class="fa fa-exclamation-circle uncheck"
                                     *ngIf="(formulario.get('tutor').errors?.required  && formulario.get('tutor').touched)">
                                     Tutor vacio. Campo Obligatorio
-                                </i>
+                                </i> -->
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i
@@ -69,10 +71,10 @@
                             </div>
 
                             <div class="formGroup col-6">
-                                <i class="fa fa-exclamation-circle uncheck"
+                               <!--  <i class="fa fa-exclamation-circle uncheck"
                                     *ngIf="(formulario.get('estudiante').errors?.required  && formulario.get('estudiante').touched)">
                                     Nombre de Estudiante vacío
-                                </i>
+                                </i> -->
 
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
@@ -89,25 +91,28 @@
                         </div>
                         <div class="row">
                             <div class="formGroup col-6">
-                                <i class="fa fa-exclamation-circle uncheck"
+                              <!--   <i class="fa fa-exclamation-circle uncheck"
                                     *ngIf="(formulario.get('estado').errors?.required  && formulario.get('estado').touched)">
                                     Estado sin seleccionar. Campo Obligatorio
-                                </i>
+                                </i> -->
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i
                                                 class="fa fa-user-circle"></i><small>Estado Proyecto</small></span>
-                                    </div>
-                                    <input type="text" class="form-control" placeholder="* Estado"
-                                        formControlName="estado">
+                                    </div>                                   
+                                        <select type="text" class="form-control" formControlName="estado" #estadoProyecto>
+                                            <option [ngValue]="null" disabled hidden >Seleccione</option>
+                                            <option [ngValue]="oe" *ngFor="let oe of optionsEstadoProyecto">{{oe.nombre}}
+                                            </option>
+                                        </select>
                                 </div>
                             </div>
 
                             <div class="formGroup col-6">
-                                <i class="fa fa-exclamation-circle uncheck"
+                               <!--  <i class="fa fa-exclamation-circle uncheck"
                                     *ngIf="(formulario.get('cohorte').errors?.required  && formulario.get('cohorte').touched)">
                                     Cohorte sin Seleccionar
-                                </i>
+                                </i> -->
 
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
@@ -125,10 +130,10 @@
                         </div>
                         <div class="row">
                             <div class="formGroup col-6">
-                                <i class="fa fa-exclamation-circle uncheck"
+                               <!--  <i class="fa fa-exclamation-circle uncheck"
                                     *ngIf="(formulario.get('coodirector').errors?.required  && formulario.get('coodirector').touched)">
                                     Coodirector Vacío. Campo Obligatorio
-                                </i>
+                                </i> -->
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i
@@ -139,17 +144,21 @@
                                 </div>
                             </div>
                             <div class="formGroup col-6">
-                                <i class="fa fa-exclamation-circle uncheck"
-                                    *ngIf="(formulario.get('estado').errors?.required  && formulario.get('estado').touched)">
-                                    Estado sin seleccionar. Campo Obligatorio
-                                </i>
+                               <!--  <i class="fa fa-exclamation-circle uncheck"
+                                    *ngIf="(formulario.get('estadoSeguimiento').errors?.required  && formulario.get('estadoSeguimiento').touched)">
+                                    Estado de Proyecto sin seleccionar. Campo Obligatorio
+                                </i> -->
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend ">
                                         <span class="input-group-text"><i
                                                 class="fa fa-user-circle"></i><small>Estado Seguimiento</small></span>
                                     </div>
-                                    <input type="text" class="form-control" placeholder="* Estado Seguimiento. ej. Aceptado, Rechazado"
-                                        formControlName="estadoSeguimiento">
+                                    <select type="text" class="form-control" formControlName="estadoSeguimiento" #estadoSeguimiento>
+                                        <option [ngValue]="null" disabled hidden >Seleccione</option>
+                                        <option [ngValue]="oe" *ngFor="let oe of optionsEstadoSeguimiento">{{oe.nombre}}
+                                        </option>
+                                    </select>
+                                 
                                 </div>
                             </div>
 
@@ -170,6 +179,7 @@
                                 </div>
                             </div>
                         </div>
+                        <mat-progress-bar mode="determinate" value="{{porcentaje}}"></mat-progress-bar>
                         <div style="text-align:right">
                             <button type="button" class="button is-danger" (click)="cancelar()" 
                                 >Cancelar

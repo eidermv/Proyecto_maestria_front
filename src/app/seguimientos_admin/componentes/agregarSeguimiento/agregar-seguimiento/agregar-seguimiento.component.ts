@@ -12,6 +12,10 @@ import { EstudianteService } from '../../../servicios/estudiante.service';
 import { Student } from '../../../../models/student';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { CrearTutorComponent } from '../../tutores/crear-tutor/crear-tutor.component';
+import { EstadoSeguimiento } from '../../../modelos/estadoSeguimiento.model';
+import { SeguimientosService } from '../../../servicios/seguimientos.service';
+import { EstadoProyecto } from '../../../modelos/estadosProyecto.model';
+import { TipoSeguimiento } from '../../../modelos/tipoSeguimiento.model';
 
 
 @Component({
@@ -26,16 +30,23 @@ export class AgregarSeguimientoComponent implements OnInit {
   filteredOptions: Observable<string[]>;
   optionsCohorte: Array<string>;
   options2: Student[]=[];
+  optionsEstadoSeguimiento:EstadoSeguimiento[]=[];
+  optionsEstadoProyecto:EstadoProyecto[]=[];
+  optionsTiposSeguimiento:TipoSeguimiento[]=[];
   filteredOptions2: Observable<string[]>;
   cTutor: boolean = false;
   nuevoTutor:Tutor;
   porcentaje:number=0;
   @Output() bandAgregar= new EventEmitter<boolean>();
-  constructor(private formBuilder: FormBuilder, private tutorService: TutorService, private estudianteService:EstudianteService, private dialog: MatDialog) {
+  constructor(private formBuilder: FormBuilder, private tutorService: TutorService, private estudianteService:EstudianteService, private dialog: MatDialog, private seguimientoService:SeguimientosService) {
     this.tutorService.onTutores();
     this.estudianteService.onEstudiantes();
     this.YEAR_END_COHORTE = 2008;
     this.optionsCohorte = [];
+    this.optionsEstadoSeguimiento=this.seguimientoService.estadosSeguimientos();
+    this.optionsEstadoProyecto=this.seguimientoService.estadosProyecto();
+    this.optionsTiposSeguimiento=this.seguimientoService.tiposSeguimiento();
+
   }
   crearTutor() {
     const dialogRef = this.dialog.open(CrearTutorComponent, {
@@ -65,14 +76,14 @@ export class AgregarSeguimientoComponent implements OnInit {
         nombre: ['', [Validators.required,
         Validators.maxLength(30)]
         ],
-        tipo: ['',  [Validators.required]],
-        tutor: [null, [Validators.required]],
-        estudiante: [null, [Validators.required]],
-        cohorte:[null, [Validators.required]],
-        estado: ['', [Validators.required] ],
-        objetivo:['', [Validators.required] ],        
-        coodirector:['', [Validators.required] ],
-        estadoSeguimiento:['', [Validators.required]]
+        tipo: [null,  [/* Validators.required */]],
+        tutor: [null, [/* Validators.required */]],
+        estudiante: [null, [/* Validators.required */]],
+        cohorte:[null, [/* Validators.required */]],
+        estado: [null, [/* Validators.required */] ],
+        objetivo:['', [ Validators.required] ],        
+        coodirector:['', [/* Validators.required */] ],
+        estadoSeguimiento:[null, [/* Validators.required */]]
       });
       this.filteredOptions = this.formulario.get('tutor').valueChanges.pipe(debounceTime(350),
       /* startWith(''), */
@@ -86,15 +97,19 @@ export class AgregarSeguimientoComponent implements OnInit {
       debounceTime(350)
       ).subscribe(
         value=>{
+          console.log("VALUE:   ",value)
           let p=0;
-          if(value.nombre!="") p++;
-          if(value.tipo!="") p++;
-          if(value.tutor!="") p++;
-          if(value.estudiante!="") p++;
+          if(value.nombre !="") p++;
+          if(value.tipo!=null) p++;
+          if(value.tutor!=null) p++;
+          if(value.estudiante!=null) p++;
           if(value.estado!="") p++;
+          if(value.cohorte!=null) p++;
           if(value.objetivo!="") p++;
           if(value.coodirector!="") p++;
-          this.porcentaje=(100*p)/7;
+          if(value.estadoSeguimiento!=null) p++;          
+          if(value.objetivo!="") p++;
+          this.porcentaje=(10*p);
           console.log(value);
         }
       );
@@ -170,6 +185,7 @@ export class AgregarSeguimientoComponent implements OnInit {
       this.formulario.markAllAsTouched();
       //this.errorFormulario();
     }
+    this.crearFormulario();
   }
   
   errorFormulario() {

@@ -5,6 +5,8 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { Tutor } from '../../../modelos/tutor.model';
+import { TutorService } from '../../../servicios/tutor.service';
+import { TipoTutor } from '../../../modelos/tipoTutor.model';
 
 @Component({
   selector: 'app-crear-tutor',
@@ -14,12 +16,16 @@ import { Tutor } from '../../../modelos/tutor.model';
 export class CrearTutorComponent implements OnInit {
   formulario: FormGroup;
   externo:boolean=false;
+  optionsTiposTutor:TipoTutor[]=[];
+  
   @Output() tutor= new EventEmitter<Tutor>();
-  constructor(public dialogoReg:MatDialogRef<CrearTutorComponent>,private formBuilder: FormBuilder) {
+  constructor(public dialogoReg:MatDialogRef<CrearTutorComponent>,private formBuilder: FormBuilder, 
+    private tutorService:TutorService) {
 
 
   }
   ngOnInit(): void {
+    this.optionsTiposTutor=this.tutorService.tiposTutor();
     this.formulario = this.formBuilder.group(
       {
         nombre: ['', [Validators.required,
@@ -37,13 +43,12 @@ export class CrearTutorComponent implements OnInit {
         universidad:['',[Validators.required]]
       });
       this.formulario.get('tipo').valueChanges.subscribe(
-          value=>{
-            if(value==2)
+          value=>{  console.log(value); 
+            if(value.nombre!=null&& value.nombre==='Externo')
             {
               this.externo=true;
               this.formulario.get('universidad').setValue('');
             }
-
             else
             {
               this.externo=false;

@@ -134,13 +134,14 @@
                                     </div>
                                     <select type="text" class="form-control" formControlName="tipo" #tipo>
                                         <option [ngValue]="null" disabled hidden >Seleccione</option>
-                                        <option value="externo"> Externo</option>
-                                        <option value="interno"> Interno</option>
+                                        <option [ngValue]="oe" *ngFor="let oe of optionsTiposTutor">{{oe.nombre}}
+                                        </option>
                                     </select>
                                 </div>
                             </div>
                         </div>
-                        <div class="row" *ngIf="formulario.get('tipo').value==='externo'" >
+                        
+                        <div class="row" *ngIf="formulario.get('tipo').value!=null&&formulario.get('tipo').value.nombre==='Externo'" >
                             <div class="formGroup col-6">
                                 <i class="fa fa-exclamation-circle uncheck"
                                     *ngIf="(formulario.get('universidad').errors?.required  && formulario.get('universidad').touched)">

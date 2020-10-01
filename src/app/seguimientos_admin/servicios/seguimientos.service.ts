@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Seguimiento } from '../modelos/seguimiento.model';
+import { EstadoSeguimiento } from '../modelos/estadoSeguimiento.model';
+import { EstadoProyecto } from '../modelos/estadosProyecto.model';
+import { TipoSeguimiento } from '../modelos/tipoSeguimiento.model';
 
 const httpOptions = new HttpHeaders({ 'Content-Type': 'application/json'});
 
@@ -55,6 +58,45 @@ export class SeguimientosService {
           oEspecificos: "HACER UN PROTOTIPO DE INTERFAZ QUE PERMITA TALES COSAS",
           estadoSeguimiento:"Aprobado"
         };
-
+      }
+      onEstadosSeguimientos()
+      {
+        
+      }
+      estadosSeguimientos():EstadoSeguimiento[]
+      {
+        this.onEstadosSeguimientos(); //Hago peticion
+        let nuevo:EstadoSeguimiento[] =[
+          {id:1, nombre:"Aceptado"},
+          {id:2, nombre:"Rechazado"}
+        ];
+        console.log("Retornando desde estados:  ",nuevo);
+        return nuevo;
+      }
+      onEstadosProyecto()
+      {
+        
+      }
+      estadosProyecto():EstadoProyecto[]
+      {
+        this.onEstadosProyecto(); //Hago peticion
+        let nuevo:EstadoProyecto[] =[
+          {id:1, nombre:"Cancelado"},
+          {id:2, nombre:"Iniciado"}
+        ];
+        return nuevo;
+      }
+      onTiposSeguimiento()
+      {
+        
+      }
+      tiposSeguimiento():TipoSeguimiento[]
+      {
+        this.onTiposSeguimiento(); //Hago peticion
+        let nuevo:TipoSeguimiento[] =[
+          {id:1, nombre:"Tesis"},
+          {id:2, nombre:"Propuesta"}
+        ];
+        return nuevo;
       }
 }

@@ -21,6 +21,7 @@ import { TutorService } from '../../../tutores/servicios/tutor.service';
 import { EstudianteService } from '../../../seguimientos_admin/servicios/estudiante.service';
 import Swal from 'sweetalert2';
 import { CrearTutorComponent } from '../../../seguimientos_admin/componentes/tutores/crear-tutor/crear-tutor.component';
+import { AgregarActividadComponent } from '../agregar-actividad/agregar-actividad.component';
 
 @Component({
   selector: 'app-editar-seguimiento-tutor',
@@ -190,7 +191,7 @@ export class EditarSeguimientoTutorComponent implements OnInit {
     }
   }
   agregarActividad(){
-    const dialogRef = this.dialog.open(EditarActividadTutorComponent, {
+    const dialogRef = this.dialog.open(AgregarActividadComponent, {
       width: '900px', height: '600px',
       data: {
       }

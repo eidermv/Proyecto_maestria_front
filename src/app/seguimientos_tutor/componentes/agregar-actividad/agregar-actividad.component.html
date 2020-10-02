@@ -1,4 +1,4 @@
-<h1 mat-dialog-title class="titulo " style="text-align: center; background-color: #5bc0de;">EDITAR ACTIVIDAD</h1>
+<h1 mat-dialog-title class="titulo " style="text-align: center; background-color: #5bc0de;">AGREGAR ACTIVIDAD</h1>
 <div mat-dialog-content>
   <form [formGroup]="formulario" (ngSubmit)="onSubmit()" #f="ngForm">
     
@@ -47,8 +47,9 @@
       <div class="input-group-prepend">
         <span class="input-group-text" id="basic-addon4">Visibilidad <span style="color: red">*</span></span>
         <input type="checkbox" formControlName="visibilidad" id="visibilidad" class="form-check-input"  />
+        
       </div>
-             
+              
     </div>
   
   </form>

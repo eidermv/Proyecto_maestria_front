@@ -64,6 +64,8 @@ import { VerActividadEstudianteComponent } from './seguimiento_estudiante/compon
 import { ListarActividadesComponent } from './seguimientos_admin/componentes/listar-actividades/listar-actividades.component';
 import { EditarActividadTutorComponent } from './seguimientos_tutor/componentes/editar-actividad-tutor/editar-actividad-tutor.component';
 import { TutorModule } from './tutores/modulos/tutores.module';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import { AgregarActividadComponent } from './seguimientos_tutor/componentes/agregar-actividad/agregar-actividad.component';
 @NgModule({
   imports: [
     AppRoutingModule,
@@ -93,7 +95,8 @@ import { TutorModule } from './tutores/modulos/tutores.module';
     SeguimientoEstudianteModule,
     MatButtonModule,
     MatExpansionModule,
-    TutorModule
+    TutorModule,
+    MatCheckboxModule
   ],
   declarations: [
     AppComponent,
@@ -110,7 +113,8 @@ import { TutorModule } from './tutores/modulos/tutores.module';
     VerSeguimientoEstudianteComponent,
     VerActividadEstudianteComponent,
     ListarActividadesComponent,
-    EditarActividadTutorComponent
+    EditarActividadTutorComponent,
+    AgregarActividadComponent
   ],
   providers: [{
     provide: LocationStrategy,

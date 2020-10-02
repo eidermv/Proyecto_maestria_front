@@ -17,6 +17,7 @@ export class EditarActividadTutorComponent implements OnInit {
   fi:string;
   fe:string;
   formulario:FormGroup;
+  checked:boolean;
   constructor(public dialogRef: MatDialogRef<EditarActividadTutorComponent>, private actividadService:ActividadesTutorServices,
     private formBuilder:FormBuilder) { }
 
@@ -28,8 +29,18 @@ export class EditarActividadTutorComponent implements OnInit {
     this.dialogRef.close();
   }
   private crearFormulario():void{
+  console.log("ACTIVIDAD:  ",this.actividad);
+    if(this.actividad.visibilidad==0)
+    {
+       this.checked=true;
+       console.log("VISIBILIDAD TRUE");
+    }
+     
+    else
+      {this.checked=false;
+      console.log("VISIBILIDAD FALSO");}
     this.formulario = this.formBuilder.group(
-      { codigo:[this.actividad.id,[]],
+      { 
         semana: [this.actividad.semana, [
         Validators.maxLength(30)]
         ],
@@ -37,9 +48,8 @@ export class EditarActividadTutorComponent implements OnInit {
         entregas: [this.actividad.entregas, [/* Validators.required */]],
         compromisos: [this.actividad.compromisos, [/* Validators.required */]],
         fecha_inicio:[this.actividad.fecha_inicio, [ Validators.required]],
-        fecha_entrega: [this.actividad.fecha_entrega, [/* Validators.required */] ],
-        cumplio:[this.actividad.cumplido, [ ] ],        
-        visibilidad:[this.actividad.visibilidad, [/* Validators.required */] ]
+        fecha_entrega: [this.actividad.fecha_entrega, [/* Validators.required */] ],   
+        visibilidad:[this.checked, [/* Validators.required */] ]
       });
      
      this.formulario.valueChanges.pipe(

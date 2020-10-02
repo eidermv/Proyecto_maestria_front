@@ -1,4 +1,3 @@
-
 <mat-card>
   <mat-card-header class="bg-info">
     <mat-card-title style="background-color:#5bc0de;">
@@ -7,121 +6,243 @@
   </mat-card-header>
   <mat-card-content>
     <br>
-    <div mat-dialog-content class="mat-typography">
-    <!--<form [formGroup]="formulario">-->
+    <div class="card-body">
+      <form [formGroup]="formulario" #f="ngForm">
+        <h1 class="title text-center">EDITAR SEGUIMIENTO</h1>
+        <p class="text-muted text-center">En este formulario podrá editar los Seguimientos, los
+          campos con * son obligatorios</p>
+
         <div class="row">
-            <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <span class="input-group-text col-lg-6 col-md-6 col-sm-5 col-xs-6">Nombre:</span>
-                <input  class="col-lg-6 col-md-6 col-sm-6 col-xs-6" type="text" id="nombres" value="{{seguimiento.nombre}}"
-                    >
+          <div class="formGroup col-6">
+            <i class="fa fa-exclamation-circle uncheck"
+              *ngIf="(formulario.get('nombre').errors?.required && formulario.get('nombre').touched ) ">
+              Nombre de Seguimiento vacio o digitó mas de 30 caracteres
+            </i>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend ">
+                <span class="input-group-text"><i class="fa fa-id-card-o"></i><small>Nombre</small></span>
+              </div>
+              <input type="text" class="form-control" placeholder="* Digite nombre del seguimiento"
+                formControlName="nombre">
             </div>
-            <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <span class="input-group-text col-lg-6 col-md-5 col-sm-6 col-xs-6">Tipo:</span>
-                <input  class="col-lg-6 col-md-6 col-sm-6 col-xs-6" type="text" id="apellidos" value="{{seguimiento.tipo}}"
-                    >
+          </div>
+
+          <div class="formGroup col-6">
+            <!--  <i class="fa fa-exclamation-circle uncheck"
+                      *ngIf="( formulario.get('tipo').errors?.required && formulario.get('tipo').touched ) ">
+                      Este campo es obligatorio
+                  </i> -->
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fa fa-envelope-o"></i><small>TIPO</small></span>
+              </div>
+
+              <select type="text" class="form-control" formControlName="tipo" #tipoSeguimiento>
+                <option [ngValue]="seguimiento.tipo" disabled hidden>{{seguimiento.tipo}}</option>
+                <option [ngValue]="oe" *ngFor="let oe of optionsTiposSeguimiento">{{oe.nombre}}
+                </option>
+              </select>
+
             </div>
-        </div><br>
-        <div class="row">
-            <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <span class="input-group-text col-lg-6 col-md-6 col-sm-6 col-xs-6">Tutor:</span>
-                <input  class="col-lg-6 col-md-6 col-sm-6 col-xs-6" type="text" id="identificación" value="{{seguimiento.tutor}}">
-            </div>
-            <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <span class="input-group-text col-lg-6 col-md-6 col-sm-6 col-xs-6">Coodirector:</span>
-                <input  class="col-lg-6 col-md-6 col-sm-6 col-xs-6" type="text" id="telefono" value="{{seguimiento.coodirector}}">
-            </div>
-        </div> <br>
-        <div class="row">
-            <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <span class="input-group-text col-lg-6 col-md-6 col-sm-6 col-xs-6">Estudiante:</span>
-                <input  class="col-lg-6 col-md-6 col-sm-6 col-xs-6" type="email" id="correo" value="{{seguimiento.estudiante}}">
-            </div>
-            <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <span class="input-group-text col-lg-6 col-md-6 col-sm-6 col-xs-6">Estado:</span>
-                <input  class="col-lg-6 col-md-6 col-sm-6 col-xs-6" type="email" id="correo" value="{{seguimiento.estado}}">
-            </div>
+          </div>
         </div>
-        <br>
+
         <div class="row">
-            <div class="input-group-prepend col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <span class="input-group-text col-lg-3 col-md-3 col-sm-3 col-xs-3">O. General</span>
-                <textarea  name="" id="" cols="60" rows="2" value="{{seguimiento.oGeneral}}"></textarea>
+          <div class="formGroup col-6">
+            <!-- <i class="fa fa-exclamation-circle uncheck"
+                      *ngIf="(formulario.get('tutor').errors?.required  && formulario.get('tutor').touched)">
+                      Tutor vacio. Campo Obligatorio
+                  </i> -->
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fa fa-user-circle"></i><small>tutor</small></span>
+              </div>
+              <select type="text" class="form-control" formControlName="tutor" #tutor>
+                <option [ngValue]="seguimiento.tutor" disabled hidden>{{seguimiento.tutor}}</option>
+                <option [ngValue]="o" *ngFor="let o of options">{{o.nombre+" "+o.apellido}}
+                </option>
+              </select>
+              <i class="button is-primary fa fa-plus-circle sinborde iconos fa-2x" data-toggle="modal"
+                data-target="#myModal" (click)="crearTutor()"></i>
             </div>
+          </div>
+
+          <div class="formGroup col-6">
+            <!--  <i class="fa fa-exclamation-circle uncheck"
+                      *ngIf="(formulario.get('estudiante').errors?.required  && formulario.get('estudiante').touched)">
+                      Nombre de Estudiante vacío
+                  </i> -->
+
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fa fa-user-circle"></i>
+                  <small>Estudiante</small></span>
+              </div>
+              <select type="text" class="form-control" formControlName="estudiante" #estudiante>
+                <option [ngValue]="seguimiento.estudiante" disabled hidden>{{seguimiento.estudiante}}</option>
+                <option [ngValue]="oe" *ngFor="let oe of options2">{{oe.getName()+" "+oe.getSurname()}}
+                </option>
+              </select>
+            </div>
+          </div>
         </div>
-        <br>
         <div class="row">
-            <div class="input-group-prepend col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <span class="input-group-text col-lg-3 col-md-3 col-sm-3 col-xs-3">O. Especificos</span>
-                <textarea  name="" id="" cols="60" rows="6" value="{{seguimiento.oEspecificos}}"></textarea>
+          <div class="formGroup col-6">
+            <!--   <i class="fa fa-exclamation-circle uncheck"
+                      *ngIf="(formulario.get('estado').errors?.required  && formulario.get('estado').touched)">
+                      Estado sin seleccionar. Campo Obligatorio
+                  </i> -->
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fa fa-user-circle"></i><small>Estado Proyecto</small></span>
+              </div>
+              <select type="text" class="form-control" formControlName="estado" #estadoProyecto>
+                <option [ngValue]="seguimiento.estado" disabled hidden>{{seguimiento.estado}}</option>
+                <option [ngValue]="oe" *ngFor="let oe of optionsEstadoProyecto">{{oe.nombre}}
+                </option>
+              </select>
             </div>
-        </div> <br>
+          </div>
 
-        <mat-accordion>
-            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        Actividades
-                    </mat-panel-title>
-                    <mat-panel-description>
-                        {{panelOpenState ? 'Ocultar ' : 'Ver '}} actividades asignadas a este seguimiento
-                    </mat-panel-description>
-                </mat-expansion-panel-header>
-                <h3>¿Desea que el coordinador vea todas las actividad?</h3>
-                <mat-checkbox class="example-margin">Mostrar actividades</mat-checkbox>
-                <p class="full">
-                  <button class="btn btn-primary izq" (click)="agregarActividad()">Agregar</button>
-                </p>
-                <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
-                  <!-- Position Column -->
-                  <ng-container matColumnDef="Codigo">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Código </th>
-                    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-                  </ng-container>
+          <div class="formGroup col-6">
+            <!--  <i class="fa fa-exclamation-circle uncheck"
+                      *ngIf="(formulario.get('cohorte').errors?.required  && formulario.get('cohorte').touched)">
+                      Cohorte sin Seleccionar
+                  </i> -->
 
-                  <!-- Name Column -->
-                  <ng-container matColumnDef="Nombre">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Semana </th>
-                    <td mat-cell *matCellDef="let element"> {{element.semana}} </td>
-                  </ng-container>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fa fa-user-circle"></i>
+                  <small>Cohorte</small></span>
+              </div>
+              <select type="text" class="form-control" formControlName="cohorte" #cohorteStudent>
+                <option [ngValue]="years" *ngFor="let years of optionsCohorte">{{years}}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="formGroup col-6">
+            <!--  <i class="fa fa-exclamation-circle uncheck"
+                      *ngIf="(formulario.get('coodirector').errors?.required  && formulario.get('coodirector').touched)">
+                      Coodirector Vacío. Campo Obligatorio
+                  </i> -->
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fa fa-user-circle"></i><small>Coodirector</small></span>
+              </div>
+              <input type="text" class="form-control" placeholder="* Coodirector" formControlName="coodirector">
+            </div>
+          </div>
+          <div class="formGroup col-6">
+            <!--  <i class="fa fa-exclamation-circle uncheck"
+                      *ngIf="(formulario.get('estadoSeguimiento').errors?.required  && formulario.get('estadoSeguimiento').touched)">
+                      Estado de Proyecto sin seleccionar. Campo Obligatorio
+                  </i> -->
+            <div class="input-group mb-3">
+              <div class="input-group-prepend ">
+                <span class="input-group-text"><i class="fa fa-user-circle"></i><small>Estado Seguimiento</small></span>
+              </div>
+              <select type="text" class="form-control" formControlName="estadoSeguimiento" #estadoSeguimiento>
+                <option [ngValue]="seguimiento.estadoSeguimiento" disabled hidden>{{seguimiento.estadoSeguimiento}}
+                </option>
+                <option [ngValue]="oe.nombre" *ngFor="let oe of optionsEstadoSeguimiento">{{oe.nombre}}
+                </option>
+              </select>
 
-                  <!-- Weight Column -->
-                  <ng-container matColumnDef="Tipo">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha inicio </th>
-                    <td mat-cell *matCellDef="let element"> {{element.fecha_inicio|date}} </td>
-                  </ng-container>
+            </div>
+          </div>
 
-                  <!-- Symbol Column -->
-                  <ng-container matColumnDef="Estudiante">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha entrega </th>
-                    <td mat-cell *matCellDef="let element"> {{element.fecha_entrega|date}} </td>
-                  </ng-container>
-                  <!-- Symbol Column -->
-                  <ng-container matColumnDef="Estado">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Cumplido </th>
-                    <td mat-cell *matCellDef="let element"> {{element.cumplido}} </td>
-                  </ng-container>
-                  <!-- Symbol Column -->
-                  <ng-container matColumnDef="Accion">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Acción </th>
-                    <td mat-cell *matCellDef="let element">
-                      <div class="btn-group">
-                        <a class="btn" (click)="editarActividad()"><i class="fa fa-pencil"></i></a>
-                      </div>
-                    </td>
-                  </ng-container>
+        </div>
+        <div class="row">
+          <div class="formGroup">
+            <i class="fa fa-exclamation-circle uncheck"
+              *ngIf="(formulario.get('objetivo').errors?.required  && formulario.get('objetivo').touched)">
+              Objetivo Vacío. Campo Obligatorio
+            </i>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fa fa-user-circle"></i><small>Objetivo General</small></span>
+              </div>
 
-                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                </table>
-                <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
-            </mat-expansion-panel>
-        </mat-accordion>
-        <p>  </p>
+              <textarea type="text" placeholder="* O. General" formControlName="objetivo" cols="50" rows="5"></textarea>
+            </div>
+          </div>
+        </div>
+        <!-- <mat-progress-bar mode="determinate" value="{{porcentaje}}"></mat-progress-bar>
+           -->
+      
+      </form>
+    </div>
+    
+    <mat-accordion>
+      <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+              <mat-panel-title>
+                  Actividades
+              </mat-panel-title>
+              <mat-panel-description>
+                  {{panelOpenState ? 'Ocultar ' : 'Ver '}} actividades asignadas a este seguimiento
+              </mat-panel-description>
+          </mat-expansion-panel-header>
+          <h3>¿Desea que el coordinador vea todas las actividad?</h3>
+          <mat-checkbox class="example-margin">Mostrar actividades</mat-checkbox>
+          <p class="full">
+            <button class="btn btn-primary izq" (click)="agregarActividad()">Agregar</button>
+          </p>
+          <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+            <!-- Position Column -->
+            <ng-container matColumnDef="Codigo">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Código </th>
+              <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+            </ng-container>
 
-    <!--</form>-->
+            <!-- Name Column -->
+            <ng-container matColumnDef="Nombre">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Semana </th>
+              <td mat-cell *matCellDef="let element"> {{element.semana}} </td>
+            </ng-container>
 
-</div>
+            <!-- Weight Column -->
+            <ng-container matColumnDef="Tipo">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha inicio </th>
+              <td mat-cell *matCellDef="let element"> {{element.fecha_inicio|date}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="Estudiante">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha entrega </th>
+              <td mat-cell *matCellDef="let element"> {{element.fecha_entrega|date}} </td>
+            </ng-container>
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="Estado">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Cumplido </th>
+              <td mat-cell *matCellDef="let element"> {{element.cumplido}} </td>
+            </ng-container>
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="Accion">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Acción </th>
+              <td mat-cell *matCellDef="let element">
+                <div class="btn-group">
+                  <a class="btn" (click)="editarActividad(element)"><i class="fa fa-pencil"></i></a>
+                </div>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+          <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+      </mat-expansion-panel>
+  </mat-accordion>
+  <div style="text-align:right">
+    <button type="button" class="button is-danger" (click)="cancelar()">Cancelar
+    </button>
+    <button type="button" (click)="onSubmit()"  class="button is-info" [disabled]="formulario.invalid">Guardar
+    </button>
+
+  </div>
+
   </mat-card-content>
-</mat-card>
-
-<button type="button" class="btn-lg btn btn-primary btn float-right" (click)="volver()">Volver</button>
+  <mat-card>

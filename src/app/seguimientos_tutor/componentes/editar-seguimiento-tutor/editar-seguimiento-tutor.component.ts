@@ -192,7 +192,7 @@ export class EditarSeguimientoTutorComponent implements OnInit {
   }
   agregarActividad(){
     const dialogRef = this.dialog.open(AgregarActividadComponent, {
-      width: '900px', height: '600px',
+      width: '700px', height: '600px',
       data: {
       }
     });

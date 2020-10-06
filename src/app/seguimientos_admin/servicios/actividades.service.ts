@@ -29,6 +29,7 @@ cump=0;
 actividades: Array<Actividad> = [];
 onActividades(): Array<Actividad> {
     this.actividades = Array.from({ length: 5 }, (_, k) => this.crearActividad(k + 1));
+    console.log("Actividades a retornar:   ",this.actividades);
     return this.actividades;
 }
 crearActividad(id: number): Actividad {
@@ -55,5 +56,6 @@ crearActividad(id: number): Actividad {
     visibilidad:1-this.cump
     };
   }
+ 
 
 }

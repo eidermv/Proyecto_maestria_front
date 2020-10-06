@@ -51,12 +51,19 @@ export class ListSeguimientosComponent implements OnInit {
       bold: false,
       fontSize: 10
   });
-  pdf.pageMargins([ 40, 60 ]);
-    console.log("CREANDO PDF");
-    pdf.header(".  LISTA DE SEGUIMIENTOS - ADMIN\n"); 
-    pdf.add(new Txt('Listado Total de Seguimientos!').alignment('center').italics().end );  
-    pdf.add("\n\n\n");
-    pdf.watermark('UNIVERSIDAD DEL CAUCA'); 
+  pdf.info({
+    title: 'Listado Proyectos Maestría',
+    author: 'Universidad del Cauca',
+    subject: 'Reporte',
+});
+var fecha = new Date();
+var options = { year: 'numeric', month: 'long', day: 'numeric' };
+    pdf.pageMargins([ 100, 60, 40, 40 ]);
+     pdf.header("\n\n.     \t\t"+fecha.toLocaleDateString("es-ES", options));  
+    pdf.add(new Txt('Listado de proyectos').alignment('center').bold().end );
+    pdf.add(new Txt('Maestría en Automática').alignment('center').bold().end );  
+    pdf.add("\n\n\n");/* 
+    pdf.watermark('UNIVERSIDAD DEL CAUCA');  */
     pdf.add(this.crearTabla(this.seguimientos));
     pdf.create().download();
   }
@@ -72,16 +79,11 @@ export class ListSeguimientosComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
-    
-
   }
   crearTabla(body:any[])
   {
     let contf=0;
     let contc=0;
-   /*  let row:any[]=[];
-    row[0]="Nombre";row[1]="Tipo";row[2]="Tutor";row[3]="Estudiante";row[4]="Estado";row[5]="Coodirector";
-    body[0]=row; */
     for(let seg of this.seguimientos)
     {
       let fila:any[]=[];
@@ -102,12 +104,11 @@ export class ListSeguimientosComponent implements OnInit {
         fila[contc]=seg.tutor;contc++;
         fila[contc]=seg.estudiante;contc++;
         fila[contc]=seg.estado;contc++;
-        fila[contc]=seg.coodirector;contc++; 
-        console.log("FILA:  ",fila);
-      }      
+        fila[contc]=seg.coodirector;contc++;
+      }
       body[contf]=fila;contc=0;contf++;
     } 
-    console.log("BODY:   ",body);
+    /* console.log("BODY:   ",body); */
     return new Table(body).end;
   }
   applyFilter(event: Event) {
@@ -132,8 +133,7 @@ export class ListSeguimientosComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
-    dialogRef.componentInstance.seguimiento=row;
-
+    dialogRef.componentInstance.seguimiento = row;
   }
   cambiar(event)
   {

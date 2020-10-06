@@ -64,8 +64,8 @@
     </table>
     <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
   </div>
+  <button class="button is-link" style="position: absolute; right: 3cm;" (click)="crearPDF()" >PDF</button>
 </div>
 <div class="" [hidden]="bandListar">
   <app-agregar-seguimiento (bandAgregar)="cambiar($event)"></app-agregar-seguimiento>
 </div>
-<button class="button is-link" style="position: absolute; right: 3cm;" (click)="crearPDF()" >PDF</button>

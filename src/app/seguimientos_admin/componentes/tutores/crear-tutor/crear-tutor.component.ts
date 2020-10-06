@@ -60,13 +60,12 @@ export class CrearTutorComponent implements OnInit {
   
   onSubmit(event:Event)
   {
-
       console.log("Guardado",event);
       Swal.fire({
         icon: 'success',
         title: 'Guardado' ,
-        text: 'Tutor Almacenado!'/* ,
-        footer: 'El tutor no fué almacenado' */
+        text: 'Tutor Almacenado!' ,
+        footer: 'El tutor fué almacenado correctamente' 
       });
       let nuevo :Tutor;
         nuevo={

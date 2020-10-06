@@ -102,7 +102,7 @@
                                         <span class="input-group-text"><i class="fa fa-user-circle"></i>
                                             <small>Departamento.</small></span>
                                     </div>
-                                    <input type="text" class="form-control" placeholder="* Departamento"
+                                    <input type="text" class="form-control" placeholder="Vinculado al departamento"
                                         formControlName="departamento">
                                 </div>
                             </div>
@@ -118,7 +118,7 @@
                                         <span class="input-group-text"><i class="fa fa-user-circle"></i><small>G.
                                                 Investigación</small></span>
                                     </div>
-                                    <input type="text" class="form-control" placeholder="* Grupo Investigación"
+                                    <input type="text" class="form-control" placeholder="Grupo Investigación"
                                         formControlName="grupoInvestigacion">
                                 </div>
                             </div>
@@ -141,7 +141,7 @@
                             </div>
                         </div>
                         
-                        <div class="row" *ngIf="formulario.get('tipo').value!=null&&formulario.get('tipo').value.nombre==='Externo'" >
+                        <div class="row" *ngIf="formulario.get('tipo').value!=null&&formulario.get('tipo').value.nombre==='Externo'; else interno" >
                             <div class="formGroup col-6">
                                 <i class="fa fa-exclamation-circle uncheck"
                                     *ngIf="(formulario.get('universidad').errors?.required  && formulario.get('universidad').touched)">
@@ -156,6 +156,21 @@
                                 </div>
                             </div>                          
                         </div>
+                        <ng-template #interno hidden>
+                            <div class="row" *ngIf="formulario.get('tipo').value!=null&&formulario.get('tipo').value.nombre==='Externo'" >
+                                <div class="formGroup col-6">
+                                    
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fa fa-user-circle"></i><small>Universidad</small></span>
+                                        </div>
+                                        <input type="text" class="form-control" placeholder="* Ingrese Universidad"
+                                            formControlName="universidad" value="Universidad del Cauca">
+                                            
+                                    </div>
+                                </div>                          
+                            </div>
+                        </ng-template>
                         <div style="text-align:right">
                             <button type="button" class="button is-danger" (click)="onCancel()" 
                                >Cancelar

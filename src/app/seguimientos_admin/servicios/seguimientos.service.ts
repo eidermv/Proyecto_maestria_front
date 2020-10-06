@@ -34,6 +34,11 @@ export class SeguimientosService {
         this.seguimientos = Array.from({ length: 100 }, (_, k) => this.crearSeguimiento(k + 1));
         return this.seguimientos;
     }
+  
+    seguimiento(n:number):Seguimiento
+    {
+      return this.crearSeguimiento(n);
+    }
     crearSeguimiento(id: number): Seguimiento {
 
         const student = NAMES[Math.round(Math.random() * (NAMES.length - 1))] + ' ' +

@@ -64,7 +64,7 @@ var options = { year: 'numeric', month: 'long', day: 'numeric' };
     pdf.add(new Txt('Maestría en Automática').alignment('center').bold().end );  
     pdf.add("\n\n\n");/* 
     pdf.watermark('UNIVERSIDAD DEL CAUCA');  */
-    pdf.add(this.crearTabla(this.seguimientos));
+    pdf.add(this.crearTabla());
     pdf.create().download();
   }
   editarSeguimiento(row:Seguimiento)
@@ -80,33 +80,29 @@ var options = { year: 'numeric', month: 'long', day: 'numeric' };
       console.log(`Dialog result: ${result}`);
     });
   }
-  crearTabla(body:any[])
+  crearTabla()
   {
-    let contf=0;
-    let contc=0;
+    let body:any[]=[];    
+    let contf=1;
+    let contc=0;  
+    let fila1:any[]=[]; 
+    fila1[contc]="Nombre";contc++;
+    fila1[contc]="Tipo";contc++;
+    fila1[contc]="Tutor";contc++;
+    fila1[contc]="Estudiante";contc++;
+    fila1[contc]="Estado";contc++;
+    fila1[contc]="Coodirector";contc++; 
+    body[0]=fila1;contc=0;
     for(let seg of this.seguimientos)
     {
-      let fila:any[]=[];
-      if(contf==0)
-      {
-        fila[contc]="Nombre";contc++;
-        fila[contc]="Tipo";contc++;
-        fila[contc]="Tutor";contc++;
-        fila[contc]="Estudiante";contc++;
-        fila[contc]="Estado";contc++;
-        fila[contc]="Coodirector";contc++; 
-        console.log("FILA:  ",fila);
-      }
-      else
-      {
-        fila[contc]=seg.nombre;contc++;
-        fila[contc]=seg.tipo;contc++;
-        fila[contc]=seg.tutor;contc++;
-        fila[contc]=seg.estudiante;contc++;
-        fila[contc]=seg.estado;contc++;
-        fila[contc]=seg.coodirector;contc++;
-      }
-      body[contf]=fila;contc=0;contf++;
+      let fila:any[]=[]; 
+      fila[contc]=seg.nombre;contc++;
+      fila[contc]=seg.tipo;contc++;
+      fila[contc]=seg.tutor;contc++;
+      fila[contc]=seg.estudiante;contc++;
+      fila[contc]=seg.estado;contc++;
+      fila[contc]=seg.coodirector;contc++;      
+      body[contf]=fila;contc=0; contf++;
     } 
     /* console.log("BODY:   ",body); */
     return new Table(body).end;

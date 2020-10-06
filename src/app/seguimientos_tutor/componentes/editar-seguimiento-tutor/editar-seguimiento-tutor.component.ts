@@ -22,6 +22,7 @@ import { EstudianteService } from '../../../seguimientos_admin/servicios/estudia
 import Swal from 'sweetalert2';
 import { CrearTutorComponent } from '../../../seguimientos_admin/componentes/tutores/crear-tutor/crear-tutor.component';
 import { AgregarActividadComponent } from '../agregar-actividad/agregar-actividad.component';
+import { PdfMakeWrapper, Table, Txt } from 'pdfmake-wrapper';
 
 @Component({
   selector: 'app-editar-seguimiento-tutor',
@@ -81,6 +82,70 @@ export class EditarSeguimientoTutorComponent implements OnInit {
     //this.router.navigate(['/seguimientos_tutor/']);
     this.banNotificaciones.emit(true);
     console.log('emitido: ');
+  }
+  async crearPDF()
+  {
+    
+    const pdf = new PdfMakeWrapper();
+    pdf.defaultStyle({
+      bold: false,
+      fontSize: 10
+  });
+  pdf.info({
+    title: 'Listado De Actividades',
+    author: 'Universidad del Cauca',
+    subject: 'Reporte',
+});
+var fecha = new Date();
+var options = { year: 'numeric', month: 'long', day: 'numeric' };
+    pdf.pageMargins([ 100, 60, 40, 40 ]);
+     pdf.header("\n\n.     \t\t"+fecha.toLocaleDateString("es-ES", options));  
+    pdf.add(new Txt('Listado de Actividades').alignment('center').bold().end );
+    pdf.add(new Txt('Seguimiento:  '+this.seguimiento.nombre).end ); 
+    pdf.add(new Txt('Tutor:  '+this.seguimiento.tutor).end ); 
+    pdf.add(new Txt('Estudiante:  '+this.seguimiento.estudiante).end );  
+    pdf.add("\n\n\n");/* 
+    pdf.watermark('UNIVERSIDAD DEL CAUCA');  */
+    
+    pdf.add(this.crearTabla());
+    pdf.create().download();
+  }
+  crearTabla()
+  {
+    let body:any[]=[];    
+    let contf=1;
+    let contc=0;  
+    let fila1:any[]=[]; 
+    fila1[contc]="Semana";contc++;
+    fila1[contc]="Fecha Inicio";contc++;
+    fila1[contc]="Fecha Entrega";contc++;
+    fila1[contc]="Entregas";contc++;
+    fila1[contc]="Compromisos";contc++;
+    fila1[contc]="Cumplido";contc++;
+    fila1[contc]="Visibilidad";contc++; 
+    body[0]=fila1;contc=0;
+    console.log("Tabla hasta el momento:  ",body);
+    
+    var options = { year: 'numeric', month: 'long', day: 'numeric' }; 
+    for(let act of this.actividades)
+    {
+      let fila:any[]=[];     
+      fila[contc]=act.semana;contc++;
+      var fechaI = act.fecha_inicio;
+      fila[contc]=fechaI.toLocaleDateString("es-ES", options);contc++;
+      var fechaE = act.fecha_entrega;
+      fila[contc]=fechaE.toLocaleDateString("es-ES", options);contc++;
+      fila[contc]=act.entregas;contc++;
+      fila[contc]=act.compromisos;contc++;
+      if(act.cumplido==0){fila[contc]="No Cumplido";contc++;}
+      else{fila[contc]="Cumplido";contc++;}
+      if(act.visibilidad==0){fila[contc]="No Visible para Coordinador";contc++;}
+      else{fila[contc]="Visible para Coordinador";contc++;}
+           
+      body[contf]=fila;contc=0; contf++;
+    } 
+    /* console.log("BODY:   ",body); */
+    return new Table(body).end;
   }
   onSubmit()
   {

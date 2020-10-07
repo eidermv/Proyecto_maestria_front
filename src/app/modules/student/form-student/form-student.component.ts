@@ -103,6 +103,7 @@ export class FormStudentComponent implements OnInit, OnChanges {
    getTutors() {
      this.studentService.getAllTutors()
      .subscribe(data => {
+       console.log('llegan desde back ' + JSON.stringify(data));
         this.proccessResponseTutors(data);
       });
    }

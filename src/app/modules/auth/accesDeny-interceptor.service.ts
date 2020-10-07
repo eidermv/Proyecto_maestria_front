@@ -13,7 +13,7 @@ export class AccesDenyInterceptorService implements HttpInterceptor {
   constructor(private route: Router, private permiso: PermisosService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log('------------' + req);
+    console.log('------------' + JSON.stringify(req));
     return next.handle(req).do(
      (event: any) => {},
      (error: any) => {

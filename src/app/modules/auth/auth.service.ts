@@ -50,6 +50,7 @@ export class AuthService {
 
    setSession(authResult) {
     sessionStorage.setItem('token', authResult['token']);
+     console.log('roles desde el back ' + authResult['roles']);
     sessionStorage.setItem('rol', authResult['roles']);
     this.permiso.rolActivo(authResult['roles']);
   }

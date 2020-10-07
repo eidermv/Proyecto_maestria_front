@@ -10,6 +10,8 @@ import { NotificacionesTutorComponent } from '../notificaciones-tutor/notificaci
 import { SeguimientosTutorServices } from '../../servicios/seguimientosTutor.service';
 import { SeguimientoTutor } from '../../modelos/seguimientoTutor.model';
 import { PdfMakeWrapper, Table, Txt } from 'pdfmake-wrapper';
+import { VerSeguimientoComponent } from '../../../seguimientos_admin/componentes/verSeguimiento/ver-seguimiento/ver-seguimiento.component';
+import { Seguimiento } from '../../../seguimientos_admin/modelos/seguimiento.model';
 @Component({
   selector: 'app-list-tutor-seguimientos',
   templateUrl: './list-tutor-seguimientos.component.html',
@@ -103,6 +105,32 @@ var options = { year: 'numeric', month: 'long', day: 'numeric' };
     } 
     /* console.log("BODY:   ",body); */
     return new Table(body).end;
+  }
+  verSeguimiento(row:SeguimientoTutor)
+  {
+    const dialogRef = this.dialog.open(VerSeguimientoComponent, {
+      width: '800px',
+      height:'500px',
+      data:{}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+    let seg:Seguimiento=
+    {
+      nombre:row.nombre,
+      tipo:row.tipo,
+      tutor:row.tutor,
+      estudiante:row.estudiante,
+      estado:row.estado,
+      cohorte: row.cohorte,
+      coodirector:row.coodirector,
+      estadoSeguimiento:row.estadoSeguimiento,
+      oGeneral:row.oGeneral,
+      oEspecificos:row.oEspecificos,
+      id:row.id
+    };
+    dialogRef.componentInstance.seguimiento = seg;
   }
 }
 

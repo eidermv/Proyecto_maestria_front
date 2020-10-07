@@ -46,6 +46,7 @@
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Opciones </th>
           <td mat-cell *matCellDef="let element">
             <div class="btn-group">
+              <a class="btn" (click)="verSeguimiento(element)"><i class="fa fa-eye"></i></a>
               <a class="btn" (click)="editarSeguimientoTutor(element)"><i class="fa fa-pencil"></i></a>
             </div>
           </td>

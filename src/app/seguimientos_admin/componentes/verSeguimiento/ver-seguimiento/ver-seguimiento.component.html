@@ -2,58 +2,128 @@
 <h2 mat-dialog-title style="background-color:#5bc0de; color: white;text-align-last: center;"> VER SEGUIMIENTO</h2>
 <div mat-dialog-content class="mat-typography">
 
-    <form [formGroup]="formulario">
-        <div class="row">
-            <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <span class="input-group-text col-lg-6 col-md-6 col-sm-5 col-xs-6">Nombre:</span>
-                <input disabled class="col-lg-6 col-md-6 col-sm-6 col-xs-6" type="text" id="nombres"
-                    formControlName="nombre">
-            </div>
-            <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <span class="input-group-text col-lg-6 col-md-5 col-sm-6 col-xs-6">Tipo:</span>
-                <input disabled class="col-lg-6 col-md-6 col-sm-6 col-xs-6" type="text" id="apellidos"
-                    formControlName="tipo">
-            </div>
-        </div><br>
-        <div class="row">
-            <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <span class="input-group-text col-lg-6 col-md-6 col-sm-6 col-xs-6">Tutor:</span>
-                <input disabled class="col-lg-6 col-md-6 col-sm-6 col-xs-6" type="text" id="identificación"
-                    formControlName="tutor">
-            </div>
-            <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <span class="input-group-text col-lg-6 col-md-6 col-sm-6 col-xs-6">Estudiante:</span>
-                <input disabled class="col-lg-6 col-md-6 col-sm-6 col-xs-6" type="text" id="telefono"
-                    formControlName="estudiante">
-            </div>
-        </div> <br>
-        <div class="row">
-            <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <span class="input-group-text col-lg-6 col-md-6 col-sm-6 col-xs-6">Estado:</span>
-                <input disabled class="col-lg-6 col-md-6 col-sm-6 col-xs-6" type="text" id="estado"
-                    formControlName="estado">
-            </div>
-            <div class="input-group-prepend col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <span class="input-group-text col-lg-6 col-md-6 col-sm-6 col-xs-6">Coodirector:</span>
-                <input disabled class="col-lg-6 col-md-6 col-sm-6 col-xs-6" type="text" id="coodirector"
-                    formControlName="coodirector">
-            </div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="input-group-prepend col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <span class="input-group-text col-lg-3 col-md-3 col-sm-3 col-xs-3">O. General</span>
-                <textarea disabled name="" id="" cols="60" rows="2" formControlName="objetivoGeneral"></textarea>
-            </div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="input-group-prepend col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <span class="input-group-text col-lg-3 col-md-3 col-sm-3 col-xs-3">O. Especificos</span>
-                <textarea disabled name="" id="" cols="60" rows="6" formControlName="objetivosEspec" (keyup.enter)="separar()"></textarea>
-            </div>
-        </div> <br>
+    <form [formGroup]="formulario"  #f="ngForm">
+        <h1 class="title text-center">VER SEGUIMIENTO</h1>
+        <p class="text-muted text-center">En este formulario podrá Consultar el listado de Seguimientos</p>
 
+        <div class="row">
+            <div class="formGroup col-6">
+               
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend ">
+                        <span class="input-group-text"><i
+                                class="fa fa-id-card-o"></i><small>Nombre</small></span>
+                    </div>
+                    <input type="text" class="form-control"
+                        placeholder="* Digite nombre del seguimiento" formControlName="nombre">
+                </div>
+            </div>
+
+            <div class="formGroup col-6">              
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i
+                                class="fa fa-envelope-o"></i><small>TIPO</small></span>
+                    </div>
+                    <input type="text" class="form-control"
+                    disabled formControlName="tipo">                    
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="formGroup col-6">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i
+                                class="fa fa-user-circle"></i><small>tutor</small></span>
+                    </div>
+                    <input type="text" class="form-control"
+                    disabled  formControlName="tutor">                                                     
+                </div>
+            </div>
+
+            <div class="formGroup col-6">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-user-circle"></i>
+                            <small>Estudiante</small></span>
+                    </div>
+                    <input type="text" class="form-control"
+                    disabled formControlName="estudiante">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="formGroup col-6">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i
+                                class="fa fa-user-circle"></i><small>Estado Proyecto</small></span>
+                    </div>                                   
+                    <input type="text" class="form-control"
+                    disabled formControlName="estado">
+                </div>
+            </div>
+
+            <div class="formGroup col-6">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-user-circle"></i>
+                            <small>Cohorte</small></span>
+                    </div>
+                    <input type="text" class="form-control"
+                    disabled formControlName="cohorte">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="formGroup col-6">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i
+                                class="fa fa-user-circle"></i><small>Coodirector</small></span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="* Coodirector"
+                    disabled formControlName="coodirector">
+                </div>
+            </div>
+            <div class="formGroup col-6">              
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend ">
+                        <span class="input-group-text"><i
+                                class="fa fa-user-circle"></i><small>Estado Seguimiento</small></span>
+                    </div>
+                    <input type="text" class="form-control"
+                    disabled formControlName="estadoSeguimiento">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="formGroup">               
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i
+                                class="fa fa-user-circle"></i><small>Objetivo General</small></span>
+                    </div>
+                    
+                        <textarea type="text"  disabled placeholder="* O. General" formControlName="objetivoGeneral" cols="50" rows="5"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="formGroup">               
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i
+                                class="fa fa-user-circle"></i><small>Objetivos Especificos</small></span>
+                    </div>
+                    
+                        <textarea type="text"  disabled placeholder="* O. Especificos" formControlName="objetivosEspec" cols="50" rows="5"></textarea>
+                </div>
+            </div>
+        </div>
+        
         <mat-accordion>
             <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                 <mat-expansion-panel-header>
@@ -75,7 +145,6 @@
             </button>
             
         </div>
-
     </form>
 
 </div>

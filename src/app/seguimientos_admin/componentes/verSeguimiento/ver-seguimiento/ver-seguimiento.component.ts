@@ -16,9 +16,8 @@ seguimiento:Seguimiento;
   texto:string="";
   objEspec:string[];
   panelOpenState = false;
+
   ngOnInit(): void {
-    let oe:string="";
-    let cont=1;
     this.objEspec=[];
    /*  for(let i of this.seguimiento.oEspecificos)
      {
@@ -29,7 +28,7 @@ seguimiento:Seguimiento;
      */
     this.formulario = this.formBuilder.group(
       {
-        nombre: [this.seguimiento.nombre,[]
+        nombre: [{value:this.seguimiento.nombre, disabled:true},[]
         ],
         tipo: [this.seguimiento.tipo, []],
         tutor: [this.seguimiento.tutor, []],
@@ -37,7 +36,9 @@ seguimiento:Seguimiento;
         estado: [this.seguimiento.estado, []],
         coodirector: [this.seguimiento.coodirector, []],
         objetivoGeneral:[this.seguimiento.oGeneral,[]],
-        objetivosEspec:[this.seguimiento.oEspecificos,[]]
+        objetivosEspec:[this.seguimiento.oEspecificos,[]],
+        cohorte: [this.seguimiento.cohorte, []],
+        estadoSeguimiento: [this.seguimiento.estadoSeguimiento, []],
       });
 
 

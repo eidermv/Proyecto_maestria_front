@@ -40,7 +40,7 @@ export class SeguimientosTutorServices {
       cohorte: '2018',
       oGeneral: 'objetivo1',
       oEspecificos: 'objetivo especifico1',
-      estadoSeguimiento: 'aceptado'
+      estadoSeguimiento: 'espera'
     },
     {
       id: 2,
@@ -66,7 +66,7 @@ export class SeguimientosTutorServices {
       cohorte: '2018',
       oGeneral: 'objetivo1',
       oEspecificos: 'objetivo especifico1',
-      estadoSeguimiento: 'aceptado'
+      estadoSeguimiento: 'espera'
     },
     {
       id: 4,

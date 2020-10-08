@@ -40,7 +40,7 @@ export class SeguimientosTutorServices {
       cohorte: '2018',
       oGeneral: 'objetivo1',
       oEspecificos: 'objetivo especifico1',
-      estadoSeguimiento: 'denegado'
+      estadoSeguimiento: 'aceptado'
     },
     {
       id: 2,
@@ -53,7 +53,7 @@ export class SeguimientosTutorServices {
       cohorte: '2020',
       oGeneral: 'objetivo1',
       oEspecificos: 'objetivo especifico1',
-      estadoSeguimiento: 'aceptado'
+      estadoSeguimiento: 'espera'
     },
     {
       id: 3,
@@ -66,7 +66,7 @@ export class SeguimientosTutorServices {
       cohorte: '2018',
       oGeneral: 'objetivo1',
       oEspecificos: 'objetivo especifico1',
-      estadoSeguimiento: 'espera'
+      estadoSeguimiento: 'aceptado'
     },
     {
       id: 4,
@@ -79,7 +79,7 @@ export class SeguimientosTutorServices {
       cohorte: '2018',
       oGeneral: 'objetivo1',
       oEspecificos: 'objetivo especifico1',
-      estadoSeguimiento: 'espera'
+      estadoSeguimiento: 'aceptado'
     },
     {
       id: 5,
@@ -92,7 +92,7 @@ export class SeguimientosTutorServices {
       cohorte: '2019',
       oGeneral: 'objetivo1',
       oEspecificos: 'objetivo especifico1',
-      estadoSeguimiento: 'espera'
+      estadoSeguimiento: 'aceptado'
     }
   ]
   notificaciones: SeguimientoTutor[] =[

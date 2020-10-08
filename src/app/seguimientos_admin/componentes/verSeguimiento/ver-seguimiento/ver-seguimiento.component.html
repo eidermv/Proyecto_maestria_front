@@ -4,7 +4,7 @@
 
     <form [formGroup]="formulario"  #f="ngForm">
         <h1 class="title text-center">VER SEGUIMIENTO</h1>
-        <p class="text-muted text-center">En este formulario podrá Consultar el listado de Seguimientos</p>
+        <p class="text-muted text-center">En este formulario podrá Consultar los detalles del Seguimientos</p>
 
         <div class="row">
             <div class="formGroup col-6">
@@ -26,7 +26,7 @@
                                 class="fa fa-envelope-o"></i><small>TIPO</small></span>
                     </div>
                     <input type="text" class="form-control"
-                    disabled formControlName="tipo">                    
+                     formControlName="tipo">                    
                 </div>
             </div>
         </div>
@@ -39,7 +39,7 @@
                                 class="fa fa-user-circle"></i><small>tutor</small></span>
                     </div>
                     <input type="text" class="form-control"
-                    disabled  formControlName="tutor">                                                     
+                      formControlName="tutor">                                                     
                 </div>
             </div>
 
@@ -50,7 +50,7 @@
                             <small>Estudiante</small></span>
                     </div>
                     <input type="text" class="form-control"
-                    disabled formControlName="estudiante">
+                     formControlName="estudiante">
                 </div>
             </div>
         </div>
@@ -62,7 +62,7 @@
                                 class="fa fa-user-circle"></i><small>Estado Proyecto</small></span>
                     </div>                                   
                     <input type="text" class="form-control"
-                    disabled formControlName="estado">
+                     formControlName="estado">
                 </div>
             </div>
 
@@ -73,7 +73,7 @@
                             <small>Cohorte</small></span>
                     </div>
                     <input type="text" class="form-control"
-                    disabled formControlName="cohorte">
+                     formControlName="cohorte">
                 </div>
             </div>
         </div>
@@ -85,7 +85,7 @@
                                 class="fa fa-user-circle"></i><small>Coodirector</small></span>
                     </div>
                     <input type="text" class="form-control" placeholder="* Coodirector"
-                    disabled formControlName="coodirector">
+                     formControlName="coodirector">
                 </div>
             </div>
             <div class="formGroup col-6">              
@@ -95,7 +95,7 @@
                                 class="fa fa-user-circle"></i><small>Estado Seguimiento</small></span>
                     </div>
                     <input type="text" class="form-control"
-                    disabled formControlName="estadoSeguimiento">
+                     formControlName="estadoSeguimiento">
                 </div>
             </div>
         </div>
@@ -106,8 +106,7 @@
                         <span class="input-group-text"><i
                                 class="fa fa-user-circle"></i><small>Objetivo General</small></span>
                     </div>
-                    
-                        <textarea type="text"  disabled placeholder="* O. General" formControlName="objetivoGeneral" cols="50" rows="5"></textarea>
+                        <textarea type="text"   placeholder="* O. General" formControlName="objetivoGeneral" cols="50" rows="5"></textarea>
                 </div>
             </div>
         </div>
@@ -119,7 +118,7 @@
                                 class="fa fa-user-circle"></i><small>Objetivos Especificos</small></span>
                     </div>
                     
-                        <textarea type="text"  disabled placeholder="* O. Especificos" formControlName="objetivosEspec" cols="50" rows="5"></textarea>
+                        <textarea type="text"   placeholder="* O. Especificos" formControlName="objetivosEspec" cols="50" rows="5"></textarea>
                 </div>
             </div>
         </div>

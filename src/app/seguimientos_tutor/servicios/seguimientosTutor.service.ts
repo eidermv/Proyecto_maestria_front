@@ -40,11 +40,24 @@ export class SeguimientosTutorServices {
       cohorte: '2018',
       oGeneral: 'objetivo1',
       oEspecificos: 'objetivo especifico1',
-      estadoSeguimiento: 'aceptado'
+      estadoSeguimiento: 'denegado'
     },
     {
       id: 2,
       nombre: 'seguimiento2',
+      tipo: 'Tesis',
+      tutor: 'Hendris P',
+      estudiante: 'Miguel Solano',
+      coodirector: 'Francisco pino',
+      estado: 'desarrollo',
+      cohorte: '2020',
+      oGeneral: 'objetivo1',
+      oEspecificos: 'objetivo especifico1',
+      estadoSeguimiento: 'aceptado'
+    },
+    {
+      id: 3,
+      nombre: 'seguimiento3',
       tipo: 'Tesis',
       tutor: 'sandra buitron',
       estudiante: 'Jhonatan zuñiga',
@@ -53,7 +66,33 @@ export class SeguimientosTutorServices {
       cohorte: '2018',
       oGeneral: 'objetivo1',
       oEspecificos: 'objetivo especifico1',
-      estadoSeguimiento: 'aceptado'
+      estadoSeguimiento: 'espera'
+    },
+    {
+      id: 4,
+      nombre: 'seguimiento4',
+      tipo: 'Tesis',
+      tutor: 'Cesar Collazos',
+      estudiante: 'Andres Perez',
+      coodirector: 'nuevo',
+      estado: 'desarrollo',
+      cohorte: '2018',
+      oGeneral: 'objetivo1',
+      oEspecificos: 'objetivo especifico1',
+      estadoSeguimiento: 'espera'
+    },
+    {
+      id: 5,
+      nombre: 'seguimiento5',
+      tipo: 'Tesis',
+      tutor: 'Carlos Collazos',
+      estudiante: 'Jose Tobar',
+      coodirector: 'nuevo',
+      estado: 'desarrollo',
+      cohorte: '2019',
+      oGeneral: 'objetivo1',
+      oEspecificos: 'objetivo especifico1',
+      estadoSeguimiento: 'espera'
     }
   ]
   notificaciones: SeguimientoTutor[] =[

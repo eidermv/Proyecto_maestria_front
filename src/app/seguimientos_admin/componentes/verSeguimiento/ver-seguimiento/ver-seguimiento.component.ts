@@ -30,15 +30,15 @@ seguimiento:Seguimiento;
       {
         nombre: [{value:this.seguimiento.nombre, disabled:true},[]
         ],
-        tipo: [this.seguimiento.tipo, []],
-        tutor: [this.seguimiento.tutor, []],
-        estudiante: [this.seguimiento.estudiante, []],
-        estado: [this.seguimiento.estado, []],
-        coodirector: [this.seguimiento.coodirector, []],
-        objetivoGeneral:[this.seguimiento.oGeneral,[]],
-        objetivosEspec:[this.seguimiento.oEspecificos,[]],
-        cohorte: [this.seguimiento.cohorte, []],
-        estadoSeguimiento: [this.seguimiento.estadoSeguimiento, []],
+        tipo: [{value:this.seguimiento.tipo, disabled:true}, []],
+        tutor: [{value:this.seguimiento.tutor, disabled:true}, []],
+        estudiante: [{value:this.seguimiento.estudiante, disabled:true}, []],
+        estado: [{value:this.seguimiento.estado,disabled:true}, []],
+        coodirector: [{value: this.seguimiento.coodirector, disabled:true}, []],
+        objetivoGeneral:[{value: this.seguimiento.oGeneral, disabled:true},[]],
+        objetivosEspec:[{value:this.seguimiento.oEspecificos, disabled:true},[]],
+        cohorte: [{value: this.seguimiento.cohorte, disabled:true}, []],
+        estadoSeguimiento: [{value: this.seguimiento.estadoSeguimiento, disabled:true}, []],
       });
 
 

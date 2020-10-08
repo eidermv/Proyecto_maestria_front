@@ -19,6 +19,8 @@ import { Seguimiento } from '../../../seguimientos_admin/modelos/seguimiento.mod
 })
 export class ListTutorSeguimientosComponent implements OnInit {
   hidden = false;
+  segEspera:SeguimientoTutor[]=[];
+  segAceptado:SeguimientoTutor[]=[];
   displayedColumns: string[] = ['Codigo', 'Nombre', 'Tipo', 'Estudiante', 'Estado', 'Accion'];
   segumientos: SeguimientoTutor[] = [];
   dataSource = new MatTableDataSource(this.segumientos);
@@ -30,7 +32,8 @@ export class ListTutorSeguimientosComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   ngOnInit(): void {
     this.segumientos = this.seguimientosServiceTutor.obtenerSeguimientosTutor();
-    this.dataSource = new MatTableDataSource(this.segumientos);
+    this.seguimientosEspera();
+    this.dataSource = new MatTableDataSource(this.segAceptado);
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.seguimiento= this.seguimientosServiceTutor.Seguimiento[0];
@@ -43,10 +46,18 @@ export class ListTutorSeguimientosComponent implements OnInit {
     this.bandera = event;
     console.log('imprimiendo desde notificaciones: ', this.bandera);
   }
+  seguimientosEspera()
+  {
+    for(let s of this.segumientos)
+    {
+      if(s.estadoSeguimiento==='espera'){ this.segEspera.push(s);}
+      if(s.estadoSeguimiento==='aceptado'){this.segAceptado.push(s);}     
+    }
+  }
   contarNoticaciones() {
     this.hidden = !this.hidden;
   }
-  notificaciones(row: SeguimientoTutor) {
+  notificaciones() {
     const dialogRef = this.dialog.open(NotificacionesTutorComponent, {
       width: '800px',
       data:{}
@@ -54,7 +65,7 @@ export class ListTutorSeguimientosComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
-    dialogRef.componentInstance.notificacionesInstance = row;
+    dialogRef.componentInstance.notificaciones = this.segEspera;
   }
   async crearPDF()
   {

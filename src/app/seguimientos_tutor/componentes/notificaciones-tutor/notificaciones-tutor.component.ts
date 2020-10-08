@@ -45,7 +45,6 @@ export class NotificacionesTutorComponent implements OnInit {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   ngOnInit(): void {
-    this.notificaciones = this.segumientoTutorService.obtenerNotificaciones();
     this.dataSource = new MatTableDataSource(this.notificaciones);
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;

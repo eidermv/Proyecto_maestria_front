@@ -36,13 +36,14 @@ export class StudentService {
         tutor: student.getTutor()
       }
     );
+    /* console.log("URL ESTUDIANTES:   ***   ",this.stringApp.URL_SERVICIO_CREATE_STUDENT); */
     return this.httpClient.post(this.stringApp.URL_SERVICIO_CREATE_STUDENT, newStudent,
                               {headers : new HttpHeaders({ 'Content-Type': 'application/json'}) ,
                                  reportProgress: true, observe: 'events'});
   }
 
   getAllStudents() {
-
+  console.log("Estudiantes URL *****************:  ",this.stringApp.URL_SERVICIO_GET_ALL_STUDENTS);
     return this.httpClient.get<Array<any>>(this.stringApp.URL_SERVICIO_GET_ALL_STUDENTS );
   }
 

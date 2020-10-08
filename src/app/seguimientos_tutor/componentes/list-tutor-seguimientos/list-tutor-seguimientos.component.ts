@@ -23,21 +23,29 @@ export class ListTutorSeguimientosComponent implements OnInit {
   segumientos: SeguimientoTutor[] = [];
   dataSource = new MatTableDataSource(this.segumientos);
   bandera = true;
-  seguimiento:SeguimientoTutor;
+  seguimiento: SeguimientoTutor;
 
   constructor(private router: Router, private dialog: MatDialog, private seguimientosServiceTutor: SeguimientosTutorServices) {}
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   ngOnInit(): void {
-    this.segumientos = this.seguimientosServiceTutor.obtenerSeguimientosTutor();
+    this.obtenerSeguimientos();
     this.dataSource = new MatTableDataSource(this.segumientos);
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.seguimiento= this.seguimientosServiceTutor.Seguimiento[0];
   }
-  editarSeguimientoTutor(element:SeguimientoTutor) {
+  obtenerSeguimientos(){
+    this.seguimientosServiceTutor.obtenerSeguimientosTutor(1).subscribe(resultado => {
+      console.log("seguimientos obtenidos" + resultado.data);
+    },
+    error => {
+      console.log('Este es el erro de la peticion'+JSON.stringify(error));
+    });
+  }
+  editarSeguimientoTutor(element: SeguimientoTutor) {
     this.bandera = !this.bandera;
-    this.seguimiento=element;
+    this.seguimiento = element;
   }
   notificar(event) {
     this.bandera = event;
@@ -71,38 +79,38 @@ export class ListTutorSeguimientosComponent implements OnInit {
 var fecha = new Date();
 var options = { year: 'numeric', month: 'long', day: 'numeric' };
     pdf.pageMargins([ 100, 60, 40, 40 ]);
-     pdf.header("\n\n.     \t\t"+fecha.toLocaleDateString("es-ES", options));  
+     pdf.header("\n\n.     \t\t"+fecha.toLocaleDateString("es-ES", options));
     pdf.add(new Txt('Listado de proyectos').alignment('center').bold().end );
-    pdf.add(new Txt('Maestría en Automática').alignment('center').bold().end );  
-    pdf.add("\n\n\n");/* 
+    pdf.add(new Txt('Maestría en Automática').alignment('center').bold().end );
+    pdf.add("\n\n\n");/*
     pdf.watermark('UNIVERSIDAD DEL CAUCA');  */
     pdf.add(this.crearTabla());
     pdf.create().download();
   }
   crearTabla()
   {
-    let body:any[]=[];    
+    let body:any[]=[];
     let contf=1;
-    let contc=0;  
-    let fila1:any[]=[]; 
+    let contc=0;
+    let fila1:any[]=[];
     fila1[contc]="Nombre";contc++;
     fila1[contc]="Tipo";contc++;
     fila1[contc]="Tutor";contc++;
     fila1[contc]="Estudiante";contc++;
     fila1[contc]="Estado";contc++;
-    fila1[contc]="Coodirector";contc++; 
+    fila1[contc]="Coodirector";contc++;
     body[0]=fila1;contc=0;
     for(let seg of this.segumientos)
     {
-      let fila:any[]=[]; 
+      let fila:any[]=[];
       fila[contc]=seg.nombre;contc++;
       fila[contc]=seg.tipo;contc++;
       fila[contc]=seg.tutor;contc++;
       fila[contc]=seg.estudiante;contc++;
       fila[contc]=seg.estado;contc++;
-      fila[contc]=seg.coodirector;contc++;      
+      fila[contc]=seg.coodirector;contc++;
       body[contf]=fila;contc=0; contf++;
-    } 
+    }
     /* console.log("BODY:   ",body); */
     return new Table(body).end;
   }

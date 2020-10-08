@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { ActividadTutor } from './../modelos/actividadTutor.model';
 import { Seguimiento } from './../../seguimientos_admin/modelos/seguimiento.model';
 import { DataSource } from '@angular/cdk/table';
@@ -27,35 +28,6 @@ export class SeguimientosTutorServices {
       estadoSeguimiento: 'aceptado'
     }
   ];
-  // variable que almacena los seguimientos asociados a un tutor
-  seguimientos: SeguimientoTutor[] = [
-    {
-      id: 1,
-      nombre: 'seguimiento1',
-      tipo: 'Tesis',
-      tutor: 'sandra buitron',
-      estudiante: 'Miller Santiado Castillo Muñoz',
-      coodirector: 'Francisco pino',
-      estado: 'desarrollo',
-      cohorte: '2018',
-      oGeneral: 'objetivo1',
-      oEspecificos: 'objetivo especifico1',
-      estadoSeguimiento: 'aceptado'
-    },
-    {
-      id: 2,
-      nombre: 'seguimiento2',
-      tipo: 'Tesis',
-      tutor: 'sandra buitron',
-      estudiante: 'Jhonatan zuñiga',
-      coodirector: 'Francisco pino',
-      estado: 'desarrollo',
-      cohorte: '2018',
-      oGeneral: 'objetivo1',
-      oEspecificos: 'objetivo especifico1',
-      estadoSeguimiento: 'aceptado'
-    }
-  ]
   notificaciones: SeguimientoTutor[] =[
     {
       id: 3,
@@ -118,16 +90,16 @@ export class SeguimientosTutorServices {
   obtenerSeguimiento() {
     return  this.Seguimiento;
   }
-  obtenerNotificaciones() {
-    return this.notificaciones;
+  obtenerNotificaciones(idTutor: number) {
+    return this.httpClient.get('http://localhost:8099/notificacion/listar/' + idTutor);
   }
   //Se usa para recibir la información de los seguimientos relacionados con un tutor
-  obtenerSeguimientosTutor() {
-    return this.seguimientos;
+  obtenerSeguimientosTutor(idTutor: number): Observable<any> {
+    return this.httpClient.get('http://localhost:8099/seguimientos/listarportutor/' + idTutor);
   }
   onEstadosSeguimientos()
   {
-    
+
   }
   estadosSeguimientos():EstadoSeguimiento[]
   {
@@ -141,9 +113,9 @@ export class SeguimientosTutorServices {
   }
   onEstadosProyecto()
   {
-    
+
   }
-  estadosProyecto():EstadoProyecto[]
+  estadosProyecto(): EstadoProyecto[]
   {
     this.onEstadosProyecto(); //Hago peticion
     let nuevo:EstadoProyecto[] =[
@@ -154,7 +126,7 @@ export class SeguimientosTutorServices {
   }
   onTiposSeguimiento()
   {
-    
+
   }
   tiposSeguimiento():TipoSeguimiento[]
   {

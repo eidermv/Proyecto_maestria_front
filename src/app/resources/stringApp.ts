@@ -12,7 +12,7 @@ export class StringApp {
   public URL_SERVICIO_SEARCH_STUDENT = environment.URL_SERVICIO + 'estudiante/buscar/match/';
   public URL_SERVICIO_SEARCH_STUDENT_BY_CODE = environment.URL_SERVICIO + 'estudiante/buscar/codigo/';
   public URL_SERVICIO_UPDATE_STUDENT = environment.URL_SERVICIO + 'estudiante/actualizar';
-  public URL_SERVICIO_GET_STUDENT_WHIT_TOKEN = environment.URL_SERVICIO + 'estudiante/buscar/token/';
+  public URL_SERVICIO_GET_STUDENT_WHIT_TOKEN = environment.URL_SERVICIO + 'persona/buscar/token/';
 
   public URL_SERVICIO_REGISTRY_PUBLICATIONS = environment.URL_SERVICIO + 'publicacion/revista/registrar';
   public URL_SERVICIO_REGISTRY_BOOK = environment.URL_SERVICIO + 'publicacion/libro/registrar';

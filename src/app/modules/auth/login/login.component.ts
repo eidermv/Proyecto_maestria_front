@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit {
 
     if (this.validateField(user, pass)) {
       this.authService.login(user, pass)
-      .subscribe( event => {
+      .subscribe( (event) => {
 
           if (event.type === HttpEventType.UploadProgress) {
             this.viewProgressRequest.show();

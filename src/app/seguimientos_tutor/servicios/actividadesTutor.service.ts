@@ -37,7 +37,7 @@ export class ActividadesTutorServices {
     }
   ];
   constructor(private httpClient: HttpClient, private fecha: DatePipe) {
-    console.log('Servicio actividades funcionando')
+    console.log('Servicio actividades funcionando');
   }
   // Esta función retorna las actividades relacionadas con un seguimiento
   obtenerActividades() {

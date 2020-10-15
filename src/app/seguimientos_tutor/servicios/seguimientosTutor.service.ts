@@ -95,7 +95,7 @@ export class SeguimientosTutorServices {
   }
   //Se usa para recibir la información de los seguimientos relacionados con un tutor
   obtenerSeguimientosTutor(idTutor: number): Observable<any> {
-    return this.httpClient.get('http://localhost:8099/seguimientos/listarportutor/' + idTutor);
+    return this.httpClient.get('http://localhost:8099/seguimiento/listarPorTutor/' + idTutor);
   }
   onEstadosSeguimientos()
   {

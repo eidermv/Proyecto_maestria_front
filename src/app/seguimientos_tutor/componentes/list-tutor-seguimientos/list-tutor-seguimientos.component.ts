@@ -37,7 +37,7 @@ export class ListTutorSeguimientosComponent implements OnInit {
   }
   obtenerSeguimientos(){
     this.seguimientosServiceTutor.obtenerSeguimientosTutor(1).subscribe(resultado => {
-      console.log("seguimientos obtenidos" + resultado.data);
+      console.log("seguimientos obtenidos" + JSON.stringify(resultado.data));
     },
     error => {
       console.log('Este es el erro de la peticion'+JSON.stringify(error));

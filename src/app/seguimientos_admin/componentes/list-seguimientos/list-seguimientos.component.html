@@ -65,8 +65,9 @@
     <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
   </div>
   <div style="text-align: right;">
-    <button class="material-icons button is-link"  (click)="crearPDF()" > picture_as_pdf PDF</button>
-  </div></div>
+    <button class="material-icons button is-link" (click)="crearPDF()"> picture_as_pdf PDF</button>
+  </div>
+</div>
 <div class="" [hidden]="bandListar">
   <app-agregar-seguimiento (bandAgregar)="cambiar($event)"></app-agregar-seguimiento>
 </div>

@@ -22,6 +22,7 @@ export class VerSeguimientoEstudianteComponent implements OnInit {
     let oe:string="";
     let cont=1;
     this.objEspec=[];
+    console.log("Seguimiento entrante###:  ",this.seguimiento);
    /*  for(let i of this.seguimiento.oEspecificos)
      {
         oe+=cont+". "+i+"\n";

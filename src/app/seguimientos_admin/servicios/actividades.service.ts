@@ -27,7 +27,7 @@ constructor(private datePipe: DatePipe) { }
 id = 0;
 cump=0;
 actividades: Array<Actividad> = [];
-onActividades(): Array<Actividad> {
+onActividades(id:number): Array<Actividad> {
     this.actividades = Array.from({ length: 5 }, (_, k) => this.crearActividad(k + 1));
     console.log("Actividades a retornar:   ",this.actividades);
     return this.actividades;

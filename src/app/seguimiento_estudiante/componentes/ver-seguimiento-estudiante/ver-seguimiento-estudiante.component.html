@@ -64,7 +64,7 @@
                         {{panelOpenState ? 'Ocultar ' : 'Ver '}} actividades asignadas a este seguimiento
                     </mat-panel-description>
                 </mat-expansion-panel-header>
-                <app-listar-actividades></app-listar-actividades>
+                <app-listar-actividades [seguimiento]="seguimiento" ></app-listar-actividades>
             </mat-expansion-panel>
         </mat-accordion>
         <p>  </p>

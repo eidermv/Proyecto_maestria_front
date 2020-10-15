@@ -16,7 +16,7 @@ import {VerActividadEstudianteComponent} from '../ver-actividad-estudiante/ver-a
 })
 export class ListarActividadesEstudianteComponent implements OnInit {
 
-  @Input() IdSeguimiento;
+  @Input() seguimiento:Seguimiento;
 
 
   displayedColumns: string[] = ['nombre', 'tipo', 'tutor', 'estudiante', 'estado', 'opciones'];

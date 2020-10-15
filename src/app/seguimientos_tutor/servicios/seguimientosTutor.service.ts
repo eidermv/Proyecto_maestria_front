@@ -161,7 +161,7 @@ export class SeguimientosTutorServices {
     return this.notificaciones;
   }
   //Se usa para recibir la información de los seguimientos relacionados con un tutor
-  obtenerSeguimientosTutor() {
+  obtenerSeguimientosTutor(id:number) {
     return this.seguimientos;
   }
   onEstadosSeguimientos()

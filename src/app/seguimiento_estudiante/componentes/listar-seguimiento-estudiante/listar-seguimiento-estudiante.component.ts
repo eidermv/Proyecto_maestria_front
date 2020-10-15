@@ -7,7 +7,9 @@ import {Router} from '@angular/router';
 import {SeguimientosService} from '../../../seguimientos_admin/servicios/seguimientos.service';
 import {VerSeguimientoEstudianteComponent} from '../ver-seguimiento-estudiante/ver-seguimiento-estudiante.component';
 import {MatDialog} from '@angular/material/dialog';
-
+import { PdfMakeWrapper, Table, Txt } from 'pdfmake-wrapper';
+import pdfFonts from "pdfmake/build/vfs_fonts"; 
+PdfMakeWrapper.setFonts(pdfFonts);
 @Component({
   selector: 'app-listar-seguimiento-estudiante',
   templateUrl: './listar-seguimiento-estudiante.component.html',
@@ -17,10 +19,12 @@ export class ListarSeguimientoEstudianteComponent implements OnInit {
 
   displayedColumns: string[] = ['nombre', 'tipo', 'tutor', 'estudiante', 'estado', 'opciones'];
   dataSource: MatTableDataSource<Seguimiento>;
-
+  bandListar: boolean;
+  filtrado:boolean;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   seguimientos: Array<Seguimiento> = [];
+  seguimientosPDF: Array<Seguimiento> = [];
   constructor( private router: Router,
                private seguimientoService: SeguimientosService,
   private dialog: MatDialog) {
@@ -36,13 +40,7 @@ export class ListarSeguimientoEstudianteComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-  }
+ 
   /** Builds and returns a new User. */
   verSeguimiento(row) {
   
@@ -56,5 +54,116 @@ export class ListarSeguimientoEstudianteComponent implements OnInit {
     dialogRef.componentInstance .seguimiento=row;
     
     
+  }
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+    if(filterValue!=''){
+      this.filtrado=true;
+      console.log("DATOS FILTRADOS");
+      this.llenarPDF(this.dataSource.filteredData);
+    }
+      
+    else
+    {
+      this.filtrado=false;
+      console.log("DATOS NO FILTRADOS");
+      this.llenarPDF(this.seguimientos);
+    }
+     
+
+    console.log("Paginator DATA:  ",this.dataSource.filteredData);
+  }
+  llenarPDF(filteredData: Seguimiento[]) {
+   this.seguimientosPDF=[];
+   for(let seg of filteredData)
+   {
+     this.seguimientosPDF.push(seg);
+   }   
+  }
+  async crearPDF()
+  {
+    const pdf = new PdfMakeWrapper();
+    pdf.defaultStyle({
+      bold: false,
+      fontSize: 10
+  });
+  pdf.info({
+    title: 'Listado Proyectos Maestría',
+    author: 'Universidad del Cauca',
+    subject: 'Reporte',
+});
+var fecha = new Date();
+var options = { year: 'numeric', month: 'long', day: 'numeric' };
+    pdf.pageMargins([ 100, 60, 40, 40 ]);
+     pdf.header("\n\n.     \t\t"+fecha.toLocaleDateString("es-ES", options));  
+    pdf.add(new Txt('Listado de proyectos').alignment('center').bold().end );
+    pdf.add(new Txt('Maestría en Automática').alignment('center').bold().end );  
+    pdf.add("\n\n\n");/* 
+    pdf.watermark('UNIVERSIDAD DEL CAUCA');  */
+    if(this.filtrado) pdf.add(this.crearTablaFiltrado());
+    else pdf.add(this.crearTablaNoFiltrado());
+    pdf.create().download();
+  }
+  crearTablaFiltrado()
+  {
+    let body:any[]=[];    
+    let contf=1;
+    let contc=0;  
+    let fila1:any[]=[]; 
+    fila1[contc]="#";contc++;
+    fila1[contc]="Nombre";contc++;
+    fila1[contc]="Tipo";contc++;
+    fila1[contc]="Tutor";contc++;
+    fila1[contc]="Estudiante";contc++;
+    fila1[contc]="Estado";contc++;
+    fila1[contc]="Coodirector";contc++; 
+    body[0]=fila1;contc=0;
+    for(let seg of this.seguimientosPDF)
+    {
+      let fila:any[]=[]; 
+      fila[contc]=contf;contc++;
+      fila[contc]=seg.nombre;contc++;
+      fila[contc]=seg.tipo;contc++;
+      fila[contc]=seg.tutor;contc++;
+      fila[contc]=seg.estudiante;contc++;
+      fila[contc]=seg.estado;contc++;
+      fila[contc]=seg.coodirector;contc++;      
+      body[contf]=fila;contc=0; contf++;
+    } 
+    /* console.log("BODY:   ",body); */
+    return new Table(body).end;
+  }
+  crearTablaNoFiltrado()
+  {
+    let body:any[]=[];    
+    let contf=1;
+    let contc=0;  
+    let fila1:any[]=[]; 
+    fila1[contc]="#";contc++;
+    fila1[contc]="Nombre";contc++;
+    fila1[contc]="Tipo";contc++;
+    fila1[contc]="Tutor";contc++;
+    fila1[contc]="Estudiante";contc++;
+    fila1[contc]="Estado";contc++;
+    fila1[contc]="Coodirector";contc++; 
+    body[0]=fila1;contc=0;
+    for(let seg of this.seguimientos)
+    {
+      let fila:any[]=[]; 
+      fila[contc]=contf;contc++;
+      fila[contc]=seg.nombre;contc++;
+      fila[contc]=seg.tipo;contc++;
+      fila[contc]=seg.tutor;contc++;
+      fila[contc]=seg.estudiante;contc++;
+      fila[contc]=seg.estado;contc++;
+      fila[contc]=seg.coodirector;contc++;      
+      body[contf]=fila;contc=0; contf++;
+    } 
+    /* console.log("BODY:   ",body); */
+    return new Table(body).end;
   }
 }

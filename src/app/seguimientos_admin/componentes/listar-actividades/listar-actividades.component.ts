@@ -32,13 +32,11 @@ export class ListarActividadesComponent implements OnInit {
                private actividadesService:ActividadesService,
                private dialog: MatDialog, private seguimientosService:SeguimientosService) {
     // Create 100 users
-
-   
   }
 
   ngOnInit(): void {
-    console.log("Seguimiento entrante",this.seguimiento);
-    this.actividades = this.actividadesService.onActividades();
+    console.log("Seguimiento entrante ACTIVIDADES:  ",this.seguimiento);
+    this.actividades = this.actividadesService.onActividades(this.seguimiento.id);
     // Assign the data to the data source for the table to render
     this.dataSource = new MatTableDataSource(this.actividades);
     // Assign the data to the data source for the table to render

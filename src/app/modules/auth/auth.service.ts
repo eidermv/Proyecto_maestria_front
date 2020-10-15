@@ -30,6 +30,7 @@ export class AuthService {
 
   getStudent() {
     if (this.permiso.valor === 'Estudiante') {
+      console.log("ES UN ESTUDIANTE###################");
       this.httpClient.get(this.stringApp.URL_SERVICIO_GET_STUDENT_WHIT_TOKEN + sessionStorage.getItem('token'))
         .subscribe(data => {
             sessionStorage.setItem('code', data['codigo']);
@@ -39,6 +40,8 @@ export class AuthService {
             this.router.navigate(['/404']);
           });
     } else if (this.permiso.valor === 'Tutor') {
+      
+      console.log("ES UN TUTOR###################");
       Swal.fire(
         'Tutor',
         'Logeado como tutur',

@@ -26,7 +26,8 @@ export class ListSeguimientosComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   seguimientos: Array<Seguimiento> = [];
-  
+  seguimientosPDF: Array<Seguimiento> = [];
+  filtrado:boolean;
   constructor( private router: Router, private seguimientoService: SeguimientosService,private dialog: MatDialog) {
     // Create 100 users
 
@@ -37,6 +38,7 @@ export class ListSeguimientosComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.filtrado=false;
     this.bandListar=true;
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -44,6 +46,50 @@ export class ListSeguimientosComponent implements OnInit {
 
 
 
+  
+  editarSeguimiento(row:Seguimiento)
+  {
+    console.log("EDITAR");
+    const dialogRef = this.dialog.open(EditarSeguimientoComponent, {
+      width: '800px',
+      height:'500px',
+      data:{}
+    });
+    dialogRef.componentInstance.seguimiento=row;
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+ 
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+    if(filterValue!=''){
+      this.filtrado=true;
+      console.log("DATOS FILTRADOS");
+      this.llenarPDF(this.dataSource.filteredData);
+    }
+      
+    else
+    {
+      this.filtrado=false;
+      console.log("DATOS NO FILTRADOS");
+      this.llenarPDF(this.seguimientos);
+    }
+     
+
+    console.log("Paginator DATA:  ",this.dataSource.filteredData);
+  }
+  llenarPDF(filteredData: Seguimiento[]) {
+   this.seguimientosPDF=[];
+   for(let seg of filteredData)
+   {
+     this.seguimientosPDF.push(seg);
+   }   
+  }
   async crearPDF()
   {
     const pdf = new PdfMakeWrapper();
@@ -64,28 +110,17 @@ var options = { year: 'numeric', month: 'long', day: 'numeric' };
     pdf.add(new Txt('Maestría en Automática').alignment('center').bold().end );  
     pdf.add("\n\n\n");/* 
     pdf.watermark('UNIVERSIDAD DEL CAUCA');  */
-    pdf.add(this.crearTabla());
+    if(this.filtrado) pdf.add(this.crearTablaFiltrado());
+    else pdf.add(this.crearTablaNoFiltrado());
     pdf.create().download();
   }
-  editarSeguimiento(row:Seguimiento)
-  {
-    console.log("EDITAR");
-    const dialogRef = this.dialog.open(EditarSeguimientoComponent, {
-      width: '800px',
-      height:'500px',
-      data:{}
-    });
-    dialogRef.componentInstance.seguimiento=row;
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
-  }
-  crearTabla()
+  crearTablaFiltrado()
   {
     let body:any[]=[];    
     let contf=1;
     let contc=0;  
     let fila1:any[]=[]; 
+    fila1[contc]="#";contc++;
     fila1[contc]="Nombre";contc++;
     fila1[contc]="Tipo";contc++;
     fila1[contc]="Tutor";contc++;
@@ -93,9 +128,10 @@ var options = { year: 'numeric', month: 'long', day: 'numeric' };
     fila1[contc]="Estado";contc++;
     fila1[contc]="Coodirector";contc++; 
     body[0]=fila1;contc=0;
-    for(let seg of this.seguimientos)
+    for(let seg of this.seguimientosPDF)
     {
       let fila:any[]=[]; 
+      fila[contc]=contf;contc++;
       fila[contc]=seg.nombre;contc++;
       fila[contc]=seg.tipo;contc++;
       fila[contc]=seg.tutor;contc++;
@@ -107,12 +143,34 @@ var options = { year: 'numeric', month: 'long', day: 'numeric' };
     /* console.log("BODY:   ",body); */
     return new Table(body).end;
   }
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
+  crearTablaNoFiltrado()
+  {
+    let body:any[]=[];    
+    let contf=1;
+    let contc=0;  
+    let fila1:any[]=[]; 
+    fila1[contc]="#";contc++;
+    fila1[contc]="Nombre";contc++;
+    fila1[contc]="Tipo";contc++;
+    fila1[contc]="Tutor";contc++;
+    fila1[contc]="Estudiante";contc++;
+    fila1[contc]="Estado";contc++;
+    fila1[contc]="Coodirector";contc++; 
+    body[0]=fila1;contc=0;
+    for(let seg of this.seguimientos)
+    {
+      let fila:any[]=[]; 
+      fila[contc]=contf;contc++;
+      fila[contc]=seg.nombre;contc++;
+      fila[contc]=seg.tipo;contc++;
+      fila[contc]=seg.tutor;contc++;
+      fila[contc]=seg.estudiante;contc++;
+      fila[contc]=seg.estado;contc++;
+      fila[contc]=seg.coodirector;contc++;      
+      body[contf]=fila;contc=0; contf++;
+    } 
+    /* console.log("BODY:   ",body); */
+    return new Table(body).end;
   }
   agregar() {
     //this.router.navigate(['/seguimiento/agregar']);

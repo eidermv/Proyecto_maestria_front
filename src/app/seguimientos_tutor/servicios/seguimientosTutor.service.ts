@@ -1,4 +1,3 @@
-import { Observable } from 'rxjs';
 import { ActividadTutor } from './../modelos/actividadTutor.model';
 import { Seguimiento } from './../../seguimientos_admin/modelos/seguimiento.model';
 import { DataSource } from '@angular/cdk/table';
@@ -28,6 +27,74 @@ export class SeguimientosTutorServices {
       estadoSeguimiento: 'aceptado'
     }
   ];
+  // variable que almacena los seguimientos asociados a un tutor
+  seguimientos: SeguimientoTutor[] = [
+    {
+      id: 1,
+      nombre: 'seguimiento1',
+      tipo: 'Tesis',
+      tutor: 'sandra buitron',
+      estudiante: 'Miller Santiado Castillo Muñoz',
+      coodirector: 'Francisco pino',
+      estado: 'desarrollo',
+      cohorte: '2018',
+      oGeneral: 'objetivo1',
+      oEspecificos: 'objetivo especifico1',
+      estadoSeguimiento: 'espera'
+    },
+    {
+      id: 2,
+      nombre: 'seguimiento2',
+      tipo: 'Tesis',
+      tutor: 'Hendris P',
+      estudiante: 'Miguel Solano',
+      coodirector: 'Francisco pino',
+      estado: 'desarrollo',
+      cohorte: '2020',
+      oGeneral: 'objetivo1',
+      oEspecificos: 'objetivo especifico1',
+      estadoSeguimiento: 'espera'
+    },
+    {
+      id: 3,
+      nombre: 'seguimiento3',
+      tipo: 'Tesis',
+      tutor: 'sandra buitron',
+      estudiante: 'Jhonatan zuñiga',
+      coodirector: 'Francisco pino',
+      estado: 'desarrollo',
+      cohorte: '2018',
+      oGeneral: 'objetivo1',
+      oEspecificos: 'objetivo especifico1',
+      estadoSeguimiento: 'espera'
+    },
+    {
+      id: 4,
+      nombre: 'seguimiento4',
+      tipo: 'Tesis',
+      tutor: 'Cesar Collazos',
+      estudiante: 'Andres Perez',
+      coodirector: 'nuevo',
+      estado: 'desarrollo',
+      cohorte: '2018',
+      oGeneral: 'objetivo1',
+      oEspecificos: 'objetivo especifico1',
+      estadoSeguimiento: 'aceptado'
+    },
+    {
+      id: 5,
+      nombre: 'seguimiento5',
+      tipo: 'Tesis',
+      tutor: 'Carlos Collazos',
+      estudiante: 'Jose Tobar',
+      coodirector: 'nuevo',
+      estado: 'desarrollo',
+      cohorte: '2019',
+      oGeneral: 'objetivo1',
+      oEspecificos: 'objetivo especifico1',
+      estadoSeguimiento: 'aceptado'
+    }
+  ]
   notificaciones: SeguimientoTutor[] =[
     {
       id: 3,
@@ -90,16 +157,16 @@ export class SeguimientosTutorServices {
   obtenerSeguimiento() {
     return  this.Seguimiento;
   }
-  obtenerNotificaciones(idTutor: number) {
-    return this.httpClient.get('http://localhost:8099/notificacion/listar/' + idTutor);
+  obtenerNotificaciones() {
+    return this.notificaciones;
   }
   //Se usa para recibir la información de los seguimientos relacionados con un tutor
-  obtenerSeguimientosTutor(idTutor: number): Observable<any> {
-    return this.httpClient.get('http://localhost:8099/seguimiento/listarPorTutor/' + idTutor);
+  obtenerSeguimientosTutor() {
+    return this.seguimientos;
   }
   onEstadosSeguimientos()
   {
-
+    
   }
   estadosSeguimientos():EstadoSeguimiento[]
   {
@@ -113,9 +180,9 @@ export class SeguimientosTutorServices {
   }
   onEstadosProyecto()
   {
-
+    
   }
-  estadosProyecto(): EstadoProyecto[]
+  estadosProyecto():EstadoProyecto[]
   {
     this.onEstadosProyecto(); //Hago peticion
     let nuevo:EstadoProyecto[] =[
@@ -126,7 +193,7 @@ export class SeguimientosTutorServices {
   }
   onTiposSeguimiento()
   {
-
+    
   }
   tiposSeguimiento():TipoSeguimiento[]
   {

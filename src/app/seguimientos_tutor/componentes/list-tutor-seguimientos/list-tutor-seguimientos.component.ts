@@ -19,42 +19,45 @@ import { Seguimiento } from '../../../seguimientos_admin/modelos/seguimiento.mod
 })
 export class ListTutorSeguimientosComponent implements OnInit {
   hidden = false;
+  segEspera:SeguimientoTutor[]=[];
+  segAceptado:SeguimientoTutor[]=[];
   displayedColumns: string[] = ['Codigo', 'Nombre', 'Tipo', 'Estudiante', 'Estado', 'Accion'];
   segumientos: SeguimientoTutor[] = [];
   dataSource = new MatTableDataSource(this.segumientos);
   bandera = true;
-  seguimiento: SeguimientoTutor;
+  seguimiento:SeguimientoTutor;
 
   constructor(private router: Router, private dialog: MatDialog, private seguimientosServiceTutor: SeguimientosTutorServices) {}
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   ngOnInit(): void {
-    this.obtenerSeguimientos();
-    this.dataSource = new MatTableDataSource(this.segumientos);
+    this.segumientos = this.seguimientosServiceTutor.obtenerSeguimientosTutor();
+    this.seguimientosEspera();
+    this.dataSource = new MatTableDataSource(this.segAceptado);
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.seguimiento= this.seguimientosServiceTutor.Seguimiento[0];
   }
-  obtenerSeguimientos(){
-    this.seguimientosServiceTutor.obtenerSeguimientosTutor(1).subscribe(resultado => {
-      console.log("seguimientos obtenidos" + JSON.stringify(resultado.data));
-    },
-    error => {
-      console.log('Este es el erro de la peticion'+JSON.stringify(error));
-    });
-  }
-  editarSeguimientoTutor(element: SeguimientoTutor) {
+  editarSeguimientoTutor(element:SeguimientoTutor) {
     this.bandera = !this.bandera;
-    this.seguimiento = element;
+    this.seguimiento=element;
   }
   notificar(event) {
     this.bandera = event;
     console.log('imprimiendo desde notificaciones: ', this.bandera);
   }
+  seguimientosEspera()
+  {
+    for(let s of this.segumientos)
+    {
+      if(s.estadoSeguimiento==='espera'){ this.segEspera.push(s);}
+      if(s.estadoSeguimiento==='aceptado'){this.segAceptado.push(s);}
+    }
+  }
   contarNoticaciones() {
     this.hidden = !this.hidden;
   }
-  notificaciones(row: SeguimientoTutor) {
+  notificaciones() {
     const dialogRef = this.dialog.open(NotificacionesTutorComponent, {
       width: '800px',
       data:{}
@@ -62,7 +65,7 @@ export class ListTutorSeguimientosComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
-    dialogRef.componentInstance.notificacionesInstance = row;
+    dialogRef.componentInstance.notificaciones = this.segEspera;
   }
   async crearPDF()
   {

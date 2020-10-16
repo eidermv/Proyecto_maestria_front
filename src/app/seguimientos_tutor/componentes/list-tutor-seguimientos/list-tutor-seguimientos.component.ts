@@ -33,7 +33,8 @@ export class ListTutorSeguimientosComponent implements OnInit {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   ngOnInit(): void {
-    this.segumientos = this.seguimientosServiceTutor.obtenerSeguimientosTutor(this.seguimiento.id);
+    this.segumientos = this.seguimientosServiceTutor.obtenerSeguimientosTutor(3);
+    console.log("SEGUIMIENTOS TUTOR OBTENIDOS:   ",this.segumientos);
     this.seguimientosEspera();
     this.dataSource = new MatTableDataSource(this.segAceptado);
     this.dataSource.sort = this.sort;
@@ -146,7 +147,7 @@ var options = { year: 'numeric', month: 'long', day: 'numeric' };
   contarNoticaciones() {
     this.hidden = !this.hidden;
   }
-  notificaciones(row: SeguimientoTutor) {
+  notificaciones() {
     const dialogRef = this.dialog.open(NotificacionesTutorComponent, {
       width: '800px',
       data:{}
@@ -154,7 +155,7 @@ var options = { year: 'numeric', month: 'long', day: 'numeric' };
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
-    dialogRef.componentInstance.notificacionesInstance = row;
+    dialogRef.componentInstance.notificacionesInstance = this.segEspera;
   }
   
   verSeguimiento(row:SeguimientoTutor)

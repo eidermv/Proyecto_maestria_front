@@ -92,7 +92,7 @@ export class SeguimientosTutorServices {
       cohorte: '2019',
       oGeneral: 'objetivo1',
       oEspecificos: 'objetivo especifico1',
-      estadoSeguimiento: 'aceptado'
+      estadoSeguimiento: 'rechazado'
     }
   ]
   notificaciones: SeguimientoTutor[] =[

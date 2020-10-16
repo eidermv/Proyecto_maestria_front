@@ -1,7 +1,7 @@
 <h2 mat-dialog-title style="background-color:#5bc0de;">Notificaciones de seguimientos</h2>
-<h3 [hidden]="notificaciones.length!=0" >No hay Notificaciones de Seguimientos Pendientes</h3>
+<h3 [hidden]="notificacionesInstance.length!=0" >No hay Notificaciones de Seguimientos Pendientes</h3>
 
-  <div [hidden]="notificaciones.length==0">
+  <div [hidden]="notificacionesInstance.length==0">
     <mat-dialog-content>
       <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
         <!-- Position Column -->

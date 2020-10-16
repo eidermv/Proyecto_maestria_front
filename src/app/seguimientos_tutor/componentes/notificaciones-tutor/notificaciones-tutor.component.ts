@@ -29,10 +29,10 @@ const ELEMENT_DATA: notificacionesTutor[] = [
   styleUrls: ['./notificaciones-tutor.component.css']
 })
 export class NotificacionesTutorComponent implements OnInit {
-  notificacionesInstance: SeguimientoTutor;
+  notificacionesInstance: SeguimientoTutor[]=[];
   notificaciones: SeguimientoTutor[]=[];
   displayedColumns: string[] = ['Codigo', 'Nombre', 'Tipo', 'Estudiante', 'Estado', 'Accion'];
-  dataSource = new MatTableDataSource(this.notificaciones);
+  dataSource = new MatTableDataSource(this.notificacionesInstance);
   /*columnas = [
     {titulo: 'Codigo', name: 'Codigo' },
     {titulo: 'Nombre', name: 'Nombre' },
@@ -45,8 +45,9 @@ export class NotificacionesTutorComponent implements OnInit {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   ngOnInit(): void {
-    this.dataSource = new MatTableDataSource(this.notificaciones);
+    this.dataSource = new MatTableDataSource(this.notificacionesInstance);
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
+    
   }
 }

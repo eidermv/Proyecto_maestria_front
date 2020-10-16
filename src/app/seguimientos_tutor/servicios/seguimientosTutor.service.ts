@@ -97,6 +97,7 @@ export class SeguimientosTutorServices {
   ]
   notificaciones: SeguimientoTutor[] =[
     {
+      
       id: 3,
       nombre: 'seguimiento1',
       tipo: 'Tesis',

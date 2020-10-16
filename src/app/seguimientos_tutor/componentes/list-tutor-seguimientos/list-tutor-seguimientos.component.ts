@@ -24,7 +24,7 @@ export class ListTutorSeguimientosComponent implements OnInit {
   displayedColumns: string[] = ['Codigo', 'Nombre', 'Tipo', 'Estudiante', 'Estado', 'Accion'];
   segumientos: SeguimientoTutor[] = [];
   dataSource = new MatTableDataSource(this.segumientos);
-  bandera = true;
+  bandera:boolean; 
   seguimiento:SeguimientoTutor;
   filtrado:boolean;  
   seguimientosPDF: Array<Seguimiento> = [];
@@ -33,6 +33,7 @@ export class ListTutorSeguimientosComponent implements OnInit {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   ngOnInit(): void {
+    this.bandera=true;
     this.segumientos = this.seguimientosServiceTutor.obtenerSeguimientosTutor(3);
     console.log("SEGUIMIENTOS TUTOR OBTENIDOS:   ",this.segumientos);
     this.seguimientosEspera();
@@ -140,8 +141,8 @@ var options = { year: 'numeric', month: 'long', day: 'numeric' };
     this.bandera = !this.bandera;
     this.seguimiento = element;
   }
-  notificar(event) {
-    this.bandera = event;
+  notificar() {
+    this.bandera=!this.bandera;;
     console.log('imprimiendo desde notificaciones: ', this.bandera);
   }
   contarNoticaciones() {

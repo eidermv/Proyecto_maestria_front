@@ -63,17 +63,10 @@ this.seguimientos=[];
         this.dataSource.sort = this.sort;
       }
     );
-   
- 
-    
   }
-
-
-
   
   editarSeguimiento(row:Seguimiento)
   {
-    console.log("EDITAR");
     const dialogRef = this.dialog.open(EditarSeguimientoComponent, {
       width: '800px',
       height:'500px',
@@ -93,19 +86,14 @@ this.seguimientos=[];
     }
     if(filterValue!=''){
       this.filtrado=true;
-      console.log("DATOS FILTRADOS");
       this.llenarPDF(this.dataSource.filteredData);
     }
       
     else
     {
       this.filtrado=false;
-      console.log("DATOS NO FILTRADOS");
       this.llenarPDF(this.seguimientos);
     }
-     
-
-    console.log("Paginator DATA:  ",this.dataSource.filteredData);
   }
   llenarPDF(filteredData: Seguimiento[]) {
    this.seguimientosPDF=[];

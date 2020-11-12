@@ -37,6 +37,16 @@ export class ListarActividadesComponent implements OnInit {
   ngOnInit(): void {
     console.log("Seguimiento entrante ACTIVIDADES:  ",this.seguimiento);
     this.actividades = this.actividadesService.onActividades(this.seguimiento.id);
+    this.actividadesService.getActividades(this.seguimiento.id).subscribe(
+      result =>{
+        this.actividades=[];
+        console.log("ACTIVIDADES QUE LLEGARON:  ",result.data);
+        result.data.forEach(element => {
+          /* 
+          this.actividades.push(element); */
+        });
+      }
+    )
     // Assign the data to the data source for the table to render
     this.dataSource = new MatTableDataSource(this.actividades);
     // Assign the data to the data source for the table to render

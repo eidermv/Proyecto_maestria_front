@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Actividad } from '../modelos/actividad.model';
 import { DatePipe } from '@angular/common';
-
+import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 /** Constants used to fill up our data base. */
 const SEMANAS: string[] = [
   'SEMANA 1', 'SEMANA 2', 'SEMANA 3', 'SEMANA 4', 'SEMANA 6', 'SEMANA 7', 'SEMANA 8','SEMANA 9'
@@ -15,7 +16,7 @@ const ENTREGAS: string[] = [
   const FECHAS: string[] = [
     "2020-03-25", "2020-04-11", "2020-07-27","2020-08-01","2020-06-13","2020-05-12"
   ];
-
+  const RUTA="http://localhost:8099";
 @Injectable({
   providedIn: 'root'
 })
@@ -23,7 +24,7 @@ const ENTREGAS: string[] = [
 
 export class ActividadesService {
 
-constructor(private datePipe: DatePipe) { }
+constructor(private datePipe: DatePipe, private http: HttpClient) { }
 id = 0;
 cump=0;
 actividades: Array<Actividad> = [];
@@ -31,6 +32,9 @@ onActividades(id:number): Array<Actividad> {
     this.actividades = Array.from({ length: 5 }, (_, k) => this.crearActividad(k + 1));
     console.log("Actividades a retornar:   ",this.actividades);
     return this.actividades;
+}
+getActividades(id_seguimiento:number): Observable<any> {
+  return this.http.get(RUTA+'/actividad/listarPorSeguimiento/'+id_seguimiento);
 }
 crearActividad(id: number): Actividad {
 

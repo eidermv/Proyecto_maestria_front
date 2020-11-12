@@ -7,7 +7,7 @@ import { EstadoProyecto } from '../modelos/estadosProyecto.model';
 import { TipoSeguimiento } from '../modelos/tipoSeguimiento.model';
 
 const httpOptions = new HttpHeaders({ 'Content-Type': 'application/json'});
-
+const RUTA="http://localhost:8099";
 /** Constants used to fill up our data base. */
 const PROYECTS: string[] = [
     'TESIS1', 'TESIS2', 'TESIS3', 'TESIS4', 'TESIS5'
@@ -36,7 +36,7 @@ export class SeguimientosService {
         return this.seguimientos;
     }
     getSeguimientos(): Observable<any> {
-      return this.http.get('http://localhost:8099/seguimiento/listar');
+      return this.http.get(RUTA+'/seguimiento/listar');
     }
   
     seguimiento(n:number):Seguimiento

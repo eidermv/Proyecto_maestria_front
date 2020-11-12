@@ -43,8 +43,22 @@ export class AgregarSeguimientoComponent implements OnInit {
     this.estudianteService.onEstudiantes();
     this.YEAR_END_COHORTE = 2008;
     this.optionsCohorte = [];
-    this.optionsEstadoSeguimiento=this.seguimientoService.estadosSeguimientos();
-    this.optionsEstadoProyecto=this.seguimientoService.estadosProyecto();
+   
+    this.seguimientoService.onEstadosSeguimientos().subscribe(
+      result=>{
+        this.optionsEstadoSeguimiento=[];
+        result.data.forEach(element => {
+          let e:EstadoSeguimiento;
+          e={
+            id: element.idEstadoSeguimiento,
+            nombre:element.nombre
+          };
+          this.optionsEstadoSeguimiento.push(e);
+        });
+        //EstadoSeguimiento[]       
+        console.log("Estados desde API:   ",result.data);
+      }
+    )
     this.optionsTiposSeguimiento=this.seguimientoService.tiposSeguimiento();
 
   }
@@ -68,7 +82,6 @@ export class AgregarSeguimientoComponent implements OnInit {
     this.options = this.tutorService.tutores;
     this.options2=this.estudianteService.estudiantes;
     this.crearFormulario();
-   
   }
   private crearFormulario():void{
     this.formulario = this.formBuilder.group(

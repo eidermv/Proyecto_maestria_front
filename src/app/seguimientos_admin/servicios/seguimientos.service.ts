@@ -68,9 +68,9 @@ export class SeguimientosService {
           estadoSeguimiento:"Aprobado"
         };
       }
-      onEstadosSeguimientos()
+      onEstadosSeguimientos():Observable<any>
       {
-        
+        return this.http.get(RUTA+'/estado_seguimiento/estados');
       }
       estadosSeguimientos():EstadoSeguimiento[]
       {

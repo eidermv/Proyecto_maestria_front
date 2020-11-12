@@ -43,7 +43,7 @@ export class AgregarSeguimientoComponent implements OnInit {
     this.estudianteService.onEstudiantes();
     this.YEAR_END_COHORTE = 2008;
     this.optionsCohorte = [];
-   
+   //Estado Seguimiento
     this.seguimientoService.onEstadosSeguimientos().subscribe(
       result=>{
         this.optionsEstadoSeguimiento=[];
@@ -54,13 +54,37 @@ export class AgregarSeguimientoComponent implements OnInit {
             nombre:element.nombre
           };
           this.optionsEstadoSeguimiento.push(e);
-        });
-        //EstadoSeguimiento[]       
-        console.log("Estados desde API:   ",result.data);
+        });       
       }
-    )
-    this.optionsTiposSeguimiento=this.seguimientoService.tiposSeguimiento();
-
+    );
+    //Estado Proyecto
+    this.seguimientoService.onEstadosProyecto().subscribe(
+      result=>{
+        this.optionsEstadoProyecto=[];
+        result.data.forEach(element => {
+          let e:EstadoProyecto;
+          e={
+            id:element.idEstadoSeguimiento,
+            nombre:element.nombre
+          };
+          this.optionsEstadoProyecto.push(e);
+        });       
+      }
+    );
+    //Tipo Seguimiento
+    this.seguimientoService.onTiposSeguimiento().subscribe(
+      result=>{
+        this.optionsTiposSeguimiento=[];
+        result.data.forEach(element => {
+          let e:EstadoProyecto;
+          e={
+            id:element.idTipoSeguimiento,
+            nombre:element.nombre
+          };
+          this.optionsTiposSeguimiento.push(e);
+        });       
+      }
+    );
   }
   crearTutor() {
     const dialogRef = this.dialog.open(CrearTutorComponent, {
@@ -79,7 +103,28 @@ export class AgregarSeguimientoComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllCohorte();
-    this.options = this.tutorService.tutores;
+
+
+     this.tutorService.getTutores().subscribe(
+      result=>{
+        this.options=[];
+        result.data.forEach(element => {
+          let e:Tutor;
+          e={
+            apellido:element.apellido,
+            correo:element.correo,
+            departamento:element.departamento,
+            grupoInvestigacion:element.grupoInvestigacion,
+            identificacion:element.id_tutor,
+            nombre:element.nombre,
+            telefono:element.telefono,
+            tipo:element.tipoTutor,
+            universidad:element.universidad
+          };
+          this.options.push(e);
+        });      
+      }
+    ); 
     this.options2=this.estudianteService.estudiantes;
     this.crearFormulario();
   }

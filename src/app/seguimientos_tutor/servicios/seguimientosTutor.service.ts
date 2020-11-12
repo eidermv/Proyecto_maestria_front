@@ -7,11 +7,13 @@ import { SeguimientoTutor } from '../modelos/seguimientoTutor.model';
 import { TipoSeguimiento } from '../../seguimientos_admin/modelos/tipoSeguimiento.model';
 import { EstadoProyecto } from '../../seguimientos_admin/modelos/estadosProyecto.model';
 import { EstadoSeguimiento } from '../../seguimientos_admin/modelos/estadoSeguimiento.model';
-
+const RUTA="http://localhost:8099";
 @Injectable()
 // tslint:disable-next-line: class-name
 export class SeguimientosTutorServices {
   // variable que almacena los datos de un seguimiento, el cual se puede editar etc...
+  
+  constructor(private http: HttpClient) { }
   Seguimiento: SeguimientoTutor [] = [
     {
       id: 1,
@@ -147,9 +149,7 @@ export class SeguimientosTutorServices {
       visibilidad: 1
     }
   ];
-  constructor(private httpClient: HttpClient) {
-    console.log('Servicio funcionando')
-  }
+  
   // Esta función retorna las actividades relacionadas con un seguimiento
   obtenerActividades() {
     return this.actividades;
@@ -208,10 +208,19 @@ export class SeguimientosTutorServices {
 
   // Se usa para enviar la informacion editada por el tutor
   guardarSeguimientoTutor(seguimientotutor: SeguimientoTutor) {
-    this.httpClient.post('https://listado-personas.json', seguimientotutor)
+    this.http.post('https://listado-personas.json', seguimientotutor)
     .subscribe(
       response => console.log("resultado guardar personas: "+ response),
       error => console.log("Error al guardar Personas: "+ error)
     );
+  }
+  onSeguimientosTutor()
+  {
+    this.http.get(RUTA+'/seguimiento/listarPorTutor/1').subscribe(
+      result=>{
+        console.log("Seguimientos tutor:  ",result);
+      }
+    );
+
   }
 }

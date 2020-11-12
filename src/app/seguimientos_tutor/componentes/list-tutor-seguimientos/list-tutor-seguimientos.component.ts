@@ -41,6 +41,7 @@ export class ListTutorSeguimientosComponent implements OnInit {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.seguimiento= this.seguimientosServiceTutor.Seguimiento[0];
+    this.seguimientosServiceTutor.onSeguimientosTutor();
   }
 
   seguimientosEspera()

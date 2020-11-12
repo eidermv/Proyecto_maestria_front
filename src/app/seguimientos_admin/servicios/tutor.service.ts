@@ -4,10 +4,12 @@ import { Observable } from 'rxjs';
 import { Tutor } from '../modelos/tutor.model';
 import { TipoTutor } from '../modelos/tipoTutor.model';
 const httpOptions = new HttpHeaders({ 'Content-Type': 'application/json'});
-
+const RUTA="http://localhost:8099";
 @Injectable()
 export class TutorService {
     tutores:Tutor[]=[];
+
+    constructor(private http: HttpClient) { }
     onTutores():void
     {
         this.tutores=[];
@@ -37,9 +39,12 @@ export class TutorService {
         };
         this.tutores.push(nuevo);
     }
-    onTiposTutor()
+    getTutores(): Observable<any>
     {
-      
+      return this.http.get(RUTA+'/tutor/listar');
+    }
+    onTiposTutor(): Observable<any> {
+      return this.http.get(RUTA+'/tipo_tutor/tipos');
     }
     tiposTutor():TipoTutor[]
     {

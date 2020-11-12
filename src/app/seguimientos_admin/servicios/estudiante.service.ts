@@ -4,15 +4,25 @@ import { Observable } from 'rxjs';
 import { Student } from '../../models/student';
 
 const httpOptions = new HttpHeaders({ 'Content-Type': 'application/json'});
-
+const RUTA="http://localhost:8099";
 
 
 @Injectable()
 export class EstudianteService {
     estudiantes:Student[]=[];
+    constructor(private http: HttpClient) { }
     onEstudiantes():void
     {
-        this.estudiantes=[];
+      
+    }
+}
+
+
+
+
+//QUEMAR DATOS DE ESTUDIANTES 2
+
+ /*  this.estudiantes=[];
         let nuevo = new Student();
         nuevo.setName("Miller"),
         nuevo.setSurname("Munoz"),
@@ -36,6 +46,4 @@ export class EstudianteService {
         nuevo2.setCodigo("104615021746"),
         nuevo2.setEnteredSemester("3"),
         nuevo2.setTutor("Sandra Buitron");          
-        this.estudiantes.push(nuevo2);
-    }
-}
+        this.estudiantes.push(nuevo2); */

@@ -25,7 +25,22 @@ export class CrearTutorComponent implements OnInit {
 
   }
   ngOnInit(): void {
-    this.optionsTiposTutor=this.tutorService.tiposTutor();
+
+
+
+    this.tutorService.onTiposTutor().subscribe(
+      result=>{
+        this.optionsTiposTutor=[];
+        result.data.forEach(element => {
+          let e:TipoTutor;
+          e={
+            id:element.idTipoTutor,
+            nombre:element.nombre
+          };
+          this.optionsTiposTutor.push(e);
+        });       
+      }
+    );
     this.formulario = this.formBuilder.group(
       {
         nombre: ['', [Validators.required,

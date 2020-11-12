@@ -35,7 +35,7 @@ export class SeguimientosService {
         this.seguimientos = Array.from({ length: 100 }, (_, k) => this.crearSeguimiento(k + 1));
         return this.seguimientos;
     }
-    getSeguimientos(): Observable<any> {
+    getSeguimientos(): Observable<any> {      
       return this.http.get(RUTA+'/seguimiento/listar');
     }
   
@@ -82,9 +82,9 @@ export class SeguimientosService {
         console.log("Retornando desde estados:  ",nuevo);
         return nuevo;
       }
-      onEstadosProyecto()
+      onEstadosProyecto():Observable<any>
       {
-        
+        return this.http.get(RUTA+'/estado_proyecto/estados');
       }
       estadosProyecto():EstadoProyecto[]
       {
@@ -95,9 +95,9 @@ export class SeguimientosService {
         ];
         return nuevo;
       }
-      onTiposSeguimiento()
+      onTiposSeguimiento():Observable<any>
       {
-        
+        return this.http.get(RUTA+'/tipo_seguimiento/tipos');
       }
       tiposSeguimiento():TipoSeguimiento[]
       {

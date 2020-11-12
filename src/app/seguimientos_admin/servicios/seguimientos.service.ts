@@ -30,9 +30,13 @@ const PROYECTS: string[] = [
 export class SeguimientosService {
     id = 0;
     seguimientos: Array<Seguimiento> = [];
+    constructor(private http: HttpClient) { }
     onSeguimientos(): Array<Seguimiento> {
         this.seguimientos = Array.from({ length: 100 }, (_, k) => this.crearSeguimiento(k + 1));
         return this.seguimientos;
+    }
+    getSeguimientos(): Observable<any> {
+      return this.http.get('http://localhost:8099/seguimiento/listar');
     }
   
     seguimiento(n:number):Seguimiento

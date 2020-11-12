@@ -30,18 +30,42 @@ export class ListSeguimientosComponent implements OnInit {
   filtrado:boolean;
   constructor( private router: Router, private seguimientoService: SeguimientosService,private dialog: MatDialog) {
     // Create 100 users
-
-    this.seguimientos = this.seguimientoService.onSeguimientos();
-
-    // Assign the data to the data source for the table to render
-    this.dataSource = new MatTableDataSource(this.seguimientos);
+this.seguimientos=[];
+    
   }
 
   ngOnInit(): void {
     this.filtrado=false;
     this.bandListar=true;
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.seguimientos=[];   
+    this.seguimientoService.getSeguimientos().subscribe(
+      result=>{
+        this.seguimientos=[];
+        result.data.forEach(element => {
+          let seg: Seguimiento;
+          seg={
+            cohorte:element.cohorte,
+            coodirector:element.codirector,
+            estado:element.estado_proyecto,
+            estadoSeguimiento:element.estado_seguimiento,
+            estudiante:element.estudiante,
+            id:element.id_seguimiento,
+            nombre:element.nombre,
+            oGeneral:element.objetivo_general,
+            oEspecificos:element.objetivos_especificos,
+            tipo:element.tipo_seguimiento,
+            tutor:element.tutor
+          }
+          this.seguimientos.push(seg);
+        });
+        this.dataSource = new MatTableDataSource(this.seguimientos);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      }
+    );
+   
+ 
+    
   }
 
 

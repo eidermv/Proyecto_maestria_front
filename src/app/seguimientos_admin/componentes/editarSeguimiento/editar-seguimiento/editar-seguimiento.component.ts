@@ -58,7 +58,23 @@ export class EditarSeguimientoComponent implements OnInit {
   {
     if (this.formulario.valid) 
     {
-      console.log("FORMULARIO VALIDO");    
+      console.log("FORMULARIO VALIDO"); 
+      let s:Seguimiento={
+        cohorte:this.seguimiento.cohorte,
+        coodirector: this.seguimiento.coodirector,
+        estado:'1',
+        estadoSeguimiento:'2',
+        estudiante:'1',
+        id:this.seguimiento.id,
+        nombre:this.seguimiento.nombre,
+        oEspecificos:this.seguimiento.oEspecificos,
+        oGeneral:this.seguimiento.oGeneral,
+        tipo:'2',
+        tutor:'1'
+      };
+     /*  this.seguimientoService.onEditSeguimiento(s).subscribe(
+        result=>console.log("RESULTADO EDITAR SEGUIMIENTO:   ",result)
+      );  */  
       Swal.fire(
         'Exito!',
         'Seguimiento Almacenado!',

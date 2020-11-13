@@ -1,5 +1,5 @@
 
-<div class="mat-elevation-z8">
+<div class="mat-elevation-z8" *ngIf="actividades.length>0">
   <table mat-table [dataSource]="dataSource" matSort class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
     <!-- nombre Column -->
@@ -55,7 +55,7 @@
   </div> -->
   <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
 </div>
-<div style="text-align: right;">
+<div style="text-align: right;" *ngIf="actividades.length>0" >
   <button class="material-icons button is-link"  (click)="crearPDF()" > picture_as_pdf PDF</button>
 </div>
 

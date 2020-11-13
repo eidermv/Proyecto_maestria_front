@@ -43,6 +43,24 @@ export class SeguimientosService {
     {
       return this.crearSeguimiento(n);
     }
+    onEditSeguimiento(seg:Seguimiento):Observable<any>
+    {
+      const s = JSON.stringify( {
+        id_seguimiento:seg.id,
+        nombre:seg.nombre,
+        id_tutor:seg.tutor,
+        codirector:seg.coodirector,
+        id_estudiante:seg.estudiante,
+        cohorte:seg.cohorte,
+        objetivos:seg.oGeneral,
+        objetivos_especificos:seg.oEspecificos,
+        id_estado_proyecto:seg.estado,
+        id_tipo_seguimiento: seg.tipo,
+        id_estado_seguimiento:seg.estadoSeguimiento
+      });
+      return this.http.put(RUTA+'/seguimiento/editar',s, {headers : new HttpHeaders({ 'Content-Type': 'application/json'}) ,
+      reportProgress: true, observe: 'events'});
+    }
     crearSeguimiento(id: number): Seguimiento {
 
         const student = NAMES[Math.round(Math.random() * (NAMES.length - 1))] + ' ' +

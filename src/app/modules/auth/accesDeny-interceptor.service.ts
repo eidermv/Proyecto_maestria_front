@@ -15,7 +15,7 @@ export class AccesDenyInterceptorService implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     console.log('------------ 1 ' + JSON.stringify(req));
     return next.handle(req).do(
-     (event: any) => {console.log("IICIO DE SESIÓN");},
+     (event: any) => {console.log("INICIO DE SESIÓN");},
      (error: any) => {
                       if (error.status === 403) {
                         const aux = error.url.split('/'); // tomo el nombre del servicio para no usarlo en el login

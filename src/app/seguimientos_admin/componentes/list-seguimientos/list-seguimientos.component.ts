@@ -39,22 +39,24 @@ this.seguimientos=[];
     this.bandListar=true;
     this.seguimientos=[];   
     this.seguimientoService.getSeguimientos().subscribe(
-      result=>{
+      result=>
+      {
+        console.log("SEGUIMIENTOS ENTRANTES:   ",result.data);
         this.seguimientos=[];
         result.data.forEach(element => {
           let seg: Seguimiento;
           seg={
-            cohorte:element.cohorte,
+            cohorte:element.estudiante.cohorte,
             coodirector:element.codirector,
-            estado:element.estado_proyecto,
-            estadoSeguimiento:element.estado_seguimiento,
-            estudiante:element.estudiante,
-            id:element.id_seguimiento,
+            estado:element.estadoProyecto.nombre,
+            estadoSeguimiento:element.estadoSeguimiento.nombre,
+            estudiante:element.estudiante.nombres+" "+element.estudiante.apellidos,
+            id:element.idSeguimiento,
             nombre:element.nombre,
-            oGeneral:element.objetivo_general,
-            oEspecificos:element.objetivos_especificos,
-            tipo:element.tipo_seguimiento,
-            tutor:element.tutor
+            oGeneral:element.objetivoGeneral,
+            oEspecificos:element.objetivosEspecificos,
+            tipo:element.tipoSeguimiento.nombre,
+            tutor:element.tutor.nombre+" "+element.tutor.apellido
           }
           this.seguimientos.push(seg);
         });

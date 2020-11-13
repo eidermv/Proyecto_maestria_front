@@ -7,10 +7,10 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import Swal from 'sweetalert2';
 import { Tutor } from '../../../modelos/tutor.model';
 import { TutorService } from '../../../servicios/tutor.service';
-import {MatDialog} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { EstudianteService } from '../../../servicios/estudiante.service';
 import { Student } from '../../../../models/student';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { CrearTutorComponent } from '../../tutores/crear-tutor/crear-tutor.component';
 import { EstadoSeguimiento } from '../../../modelos/estadoSeguimiento.model';
 import { SeguimientosService } from '../../../servicios/seguimientos.service';
@@ -29,121 +29,143 @@ export class AgregarSeguimientoComponent implements OnInit {
   options: Tutor[] = [];
   filteredOptions: Observable<string[]>;
   optionsCohorte: Array<string>;
-  options2: Student[]=[];
-  optionsEstadoSeguimiento:EstadoSeguimiento[]=[];
-  optionsEstadoProyecto:EstadoProyecto[]=[];
-  optionsTiposSeguimiento:TipoSeguimiento[]=[];
+  options2: Student[] = [];
+  optionsEstadoSeguimiento: EstadoSeguimiento[] = [];
+  optionsEstadoProyecto: EstadoProyecto[] = [];
+  optionsTiposSeguimiento: TipoSeguimiento[] = [];
   filteredOptions2: Observable<string[]>;
   cTutor: boolean = false;
-  nuevoTutor:Tutor;
-  porcentaje:number=0;
-  @Output() bandAgregar= new EventEmitter<boolean>();
-  constructor(private formBuilder: FormBuilder, private tutorService: TutorService, private estudianteService:EstudianteService, private dialog: MatDialog, private seguimientoService:SeguimientosService) {
+  nuevoTutor: Tutor;
+  porcentaje: number = 0;
+  @Output() bandAgregar = new EventEmitter<boolean>();
+  constructor(private formBuilder: FormBuilder, private tutorService: TutorService, private studentService: EstudianteService, private dialog: MatDialog, private seguimientoService: SeguimientosService) {
     this.tutorService.onTutores();
-    this.estudianteService.onEstudiantes();
     this.YEAR_END_COHORTE = 2008;
     this.optionsCohorte = [];
-   //Estado Seguimiento
-    this.seguimientoService.onEstadosSeguimientos().subscribe(
-      result=>{
-        this.optionsEstadoSeguimiento=[];
+  }
+
+  ngOnInit(): void {
+
+    this.getAllCohorte();
+    this.tutorService.getTutores().subscribe(
+      result => {
+        this.options = [];
         result.data.forEach(element => {
-          let e:EstadoSeguimiento;
-          e={
+          let e: Tutor;
+          e = {
+            apellido: element.apellido,
+            correo: element.correo,
+            departamento: element.departamento,
+            grupoInvestigacion: element.grupoInvestigacion,
+            identificacion: element.id_tutor,
+            nombre: element.nombre,
+            telefono: element.telefono,
+            tipo: element.tipoTutor,
+            universidad: element.universidad
+          };
+          this.options.push(e);
+        });
+      }
+    );
+    //Estado Seguimiento
+    this.seguimientoService.onEstadosSeguimientos().subscribe(
+      result => {
+        this.optionsEstadoSeguimiento = [];
+        result.data.forEach(element => {
+          let e: EstadoSeguimiento;
+          e = {
             id: element.idEstadoSeguimiento,
-            nombre:element.nombre
+            nombre: element.nombre
           };
           this.optionsEstadoSeguimiento.push(e);
-        });       
+        });
       }
     );
     //Estado Proyecto
     this.seguimientoService.onEstadosProyecto().subscribe(
-      result=>{
-        this.optionsEstadoProyecto=[];
+      result => {
+        this.optionsEstadoProyecto = [];
         result.data.forEach(element => {
-          let e:EstadoProyecto;
-          e={
-            id:element.idEstadoSeguimiento,
-            nombre:element.nombre
+          let e: EstadoProyecto;
+          e = {
+            id: element.idEstadoSeguimiento,
+            nombre: element.nombre
           };
           this.optionsEstadoProyecto.push(e);
-        });       
+        });
       }
     );
     //Tipo Seguimiento
     this.seguimientoService.onTiposSeguimiento().subscribe(
-      result=>{
-        this.optionsTiposSeguimiento=[];
+      result => {
+        this.optionsTiposSeguimiento = [];
         result.data.forEach(element => {
-          let e:EstadoProyecto;
-          e={
-            id:element.idTipoSeguimiento,
-            nombre:element.nombre
+          let e: EstadoProyecto;
+          e = {
+            id: element.idTipoSeguimiento,
+            nombre: element.nombre
           };
           this.optionsTiposSeguimiento.push(e);
-        });       
+        });
       }
     );
+    //ESTUDIANTES
+    this.getAllStudents();
+
+    this.crearFormulario();
   }
   crearTutor() {
     const dialogRef = this.dialog.open(CrearTutorComponent, {
       width: '600px',
-      data:{}
+      data: {}
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
     dialogRef.componentInstance.tutor.subscribe(
       result => {
-        this.formulario.get('tutor').setValue(result.nombre+" "+result.apellido);
+        this.formulario.get('tutor').setValue(result.nombre + " " + result.apellido);
       }
     )
   }
-
-  ngOnInit(): void {
-    this.getAllCohorte();
-
-
-     this.tutorService.getTutores().subscribe(
-      result=>{
-        this.options=[];
-        result.data.forEach(element => {
-          let e:Tutor;
-          e={
-            apellido:element.apellido,
-            correo:element.correo,
-            departamento:element.departamento,
-            grupoInvestigacion:element.grupoInvestigacion,
-            identificacion:element.id_tutor,
-            nombre:element.nombre,
-            telefono:element.telefono,
-            tipo:element.tipoTutor,
-            universidad:element.universidad
-          };
-          this.options.push(e);
-        });      
+  getAllStudents() {
+    this.studentService.onEstudiantes()
+      .subscribe(result => {
+        this.options2 = [];
+        result.forEach(element => {
+          let e: Student;
+          e=new Student();
+          e.setSurname(element.apellidos);
+          e.setCodigo(element.codigo);
+          e.setCohorte(element.cohorte);
+          e.setEmail(element.correo);
+          e.setState(element.estado);
+          e.setId(element.id)
+          e.setName(element.nombres);
+          e.setEnteredBy("");
+          e.setEnteredSemester(element.semestre);
+          e.setTutor(element.tutor.nombre+' '+element.tutor.apellido);  
+          this.options2.push(e);
+        });
       }
-    ); 
-    this.options2=this.estudianteService.estudiantes;
-    this.crearFormulario();
+      );
   }
-  private crearFormulario():void{
+  private crearFormulario(): void {
     this.formulario = this.formBuilder.group(
       {
         nombre: ['', [Validators.required,
         Validators.maxLength(30)]
         ],
-        tipo: [null,  [/* Validators.required */]],
+        tipo: [null, [/* Validators.required */]],
         tutor: [null, [/* Validators.required */]],
         estudiante: [null, [/* Validators.required */]],
-        cohorte:[null, [/* Validators.required */]],
-        estado: [null, [/* Validators.required */] ],
-        objetivo:['', [ Validators.required] ],        
-        coodirector:['', [/* Validators.required */] ],
-        estadoSeguimiento:[null, [/* Validators.required */]]
+        cohorte: [null, [/* Validators.required */]],
+        estado: [null, [/* Validators.required */]],
+        objetivo: ['', [Validators.required]],
+        coodirector: ['', [/* Validators.required */]],
+        estadoSeguimiento: [null, [/* Validators.required */]]
       });
-      this.filteredOptions = this.formulario.get('tutor').valueChanges.pipe(debounceTime(350),
+    this.filteredOptions = this.formulario.get('tutor').valueChanges.pipe(debounceTime(350),
       /* startWith(''), */
       map(value => this._filter(value).map(v2 => v2.nombre))
     );
@@ -151,26 +173,26 @@ export class AgregarSeguimientoComponent implements OnInit {
       /* startWith(''), */
       map(value => this._filter2(value).map(v2 => v2.getName()))
     );
-     this.formulario.valueChanges.pipe(
+    this.formulario.valueChanges.pipe(
       debounceTime(350)
-      ).subscribe(
-        value=>{
-          console.log("VALUE:   ",value)
-          let p=0;
-          if(value.nombre !="") p++;
-          if(value.tipo!=null) p++;
-          if(value.tutor!=null) p++;
-          if(value.estudiante!=null) p++;
-          if(value.estado!="") p++;
-          if(value.cohorte!=null) p++;
-          if(value.objetivo!="") p++;
-          if(value.coodirector!="") p++;
-          if(value.estadoSeguimiento!=null) p++;          
-          if(value.objetivo!="") p++;
-          this.porcentaje=(10*p);
-          console.log(value);
-        }
-      );
+    ).subscribe(
+      value => {
+        console.log("VALUE:   ", value)
+        let p = 0;
+        if (value.nombre != "") p++;
+        if (value.tipo != null) p++;
+        if (value.tutor != null) p++;
+        if (value.estudiante != null) p++;
+        if (value.estado != "") p++;
+        if (value.cohorte != null) p++;
+        if (value.objetivo != "") p++;
+        if (value.coodirector != "") p++;
+        if (value.estadoSeguimiento != null) p++;
+        if (value.objetivo != "") p++;
+        this.porcentaje = (10 * p);
+        console.log(value);
+      }
+    );
   }
   private _filter(value: string): Tutor[] {
     const filterValue = value.toLowerCase();
@@ -215,10 +237,9 @@ export class AgregarSeguimientoComponent implements OnInit {
   clearArray(arrayClear: Array<string>) {
     return arrayClear = [];
   }
-  cancelar()
-  {
+  cancelar() {
     this.crearFormulario();
-    this.bandAgregar.emit(true); 
+    this.bandAgregar.emit(true);
     Swal.fire(
       'Cancelado!',
       'Seguimiento no Almacenado!',
@@ -226,9 +247,8 @@ export class AgregarSeguimientoComponent implements OnInit {
     )
   }
   onSubmit(event: Event) {
-    
-    if (this.formulario.valid) 
-    {
+
+    if (this.formulario.valid) {
       console.log("FORMULARIO VALIDO");
       this.bandAgregar.emit(true);
       Swal.fire(
@@ -236,7 +256,7 @@ export class AgregarSeguimientoComponent implements OnInit {
         'Seguimiento Almacenado!',
         'success'
       )
-      this.bandAgregar.emit(true); 
+      this.bandAgregar.emit(true);
     }
     else {
       console.log("FORMULARIO IN VALIDO");
@@ -245,7 +265,7 @@ export class AgregarSeguimientoComponent implements OnInit {
     }
     this.crearFormulario();
   }
-  
+
   errorFormulario() {
     Swal.fire({
       title: 'Campos sin Llenar',
@@ -261,17 +281,16 @@ export class AgregarSeguimientoComponent implements OnInit {
       confirmButtonColor: '#3085d6',
     });
   }
-  formularioValido():boolean
-  {
+  formularioValido(): boolean {
     return this.formulario.valid;
   }
-  getNombreValid():boolean{return this.formulario.get('nombre').valid}
-  getNombreInvalid():boolean{return !this.formulario.get('nombre').valid }
-  getTipoValid():boolean{return this.formulario.get('tipo').valid;}
-  getTutorValid():boolean{return this.formulario.get('tutor').valid;}
-  getEstudianteValid():boolean{return this.formulario.get('estudiante').valid;}
-  getEstadoValid():boolean{return this.formulario.get('estado').valid;}
-  getCohorteValid():boolean{return this.formulario.get('cohorte').valid;}
-  getCoodirectorValid():boolean{return this.formulario.get('coodirector').valid;}
+  getNombreValid(): boolean { return this.formulario.get('nombre').valid }
+  getNombreInvalid(): boolean { return !this.formulario.get('nombre').valid }
+  getTipoValid(): boolean { return this.formulario.get('tipo').valid; }
+  getTutorValid(): boolean { return this.formulario.get('tutor').valid; }
+  getEstudianteValid(): boolean { return this.formulario.get('estudiante').valid; }
+  getEstadoValid(): boolean { return this.formulario.get('estado').valid; }
+  getCohorteValid(): boolean { return this.formulario.get('cohorte').valid; }
+  getCoodirectorValid(): boolean { return this.formulario.get('coodirector').valid; }
 
 }

@@ -42,17 +42,29 @@ export class ListarActividadesComponent implements OnInit {
         this.actividades=[];
         console.log("ACTIVIDADES QUE LLEGARON:  ",result.data);
         result.data.forEach(element => {
-          /* 
-          this.actividades.push(element); */
+         
+          let a:Actividad={
+            compromisos:element.compromisos,
+            cumplido:element.cumplida,
+            entregas:element.entregas,
+            fecha_inicio:new Date(element.fechaInicio),
+            fecha_entrega: new Date(element.fechaEntrega),
+            id:element.idActividad,
+            semana:element.semana,
+            visibilidad:element.visible
+          };
+          this.actividades.push(a);
         });
-      }
-    )
-    // Assign the data to the data source for the table to render
+         // Assign the data to the data source for the table to render
     this.dataSource = new MatTableDataSource(this.actividades);
     // Assign the data to the data source for the table to render
     this.dataSource = new MatTableDataSource(this.actividades);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+      }
+
+    )
+   
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -104,7 +116,7 @@ export class ListarActividadesComponent implements OnInit {
 var fecha = new Date();
 var options = { year: 'numeric', month: 'long', day: 'numeric' };
     pdf.pageMargins([ 100, 60, 40, 40 ]);
-     pdf.header("\n\n.     \t\t"+fecha.toLocaleDateString("es-ES", options));  
+      pdf.header("\n\n.     \t\t"+fecha.toLocaleDateString("es-ES", options));   
     pdf.add(new Txt('Listado de Actividades').alignment('center').bold().end );
     pdf.add(new Txt('Seguimiento:  '+this.seguimiento.nombre).end ); 
     pdf.add(new Txt('Tutor:  '+this.seguimiento.tutor).end ); 

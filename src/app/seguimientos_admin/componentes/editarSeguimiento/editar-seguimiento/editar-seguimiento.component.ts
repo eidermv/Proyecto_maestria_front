@@ -1,3 +1,5 @@
+import { TutorCompleto } from './../../../modelos/tutorCompleto.model';
+import { SeguimientoCompleto } from './../../../modelos/seguimientoCompleto.model';
 import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
@@ -13,47 +15,123 @@ import { TutorService } from '../../../servicios/tutor.service';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import { SeguimientosService } from '../../../servicios/seguimientos.service';
 import { CrearTutorComponent } from '../../tutores/crear-tutor/crear-tutor.component';
+import { TipoTutor } from '../../../modelos/tipoTutor.model';
 @Component({
   selector: 'app-editar-seguimiento',
   templateUrl: './editar-seguimiento.component.html',
   styleUrls: ['./editar-seguimiento.component.css']
 })
 export class EditarSeguimientoComponent implements OnInit {
-  @Input() seguimiento:Seguimiento;
+  @Input() seguimiento:SeguimientoCompleto;
   formulario: FormGroup;
   porcentaje:number;
   YEAR_END_COHORTE: number;
-  options: Tutor[] = [];
+  options: TutorCompleto[] = [];
   optionsCohorte: Array<string>;
   options2: Student[]=[];
   optionsEstadoSeguimiento:EstadoSeguimiento[]=[];
   optionsEstadoProyecto:EstadoProyecto[]=[];
   optionsTiposSeguimiento:TipoSeguimiento[]=[];
   constructor(private formBuilder: FormBuilder, private dialog: MatDialog, private tutorService: TutorService, private estudianteService:EstudianteService, public dialogoReg:MatDialogRef<EditarSeguimientoComponent>, private seguimientoService:SeguimientosService) 
-  {
-    this.tutorService.onTutores();
-    this.estudianteService.onEstudiantes();
+  {  
     this.YEAR_END_COHORTE = 2008;
-    this.optionsCohorte = [];
-    this.optionsEstadoSeguimiento=this.seguimientoService.estadosSeguimientos();
-    this.optionsEstadoProyecto=this.seguimientoService.estadosProyecto();
-    this.optionsTiposSeguimiento=this.seguimientoService.tiposSeguimiento();
-    console.log("Cohortes: "+this.optionsCohorte);
-    console.log("E Seg: "+this.optionsEstadoSeguimiento);
-    console.log("Cohortes: "+this.optionsCohorte);
+    this.optionsCohorte = [];   
    }
 
   ngOnInit(): void {
+    console.log("SEGUIMIENTO RECIBIDO EN EDITAR:  ",this.seguimiento);
     this.crearFormulario();
     this.getAllCohorte();
-    this.options = this.tutorService.tutores;
-    this.options2=this.estudianteService.estudiantes;
+    this.getAllTutores();
+    this.getAllEstudiantes();
+    this.getAllEstadosSeguimiento();
+    this.getAllEstadosProyecto();
+    this.getAllTiposSeguimiento();
+  }
+  getAllTiposSeguimiento() {
+    this.seguimientoService.onTiposSeguimiento().subscribe(
+      result=>{  this.optionsTiposSeguimiento=[];
+        result.data.forEach(element => {
+          let ots:TipoSeguimiento={
+            id:element.idTipoSeguimiento,
+            nombre:element.nombre
+          }
+          this.optionsTiposSeguimiento.push(ots);
+        });       
+      }
+    )
+  }
+  getAllEstadosProyecto() {
+    this.seguimientoService.onEstadosProyecto().subscribe(
+      result=>{this.optionsEstadoProyecto=[];
+        result.data.forEach(element => {
+          let oep:EstadoProyecto={
+            id:element.idEstadoSeguimiento,
+            nombre:element.nombre
+          }
+          this.optionsEstadoProyecto.push(oep);
+        });
+      }
+    )
+  }
+  getAllEstadosSeguimiento() {
+    this.seguimientoService.onEstadosSeguimientos().subscribe(
+      result=>{this.optionsEstadoSeguimiento=[];
+        result.data.forEach(element => {
+          let oes:EstadoSeguimiento={
+            id:element.idEstadoSeguimiento,
+            nombre:element.nombre
+          }
+          this.optionsEstadoSeguimiento.push(oes);
+        });
+      }
+    )
+  }
+  getAllEstudiantes() {
+    this.estudianteService.onEstudiantes().subscribe(
+      result=>{this.options2=[],
+       result.forEach(element => {
+         let est=new Student();
+         est.setSurname(element.apellidos);
+         est.setCodigo(element.codigo);
+         est.setCohorte(element.cohorte);
+         est.setState(element.estado);
+         est.setId(element.id);
+         est.setName(element.nombres);
+         est.setEnteredSemester(element.semestre);
+         est.setTutor(element.tutor.nombre+" "+element.tutor.apellido);
+         this.options2.push(est);
+       });
+      }
+    );
+  }
+  getAllTutores() {
+    this.tutorService.getTutores().subscribe(
+      result=>{ this.options=[];
+        result.data.forEach(element => {
+          let tipoTutor:TipoTutor={
+            id:element.tipoTutor.idTipoTutor,
+            nombre:element.tipoTutor.nombre
+          };
+          let tutor:TutorCompleto={
+            identificacion:element.id_tutor,
+            apellido:element.apellido,
+            correo:element.correo,
+            departamento:element.departamento,
+            grupoInvestigacion:element.grupoInvestigacion,
+            nombre:element.nombre,
+            telefono:element.telefono,
+            tipo:tipoTutor,
+            universidad:element.universidad
+          };
+          this.options.push(tutor);
+        });
+        
+      }
+    )
   }
   //***************************EDITAR SEGUIMIENTO******* */
-  editarSeguimiento()
-  {
-    
-  }
+ 
   onSubmit()
   {
     if (this.formulario.valid) 
@@ -120,36 +198,49 @@ export class EditarSeguimientoComponent implements OnInit {
         nombre: [this.seguimiento.nombre, [Validators.required,
         Validators.maxLength(30)]
         ],
-        tipo: [this.seguimiento.tipo,  [/* Validators.required */]],
-        tutor: [this.seguimiento.tutor, [/* Validators.required */]],
-        estudiante: [this.seguimiento.estudiante, [/* Validators.required */]],
-        cohorte:[this.seguimiento.cohorte, [/* Validators.required */]],
-        estado: [this.seguimiento.estado, [/* Validators.required */] ],
+        tipo: [null,  [/* Validators.required */]],
+        tutor: [null, [/* Validators.required */]],
+        estudiante: [null, [/* Validators.required */]],
+        cohorte:[null, [/* Validators.required */]],
+        estado: [null, [/* Validators.required */] ],
         objetivo:[this.seguimiento.oGeneral, [ Validators.required] ],        
         coodirector:[this.seguimiento.coodirector, [/* Validators.required */] ],
-        estadoSeguimiento:[this.seguimiento.estadoSeguimiento, [/* Validators.required */]]
+        estadoSeguimiento:[null, [/* Validators.required */]]
       });
      
-     this.formulario.valueChanges.pipe(
-      debounceTime(350)
-      ).subscribe(
+      this.formulario.get('tipo').valueChanges.pipe(debounceTime(50)).subscribe(
         value=>{
-          console.log("VALUE:   ",value)
-          let p=0;
-          if(value.nombre !="") p++;
-          if(value.tipo!=null) p++;
-          if(value.tutor!=null) p++;
-          if(value.estudiante!=null) p++;
-          if(value.estado!="") p++;
-          if(value.cohorte!=null) p++;
-          if(value.objetivo!="") p++;
-          if(value.coodirector!="") p++;
-          if(value.estadoSeguimiento!=null) p++;          
-          if(value.objetivo!="") p++;
-          this.porcentaje=(10*p);
-          console.log(value);
+          this.seguimiento.tipo=value;
         }
       );
+      this.formulario.get('tutor').valueChanges.pipe(debounceTime(50)).subscribe(
+        value=>{
+         this.seguimiento.tutor=value;         
+        }
+      );
+      this.formulario.get('estudiante').valueChanges.pipe(debounceTime(50)).subscribe(
+        value=>{
+         this.seguimiento.estudiante=value;         
+        }
+      );
+      this.formulario.get('estado').valueChanges.pipe(debounceTime(50)).subscribe(
+        value=>{
+         this.seguimiento.estado=value;
+         
+        }
+      );
+      this.formulario.get('cohorte').valueChanges.pipe(debounceTime(50)).subscribe(
+        value=>{
+         this.seguimiento.cohorte=value;
+         //this.seguimiento.estudiante.setCohorte(value);        
+        }
+      );
+      this.formulario.get('estadoSeguimiento').valueChanges.pipe(debounceTime(50)).subscribe(
+        value=>{
+         this.seguimiento.estadoSeguimiento=value;
+        }
+      );
+
   }
   clearArray(arrayClear: Array<string>) {
     return arrayClear = [];

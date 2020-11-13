@@ -37,9 +37,8 @@
                                         <span class="input-group-text"><i
                                                 class="fa fa-envelope-o"></i><small>TIPO</small></span>
                                     </div>
-                                   
                                     <select type="text" class="form-control" formControlName="tipo" #tipoSeguimiento>
-                                        <option [ngValue]="seguimiento.tipo" disabled hidden >{{seguimiento.tipo}}</option>
+                                        <option [ngValue]="null" disabled hidden >{{seguimiento.tipo.nombre}}</option>
                                         <option [ngValue]="oe" *ngFor="let oe of optionsTiposSeguimiento">{{oe.nombre}}
                                         </option>
                                     </select>
@@ -60,7 +59,7 @@
                                                 class="fa fa-user-circle"></i><small>tutor</small></span>
                                     </div>
                                     <select type="text" class="form-control" formControlName="tutor" #tutor>
-                                        <option [ngValue]="seguimiento.tutor" disabled hidden >{{seguimiento.tutor}}</option>
+                                        <option [ngValue]="null" disabled hidden >{{seguimiento.tutor.nombre+' '+seguimiento.tutor.apellido}}</option>
                                         <option [ngValue]="o" *ngFor="let o of options">{{o.nombre+" "+o.apellido}}
                                         </option>
                                     </select>
@@ -82,7 +81,7 @@
                                             <small>Estudiante</small></span>
                                     </div>
                                     <select type="text" class="form-control" formControlName="estudiante" #estudiante>
-                                        <option [ngValue]="seguimiento.estudiante" disabled hidden >{{seguimiento.estudiante}}</option>
+                                        <option [ngValue]="null" disabled hidden >{{seguimiento.estudiante.getName()+' '+seguimiento.estudiante.getSurname()}}</option>
                                         <option [ngValue]="oe" *ngFor="let oe of options2">{{oe.getName()+" "+oe.getSurname()}}
                                         </option>
                                     </select>
@@ -101,7 +100,7 @@
                                                 class="fa fa-user-circle"></i><small>Estado Proyecto</small></span>
                                     </div>                                   
                                         <select type="text" class="form-control" formControlName="estado" #estadoProyecto>
-                                            <option [ngValue]="seguimiento.estado" disabled hidden >{{seguimiento.estado}}</option>
+                                            <option [ngValue]="null" disabled hidden >{{seguimiento.estado.nombre}}</option>
                                             <option [ngValue]="oe" *ngFor="let oe of optionsEstadoProyecto">{{oe.nombre}}
                                             </option>
                                         </select>
@@ -120,7 +119,9 @@
                                             <small>Cohorte</small></span>
                                     </div>
                                     <select type="text" class="form-control" formControlName="cohorte" #cohorteStudent>
-                                         <option [ngValue]="years" *ngFor="let years of optionsCohorte">{{years}}
+                                        <option [ngValue]="null" >{{seguimiento.estudiante.getCohorte()}}
+                                        </option>
+                                        <option [ngValue]="years" *ngFor="let years of optionsCohorte">{{years}}
                                         </option>
                                     </select>
                                 </div>
@@ -152,8 +153,8 @@
                                                 class="fa fa-user-circle"></i><small>Estado Seguimiento</small></span>
                                     </div>
                                     <select type="text" class="form-control" formControlName="estadoSeguimiento" #estadoSeguimiento>
-                                        <option [ngValue]="seguimiento.estadoSeguimiento" disabled hidden >{{seguimiento.estadoSeguimiento}}</option>
-                                        <option [ngValue]="oe.nombre" *ngFor="let oe of optionsEstadoSeguimiento">{{oe.nombre}}
+                                        <option [ngValue]="null" disabled hidden >{{seguimiento.estadoSeguimiento.nombre}}</option>
+                                        <option [ngValue]="oe" *ngFor="let oe of optionsEstadoSeguimiento">{{oe.nombre}}
                                         </option>
                                     </select>
                                  
@@ -177,7 +178,6 @@
                                 </div>
                             </div>
                         </div>
-                        <mat-progress-bar mode="determinate" value="{{porcentaje}}"></mat-progress-bar>
                         <div style="text-align:right">
                             <button type="button" class="button is-danger" (click)="cancelar()" 
                                 >Cancelar

@@ -1,3 +1,4 @@
+import { SeguimientoCompleto } from './../../../modelos/seguimientoCompleto.model';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Seguimiento } from '../../../modelos/seguimiento.model';
@@ -47,7 +48,7 @@ export class ListarTutoresComponent implements OnInit {
     this.bandListar=false;
   }
   /** Builds and returns a new User. */
-  verSeguimiento(row:Seguimiento)
+  verSeguimiento(row:SeguimientoCompleto)
   {
     const dialogRef = this.dialog.open(VerSeguimientoComponent, {
       width: '800px',
@@ -57,7 +58,7 @@ export class ListarTutoresComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
-    dialogRef.componentInstance.seguimiento=row;
+    /* dialogRef.componentInstance.seguimiento=row; */
 
   }
   cambiar(event)

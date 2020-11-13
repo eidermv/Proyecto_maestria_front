@@ -1,3 +1,4 @@
+import { SeguimientoCompleto } from './../../../modelos/seguimientoCompleto.model';
 import { Component, OnInit, Input } from '@angular/core';
 import Swal from 'sweetalert2';
 import { Seguimiento } from '../../../modelos/seguimiento.model';
@@ -10,7 +11,7 @@ import { debounceTime } from 'rxjs/operators';
   styleUrls: ['./ver-seguimiento.component.css']
 })
 export class VerSeguimientoComponent implements OnInit {
-seguimiento:Seguimiento;
+seguimiento:SeguimientoCompleto;
   constructor(public dialogoReg:MatDialogRef<VerSeguimientoComponent>,private formBuilder: FormBuilder) { }
   formulario:FormGroup;
   texto:string="";
@@ -26,19 +27,20 @@ seguimiento:Seguimiento;
      }
     console.log("OBJETIVOS ESPEC:  ",this.seguimiento.oEspecificos);
      */
+
     this.formulario = this.formBuilder.group(
       {
         nombre: [{value:this.seguimiento.nombre, disabled:true},[]
         ],
         tipo: [{value:this.seguimiento.tipo, disabled:true}, []],
-        tutor: [{value:this.seguimiento.tutor, disabled:true}, []],
-        estudiante: [{value:this.seguimiento.estudiante, disabled:true}, []],
-        estado: [{value:this.seguimiento.estado,disabled:true}, []],
+        tutor: [{value:this.seguimiento.tutor.nombre+' '+this.seguimiento.tutor.apellido, disabled:true}, []],
+        estudiante: [{value:this.seguimiento.estudiante.getName()+' '+this.seguimiento.estudiante.getSurname(), disabled:true}, []],
+        estado: [{value:this.seguimiento.estado.nombre,disabled:true}, []],
         coodirector: [{value: this.seguimiento.coodirector, disabled:true}, []],
         objetivoGeneral:[{value: this.seguimiento.oGeneral, disabled:true},[]],
         objetivosEspec:[{value:this.seguimiento.oEspecificos, disabled:true},[]],
-        cohorte: [{value: this.seguimiento.cohorte, disabled:true}, []],
-        estadoSeguimiento: [{value: this.seguimiento.estadoSeguimiento, disabled:true}, []],
+        cohorte: [{value: this.seguimiento.estudiante.getCohorte(), disabled:true}, []],
+        estadoSeguimiento: [{value: this.seguimiento.estadoSeguimiento.nombre, disabled:true}, []],
       });
 
 

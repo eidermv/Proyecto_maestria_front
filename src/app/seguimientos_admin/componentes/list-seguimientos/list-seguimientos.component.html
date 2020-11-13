@@ -23,24 +23,24 @@
       <!-- tipo Column -->
       <ng-container matColumnDef="tipo">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> TIPO </th>
-        <td mat-cell *matCellDef="let row"> {{row.tipo}} </td>
+        <td mat-cell *matCellDef="let row"> {{row.tipo.nombre}} </td>
       </ng-container>
 
       <!-- tutor Column -->
       <ng-container matColumnDef="tutor">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> TUTOR </th>
-        <td mat-cell *matCellDef="let row"> {{row.tutor}} </td>
+        <td mat-cell *matCellDef="let row"> {{row.tutor.nombre}} </td>
       </ng-container>
 
       <!-- estudiante Column -->
       <ng-container matColumnDef="estudiante">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> ESTUDIANTE </th>
-        <td mat-cell *matCellDef="let row"> {{row.estudiante}} </td>
+        <td mat-cell *matCellDef="let row"> {{ row.estudiante.getName()+' '+row.estudiante.getSurname()}} </td>
       </ng-container>
       <!-- estado Column -->
       <ng-container matColumnDef="estado">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> ESTADO </th>
-        <td mat-cell *matCellDef="let row"> {{row.estado}} </td>
+        <td mat-cell *matCellDef="let row"> {{row.estadoSeguimiento.nombre}} </td>
       </ng-container>
       <!-- estado Opciones -->
       <ng-container matColumnDef="opciones">

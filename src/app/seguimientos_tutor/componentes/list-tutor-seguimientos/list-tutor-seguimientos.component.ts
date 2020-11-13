@@ -1,3 +1,4 @@
+import { SeguimientoCompleto } from './../../../seguimientos_admin/modelos/seguimientoCompleto.model';
 import { notificacionesTutor } from './../notificaciones-tutor/notificaciones-tutor.component';
 import {Router} from '@angular/router';
 import {Component, OnInit, ViewChild} from '@angular/core';
@@ -160,7 +161,7 @@ var options = { year: 'numeric', month: 'long', day: 'numeric' };
     dialogRef.componentInstance.notificacionesInstance = this.segEspera;
   }
   
-  verSeguimiento(row:SeguimientoTutor)
+  verSeguimiento(row:SeguimientoCompleto)
   {
     const dialogRef = this.dialog.open(VerSeguimientoComponent, {
       width: '800px',
@@ -170,7 +171,7 @@ var options = { year: 'numeric', month: 'long', day: 'numeric' };
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
-    let seg:Seguimiento=
+    let seg:SeguimientoCompleto=
     {
       nombre:row.nombre,
       tipo:row.tipo,

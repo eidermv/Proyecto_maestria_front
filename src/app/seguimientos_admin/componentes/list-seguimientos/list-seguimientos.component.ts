@@ -1,3 +1,7 @@
+import { TutorCompleto } from './../../modelos/tutorCompleto.model';
+import { TipoTutor } from './../../modelos/tipoTutor.model';
+import { Tutor } from './../../modelos/tutor.model';
+import { Student } from './../../../models/student';
 import { Router, RouterLinkWithHref } from '@angular/router';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
@@ -11,6 +15,7 @@ import { VerSeguimientoComponent } from '../verSeguimiento/ver-seguimiento/ver-s
 import { PdfMakeWrapper, Table, Txt } from 'pdfmake-wrapper';
 import pdfFonts from "pdfmake/build/vfs_fonts"; 
 import { EditarSeguimientoComponent } from '../editarSeguimiento/editar-seguimiento/editar-seguimiento.component';
+import { SeguimientoCompleto } from '../../modelos/seguimientoCompleto.model';
 PdfMakeWrapper.setFonts(pdfFonts);
 
 
@@ -21,12 +26,12 @@ PdfMakeWrapper.setFonts(pdfFonts);
 })
 export class ListSeguimientosComponent implements OnInit {
   displayedColumns: string[] = ['nombre', 'tipo', 'tutor', 'estudiante', 'estado', 'opciones'];
-  dataSource: MatTableDataSource<Seguimiento>;
+  dataSource: MatTableDataSource<SeguimientoCompleto>;
   bandListar: boolean;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
-  seguimientos: Array<Seguimiento> = [];
-  seguimientosPDF: Array<Seguimiento> = [];
+  seguimientos: Array<SeguimientoCompleto> = [];
+  seguimientosPDF: Array<SeguimientoCompleto> = [];
   filtrado:boolean;
   constructor( private router: Router, private seguimientoService: SeguimientosService,private dialog: MatDialog) {
     // Create 100 users
@@ -41,23 +46,46 @@ this.seguimientos=[];
     this.seguimientoService.getSeguimientos().subscribe(
       result=>
       {
-        console.log("SEGUIMIENTOS ENTRANTES:   ",result.data);
+        console.log("#############SEGUIMIENTOS ENTRANTES:   ",result.data);
         this.seguimientos=[];
         result.data.forEach(element => {
-          let seg: Seguimiento;
-          seg={
+          let est= new Student();
+          est.setId(element.estudiante.id);
+          est.setName(element.estudiante.nombres);
+          est.setSurname(element.estudiante.apellidos);
+          est.setCohorte(element.estudiante.cohorte);
+         
+         
+          let tipoTutor:TipoTutor={
+            id:element.tutor.tipoTutor.idTipoTutor,
+            nombre:element.tutor.tipoTutor.nombre
+          };
+
+          let tutor:TutorCompleto={
+            identificacion:element.tutor.id_tutor,
+            apellido:element.tutor.apellido,
+            correo:element.tutor.correo,
+            departamento:element.tutor.departamento,
+            grupoInvestigacion:element.tutor.grupoInvestigacion,
+            nombre:element.tutor.nombre,
+            telefono:element.tutor.telefono,
+            tipo:tipoTutor,
+            universidad:element.tutor.universidad
+          };
+          let seg: SeguimientoCompleto={
             cohorte:element.estudiante.cohorte,
             coodirector:element.codirector,
-            estado:element.estadoProyecto.nombre,
-            estadoSeguimiento:element.estadoSeguimiento.nombre,
-            estudiante:element.estudiante.nombres+" "+element.estudiante.apellidos,
+            estado:element.estadoProyecto,
+            estadoSeguimiento:element.estadoSeguimiento,
+            estudiante:est,
             id:element.idSeguimiento,
             nombre:element.nombre,
             oGeneral:element.objetivoGeneral,
             oEspecificos:element.objetivosEspecificos,
-            tipo:element.tipoSeguimiento.nombre,
-            tutor:element.tutor.nombre+" "+element.tutor.apellido
-          }
+            tipo:element.tipoSeguimiento,
+            tutor:tutor
+          };
+          console.log("ESTUDIANTE FORMADO.  ",seg);
           this.seguimientos.push(seg);
         });
         this.dataSource = new MatTableDataSource(this.seguimientos);
@@ -67,13 +95,14 @@ this.seguimientos=[];
     );
   }
   
-  editarSeguimiento(row:Seguimiento)
+  editarSeguimiento(row:SeguimientoCompleto)
   {
     const dialogRef = this.dialog.open(EditarSeguimientoComponent, {
       width: '800px',
       height:'500px',
       data:{}
     });
+    
     dialogRef.componentInstance.seguimiento=row;
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
@@ -97,7 +126,7 @@ this.seguimientos=[];
       this.llenarPDF(this.seguimientos);
     }
   }
-  llenarPDF(filteredData: Seguimiento[]) {
+  llenarPDF(filteredData: SeguimientoCompleto[]) {
    this.seguimientosPDF=[];
    for(let seg of filteredData)
    {
@@ -191,7 +220,7 @@ var options = { year: 'numeric', month: 'long', day: 'numeric' };
     this.bandListar=false;
   }
   /** Builds and returns a new User. */
-  verSeguimiento(row:Seguimiento)
+  verSeguimiento(row:SeguimientoCompleto)
   {
     const dialogRef = this.dialog.open(VerSeguimientoComponent, {
       width: '800px',

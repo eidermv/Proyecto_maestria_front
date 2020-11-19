@@ -76,7 +76,7 @@ export class LoginComponent implements OnInit {
               this.router.navigate(['/publication/listPublicationsEstudent']);
             } else if (sessionStorage.getItem('rol') === 'Tutor') {
 
-              this.router.navigate(['/publication/listPublicationsEstudent']);
+              this.router.navigate(['/seguimientos_tutor/listarTutorSeguimientos']);
             }  else {
               this.router.navigate(['/login']);
             }

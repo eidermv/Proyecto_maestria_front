@@ -12,7 +12,7 @@ const RUTA="http://localhost:8099";
 // tslint:disable-next-line: class-name
 export class SeguimientosTutorServices {
   // variable que almacena los datos de un seguimiento, el cual se puede editar etc...
-  
+
   constructor(private http: HttpClient) { }
   Seguimiento: SeguimientoTutor [] = [
     {
@@ -99,7 +99,7 @@ export class SeguimientosTutorServices {
   ]
   notificaciones: SeguimientoTutor[] =[
     {
-      
+
       id: 3,
       nombre: 'seguimiento1',
       tipo: 'Tesis',
@@ -149,7 +149,7 @@ export class SeguimientosTutorServices {
       visibilidad: 1
     }
   ];
-  
+
   // Esta función retorna las actividades relacionadas con un seguimiento
   obtenerActividades() {
     return this.actividades;
@@ -162,12 +162,12 @@ export class SeguimientosTutorServices {
     return this.notificaciones;
   }
   //Se usa para recibir la información de los seguimientos relacionados con un tutor
-  obtenerSeguimientosTutor(id:number) {
-    return this.seguimientos;
+  obtenerSeguimientosTutor(id: number) {
+    return this.http.get<any>(RUTA + '/seguimiento/listarPorTutor/' + id);
   }
   onEstadosSeguimientos()
   {
-    
+
   }
   estadosSeguimientos():EstadoSeguimiento[]
   {
@@ -181,7 +181,7 @@ export class SeguimientosTutorServices {
   }
   onEstadosProyecto()
   {
-    
+
   }
   estadosProyecto():EstadoProyecto[]
   {
@@ -194,7 +194,7 @@ export class SeguimientosTutorServices {
   }
   onTiposSeguimiento()
   {
-    
+
   }
   tiposSeguimiento():TipoSeguimiento[]
   {

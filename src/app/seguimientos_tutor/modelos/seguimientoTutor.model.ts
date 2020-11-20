@@ -1,13 +1,13 @@
 export interface SeguimientoTutor {
-    id:number,
+  idSeguimiento:number,
     nombre: string;
-    tipo: string;
+  tipoSeguimiento: string;
     tutor: string;
     estudiante: string;
-    coodirector: string;
-    estado: string;
+    codirector: string;
+  estadoProyecto: string;
     cohorte:string,
-    oGeneral:string,
-    oEspecificos:string,
+  objetivoGeneral:string,
+  objetivosEspecificos:string,
     estadoSeguimiento:string
   }

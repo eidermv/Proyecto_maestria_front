@@ -25,9 +25,9 @@ export class ListTutorSeguimientosComponent implements OnInit {
   displayedColumns: string[] = ['Codigo', 'Nombre', 'Tipo', 'Estudiante', 'Estado', 'Accion'];
   segumientos: SeguimientoTutor[] = [];
   dataSource = new MatTableDataSource(this.segumientos);
-  bandera:boolean; 
+  bandera:boolean;
   seguimiento:SeguimientoTutor;
-  filtrado:boolean;  
+  filtrado:boolean;
   seguimientosPDF: Array<Seguimiento> = [];
 
   constructor(private router: Router, private dialog: MatDialog, private seguimientosServiceTutor: SeguimientosTutorServices) {}
@@ -35,12 +35,38 @@ export class ListTutorSeguimientosComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   ngOnInit(): void {
     this.bandera=true;
-    this.segumientos = this.seguimientosServiceTutor.obtenerSeguimientosTutor(3);
-    console.log("SEGUIMIENTOS TUTOR OBTENIDOS:   ",this.segumientos);
-    this.seguimientosEspera();
-    this.dataSource = new MatTableDataSource(this.segAceptado);
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
+    this.seguimientosServiceTutor.obtenerSeguimientosTutor(Number(sessionStorage.getItem('id'))).subscribe((data) => {
+      console.log(JSON.stringify(data.data));
+      if (data.estado === 'exito') {
+        data.data.forEach( (item) => {
+          const seguimiento: SeguimientoTutor = item;
+          console.log('cargando seguimiento ' + item);
+
+          /*codirector: "juan"
+          estadoProyecto: {idEstadoSeguimiento: 3, nombre: "Aprobado"}
+          estadoSeguimiento: {idEstadoSeguimiento: 1, nombre: "Aceptado"}
+          estudiante: {cohorte: 3, apellidos: "mono", codigo: "1234", estado: "nose", persona: {…}, …}
+          idSeguimiento: 1
+          nombre: "proyecto"
+          objetivoGeneral: "ninguno"
+          objetivosEspecificos: "ningunos"
+          tipoSeguimiento: {idTipoSeguimiento: 2, nombre: "Tesis"}
+          tutor: {id_tutor: 1, persona: {…}, correo: "cobos", grupoInvestigacion:*/
+
+          seguimiento.estadoProyecto = item.estadoProyecto.nombre;
+          seguimiento.estadoSeguimiento = item.estadoSeguimiento.nombre;
+          seguimiento.tipoSeguimiento = item.tipoSeguimiento.nombre;
+          seguimiento.tutor = item.tutor.persona.nombres + ' ' + item.tutor.persona.apellidos;
+          seguimiento.estudiante = item.estudiante.nombres + ' ' + item.estudiante.apellidos;
+          this.segumientos.push(seguimiento);
+        });
+        console.log('SEGUIMIENTOS TUTOR OBTENIDOS:   ', this.segumientos);
+        this.seguimientosEspera();
+        this.dataSource.data = this.segAceptado;
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      }
+    });
     this.seguimiento= this.seguimientosServiceTutor.Seguimiento[0];
     this.seguimientosServiceTutor.onSeguimientosTutor();
   }
@@ -49,11 +75,11 @@ export class ListTutorSeguimientosComponent implements OnInit {
   {
     for(let s of this.segumientos)
     {
-      if(s.estadoSeguimiento==='espera'){ this.segEspera.push(s);}
-      if(s.estadoSeguimiento==='aceptado'){this.segAceptado.push(s);}
+      if(s.estadoSeguimiento==='Espera'){ this.segEspera.push(s);}
+      if(s.estadoSeguimiento==='Aceptado'){this.segAceptado.push(s);}
     }
   }
- 
+
   async crearPDF()
   {
     const pdf = new PdfMakeWrapper();
@@ -69,10 +95,10 @@ export class ListTutorSeguimientosComponent implements OnInit {
 var fecha = new Date();
 var options = { year: 'numeric', month: 'long', day: 'numeric' };
     pdf.pageMargins([ 100, 60, 40, 40 ]);
-     pdf.header("\n\n.     \t\t"+fecha.toLocaleDateString("es-ES", options));  
+     pdf.header("\n\n.     \t\t"+fecha.toLocaleDateString("es-ES", options));
     pdf.add(new Txt('Listado de proyectos').alignment('center').bold().end );
-    pdf.add(new Txt('Maestría en Automática').alignment('center').bold().end );  
-    pdf.add("\n\n\n");/* 
+    pdf.add(new Txt('Maestría en Automática').alignment('center').bold().end );
+    pdf.add("\n\n\n");/*
     pdf.watermark('UNIVERSIDAD DEL CAUCA');  */
     if(this.filtrado) pdf.add(this.crearTablaFiltrado());
     else pdf.add(this.crearTablaNoFiltrado());
@@ -80,71 +106,71 @@ var options = { year: 'numeric', month: 'long', day: 'numeric' };
   }
   crearTablaFiltrado()
   {
-    let body:any[]=[];    
+    let body:any[]=[];
     let contf=1;
-    let contc=0;  
-    let fila1:any[]=[]; 
+    let contc=0;
+    let fila1:any[]=[];
     fila1[contc]="#";contc++;
     fila1[contc]="Nombre";contc++;
     fila1[contc]="Tipo";contc++;
     fila1[contc]="Tutor";contc++;
     fila1[contc]="Estudiante";contc++;
     fila1[contc]="Estado";contc++;
-    fila1[contc]="Coodirector";contc++; 
+    fila1[contc]="Coodirector";contc++;
     body[0]=fila1;contc=0;
     for(let seg of this.seguimientosPDF)
     {
-      let fila:any[]=[]; 
+      let fila:any[]=[];
       fila[contc]=contf;contc++;
       fila[contc]=seg.nombre;contc++;
       fila[contc]=seg.tipo;contc++;
       fila[contc]=seg.tutor;contc++;
       fila[contc]=seg.estudiante;contc++;
       fila[contc]=seg.estado;contc++;
-      fila[contc]=seg.coodirector;contc++;      
+      fila[contc]=seg.coodirector;contc++;
       body[contf]=fila;contc=0; contf++;
-    } 
+    }
     /* console.log("BODY:   ",body); */
     return new Table(body).end;
   }
   crearTablaNoFiltrado()
   {
-    let body:any[]=[];    
+    let body:any[]=[];
     let contf=1;
-    let contc=0;  
-    let fila1:any[]=[]; 
+    let contc=0;
+    let fila1:any[]=[];
     fila1[contc]="#";contc++;
     fila1[contc]="Nombre";contc++;
     fila1[contc]="Tipo";contc++;
     fila1[contc]="Tutor";contc++;
     fila1[contc]="Estudiante";contc++;
     fila1[contc]="Estado";contc++;
-    fila1[contc]="Coodirector";contc++; 
+    fila1[contc]="Coodirector";contc++;
     body[0]=fila1;contc=0;
     for(let seg of this.segumientos)
     {
-      let fila:any[]=[]; 
+      let fila:any[]=[];
       fila[contc]=contf;contc++;
       fila[contc]=seg.nombre;contc++;
-      fila[contc]=seg.tipo;contc++;
+      fila[contc]=seg.tipoSeguimiento;contc++;
       fila[contc]=seg.tutor;contc++;
       fila[contc]=seg.estudiante;contc++;
-      fila[contc]=seg.estado;contc++;
-      fila[contc]=seg.coodirector;contc++;      
+      fila[contc]=seg.estadoSeguimiento;contc++;
+      fila[contc]=seg.codirector;contc++;
       body[contf]=fila;contc=0; contf++;
-    } 
+    }
     /* console.log("BODY:   ",body); */
     return new Table(body).end;
   }
   obtenerSeguimientos(){
-    this.seguimientosServiceTutor.obtenerSeguimientosTutor(this.seguimiento.id);
+    this.seguimientosServiceTutor.obtenerSeguimientosTutor(this.seguimiento.idSeguimiento);
   }
   editarSeguimientoTutor(element: SeguimientoTutor) {
     this.bandera = !this.bandera;
     this.seguimiento = element;
   }
   notificar() {
-    this.bandera=!this.bandera;;
+    this.bandera = !this.bandera;
     console.log('imprimiendo desde notificaciones: ', this.bandera);
   }
   contarNoticaciones() {
@@ -160,7 +186,7 @@ var options = { year: 'numeric', month: 'long', day: 'numeric' };
     });
     dialogRef.componentInstance.notificacionesInstance = this.segEspera;
   }
-  
+
   verSeguimiento(row:SeguimientoCompleto)
   {
     const dialogRef = this.dialog.open(VerSeguimientoComponent, {

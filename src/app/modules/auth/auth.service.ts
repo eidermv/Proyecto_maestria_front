@@ -28,26 +28,24 @@ export class AuthService {
     return this.httpClient.post<any>(this.stringApp.URL_SERVICIO_LOGIN, newStudent, { reportProgress: true, observe: 'events'} );
   }
 
-  getStudent() {
-    if (this.permiso.valor === 'Estudiante') {
-      console.log("ES UN ESTUDIANTE###################");
-      this.httpClient.get(this.stringApp.URL_SERVICIO_GET_STUDENT_WHIT_TOKEN + sessionStorage.getItem('token'))
-        .subscribe(data => {
-            sessionStorage.setItem('code', data['codigo']);
-            sessionStorage.setItem('nameStudent', data['nombres'] + ' ' + data['apellidos']);
+  getPersona() {
+      this.httpClient.get<any>(this.stringApp.URL_SERVICIO_GET_STUDENT_WHIT_TOKEN + sessionStorage.getItem('token'))
+        .subscribe((data) => {
+          if (data.estado === 'exito') {
+            if (sessionStorage.getItem('rol') === 'Estudiante') {
+              console.log("ES UN ESTUDIANTE###################");
+            sessionStorage.setItem('code', data.data[0].codigo);
+            sessionStorage.setItem('nameStudent', data.data[0].nombres + ' ' + data.data[0].apellidos);
+            } else if (sessionStorage.getItem('rol') === 'Tutor') {
+
+              console.log("ES UN TUTOR###################");
+              sessionStorage.setItem('id', data.data[0].id_tutor);
+            }
+          }
           },
           err => {
             this.router.navigate(['/404']);
           });
-    } else if (this.permiso.valor === 'Tutor') {
-      
-      console.log("ES UN TUTOR###################");
-      Swal.fire(
-        'Tutor',
-        'Logeado como tutur',
-        'error'
-      );
-    }
   }
 
 
@@ -55,7 +53,8 @@ export class AuthService {
     sessionStorage.setItem('token', authResult['token']);
      console.log('roles desde el back ' + authResult['roles']);
     sessionStorage.setItem('rol', authResult['roles']);
-    this.permiso.rolActivo(authResult['roles']);
+    // this.permiso.rolActivo(authResult['roles']);
+     this.getPersona();
   }
 
   autorizationView() {

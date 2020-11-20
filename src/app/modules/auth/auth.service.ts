@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { StringApp } from '../../resources/stringApp';
 import { Router } from '@angular/router';
 import {PermisosService} from '../../guards/permisos.service';
-import Swal from "sweetalert2";
+import Swal from 'sweetalert2';
 const httpOptions = {
 
   observe: 'response' as 'response',
@@ -33,13 +33,15 @@ export class AuthService {
         .subscribe((data) => {
           if (data.estado === 'exito') {
             if (sessionStorage.getItem('rol') === 'Estudiante') {
-              console.log("ES UN ESTUDIANTE###################");
+              console.log('ES UN ESTUDIANTE###################');
             sessionStorage.setItem('code', data.data[0].codigo);
             sessionStorage.setItem('nameStudent', data.data[0].nombres + ' ' + data.data[0].apellidos);
             } else if (sessionStorage.getItem('rol') === 'Tutor') {
 
-              console.log("ES UN TUTOR###################");
+              console.log('ES UN TUTOR###################');
               sessionStorage.setItem('id', data.data[0].id_tutor);
+            } else {
+              console.log('OTRO ROL');
             }
           }
           },
@@ -54,7 +56,9 @@ export class AuthService {
      console.log('roles desde el back ' + authResult['roles']);
     sessionStorage.setItem('rol', authResult['roles']);
     // this.permiso.rolActivo(authResult['roles']);
-     this.getPersona();
+     if (sessionStorage.getItem('rol') !== 'Coordinador') {
+       this.getPersona();
+     }
   }
 
   autorizationView() {

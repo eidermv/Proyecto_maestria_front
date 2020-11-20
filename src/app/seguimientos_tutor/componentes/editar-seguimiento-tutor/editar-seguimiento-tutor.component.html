@@ -38,7 +38,7 @@
               </div>
 
               <select type="text" class="form-control" formControlName="tipo" #tipoSeguimiento>
-                <option [ngValue]="seguimiento.tipo" disabled hidden>{{seguimiento.tipo}}</option>
+                <option [ngValue]="seguimiento.tipoSeguimiento" disabled hidden>{{seguimiento.tipoSeguimiento}}</option>
                 <option [ngValue]="oe" *ngFor="let oe of optionsTiposSeguimiento">{{oe.nombre}}
                 </option>
               </select>
@@ -97,7 +97,7 @@
                 <span class="input-group-text"><i class="fa fa-user-circle"></i><small>Estado Proyecto</small></span>
               </div>
               <select type="text" class="form-control" formControlName="estado" #estadoProyecto>
-                <option [ngValue]="seguimiento.estado" disabled hidden>{{seguimiento.estado}}</option>
+                <option [ngValue]="seguimiento.estadoSeguimiento" disabled hidden>{{seguimiento.estadoSeguimiento}}</option>
                 <option [ngValue]="oe" *ngFor="let oe of optionsEstadoProyecto">{{oe.nombre}}
                 </option>
               </select>
@@ -172,10 +172,10 @@
         </div>
         <!-- <mat-progress-bar mode="determinate" value="{{porcentaje}}"></mat-progress-bar>
            -->
-      
+
       </form>
     </div>
-    
+
     <mat-accordion>
       <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
           <mat-expansion-panel-header>
@@ -249,4 +249,4 @@
   </div>
 
   </mat-card-content>
-  <mat-card>
+  </mat-card>

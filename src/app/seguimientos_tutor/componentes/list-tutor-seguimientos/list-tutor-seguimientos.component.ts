@@ -53,9 +53,14 @@ export class ListTutorSeguimientosComponent implements OnInit {
           tipoSeguimiento: {idTipoSeguimiento: 2, nombre: "Tesis"}
           tutor: {id_tutor: 1, persona: {…}, correo: "cobos", grupoInvestigacion:*/
 
+          seguimiento.id_tutor = item.tutor.id_tutor;
+          seguimiento.id_estudiante = item.estudiante.id;
           seguimiento.estadoProyecto = item.estadoProyecto.nombre;
+          seguimiento.idEstadoProyecto = item.estadoProyecto.idEstadoSeguimiento;
           seguimiento.estadoSeguimiento = item.estadoSeguimiento.nombre;
+          seguimiento.idEstadoSeguimiento = item.estadoSeguimiento.idEstadoSeguimiento;
           seguimiento.tipoSeguimiento = item.tipoSeguimiento.nombre;
+          seguimiento.idTipoSeguimiento = item.tipoSeguimiento.idTipoSeguimiento;
           seguimiento.tutor = item.tutor.persona.nombres + ' ' + item.tutor.persona.apellidos;
           seguimiento.estudiante = item.estudiante.nombres + ' ' + item.estudiante.apellidos;
           this.segumientos.push(seguimiento);

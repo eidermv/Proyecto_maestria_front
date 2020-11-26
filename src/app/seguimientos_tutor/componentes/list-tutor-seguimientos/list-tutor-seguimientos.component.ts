@@ -72,8 +72,8 @@ export class ListTutorSeguimientosComponent implements OnInit {
         this.dataSource.paginator = this.paginator;
       }
     });
-    this.seguimiento= this.seguimientosServiceTutor.Seguimiento[0];
-    this.seguimientosServiceTutor.onSeguimientosTutor();
+    // this.seguimiento= this.seguimientosServiceTutor.Seguimiento[0];
+    // this.seguimientosServiceTutor.onSeguimientosTutor();
   }
 
   seguimientosEspera()

@@ -23,6 +23,7 @@ import Swal from 'sweetalert2';
 import { CrearTutorComponent } from '../../../seguimientos_admin/componentes/tutores/crear-tutor/crear-tutor.component';
 import { AgregarActividadComponent } from '../agregar-actividad/agregar-actividad.component';
 import { PdfMakeWrapper, Table, Txt } from 'pdfmake-wrapper';
+import {SeguimientoTutor} from '../../modelos/seguimientoTutor.model';
 
 @Component({
   selector: 'app-editar-seguimiento-tutor',
@@ -34,31 +35,32 @@ export class EditarSeguimientoTutorComponent implements OnInit {
   actividades: ActividadTutor[] = [];
   dataSource = new MatTableDataSource(this.actividades);
   panelOpenState = false;
-  @Input() seguimiento:Seguimiento;
+  @Input() seguimiento: SeguimientoTutor;
   formulario: FormGroup;
-  porcentaje:number;
+  porcentaje: number;
   YEAR_END_COHORTE: number;
   options: Tutor[] = [];
   optionsCohorte: Array<string>;
-  options2: Student[]=[];
-  optionsEstadoSeguimiento:EstadoSeguimiento[]=[];
-  optionsEstadoProyecto:EstadoProyecto[]=[];
-  optionsTiposSeguimiento:TipoSeguimiento[]=[];
+  options2: Student[] = [];
+  optionsEstadoSeguimiento: EstadoSeguimiento[] = [];
+  optionsEstadoProyecto: EstadoProyecto[] = [];
+  optionsTiposSeguimiento: TipoSeguimiento[] = [];
   texto = '';
   objEspec: string[];
   @Output()banNotificaciones = new EventEmitter<boolean>();
 
   constructor(private formBuilder: FormBuilder, private router: Router, private dialog: MatDialog,
     private seguimientoTutorService: SeguimientosTutorServices, private actividadesTutorService: ActividadesTutorServices,
-    private tutorService:TutorService, private estudianteService: EstudianteService) 
-    {
+    private tutorService: TutorService, private estudianteService: EstudianteService) {
       this.tutorService.onTutores();
       this.estudianteService.onEstudiantes();
       this.YEAR_END_COHORTE = 2008;
       this.optionsCohorte = [];
-      this.optionsEstadoSeguimiento=this.seguimientoTutorService.estadosSeguimientos();
-      this.optionsEstadoProyecto=this.seguimientoTutorService.estadosProyecto();
-      this.optionsTiposSeguimiento=this.seguimientoTutorService.tiposSeguimiento();
+      this.optionsEstadoSeguimiento = this.seguimientoTutorService.estadosSeguimientos();
+      this.optionsEstadoProyecto = this.seguimientoTutorService.estadosProyecto();
+      this.optionsTiposSeguimiento = this.seguimientoTutorService.tiposSeguimiento();
+      this.seguimiento = this.seguimientoTutorService.Seguimiento[0];
+      this.crearFormulario();
      }
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -66,26 +68,25 @@ export class EditarSeguimientoTutorComponent implements OnInit {
   ngOnInit(): void {
     this.actividades = this.actividadesTutorService.obtenerActividades();
     this.dataSource = new MatTableDataSource(this.actividades);
-    let oe = '';
-    let cont = 1;
+    const oe = '';
+    const cont = 1;
     this.objEspec = [];
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
-    this.seguimiento=this.seguimientoTutorService.Seguimiento[0];
+    this.seguimiento = this.seguimientoTutorService.Seguimiento[0];
     this.crearFormulario();
     this.getAllCohorte();
     this.options = this.tutorService.tutores;
-    this.options2=this.estudianteService.estudiantes;
-    
+    this.options2 = this.estudianteService.estudiantes;
+
   }
   volver() {
-    //this.router.navigate(['/seguimientos_tutor/']);
+    // this.router.navigate(['/seguimientos_tutor/']);
     this.banNotificaciones.emit(true);
     console.log('emitido: ');
   }
-  async crearPDF()
-  {
-    
+  async crearPDF() {
+
     const pdf = new PdfMakeWrapper();
     pdf.defaultStyle({
       bold: false,
@@ -96,96 +97,91 @@ export class EditarSeguimientoTutorComponent implements OnInit {
     author: 'Universidad del Cauca',
     subject: 'Reporte',
 });
-var fecha = new Date();
-var options = { year: 'numeric', month: 'long', day: 'numeric' };
+const fecha = new Date();
+const options = { year: 'numeric', month: 'long', day: 'numeric' };
     pdf.pageMargins([ 100, 60, 40, 40 ]);
-     pdf.header("\n\n.     \t\t"+fecha.toLocaleDateString("es-ES", options));  
+     pdf.header('\n\n.     \t\t' + fecha.toLocaleDateString('es-ES', options));
     pdf.add(new Txt('Listado de Actividades').alignment('center').bold().end );
-    pdf.add(new Txt('Seguimiento:  '+this.seguimiento.nombre).end ); 
-    pdf.add(new Txt('Tutor:  '+this.seguimiento.tutor).end ); 
-    pdf.add(new Txt('Estudiante:  '+this.seguimiento.estudiante).end );  
-    pdf.add("\n\n\n");/* 
+    pdf.add(new Txt('Seguimiento:  ' + this.seguimiento.nombre).end );
+    pdf.add(new Txt('Tutor:  ' + this.seguimiento.tutor).end );
+    pdf.add(new Txt('Estudiante:  ' + this.seguimiento.estudiante).end );
+    pdf.add('\n\n\n'); /*
     pdf.watermark('UNIVERSIDAD DEL CAUCA');  */
-    
+
     pdf.add(this.crearTabla());
     pdf.create().download();
   }
-  crearTabla()
-  {
-    let body:any[]=[];    
-    let contf=1;
-    let contc=0;  
-    let fila1:any[]=[]; 
-    fila1[contc]="Semana";contc++;
-    fila1[contc]="Fecha Inicio";contc++;
-    fila1[contc]="Fecha Entrega";contc++;
-    fila1[contc]="Entregas";contc++;
-    fila1[contc]="Compromisos";contc++;
-    fila1[contc]="Cumplido";contc++;
-    fila1[contc]="Visibilidad";contc++; 
-    body[0]=fila1;contc=0;
-    console.log("Tabla hasta el momento:  ",body);
-    
-    var options = { year: 'numeric', month: 'long', day: 'numeric' }; 
-    for(let act of this.actividades)
-    {
-      let fila:any[]=[];     
-      fila[contc]=act.semana;contc++;
-      var fechaI = act.fecha_inicio;
-      fila[contc]=fechaI.toLocaleDateString("es-ES", options);contc++;
-      var fechaE = act.fecha_entrega;
-      fila[contc]=fechaE.toLocaleDateString("es-ES", options);contc++;
-      fila[contc]=act.entregas;contc++;
-      fila[contc]=act.compromisos;contc++;
-      if(act.cumplido==0){fila[contc]="No Cumplido";contc++;}
-      else{fila[contc]="Cumplido";contc++;}
-      if(act.visibilidad==0){fila[contc]="No Visible para Coordinador";contc++;}
-      else{fila[contc]="Visible para Coordinador";contc++;}
-           
-      body[contf]=fila;contc=0; contf++;
-    } 
+  crearTabla() {
+    const body: any[] = [];
+    let contf = 1;
+    let contc = 0;
+    const fila1: any[] = [];
+    fila1[contc] = 'Semana'; contc++;
+    fila1[contc] = 'Fecha Inicio'; contc++;
+    fila1[contc] = 'Fecha Entrega'; contc++;
+    fila1[contc] = 'Entregas'; contc++;
+    fila1[contc] = 'Compromisos'; contc++;
+    fila1[contc] = 'Cumplido'; contc++;
+    fila1[contc] = 'Visibilidad'; contc++;
+    body[0] = fila1; contc = 0;
+    console.log('Tabla hasta el momento:  ', body);
+
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    for (const act of this.actividades) {
+      const fila: any[] = [];
+      fila[contc] = act.semana; contc++;
+      const fechaI = act.fecha_inicio;
+      fila[contc] = fechaI.toLocaleDateString('es-ES', options); contc++;
+      const fechaE = act.fecha_entrega;
+      fila[contc] = fechaE.toLocaleDateString('es-ES', options); contc++;
+      fila[contc] = act.entregas; contc++;
+      fila[contc] = act.compromisos; contc++;
+      if (act.cumplido === 0) {fila[contc] = 'No Cumplido'; contc++; } else {fila[contc] = 'Cumplido'; contc++; }
+      if (act.visibilidad === 0) {
+        fila[contc] = 'No Visible para Coordinador'; contc++;
+      } else {
+        fila[contc] = 'Visible para Coordinador'; contc++;
+      }
+
+      body[contf] = fila; contc = 0; contf++;
+    }
     /* console.log("BODY:   ",body); */
     return new Table(body).end;
   }
-  onSubmit()
-  {
-    if (this.formulario.valid) 
-    {
-      console.log("FORMULARIO VALIDO");    
+  onSubmit() {
+    if (this.formulario.valid) {
+      console.log('FORMULARIO VALIDO');
       Swal.fire(
         'Exito!',
         'Seguimiento Almacenado!',
         'success'
       );
-      
+
     this.banNotificaciones.emit(true);
-      
-    }
-    else {
-      console.log("FORMULARIO IN VALIDO");
+
+    } else {
+      console.log('FORMULARIO IN VALIDO');
       this.formulario.markAllAsTouched();
-      //this.errorFormulario();
+      // this.errorFormulario();
     }
     this.crearFormulario();
   }
- 
-  crearTutor()
-  {
+
+  crearTutor() {
     const dialogRef = this.dialog.open(CrearTutorComponent, {
       width: '600px',
-      data:{}
+      data: {}
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
     dialogRef.componentInstance.tutor.subscribe(
       result => {
-        this.formulario.get('tutor').setValue(result.nombre+" "+result.apellido);
+        this.formulario.get('tutor').setValue(result.nombre + ' ' + result.apellido);
       }
-    )
+    );
   }
-  cancelar()
-  {
+  cancelar() {
     this.crearFormulario();
     Swal.fire(
       'Cancelado!',
@@ -194,51 +190,51 @@ var options = { year: 'numeric', month: 'long', day: 'numeric' };
     );
     this.banNotificaciones.emit(true);
   }
-  editarActividad(elem:ActividadTutor) {
+  editarActividad(elem: ActividadTutor) {
     const dialogRef = this.dialog.open(EditarActividadTutorComponent, {
       width: '900px', height: '600px',
       data: {
       }
     });
-    dialogRef.componentInstance.actividad=elem;
+    dialogRef.componentInstance.actividad = elem;
     dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed');
 
     });
   }
-  private crearFormulario():void{
+  private crearFormulario(): void {
     this.formulario = this.formBuilder.group(
       {
         nombre: [this.seguimiento.nombre, [Validators.required,
         Validators.maxLength(30)]
         ],
-        tipo: [this.seguimiento.tipo,  [/* Validators.required */]],
+        tipo: [this.seguimiento.tipoSeguimiento,  [/* Validators.required */]],
         tutor: [this.seguimiento.tutor, [/* Validators.required */]],
         estudiante: [this.seguimiento.estudiante, [/* Validators.required */]],
-        cohorte:[this.seguimiento.cohorte, [/* Validators.required */]],
-        estado: [this.seguimiento.estado, [/* Validators.required */] ],
-        objetivo:[this.seguimiento.oGeneral, [ Validators.required] ],        
-        coodirector:[this.seguimiento.coodirector, [/* Validators.required */] ],
-        estadoSeguimiento:[this.seguimiento.estadoSeguimiento, [/* Validators.required */]]
+        cohorte: [this.seguimiento.cohorte, [/* Validators.required */]],
+        estado: [this.seguimiento.estadoSeguimiento, [/* Validators.required */] ],
+        objetivo: [this.seguimiento.objetivoGeneral, [ Validators.required] ],
+        coodirector: [this.seguimiento.codirector, [/* Validators.required */] ],
+        estadoSeguimiento: [this.seguimiento.estadoSeguimiento, [/* Validators.required */]]
       });
-     
+
      this.formulario.valueChanges.pipe(
       debounceTime(350)
       ).subscribe(
-        value=>{
-          console.log("VALUE:   ",value)
-          let p=0;
-          if(value.nombre !="") p++;
-          if(value.tipo!=null) p++;
-          if(value.tutor!=null) p++;
-          if(value.estudiante!=null) p++;
-          if(value.estado!="") p++;
-          if(value.cohorte!=null) p++;
-          if(value.objetivo!="") p++;
-          if(value.coodirector!="") p++;
-          if(value.estadoSeguimiento!=null) p++;          
-          if(value.objetivo!="") p++;
-          this.porcentaje=(10*p);
+        value => {
+          console.log('VALUE:   ', value);
+          let p = 0;
+          if (value.nombre != '') { p++; }
+          if (value.tipo != null) { p++; }
+          if (value.tutor != null) { p++; }
+          if (value.estudiante != null) { p++; }
+          if (value.estado != '') { p++; }
+          if (value.cohorte != null) { p++; }
+          if (value.objetivo != '') { p++; }
+          if (value.coodirector != '') { p++; }
+          if (value.estadoSeguimiento != null) { p++; }
+          if (value.objetivo != '') { p++; }
+          this.porcentaje = (10 * p);
           console.log(value);
         }
       );
@@ -255,7 +251,7 @@ var options = { year: 'numeric', month: 'long', day: 'numeric' };
       this.optionsCohorte[i] = '' + (dateYear - i);
     }
   }
-  agregarActividad(){
+  agregarActividad() {
     const dialogRef = this.dialog.open(AgregarActividadComponent, {
       width: '700px', height: '600px',
       data: {

@@ -7,31 +7,36 @@ import { SeguimientoTutor } from '../modelos/seguimientoTutor.model';
 import { TipoSeguimiento } from '../../seguimientos_admin/modelos/tipoSeguimiento.model';
 import { EstadoProyecto } from '../../seguimientos_admin/modelos/estadosProyecto.model';
 import { EstadoSeguimiento } from '../../seguimientos_admin/modelos/estadoSeguimiento.model';
-const RUTA="http://localhost:8099";
+const RUTA = 'http://localhost:8099';
 @Injectable()
 // tslint:disable-next-line: class-name
 export class SeguimientosTutorServices {
   // variable que almacena los datos de un seguimiento, el cual se puede editar etc...
-  
+
   constructor(private http: HttpClient) { }
   Seguimiento: SeguimientoTutor [] = [
     {
-      id: 1,
+      idSeguimiento: 1,
       nombre: 'seguimiento1',
-      tipo: 'Tesis',
+      tipoSeguimiento: 'Tesis',
       tutor: 'sandra buitron',
       estudiante: 'Miller Santiado Castillo Muñoz',
-      coodirector: 'Francisco pino',
-      estado: 'desarrollo',
+      codirector: 'Francisco pino',
+      estadoProyecto: 'desarrollo',
       cohorte: '2018',
-      oGeneral: 'objetivo1',
-      oEspecificos: 'objetivo especifico1',
-      estadoSeguimiento: 'aceptado'
+      objetivoGeneral: 'objetivo1',
+      objetivosEspecificos: 'objetivo especifico1',
+      estadoSeguimiento: 'Aceptado',
+      id_estudiante: 0,
+      id_tutor: 0,
+      idTipoSeguimiento: '0',
+      idEstadoSeguimiento: '0',
+      idEstadoProyecto: '0'
     }
   ];
   // variable que almacena los seguimientos asociados a un tutor
   seguimientos: SeguimientoTutor[] = [
-    {
+    /*{
       id: 1,
       nombre: 'seguimiento1',
       tipo: 'Tesis',
@@ -95,12 +100,12 @@ export class SeguimientosTutorServices {
       oGeneral: 'objetivo1',
       oEspecificos: 'objetivo especifico1',
       estadoSeguimiento: 'rechazado'
-    }
-  ]
-  notificaciones: SeguimientoTutor[] =[
-    {
-      
-      id: 3,
+    }*/
+  ];
+  notificaciones: SeguimientoTutor[] = [
+    /*{
+
+      idSeguimiento: 3,
       nombre: 'seguimiento1',
       tipo: 'Tesis',
       tutor: 'sandra buitron',
@@ -124,9 +129,9 @@ export class SeguimientosTutorServices {
       oGeneral: 'objetivo1',
       oEspecificos: 'objetivo especifico1',
       estadoSeguimiento: 'espera'
-    }
-  ]
-  //lista las actividades relacionadas a un seguimiento
+    }*/
+  ];
+  // lista las actividades relacionadas a un seguimiento
   actividades: ActividadTutor[] = [
     {
       id: 1,
@@ -149,7 +154,7 @@ export class SeguimientosTutorServices {
       visibilidad: 1
     }
   ];
-  
+
   // Esta función retorna las actividades relacionadas con un seguimiento
   obtenerActividades() {
     return this.actividades;
@@ -161,64 +166,57 @@ export class SeguimientosTutorServices {
   obtenerNotificaciones() {
     return this.notificaciones;
   }
-  //Se usa para recibir la información de los seguimientos relacionados con un tutor
-  obtenerSeguimientosTutor(id:number) {
-    return this.seguimientos;
+  // Se usa para recibir la información de los seguimientos relacionados con un tutor
+  obtenerSeguimientosTutor(id: number) {
+    return this.http.get<any>(RUTA + '/seguimiento/listarPorTutor/' + id);
   }
-  onEstadosSeguimientos()
-  {
-    
+  onEstadosSeguimientos() {
+
   }
-  estadosSeguimientos():EstadoSeguimiento[]
-  {
-    this.onEstadosSeguimientos(); //Hago peticion
-    let nuevo:EstadoSeguimiento[] =[
-      {id:1, nombre:"Aceptado"},
-      {id:2, nombre:"Rechazado"}
+  estadosSeguimientos(): EstadoSeguimiento[] {
+    this.onEstadosSeguimientos(); // Hago peticion
+    const nuevo: EstadoSeguimiento[] = [
+      {id: 1, nombre: 'Aceptado'},
+      {id: 2, nombre: 'Rechazado'}
     ];
-    console.log("Retornando desde estados:  ",nuevo);
+    console.log('Retornando desde estados:  ', nuevo);
     return nuevo;
   }
-  onEstadosProyecto()
-  {
-    
+  onEstadosProyecto() {
+
   }
-  estadosProyecto():EstadoProyecto[]
-  {
-    this.onEstadosProyecto(); //Hago peticion
-    let nuevo:EstadoProyecto[] =[
-      {id:1, nombre:"Cancelado"},
-      {id:2, nombre:"Iniciado"}
+  estadosProyecto(): EstadoProyecto[] {
+    this.onEstadosProyecto(); // Hago peticion
+    const nuevo: EstadoProyecto[] = [
+      {id: 1, nombre: 'Cancelado'},
+      {id: 2, nombre: 'Iniciado'}
     ];
     return nuevo;
   }
-  onTiposSeguimiento()
-  {
-    
+  onTiposSeguimiento() {
+
   }
-  tiposSeguimiento():TipoSeguimiento[]
-  {
-    this.onTiposSeguimiento(); //Hago peticion
-    let nuevo:TipoSeguimiento[] =[
-      {id:1, nombre:"Tesis"},
-      {id:2, nombre:"Propuesta"}
+  tiposSeguimiento(): TipoSeguimiento[] {
+    this.onTiposSeguimiento(); // Hago peticion
+    const nuevo: TipoSeguimiento[] = [
+      {id: 1, nombre: 'Tesis'},
+      {id: 2, nombre: 'Propuesta'}
     ];
     return nuevo;
   }
 
   // Se usa para enviar la informacion editada por el tutor
   guardarSeguimientoTutor(seguimientotutor: SeguimientoTutor) {
-    this.http.post('https://listado-personas.json', seguimientotutor)
+    this.http.put<any>(RUTA + '/seguimiento/editar/' + seguimientotutor.idSeguimiento, seguimientotutor)
     .subscribe(
-      response => console.log("resultado guardar personas: "+ response),
-      error => console.log("Error al guardar Personas: "+ error)
+      (response) => console.log('resultado guardar: ' + response.estado),
+      error => console.log('Error al guardar: ' + JSON.stringify(error))
     );
   }
-  onSeguimientosTutor()
-  {
-    this.http.get(RUTA+'/seguimiento/listarPorTutor/1').subscribe(
-      result=>{
-        console.log("Seguimientos tutor:  ",result);
+  onSeguimientosTutor() {
+    this.http.get(RUTA + '/seguimiento/listarPorTutor/1').subscribe(
+      result => {
+        console.log('Seguimientos tutor:  ', result);
       }
     );
 

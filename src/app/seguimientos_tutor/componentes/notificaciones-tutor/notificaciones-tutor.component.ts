@@ -41,13 +41,18 @@ export class NotificacionesTutorComponent implements OnInit {
     {titulo: 'Estado', name: 'Estado' },
     {titulo: 'Accion', name: 'Accion' },
   ];*/
-  constructor(private router: Router, public dialogoReg: MatDialogRef<NotificacionesTutorComponent>, private segumientoTutorService:SeguimientosTutorServices) {}
+  constructor(private router: Router, public dialogoReg: MatDialogRef<NotificacionesTutorComponent>, private segumientoTutorService: SeguimientosTutorServices) {}
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource(this.notificacionesInstance);
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
-    
+
+  }
+
+  guardarAceptar(seguimiento: SeguimientoTutor) {
+    seguimiento.idEstadoSeguimiento = String(1);
+    this.segumientoTutorService.guardarSeguimientoTutor(seguimiento);
   }
 }

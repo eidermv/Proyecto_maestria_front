@@ -1,3 +1,5 @@
+import { SeguimientoCompleto } from './../../../modelos/seguimientoCompleto.model';
+import { TutorCompleto } from './../../../modelos/tutorCompleto.model';
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { debounceTime, debounce, startWith, map } from 'rxjs/operators';
 import { FormGroup, FormControl, ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
@@ -16,6 +18,7 @@ import { EstadoSeguimiento } from '../../../modelos/estadoSeguimiento.model';
 import { SeguimientosService } from '../../../servicios/seguimientos.service';
 import { EstadoProyecto } from '../../../modelos/estadosProyecto.model';
 import { TipoSeguimiento } from '../../../modelos/tipoSeguimiento.model';
+import { TipoTutor } from '../../../modelos/tipoTutor.model';
 
 
 @Component({
@@ -26,7 +29,7 @@ import { TipoSeguimiento } from '../../../modelos/tipoSeguimiento.model';
 export class AgregarSeguimientoComponent implements OnInit {
   YEAR_END_COHORTE: number;
   formulario: FormGroup;
-  options: Tutor[] = [];
+  options: TutorCompleto[] = [];
   filteredOptions: Observable<string[]>;
   optionsCohorte: Array<string>;
   options2: Student[] = [];
@@ -38,80 +41,126 @@ export class AgregarSeguimientoComponent implements OnInit {
   nuevoTutor: Tutor;
   porcentaje: number = 0;
   @Output() bandAgregar = new EventEmitter<boolean>();
-  constructor(private formBuilder: FormBuilder, private tutorService: TutorService, private studentService: EstudianteService, private dialog: MatDialog, private seguimientoService: SeguimientosService) {
+  constructor(private formBuilder: FormBuilder, private tutorService: TutorService, private estudianteService: EstudianteService, private dialog: MatDialog, private seguimientoService: SeguimientosService) {
     this.tutorService.onTutores();
     this.YEAR_END_COHORTE = 2008;
     this.optionsCohorte = [];
   }
 
-  ngOnInit(): void {
-
+  ngOnInit(): void {    
     this.getAllCohorte();
-    this.tutorService.getTutores().subscribe(
-      result => {
-        this.options = [];
-        result.data.forEach(element => {
-          let e: Tutor;
-          e = {
-            apellido: element.apellido,
-            correo: element.correo,
-            departamento: element.departamento,
-            grupoInvestigacion: element.grupoInvestigacion,
-            identificacion: element.id_tutor,
-            nombre: element.nombre,
-            telefono: element.telefono,
-            tipo: element.tipoTutor,
-            universidad: element.universidad
-          };
-          this.options.push(e);
-        });
-      }
-    );
-    //Estado Seguimiento
-    this.seguimientoService.onEstadosSeguimientos().subscribe(
-      result => {
-        this.optionsEstadoSeguimiento = [];
-        result.data.forEach(element => {
-          let e: EstadoSeguimiento;
-          e = {
-            id: element.idEstadoSeguimiento,
-            nombre: element.nombre
-          };
-          this.optionsEstadoSeguimiento.push(e);
-        });
-      }
-    );
-    //Estado Proyecto
-    this.seguimientoService.onEstadosProyecto().subscribe(
-      result => {
-        this.optionsEstadoProyecto = [];
-        result.data.forEach(element => {
-          let e: EstadoProyecto;
-          e = {
-            id: element.idEstadoSeguimiento,
-            nombre: element.nombre
-          };
-          this.optionsEstadoProyecto.push(e);
-        });
-      }
-    );
-    //Tipo Seguimiento
+    this.getAllTutores();
+    this.getAllEstudiantes();
+    this.getAllEstadosSeguimiento();
+    this.getAllEstadosProyecto();
+    this.getAllTiposSeguimiento();
+    this.crearFormulario();
+  }
+  getAllTiposSeguimiento() {
     this.seguimientoService.onTiposSeguimiento().subscribe(
-      result => {
-        this.optionsTiposSeguimiento = [];
+      result=>{  this.optionsTiposSeguimiento=[];
         result.data.forEach(element => {
-          let e: EstadoProyecto;
-          e = {
-            id: element.idTipoSeguimiento,
-            nombre: element.nombre
-          };
-          this.optionsTiposSeguimiento.push(e);
+          let ots:TipoSeguimiento={
+            id:element.idTipoSeguimiento,
+            nombre:element.nombre
+          }
+          this.optionsTiposSeguimiento.push(ots);
+        });       
+      }
+    )
+  }
+  getAllEstadosProyecto() {
+    this.seguimientoService.onEstadosProyecto().subscribe(
+      result=>{this.optionsEstadoProyecto=[];
+        result.data.forEach(element => {
+          let oep:EstadoProyecto={
+            id:element.idEstadoSeguimiento,
+            nombre:element.nombre
+          }
+          this.optionsEstadoProyecto.push(oep);
         });
       }
+    )
+  }
+  getAllEstadosSeguimiento() {
+    this.seguimientoService.onEstadosSeguimientos().subscribe(
+      result=>{this.optionsEstadoSeguimiento=[];
+        result.data.forEach(element => {
+          let oes:EstadoSeguimiento={
+            id:element.idEstadoSeguimiento,
+            nombre:element.nombre
+          }
+          this.optionsEstadoSeguimiento.push(oes);
+        });
+      }
+    )
+  }
+  getAllEstudiantes() {
+    this.estudianteService.onEstudiantes().subscribe(
+      result=>{this.options2=[],
+       result.forEach(element => {
+         let est=new Student();
+         est.setSurname(element.apellidos);
+         est.setCodigo(element.codigo);
+         est.setCohorte(element.cohorte);
+         est.setState(element.estado);
+         est.setId(element.id);
+         est.setName(element.nombres);
+         est.setEnteredSemester(element.semestre);
+         est.setTutor(element.tutor.nombre+" "+element.tutor.apellido);
+         this.options2.push(est);
+       });
+      }
     );
-    //ESTUDIANTES
-    this.getAllStudents();
+  }
+  getAllTutores() {
+    this.tutorService.getTutores().subscribe(
+      result=>{ this.options=[];
+        result.data.forEach(element => {
+          let tipoTutor:TipoTutor={
+            id:element.tipoTutor.idTipoTutor,
+            nombre:element.tipoTutor.nombre
+          };
+          let tutor:TutorCompleto={
+            identificacion:element.id_tutor,
+            apellido:element.apellido,
+            correo:element.correo,
+            departamento:element.departamento,
+            grupoInvestigacion:element.grupoInvestigacion,
+            nombre:element.nombre,
+            telefono:element.telefono,
+            tipo:tipoTutor,
+            universidad:element.universidad
+          };
+          this.options.push(tutor);
+        });
+        
+      }
+    )
+  }
+  //TODO
+  onSubmit(event: Event) {
 
+    if (this.formulario.valid) {
+
+      let seg={
+        nombre:this.formulario.get('nombre').value,
+        id_tutor:this.formulario.get('tutor')
+      }
+      console.log("FORMULARIO VALIDO");
+      this.bandAgregar.emit(true);
+      Swal.fire(
+        'Exito!',
+        'Seguimiento Almacenado!',
+        'success'
+      )
+      this.bandAgregar.emit(true);
+    }
+    else {
+      console.log("FORMULARIO IN VALIDO");
+      this.formulario.markAllAsTouched();
+      //this.errorFormulario();
+    }
     this.crearFormulario();
   }
   crearTutor() {
@@ -128,43 +177,24 @@ export class AgregarSeguimientoComponent implements OnInit {
       }
     )
   }
-  getAllStudents() {
-    this.studentService.onEstudiantes()
-      .subscribe(result => {
-        this.options2 = [];
-        result.forEach(element => {
-          let e: Student;
-          e=new Student();
-          e.setSurname(element.apellidos);
-          e.setCodigo(element.codigo);
-          e.setCohorte(element.cohorte);
-          e.setEmail(element.correo);
-          e.setState(element.estado);
-          e.setId(element.id)
-          e.setName(element.nombres);
-          e.setEnteredBy("");
-          e.setEnteredSemester(element.semestre);
-          e.setTutor(element.tutor.nombre+' '+element.tutor.apellido);  
-          this.options2.push(e);
-        });
-      }
-      );
-  }
+  
   private crearFormulario(): void {
     this.formulario = this.formBuilder.group(
       {
         nombre: ['', [Validators.required,
         Validators.maxLength(30)]
         ],
-        tipo: [null, [/* Validators.required */]],
+        tipo: [null,  [/* Validators.required */]],
         tutor: [null, [/* Validators.required */]],
         estudiante: [null, [/* Validators.required */]],
-        cohorte: [null, [/* Validators.required */]],
-        estado: [null, [/* Validators.required */]],
-        objetivo: ['', [Validators.required]],
-        coodirector: ['', [/* Validators.required */]],
-        estadoSeguimiento: [null, [/* Validators.required */]]
+        cohorte:[null, [/* Validators.required */]],
+        estado: [null, [/* Validators.required */] ],
+        objetivo:['', [ Validators.required] ],        
+        coodirector:['', [/* Validators.required */] ],
+        estadoSeguimiento:[null, [/* Validators.required */]]
       });
+     
+      
     this.filteredOptions = this.formulario.get('tutor').valueChanges.pipe(debounceTime(350),
       /* startWith(''), */
       map(value => this._filter(value).map(v2 => v2.nombre))
@@ -194,7 +224,7 @@ export class AgregarSeguimientoComponent implements OnInit {
       }
     );
   }
-  private _filter(value: string): Tutor[] {
+  private _filter(value: string): TutorCompleto[] {
     const filterValue = value.toLowerCase();
     return this.options.filter(option => {
       if (option.nombre.toLowerCase().indexOf(filterValue) === 0) {
@@ -246,25 +276,7 @@ export class AgregarSeguimientoComponent implements OnInit {
       'error'
     )
   }
-  onSubmit(event: Event) {
-
-    if (this.formulario.valid) {
-      console.log("FORMULARIO VALIDO");
-      this.bandAgregar.emit(true);
-      Swal.fire(
-        'Exito!',
-        'Seguimiento Almacenado!',
-        'success'
-      )
-      this.bandAgregar.emit(true);
-    }
-    else {
-      console.log("FORMULARIO IN VALIDO");
-      this.formulario.markAllAsTouched();
-      //this.errorFormulario();
-    }
-    this.crearFormulario();
-  }
+  
 
   errorFormulario() {
     Swal.fire({

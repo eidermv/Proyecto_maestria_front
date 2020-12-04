@@ -32,7 +32,7 @@ export class SeguimientosService {
     seguimientos: Array<Seguimiento> = [];
     constructor(private http: HttpClient) { }
     onSeguimientos(): Array<Seguimiento> {
-        this.seguimientos = Array.from({ length: 100 }, (_, k) => this.crearSeguimiento(k + 1));
+        this.seguimientos = Array.from({ length: 100 }, (_, k) => this.crearSeguimientos(k + 1));
         return this.seguimientos;
     }
     getSeguimientos(): Observable<any> {      
@@ -41,7 +41,7 @@ export class SeguimientosService {
   
     seguimiento(n:number):Seguimiento
     {
-      return this.crearSeguimiento(n);
+      return this.crearSeguimientos(n);
     }
     onEditSeguimiento(seg:Seguimiento):Observable<any>
     {
@@ -58,10 +58,14 @@ export class SeguimientosService {
         id_tipo_seguimiento: seg.tipo,
         id_estado_seguimiento:seg.estadoSeguimiento
       });
-      return this.http.put(RUTA+'/seguimiento/editar',s, {headers : new HttpHeaders({ 'Content-Type': 'application/json'}) ,
+      return this.http.put(RUTA+'/seguimiento/editar',JSON.stringify(s), {headers : new HttpHeaders({ 'Content-Type': 'application/json'}) ,
       reportProgress: true, observe: 'events'});
     }
-    crearSeguimiento(id: number): Seguimiento {
+    onCrearSeguimiento(s:any):Observable<any>{
+      return this.http.post(RUTA+'/seguimiento/crear',s, {headers : new HttpHeaders({ 'Content-Type': 'application/json'}) ,
+      reportProgress: true, observe: 'events'});
+    }
+    crearSeguimientos(id: number): Seguimiento {
 
         const student = NAMES[Math.round(Math.random() * (NAMES.length - 1))] + ' ' +
           NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) + '.';
@@ -126,4 +130,5 @@ export class SeguimientosService {
         ];
         return nuevo;
       }
+      
 }

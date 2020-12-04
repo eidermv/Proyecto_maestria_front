@@ -1,7 +1,6 @@
 import { SeguimientoCompleto } from './../../../modelos/seguimientoCompleto.model';
 import { Component, OnInit, Input } from '@angular/core';
 import Swal from 'sweetalert2';
-import { Seguimiento } from '../../../modelos/seguimiento.model';
 import { MatDialogRef } from '@angular/material/dialog';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
@@ -32,7 +31,7 @@ seguimiento:SeguimientoCompleto;
       {
         nombre: [{value:this.seguimiento.nombre, disabled:true},[]
         ],
-        tipo: [{value:this.seguimiento.tipo, disabled:true}, []],
+        tipo: [{value:this.seguimiento.tipo.nombre, disabled:true}, []],
         tutor: [{value:this.seguimiento.tutor.nombre+' '+this.seguimiento.tutor.apellido, disabled:true}, []],
         estudiante: [{value:this.seguimiento.estudiante.getName()+' '+this.seguimiento.estudiante.getSurname(), disabled:true}, []],
         estado: [{value:this.seguimiento.estado.nombre,disabled:true}, []],

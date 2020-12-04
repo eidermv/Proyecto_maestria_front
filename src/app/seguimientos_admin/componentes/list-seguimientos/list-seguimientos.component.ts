@@ -222,6 +222,7 @@ var options = { year: 'numeric', month: 'long', day: 'numeric' };
   /** Builds and returns a new User. */
   verSeguimiento(row:SeguimientoCompleto)
   {
+    console.log("SEGUIMIENTO A PASAR:  ",row);
     const dialogRef = this.dialog.open(VerSeguimientoComponent, {
       width: '800px',
       height:'500px',

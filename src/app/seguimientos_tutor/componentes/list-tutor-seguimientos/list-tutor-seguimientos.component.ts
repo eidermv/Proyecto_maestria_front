@@ -35,6 +35,7 @@ export class ListTutorSeguimientosComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   ngOnInit(): void {
     this.bandera=true;
+    console.log("ID TUTOR SESIÓN:   ",sessionStorage.getItem('id'));
     this.seguimientosServiceTutor.obtenerSeguimientosTutor(Number(sessionStorage.getItem('id'))).subscribe((data) => {
       console.log(JSON.stringify(data.data));
       if (data.estado === 'exito') {

@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { ActividadTutor } from './../modelos/actividadTutor.model';
 import { Seguimiento } from './../../seguimientos_admin/modelos/seguimiento.model';
 import { DataSource } from '@angular/cdk/table';
@@ -167,9 +168,10 @@ export class SeguimientosTutorServices {
     return this.notificaciones;
   }
   // Se usa para recibir la información de los seguimientos relacionados con un tutor
-  obtenerSeguimientosTutor(id: number) {
+  obtenerSeguimientosTutor(id: number){
     return this.http.get<any>(RUTA + '/seguimiento/listarPorTutor/' + id);
   }
+
   onEstadosSeguimientos() {
 
   }

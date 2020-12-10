@@ -13,6 +13,7 @@ import { SeguimientoTutor } from '../../modelos/seguimientoTutor.model';
 import { PdfMakeWrapper, Table, Txt } from 'pdfmake-wrapper';
 import { VerSeguimientoComponent } from '../../../seguimientos_admin/componentes/verSeguimiento/ver-seguimiento/ver-seguimiento.component';
 import { Seguimiento } from '../../../seguimientos_admin/modelos/seguimiento.model';
+import { SeguimientoTutorCompleto } from '../../modelos/seguimientoTutorCompleto.model';
 @Component({
   selector: 'app-list-tutor-seguimientos',
   templateUrl: './list-tutor-seguimientos.component.html',
@@ -20,13 +21,13 @@ import { Seguimiento } from '../../../seguimientos_admin/modelos/seguimiento.mod
 })
 export class ListTutorSeguimientosComponent implements OnInit {
   hidden = false;
-  segEspera:SeguimientoTutor[]=[];
-  segAceptado:SeguimientoTutor[]=[];
+  segEspera:SeguimientoTutorCompleto[]=[];
+  segAceptado:SeguimientoTutorCompleto[]=[];
   displayedColumns: string[] = ['Codigo', 'Nombre', 'Tipo', 'Estudiante', 'Estado', 'Accion'];
-  segumientos: SeguimientoTutor[] = [];
+  segumientos: SeguimientoTutorCompleto[] = [];
   dataSource = new MatTableDataSource(this.segumientos);
   bandera:boolean;
-  seguimiento:SeguimientoTutor;
+  seguimiento: SeguimientoTutorCompleto;
   filtrado:boolean;
   seguimientosPDF: Array<Seguimiento> = [];
 
@@ -37,33 +38,10 @@ export class ListTutorSeguimientosComponent implements OnInit {
     this.bandera=true;
     console.log("ID TUTOR SESIÓN:   ",sessionStorage.getItem('id'));
     this.seguimientosServiceTutor.obtenerSeguimientosTutor(Number(sessionStorage.getItem('id'))).subscribe((data) => {
-      console.log(JSON.stringify(data.data));
+      console.log('ESTOS SON LOS SEGUIMIENTO DE TUTOR', JSON.stringify(data));
       if (data.estado === 'exito') {
         data.data.forEach( (item) => {
-          const seguimiento: SeguimientoTutor = item;
-          console.log('cargando seguimiento ' + item);
-
-          /*codirector: "juan"
-          estadoProyecto: {idEstadoSeguimiento: 3, nombre: "Aprobado"}
-          estadoSeguimiento: {idEstadoSeguimiento: 1, nombre: "Aceptado"}
-          estudiante: {cohorte: 3, apellidos: "mono", codigo: "1234", estado: "nose", persona: {…}, …}
-          idSeguimiento: 1
-          nombre: "proyecto"
-          objetivoGeneral: "ninguno"
-          objetivosEspecificos: "ningunos"
-          tipoSeguimiento: {idTipoSeguimiento: 2, nombre: "Tesis"}
-          tutor: {id_tutor: 1, persona: {…}, correo: "cobos", grupoInvestigacion:*/
-
-          seguimiento.id_tutor = item.tutor.id_tutor;
-          seguimiento.id_estudiante = item.estudiante.id;
-          seguimiento.estadoProyecto = item.estadoProyecto.nombre;
-          seguimiento.idEstadoProyecto = item.estadoProyecto.idEstadoSeguimiento;
-          seguimiento.estadoSeguimiento = item.estadoSeguimiento.nombre;
-          seguimiento.idEstadoSeguimiento = item.estadoSeguimiento.idEstadoSeguimiento;
-          seguimiento.tipoSeguimiento = item.tipoSeguimiento.nombre;
-          seguimiento.idTipoSeguimiento = item.tipoSeguimiento.idTipoSeguimiento;
-          seguimiento.tutor = item.tutor.persona.nombres + ' ' + item.tutor.persona.apellidos;
-          seguimiento.estudiante = item.estudiante.nombres + ' ' + item.estudiante.apellidos;
+          const seguimiento: SeguimientoTutorCompleto = item;
           this.segumientos.push(seguimiento);
         });
         console.log('SEGUIMIENTOS TUTOR OBTENIDOS:   ', this.segumientos);
@@ -81,8 +59,8 @@ export class ListTutorSeguimientosComponent implements OnInit {
   {
     for(let s of this.segumientos)
     {
-      if(s.estadoSeguimiento==='Espera'){ this.segEspera.push(s);}
-      if(s.estadoSeguimiento==='Aceptado'){this.segAceptado.push(s);}
+      if(s.estadoSeguimiento.nombre==='Espera'){ this.segEspera.push(s);}
+      if(s.estadoSeguimiento.nombre==='Aceptado'){this.segAceptado.push(s);}
     }
   }
 
@@ -171,7 +149,7 @@ var options = { year: 'numeric', month: 'long', day: 'numeric' };
   obtenerSeguimientos(){
     this.seguimientosServiceTutor.obtenerSeguimientosTutor(this.seguimiento.idSeguimiento);
   }
-  editarSeguimientoTutor(element: SeguimientoTutor) {
+  editarSeguimientoTutor(element: SeguimientoTutorCompleto) {
     this.bandera = !this.bandera;
     this.seguimiento = element;
   }

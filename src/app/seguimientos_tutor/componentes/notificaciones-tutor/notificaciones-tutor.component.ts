@@ -9,6 +9,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 import { SeguimientosTutorServices } from '../../servicios/seguimientosTutor.service';
+import { SeguimientoTutorCompleto } from '../../modelos/seguimientoTutorCompleto.model';
 // tslint:disable-next-line: class-name
 export interface notificacionesTutor {
   Codigo: number;
@@ -29,8 +30,8 @@ const ELEMENT_DATA: notificacionesTutor[] = [
   styleUrls: ['./notificaciones-tutor.component.css']
 })
 export class NotificacionesTutorComponent implements OnInit {
-  notificacionesInstance: SeguimientoTutor[]=[];
-  notificaciones: SeguimientoTutor[]=[];
+  notificacionesInstance: SeguimientoTutorCompleto[]=[];
+  notificaciones: SeguimientoTutorCompleto[]=[];
   displayedColumns: string[] = ['Codigo', 'Nombre', 'Tipo', 'Estudiante', 'Estado', 'Accion'];
   dataSource = new MatTableDataSource(this.notificacionesInstance);
   /*columnas = [

@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { ActividadTutor } from './../modelos/actividadTutor.model';
 import { Seguimiento } from './../../seguimientos_admin/modelos/seguimiento.model';
 import { DataSource } from '@angular/cdk/table';
@@ -7,6 +8,7 @@ import { SeguimientoTutor } from '../modelos/seguimientoTutor.model';
 import { TipoSeguimiento } from '../../seguimientos_admin/modelos/tipoSeguimiento.model';
 import { EstadoProyecto } from '../../seguimientos_admin/modelos/estadosProyecto.model';
 import { EstadoSeguimiento } from '../../seguimientos_admin/modelos/estadoSeguimiento.model';
+import { SeguimientoTutorCompleto } from '../modelos/seguimientoTutorCompleto.model';
 const RUTA = 'http://localhost:8099';
 @Injectable()
 // tslint:disable-next-line: class-name
@@ -167,9 +169,10 @@ export class SeguimientosTutorServices {
     return this.notificaciones;
   }
   // Se usa para recibir la información de los seguimientos relacionados con un tutor
-  obtenerSeguimientosTutor(id: number) {
+  obtenerSeguimientosTutor(id: number){
     return this.http.get<any>(RUTA + '/seguimiento/listarPorTutor/' + id);
   }
+
   onEstadosSeguimientos() {
 
   }
@@ -206,7 +209,8 @@ export class SeguimientosTutorServices {
   }
 
   // Se usa para enviar la informacion editada por el tutor
-  guardarSeguimientoTutor(seguimientotutor: SeguimientoTutor) {
+  guardarSeguimientoTutor(seguimientotutor: any) {
+    console.log("ENTRO A ACTUALIZAR: ",seguimientotutor);
     this.http.put<any>(RUTA + '/seguimiento/editar/' + seguimientotutor.idSeguimiento, seguimientotutor)
     .subscribe(
       (response) => console.log('resultado guardar: ' + response.estado),

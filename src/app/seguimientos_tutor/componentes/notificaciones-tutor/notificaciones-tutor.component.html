@@ -19,18 +19,18 @@
         <!-- Weight Column -->
         <ng-container matColumnDef="Tipo">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo </th>
-          <td mat-cell *matCellDef="let element"> {{element.tipoSeguimiento}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.tipoSeguimiento.nombre}} </td>
         </ng-container>
 
         <!-- Symbol Column -->
         <ng-container matColumnDef="Estudiante">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Estudiante </th>
-          <td mat-cell *matCellDef="let element"> {{element.estudiante}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.estudiante.nombres+' '+element.estudiante.apellidos}} </td>
         </ng-container>
         <!-- Symbol Column -->
         <ng-container matColumnDef="Estado">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
-          <td mat-cell *matCellDef="let element"> {{element.estadoSeguimiento}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.estadoSeguimiento.nombre}} </td>
         </ng-container>
         <!-- Symbol Column -->
         <ng-container matColumnDef="Accion">
@@ -40,7 +40,7 @@
               <button type="button" class="btn btn-success" (click)="guardarAceptar(element)">Aceptar</button>
             </div>
             <div class="btn-group">
-              <button type="button" class="btn btn-danger">Rechazar</button>
+              <button type="button" class="btn btn-danger" (click)="guardarRechazar(element)">Rechazar</button>
             </div>
           </td>
         </ng-container>

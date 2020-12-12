@@ -66,7 +66,7 @@ export class EditarSeguimientoTutorComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   ngOnInit(): void {
-    this.actividades = this.actividadesTutorService.obtenerActividades();
+    //this.actividades = this.actividadesTutorService.obtenerActividades();
     this.dataSource = new MatTableDataSource(this.actividades);
     const oe = '';
     const cont = 1;

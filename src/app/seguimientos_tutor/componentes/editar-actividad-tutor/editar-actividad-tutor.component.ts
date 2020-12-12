@@ -22,7 +22,7 @@ export class EditarActividadTutorComponent implements OnInit {
     private formBuilder:FormBuilder) { }
 
   ngOnInit(): void {
-    this.actividad=this.actividadService.actividades[0];
+    //this.actividad=this.actividadService.actividades[0];
     this.crearFormulario();
   }
   okClick() {
@@ -35,12 +35,12 @@ export class EditarActividadTutorComponent implements OnInit {
        this.checked=true;
        console.log("VISIBILIDAD TRUE");
     }
-     
+
     else
       {this.checked=false;
       console.log("VISIBILIDAD FALSO");}
     this.formulario = this.formBuilder.group(
-      { 
+      {
         semana: [this.actividad.semana, [
         Validators.maxLength(30)]
         ],
@@ -48,14 +48,14 @@ export class EditarActividadTutorComponent implements OnInit {
         entregas: [this.actividad.entregas, [/* Validators.required */]],
         compromisos: [this.actividad.compromisos, [/* Validators.required */]],
         fecha_inicio:[this.actividad.fecha_inicio, [ Validators.required]],
-        fecha_entrega: [this.actividad.fecha_entrega, [/* Validators.required */] ],   
+        fecha_entrega: [this.actividad.fecha_entrega, [/* Validators.required */] ],
         visibilidad:[this.checked, [/* Validators.required */] ]
       });
-     
+
      this.formulario.valueChanges.pipe(
       debounceTime(350)
       ).subscribe(
-        value=>{         
+        value=>{
           console.log(value);
         }
       );

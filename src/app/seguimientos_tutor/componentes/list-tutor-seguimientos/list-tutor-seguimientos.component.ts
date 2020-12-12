@@ -1,3 +1,4 @@
+import { SeguimientoTutorCompleto } from './../../modelos/seguimientoTutorCompleto.model';
 import { SeguimientoCompleto } from './../../../seguimientos_admin/modelos/seguimientoCompleto.model';
 import { notificacionesTutor } from './../notificaciones-tutor/notificaciones-tutor.component';
 import {Router} from '@angular/router';
@@ -13,7 +14,7 @@ import { SeguimientoTutor } from '../../modelos/seguimientoTutor.model';
 import { PdfMakeWrapper, Table, Txt } from 'pdfmake-wrapper';
 import { VerSeguimientoComponent } from '../../../seguimientos_admin/componentes/verSeguimiento/ver-seguimiento/ver-seguimiento.component';
 import { Seguimiento } from '../../../seguimientos_admin/modelos/seguimiento.model';
-import { SeguimientoTutorCompleto } from '../../modelos/seguimientoTutorCompleto.model';
+import { VerSeguimientoTutorComponent } from '../ver-seguimiento-tutor/ver-seguimiento-tutor.component';
 @Component({
   selector: 'app-list-tutor-seguimientos',
   templateUrl: './list-tutor-seguimientos.component.html',
@@ -171,9 +172,9 @@ var options = { year: 'numeric', month: 'long', day: 'numeric' };
     dialogRef.componentInstance.notificacionesInstance = this.segEspera;
   }
 
-  verSeguimiento(row:SeguimientoCompleto)
+  verSeguimiento(seg: SeguimientoTutorCompleto)
   {
-    const dialogRef = this.dialog.open(VerSeguimientoComponent, {
+    const dialogRef = this.dialog.open(VerSeguimientoTutorComponent, {
       width: '800px',
       height:'500px',
       data:{}
@@ -181,20 +182,6 @@ var options = { year: 'numeric', month: 'long', day: 'numeric' };
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
-    let seg:SeguimientoCompleto=
-    {
-      nombre:row.nombre,
-      tipo:row.tipo,
-      tutor:row.tutor,
-      estudiante:row.estudiante,
-      estado:row.estado,
-      cohorte: row.cohorte,
-      coodirector:row.coodirector,
-      estadoSeguimiento:row.estadoSeguimiento,
-      oGeneral:row.oGeneral,
-      oEspecificos:row.oEspecificos,
-      id:row.id
-    };
     dialogRef.componentInstance.seguimiento = seg;
   }
 }

@@ -1,3 +1,4 @@
+import { SeguimientoCompleto } from './../modelos/seguimientoCompleto.model';
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -38,27 +39,18 @@ export class SeguimientosService {
     getSeguimientos(): Observable<any> {      
       return this.http.get(RUTA+'/seguimiento/listar');
     }
-  
+    deleteSeguimiento(id:number): Observable<any>
+    {
+      return this.http.get(RUTA+'/seguimiento/eliminar/'+id);
+    }
     seguimiento(n:number):Seguimiento
     {
       return this.crearSeguimientos(n);
     }
-    onEditSeguimiento(seg:Seguimiento):Observable<any>
-    {
-      const s = JSON.stringify( {
-        id_seguimiento:seg.id,
-        nombre:seg.nombre,
-        id_tutor:seg.tutor,
-        codirector:seg.coodirector,
-        id_estudiante:seg.estudiante,
-        cohorte:seg.cohorte,
-        objetivos:seg.oGeneral,
-        objetivos_especificos:seg.oEspecificos,
-        id_estado_proyecto:seg.estado,
-        id_tipo_seguimiento: seg.tipo,
-        id_estado_seguimiento:seg.estadoSeguimiento
-      });
-      return this.http.put(RUTA+'/seguimiento/editar',JSON.stringify(s), {headers : new HttpHeaders({ 'Content-Type': 'application/json'}) ,
+    onEditSeguimiento(seg:any):Observable<any>
+    {     
+      console.log("SEGUIMIENTO EN EDITAR:   ",seg);
+      return this.http.put(RUTA+'/seguimiento/editar/'+seg.idSeguimiento,seg, {headers : new HttpHeaders({ 'Content-Type': 'application/json'}) ,
       reportProgress: true, observe: 'events'});
     }
     onCrearSeguimiento(s:any):Observable<any>{
@@ -130,5 +122,6 @@ export class SeguimientosService {
         ];
         return nuevo;
       }
+
       
 }

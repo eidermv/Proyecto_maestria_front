@@ -1,3 +1,6 @@
+import { TipoSeguimiento } from './../../../seguimientos_tutor/modelos/tipoSeguimiento.model';
+import { EstadoProyecto } from './../../../seguimientos_tutor/modelos/estadosProyecto.model';
+import { EstadoSeguimiento } from './../../../seguimientos_tutor/modelos/estadoSeguimiento.model';
 import { TutorCompleto } from './../../modelos/tutorCompleto.model';
 import { TipoTutor } from './../../modelos/tipoTutor.model';
 import { Tutor } from './../../modelos/tutor.model';
@@ -46,7 +49,6 @@ this.seguimientos=[];
     this.seguimientoService.getSeguimientos().subscribe(
       result=>
       {
-        console.log("#############SEGUIMIENTOS ENTRANTES:   ",result.data);
         this.seguimientos=[];
         result.data.forEach(element => {
           let est= new Student();
@@ -60,7 +62,19 @@ this.seguimientos=[];
             id:element.tutor.tipoTutor.idTipoTutor,
             nombre:element.tutor.tipoTutor.nombre
           };
-
+          let estadoProyecto:EstadoProyecto={
+            id:element.estadoProyecto.idEstadoSeguimiento,
+            nombre:element.estadoProyecto.nombre
+          };
+          let estadoSeguimiento:EstadoSeguimiento={
+            id:element.estadoSeguimiento.idEstadoSeguimiento,
+            nombre:element.estadoSeguimiento.nombre
+          };
+          let tipoSeguimiento:TipoSeguimiento={
+            id:element.tipoSeguimiento.idTipoSeguimiento,
+            nombre:element.tipoSeguimiento.nombre
+          };
+    
           let tutor:TutorCompleto={
             identificacion:element.tutor.id_tutor,
             apellido:element.tutor.apellido,
@@ -72,20 +86,21 @@ this.seguimientos=[];
             tipo:tipoTutor,
             universidad:element.tutor.universidad
           };
+          
           let seg: SeguimientoCompleto={
             cohorte:element.estudiante.cohorte,
             coodirector:element.codirector,
-            estado:element.estadoProyecto,
-            estadoSeguimiento:element.estadoSeguimiento,
+            estado:estadoProyecto,
+            estadoSeguimiento:estadoSeguimiento,
             estudiante:est,
             id:element.idSeguimiento,
             nombre:element.nombre,
             oGeneral:element.objetivoGeneral,
             oEspecificos:element.objetivosEspecificos,
-            tipo:element.tipoSeguimiento,
+            tipo:tipoSeguimiento,
             tutor:tutor
           };
-          console.log("ESTUDIANTE FORMADO.  ",seg);
+          console.log("SEGUIMIENTO FORMADO.  ",seg);
           this.seguimientos.push(seg);
         });
         this.dataSource = new MatTableDataSource(this.seguimientos);
@@ -97,6 +112,7 @@ this.seguimientos=[];
   
   editarSeguimiento(row:SeguimientoCompleto)
   {
+    console.log("SEGUIMIENTO ANTES DE ENVIAR A EDITAR:   ",row);
     const dialogRef = this.dialog.open(EditarSeguimientoComponent, {
       width: '800px',
       height:'500px',
@@ -153,8 +169,12 @@ var options = { year: 'numeric', month: 'long', day: 'numeric' };
     pdf.add(new Txt('Maestría en Automática').alignment('center').bold().end );  
     pdf.add("\n\n\n");/* 
     pdf.watermark('UNIVERSIDAD DEL CAUCA');  */
-    if(this.filtrado) pdf.add(this.crearTablaFiltrado());
-    else pdf.add(this.crearTablaNoFiltrado());
+    if(this.filtrado) { 
+      console.log("DATOS NO FILTRADOS:   ",this.seguimientosPDF);
+      pdf.add(this.crearTablaFiltrado());}
+    else {
+      console.log("DATOS NO FILTRADOS",this.seguimientos);
+      pdf.add(this.crearTablaNoFiltrado());}
     pdf.create().download();
   }
   crearTablaFiltrado()
@@ -176,10 +196,10 @@ var options = { year: 'numeric', month: 'long', day: 'numeric' };
       let fila:any[]=[]; 
       fila[contc]=contf;contc++;
       fila[contc]=seg.nombre;contc++;
-      fila[contc]=seg.tipo;contc++;
-      fila[contc]=seg.tutor;contc++;
-      fila[contc]=seg.estudiante;contc++;
-      fila[contc]=seg.estado;contc++;
+      fila[contc]=seg.tipo.nombre;contc++;
+      fila[contc]=seg.tutor.nombre+" "+seg.tutor.apellido;contc++;
+      fila[contc]=seg.estudiante.getName()+" "+seg.estudiante.getSurname();contc++;
+      fila[contc]=seg.estado.nombre;contc++;
       fila[contc]=seg.coodirector;contc++;      
       body[contf]=fila;contc=0; contf++;
     } 
@@ -205,10 +225,10 @@ var options = { year: 'numeric', month: 'long', day: 'numeric' };
       let fila:any[]=[]; 
       fila[contc]=contf;contc++;
       fila[contc]=seg.nombre;contc++;
-      fila[contc]=seg.tipo;contc++;
-      fila[contc]=seg.tutor;contc++;
-      fila[contc]=seg.estudiante;contc++;
-      fila[contc]=seg.estado;contc++;
+      fila[contc]=seg.tipo.nombre;contc++;
+      fila[contc]=seg.tutor.nombre+" "+seg.tutor.apellido;contc++;
+      fila[contc]=seg.estudiante.getName()+" "+seg.estudiante.getSurname();contc++;
+      fila[contc]=seg.estado.nombre;contc++;
       fila[contc]=seg.coodirector;contc++;      
       body[contf]=fila;contc=0; contf++;
     } 
@@ -236,6 +256,28 @@ var options = { year: 'numeric', month: 'long', day: 'numeric' };
   cambiar(event)
   {
     this.bandListar=event;
+  }
+  eliminarSeguimiento(row:SeguimientoCompleto)
+  {
+    Swal.fire({
+      title: 'Está seguro?',
+      text: "El seguimiento será eliminado!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, borralo!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+       this.seguimientoService.deleteSeguimiento(row.id).subscribe(result=>{
+        Swal.fire(
+          'Borrado!',
+          'El seguimiento ha sido borrado.',
+          'success'
+        )
+       })
+      }
+    })
   }
 
 

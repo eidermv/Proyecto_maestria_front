@@ -11,6 +11,7 @@ import { Actividad } from '../../modelos/actividad.model';
 import { ActividadesService } from '../../servicios/actividades.service';
 import { VerActividadesComponent } from '../ver-actividades/ver-actividades.component';
 import { PdfMakeWrapper, Table, Txt } from 'pdfmake-wrapper';
+import { SeguimientoCompleto } from '../../modelos/seguimientoCompleto.model';
 
 @Component({
   selector: 'app-listar-actividades',
@@ -21,7 +22,7 @@ import { PdfMakeWrapper, Table, Txt } from 'pdfmake-wrapper';
 export class ListarActividadesComponent implements OnInit {
 
   
-  @Input() seguimiento:Seguimiento;
+  @Input() seguimiento:SeguimientoCompleto;
   displayedColumns: string[] = ['codigo', 'semana', 'fecha_inicio', 'fecha_entrega','cumplido','opciones'];
   dataSource: MatTableDataSource<Actividad>;
 
@@ -40,9 +41,8 @@ export class ListarActividadesComponent implements OnInit {
     this.actividadesService.getActividades(this.seguimiento.id).subscribe(
       result =>{
         this.actividades=[];
-        console.log("ACTIVIDADES QUE LLEGARON:  ",result.data);
+        if(result.data.length>0)
         result.data.forEach(element => {
-         
           let a:Actividad={
             compromisos:element.compromisos,
             cumplido:element.cumplida,
@@ -61,9 +61,7 @@ export class ListarActividadesComponent implements OnInit {
     this.dataSource = new MatTableDataSource(this.actividades);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-      }
-
-    )
+      });
    
   }
   applyFilter(event: Event) {
@@ -119,8 +117,8 @@ var options = { year: 'numeric', month: 'long', day: 'numeric' };
       pdf.header("\n\n.     \t\t"+fecha.toLocaleDateString("es-ES", options));   
     pdf.add(new Txt('Listado de Actividades').alignment('center').bold().end );
     pdf.add(new Txt('Seguimiento:  '+this.seguimiento.nombre).end ); 
-    pdf.add(new Txt('Tutor:  '+this.seguimiento.tutor).end ); 
-    pdf.add(new Txt('Estudiante:  '+this.seguimiento.estudiante).end );  
+    pdf.add(new Txt('Tutor:  '+this.seguimiento.tutor.nombre+" "+this.seguimiento.tutor.apellido).end ); 
+    pdf.add(new Txt('Estudiante:  '+this.seguimiento.estudiante.getName()).end );  
     pdf.add("\n\n\n");/* 
     pdf.watermark('UNIVERSIDAD DEL CAUCA');  */
     

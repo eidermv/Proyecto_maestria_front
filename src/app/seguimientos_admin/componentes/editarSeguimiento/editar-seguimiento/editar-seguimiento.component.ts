@@ -136,28 +136,30 @@ export class EditarSeguimientoComponent implements OnInit {
   {
     if (this.formulario.valid) 
     {
-      console.log("FORMULARIO VALIDO"); 
-      let s:Seguimiento={
-        cohorte:this.seguimiento.cohorte,
-        coodirector: this.seguimiento.coodirector,
-        estado:'1',
-        estadoSeguimiento:'2',
-        estudiante:'1',
-        id:this.seguimiento.id,
+      console.log("FORMULARIO VALIDO");
+      console.log("SEGUIMIENTO FORMADO:   ",this.seguimiento); 
+       let seg={
         nombre:this.seguimiento.nombre,
-        oEspecificos:this.seguimiento.oEspecificos,
-        oGeneral:this.seguimiento.oGeneral,
-        tipo:'2',
-        tutor:'1'
+        id_tutor:this.seguimiento.tutor.identificacion,
+        codirector:this.seguimiento.coodirector,
+        id_estudiante:this.seguimiento.estudiante.getId(),
+        cohorte:this.seguimiento.cohorte+'',
+        objetivoGeneral :this.seguimiento.oGeneral,
+        objetivosEspecificos  :this.seguimiento.oEspecificos,
+        idEstadoProyecto  :this.seguimiento.estado.id,
+        idTipoSeguimiento:this.seguimiento.tipo.id,
+        idEstadoSeguimiento:this.seguimiento.estadoSeguimiento.id,
+        idSeguimiento :this.seguimiento.id
       };
-     /*  this.seguimientoService.onEditSeguimiento(s).subscribe(
-        result=>console.log("RESULTADO EDITAR SEGUIMIENTO:   ",result)
-      );  */  
-      Swal.fire(
-        'Exito!',
-        'Seguimiento Almacenado!',
-        'success'
-      );
+       this.seguimientoService.onEditSeguimiento(seg).subscribe(
+        result=>{console.log("RESULTADO EDITAR SEGUIMIENTO:   ",result);
+        Swal.fire(
+          'Exito!',
+          'Seguimiento Almacenado!',
+          'success'
+        );}
+      );    
+     
       this.dialogoReg.close();
     }
     else {
@@ -238,6 +240,11 @@ export class EditarSeguimientoComponent implements OnInit {
       this.formulario.get('estadoSeguimiento').valueChanges.pipe(debounceTime(50)).subscribe(
         value=>{
          this.seguimiento.estadoSeguimiento=value;
+        }
+      );
+      this.formulario.get('nombre').valueChanges.pipe(debounceTime(50)).subscribe(
+        value=>{
+         this.seguimiento.nombre=value;
         }
       );
 

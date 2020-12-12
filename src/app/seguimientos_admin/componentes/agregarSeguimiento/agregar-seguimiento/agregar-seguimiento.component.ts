@@ -145,31 +145,38 @@ export class AgregarSeguimientoComponent implements OnInit {
 
       let seg={
         nombre:this.formulario.get('nombre').value,
-        id_tutor:this.formulario.get('tutor').value.identificacion,
+        id_tutor:this.formulario.get('tutor').value.identificacion+'',
         codirector:this.formulario.get('coodirector').value,
-        id_estudiante:this.formulario.get('estudiante').value.id,
+        id_estudiante:this.formulario.get('estudiante').value.id+'',
         cohorte:this.formulario.get('cohorte').value,
         objetivoGeneral:this.formulario.get('objetivo').value,
         objetivosEspecificos:'',
-        id_estado_proyecto:this.formulario.get('estado').value.id,
-        id_tipo_seguimiento:this.formulario.get('tipo').value.id,
-        id_estado_seguimiento:this.formulario.get('estadoSeguimiento').value.id
+        id_estado_proyecto:this.formulario.get('estado').value.id+'',
+        id_tipo_seguimiento:this.formulario.get('tipo').value.id+'',
+        id_estado_seguimiento:this.formulario.get('estadoSeguimiento').value.id+''
       };
       console.log("$$$$$$$$$$$$$$$$$ SEGUIMIENTO FORMADO:   ",seg);
       this.seguimientoService.onCrearSeguimiento(seg).subscribe(
         result=>{
-          console.log("Resultado de CREAR SEGUIMIENTO:  ",result);
-        },
-        error=>{
-          console.log("ERROR");
+          if(result.ok){
+            this.bandAgregar.emit(true);
+            Swal.fire(
+              'Exito!',
+              'Seguimiento Almacenado!',
+              'success'
+            )
+          }
+          else{
+            Swal.fire(
+              'Error!',
+              'El seguimiento NO ha sido Almacenado!',
+              'error'
+            )
+          }
+         
         }
       );
-      this.bandAgregar.emit(true);
-      Swal.fire(
-        'Exito!',
-        'Seguimiento Almacenado!',
-        'success'
-      )
+      
       this.bandAgregar.emit(true);
     }
     else {

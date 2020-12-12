@@ -9,6 +9,7 @@ import { TipoSeguimiento } from "./tipoSeguimiento.model";
 import { TutorCompleto } from "./tutorCompleto.model";
 
 export class SeguimientoTutorCompleto {
+    cohorte: string;
     estudiante: EstudianteCompleto;
     tipoSeguimiento: TipoSeguimientoCompleto;
     codirector: string;

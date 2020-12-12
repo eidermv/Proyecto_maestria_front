@@ -8,6 +8,7 @@ import { SeguimientoTutor } from '../modelos/seguimientoTutor.model';
 import { TipoSeguimiento } from '../../seguimientos_admin/modelos/tipoSeguimiento.model';
 import { EstadoProyecto } from '../../seguimientos_admin/modelos/estadosProyecto.model';
 import { EstadoSeguimiento } from '../../seguimientos_admin/modelos/estadoSeguimiento.model';
+import { SeguimientoTutorCompleto } from '../modelos/seguimientoTutorCompleto.model';
 const RUTA = 'http://localhost:8099';
 @Injectable()
 // tslint:disable-next-line: class-name
@@ -208,7 +209,8 @@ export class SeguimientosTutorServices {
   }
 
   // Se usa para enviar la informacion editada por el tutor
-  guardarSeguimientoTutor(seguimientotutor: SeguimientoTutor) {
+  guardarSeguimientoTutor(seguimientotutor: any) {
+    console.log("ENTRO A ACTUALIZAR: ",seguimientotutor);
     this.http.put<any>(RUTA + '/seguimiento/editar/' + seguimientotutor.idSeguimiento, seguimientotutor)
     .subscribe(
       (response) => console.log('resultado guardar: ' + response.estado),

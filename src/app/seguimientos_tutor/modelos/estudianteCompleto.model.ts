@@ -5,5 +5,6 @@ export class EstudianteCompleto{
   estado: number;
   codigo: number;
   persona: PersonaCompleto;
+  id:number;
 constructor() { }
 }

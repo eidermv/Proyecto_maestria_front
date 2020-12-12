@@ -49,7 +49,7 @@
           <div class="btn-group">
             <a class="btn" (click)="verSeguimiento(row)"><i class="fa fa-eye"></i></a>
             <a class="btn" (click)="editarSeguimiento(row)"><i class="fa fa-pencil"></i></a>
-            <app-eliminar-seguimiento [seguimiento]=row></app-eliminar-seguimiento>
+            <a class="btn" (click)="eliminarSeguimiento(row)"><i class="fa fa-times"></i></a>  
           </div>
         </td>
       </ng-container>

@@ -126,8 +126,11 @@ this.seguimientos=[];
   }
  
   applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    const filterValue = (event.target as HTMLInputElement).value.toLowerCase();
+    /* 
+    this.dataSource.data.filter(seguimiento) = filterValue.trim().toLowerCase(); */
+    
+    this.dataSource.data=this.seguimientos.filter(seguimiento=>seguimiento.nombre.toLowerCase().includes(filterValue)||seguimiento.tipo.nombre.toLowerCase().includes(filterValue)||seguimiento.tutor.nombre.toLowerCase().includes(filterValue)||seguimiento.tutor.apellido.toLowerCase().includes(filterValue)||seguimiento.estudiante.getName().toLowerCase().includes(filterValue)||seguimiento.estudiante.getSurname().toLowerCase().includes(filterValue)||seguimiento.estadoSeguimiento.nombre.toLowerCase().includes(filterValue));
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }

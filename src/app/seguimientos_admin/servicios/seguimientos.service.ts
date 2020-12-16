@@ -41,7 +41,7 @@ export class SeguimientosService {
     }
     deleteSeguimiento(id:number): Observable<any>
     {
-      return this.http.get(RUTA+'/seguimiento/eliminar/'+id);
+      return this.http.delete(RUTA+'/seguimiento/eliminar/'+id);
     }
     seguimiento(n:number):Seguimiento
     {

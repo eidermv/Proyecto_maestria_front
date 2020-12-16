@@ -41,6 +41,8 @@ export class AgregarSeguimientoComponent implements OnInit {
   nuevoTutor: Tutor;
   porcentaje: number = 0;
   @Output() bandAgregar = new EventEmitter<boolean>();
+  @Output() seguimientoCreado = new EventEmitter<SeguimientoCompleto>();
+  
   constructor(private formBuilder: FormBuilder, private tutorService: TutorService, private estudianteService: EstudianteService, private dialog: MatDialog, private seguimientoService: SeguimientosService) {
     this.tutorService.onTutores();
     this.YEAR_END_COHORTE = 2008;
@@ -48,6 +50,7 @@ export class AgregarSeguimientoComponent implements OnInit {
   }
 
   ngOnInit(): void {    
+    console.log("ON INIT DEL AGREGAR");
     this.getAllCohorte();
     this.getAllTutores();
     this.getAllEstudiantes();
@@ -158,7 +161,8 @@ export class AgregarSeguimientoComponent implements OnInit {
       console.log("$$$$$$$$$$$$$$$$$ SEGUIMIENTO FORMADO:   ",seg);
       this.seguimientoService.onCrearSeguimiento(seg).subscribe(
         result=>{
-          if(result.ok){
+          console.log("REESULT EN AGREGAR SEGUIMIENTO:   ",result['body']);
+          if(result.body?.estado=="exito"){
             this.bandAgregar.emit(true);
             Swal.fire(
               'Exito!',
@@ -178,6 +182,8 @@ export class AgregarSeguimientoComponent implements OnInit {
       );
       
       this.bandAgregar.emit(true);
+     
+      
     }
     else {
       console.log("FORMULARIO IN VALIDO");

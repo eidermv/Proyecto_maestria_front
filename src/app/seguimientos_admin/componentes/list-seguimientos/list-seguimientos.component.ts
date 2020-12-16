@@ -1,3 +1,4 @@
+import { AgregarSeguimientoComponent } from './../agregarSeguimiento/agregar-seguimiento/agregar-seguimiento.component';
 import { TipoSeguimiento } from './../../../seguimientos_tutor/modelos/tipoSeguimiento.model';
 import { EstadoProyecto } from './../../../seguimientos_tutor/modelos/estadosProyecto.model';
 import { EstadoSeguimiento } from './../../../seguimientos_tutor/modelos/estadoSeguimiento.model';
@@ -19,6 +20,7 @@ import { PdfMakeWrapper, Table, Txt } from 'pdfmake-wrapper';
 import pdfFonts from "pdfmake/build/vfs_fonts"; 
 import { EditarSeguimientoComponent } from '../editarSeguimiento/editar-seguimiento/editar-seguimiento.component';
 import { SeguimientoCompleto } from '../../modelos/seguimientoCompleto.model';
+import { Subscription } from 'rxjs';
 PdfMakeWrapper.setFonts(pdfFonts);
 
 
@@ -31,9 +33,12 @@ export class ListSeguimientosComponent implements OnInit {
   displayedColumns: string[] = ['nombre', 'tipo', 'tutor', 'estudiante', 'estado', 'opciones'];
   dataSource: MatTableDataSource<SeguimientoCompleto>;
   bandListar: boolean;
+  sub:Subscription;
+
+  
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
-  seguimientos: Array<SeguimientoCompleto> = [];
+ seguimientos: Array<SeguimientoCompleto> = [];
   seguimientosPDF: Array<SeguimientoCompleto> = [];
   filtrado:boolean;
   constructor( private router: Router, private seguimientoService: SeguimientosService,private dialog: MatDialog) {
@@ -42,11 +47,11 @@ this.seguimientos=[];
     
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void { 
     this.filtrado=false;
     this.bandListar=true;
-    this.seguimientos=[];   
-    this.seguimientoService.getSeguimientos().subscribe(
+    this.seguimientos=[];  
+    this.sub=this.seguimientoService.getSeguimientos().subscribe(
       result=>
       {
         this.seguimientos=[];
@@ -241,6 +246,7 @@ var options = { year: 'numeric', month: 'long', day: 'numeric' };
   agregar() {
     //this.router.navigate(['/seguimiento/agregar']);
     this.bandListar=false;
+    
   }
   /** Builds and returns a new User. */
   verSeguimiento(row:SeguimientoCompleto)
@@ -259,6 +265,9 @@ var options = { year: 'numeric', month: 'long', day: 'numeric' };
   cambiar(event)
   {
     this.bandListar=event;
+    this.sub.unsubscribe();
+    this.ngOnInit();
+    
   }
   eliminarSeguimiento(row:SeguimientoCompleto)
   {
@@ -272,13 +281,24 @@ var options = { year: 'numeric', month: 'long', day: 'numeric' };
       confirmButtonText: 'Si, borralo!'
     }).then((result) => {
       if (result.isConfirmed) {
-       this.seguimientoService.deleteSeguimiento(row.id).subscribe(result=>{
-        Swal.fire(
+        
+       this.seguimientoService.deleteSeguimiento(row.id).subscribe(res=>{
+        console.log("RESULT ELIMINAR:  ",res);
+         if(res.estado=="exito"){
+            Swal.fire(
           'Borrado!',
           'El seguimiento ha sido borrado.',
           'success'
-        )
-       })
+        );
+        this.ngOnInit();
+         }
+         else{
+          Swal.fire(
+            'No Borrado!',
+            'El seguimiento no ha sido borrado.',
+            'error')
+         }
+       });
       }
     })
   }

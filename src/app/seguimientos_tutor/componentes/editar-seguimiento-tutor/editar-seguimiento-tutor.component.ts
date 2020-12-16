@@ -1,3 +1,6 @@
+import { EstadoProyectoCompleto } from './../../modelos/estadoProyectoCompleto.model';
+import { TutorCompleto } from './../../modelos/tutorCompleto.model';
+import { SeguimientoTutorCompleto } from './../../modelos/seguimientoTutorCompleto.model';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ActividadesTutorServices } from './../../servicios/actividadesTutor.service';
 import { ActividadTutor } from './../../modelos/actividadTutor.model';
@@ -24,6 +27,7 @@ import { CrearTutorComponent } from '../../../seguimientos_admin/componentes/tut
 import { AgregarActividadComponent } from '../agregar-actividad/agregar-actividad.component';
 import { PdfMakeWrapper, Table, Txt } from 'pdfmake-wrapper';
 import {SeguimientoTutor} from '../../modelos/seguimientoTutor.model';
+import { TutorTutorService } from '../../servicios/tutor-tutor.service';
 
 @Component({
   selector: 'app-editar-seguimiento-tutor',
@@ -35,15 +39,16 @@ export class EditarSeguimientoTutorComponent implements OnInit {
   actividades: ActividadTutor[] = [];
   dataSource = new MatTableDataSource(this.actividades);
   panelOpenState = false;
+  seguimientoTutor: SeguimientoTutorCompleto;
   @Input() seguimiento: SeguimientoTutor;
   formulario: FormGroup;
   porcentaje: number;
   YEAR_END_COHORTE: number;
-  options: Tutor[] = [];
+  options: TutorCompleto[] = [];
   optionsCohorte: Array<string>;
   options2: Student[] = [];
   optionsEstadoSeguimiento: EstadoSeguimiento[] = [];
-  optionsEstadoProyecto: EstadoProyecto[] = [];
+  optionsEstadoProyecto: EstadoProyectoCompleto[] = [];
   optionsTiposSeguimiento: TipoSeguimiento[] = [];
   texto = '';
   objEspec: string[];
@@ -51,34 +56,42 @@ export class EditarSeguimientoTutorComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private router: Router, private dialog: MatDialog,
     private seguimientoTutorService: SeguimientosTutorServices, private actividadesTutorService: ActividadesTutorServices,
-    private tutorService: TutorService, private estudianteService: EstudianteService) {
-      this.tutorService.onTutores();
+    private tutorService: TutorTutorService, private estudianteService: EstudianteService) {
+      this.seguimientoTutor=new SeguimientoTutorCompleto();
       this.estudianteService.onEstudiantes();
       this.YEAR_END_COHORTE = 2008;
       this.optionsCohorte = [];
       this.optionsEstadoSeguimiento = this.seguimientoTutorService.estadosSeguimientos();
-      this.optionsEstadoProyecto = this.seguimientoTutorService.estadosProyecto();
       this.optionsTiposSeguimiento = this.seguimientoTutorService.tiposSeguimiento();
-      this.seguimiento = this.seguimientoTutorService.Seguimiento[0];
-      this.crearFormulario();
      }
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   ngOnInit(): void {
-    //this.actividades = this.actividadesTutorService.obtenerActividades();
+    this.seguimientoTutor = new SeguimientoTutorCompleto();
+    this.seguimientoTutor = this.seguimientoTutorService.seguimiento;
     this.dataSource = new MatTableDataSource(this.actividades);
+    this.listarEstadosProyecto();
     const oe = '';
     const cont = 1;
     this.objEspec = [];
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
-    this.seguimiento = this.seguimientoTutorService.Seguimiento[0];
+    //this.seguimiento = this.seguimientoTutorService.Seguimiento[0];
     this.crearFormulario();
     this.getAllCohorte();
-    this.options = this.tutorService.tutores;
     this.options2 = this.estudianteService.estudiantes;
 
+  }
+  listarEstadosProyecto(){
+    this.seguimientoTutorService.listarEstadosProyecto().subscribe((data) => {
+      if (data.estado === 'exito') {
+        data.data.forEach( (item) => {
+          const estados: EstadoProyectoCompleto = item;
+          this.optionsEstadoProyecto.push(estados);
+        });
+      }
+    });
   }
   volver() {
     // this.router.navigate(['/seguimientos_tutor/']);
@@ -203,19 +216,20 @@ const options = { year: 'numeric', month: 'long', day: 'numeric' };
     });
   }
   private crearFormulario(): void {
+    console.log("Entro a crear un formulario de edita",this.seguimientoTutor);
     this.formulario = this.formBuilder.group(
       {
-        nombre: [this.seguimiento.nombre, [Validators.required,
+        nombre: [{value: this.seguimientoTutor.nombre, disabled:true}, [Validators.required,
         Validators.maxLength(30)]
         ],
-        tipo: [this.seguimiento.tipoSeguimiento,  [/* Validators.required */]],
-        tutor: [this.seguimiento.tutor, [/* Validators.required */]],
-        estudiante: [this.seguimiento.estudiante, [/* Validators.required */]],
-        cohorte: [this.seguimiento.cohorte, [/* Validators.required */]],
-        estado: [this.seguimiento.estadoSeguimiento, [/* Validators.required */] ],
-        objetivo: [this.seguimiento.objetivoGeneral, [ Validators.required] ],
-        coodirector: [this.seguimiento.codirector, [/* Validators.required */] ],
-        estadoSeguimiento: [this.seguimiento.estadoSeguimiento, [/* Validators.required */]]
+        tipo: [{value: this.seguimientoTutor.tipoSeguimiento.nombre, disabled:true},  [Validators.required ]],
+        tutor: [{value: this.seguimientoTutor.tutor.nombre+' '+this.seguimientoTutor.tutor.apellido, disabled:true}, [Validators.required ]],
+        estudiante: [{value: this.seguimientoTutor.estudiante.nombres+' '+this.seguimientoTutor.estudiante.apellidos, disabled:true}, [Validators.required]],
+        cohorte: [{value: this.seguimientoTutor.cohorte, disabled:true}, [Validators.required]],
+        estado: [null, [Validators.required] ],
+        objetivo: [this.seguimientoTutor.objetivoGeneral, [ Validators.required] ],
+        coodirector: [{value: this.seguimientoTutor.codirector, disabled:true}, [Validators.required] ],
+        objetivosEspecificos: [this.seguimientoTutor.objetivosEspecificos, [/* Validators.required */]]
       });
 
      this.formulario.valueChanges.pipe(

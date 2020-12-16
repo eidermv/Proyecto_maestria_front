@@ -28,6 +28,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatRadioModule} from '@angular/material/radio';
 // Importaciones de los servicios
 import { SeguimientosTutorServices } from '../servicios/seguimientosTutor.service';
+import { TutorTutorService } from '../servicios/tutor-tutor.service';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,6 @@ import { SeguimientosTutorServices } from '../servicios/seguimientosTutor.servic
     MatButtonModule,
     MatExpansionModule
   ],
-  providers: [SeguimientosTutorServices, ActividadesTutorServices, DatePipe],
+  providers: [SeguimientosTutorServices, ActividadesTutorServices, TutorTutorService, DatePipe],
 })
 export class SeguimientosTutorModule { }

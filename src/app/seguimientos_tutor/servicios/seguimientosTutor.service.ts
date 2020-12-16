@@ -1,3 +1,4 @@
+import { SeguimientoCompleto } from './../../seguimientos_admin/modelos/seguimientoCompleto.model';
 import { Observable } from 'rxjs';
 import { ActividadTutor } from './../modelos/actividadTutor.model';
 import { Seguimiento } from './../../seguimientos_admin/modelos/seguimiento.model';
@@ -12,9 +13,10 @@ import { SeguimientoTutorCompleto } from '../modelos/seguimientoTutorCompleto.mo
 const RUTA = 'http://localhost:8099';
 @Injectable()
 // tslint:disable-next-line: class-name
+
 export class SeguimientosTutorServices {
   // variable que almacena los datos de un seguimiento, el cual se puede editar etc...
-
+  seguimiento: SeguimientoTutorCompleto;
   constructor(private http: HttpClient) { }
   Seguimiento: SeguimientoTutor [] = [
     {
@@ -161,6 +163,10 @@ export class SeguimientosTutorServices {
   obtenerActividades() {
     return this.actividades;
   }
+  //Este servicio guarda el seguimiento actual
+  seguimientoActual(seguimientoActual: SeguimientoTutorCompleto){
+    this.seguimiento = seguimientoActual;
+  }
   // Esta función se usa para recibir en arreglo de notificaciones para el tutor
   obtenerSeguimiento() {
     return  this.Seguimiento;
@@ -172,7 +178,10 @@ export class SeguimientosTutorServices {
   obtenerSeguimientosTutor(id: number){
     return this.http.get<any>(RUTA + '/seguimiento/listarPorTutor/' + id);
   }
-
+  //Listado estados proyecto
+  listarEstadosProyecto(){
+    return this.http.get<any>(RUTA+'/estado_proyecto/estados');
+  }
   onEstadosSeguimientos() {
 
   }

@@ -1,3 +1,4 @@
+import { element } from 'protractor';
 import { SeguimientoTutorCompleto } from './../../modelos/seguimientoTutorCompleto.model';
 import { SeguimientoCompleto } from './../../../seguimientos_admin/modelos/seguimientoCompleto.model';
 import { notificacionesTutor } from './../notificaciones-tutor/notificaciones-tutor.component';
@@ -26,7 +27,7 @@ export class ListTutorSeguimientosComponent implements OnInit {
   segAceptado:SeguimientoTutorCompleto[]=[];
   displayedColumns: string[] = ['Codigo', 'Nombre', 'Tipo', 'Estudiante', 'Estado', 'Accion'];
   segumientos: SeguimientoTutorCompleto[] = [];
-  dataSource = new MatTableDataSource(this.segumientos);
+  dataSource = new MatTableDataSource<SeguimientoTutorCompleto>(this.segumientos);
   bandera:boolean;
   seguimiento: SeguimientoTutorCompleto;
   filtrado:boolean;
@@ -52,8 +53,6 @@ export class ListTutorSeguimientosComponent implements OnInit {
         this.dataSource.paginator = this.paginator;
       }
     });
-    // this.seguimiento= this.seguimientosServiceTutor.Seguimiento[0];
-    // this.seguimientosServiceTutor.onSeguimientosTutor();
   }
 
   seguimientosEspera()
@@ -152,7 +151,8 @@ var options = { year: 'numeric', month: 'long', day: 'numeric' };
   }
   editarSeguimientoTutor(element: SeguimientoTutorCompleto) {
     this.bandera = !this.bandera;
-    this.seguimiento = element;
+    this.seguimientosServiceTutor.seguimiento = element;
+    console.log('imprimiendo desde editar: ', this.seguimientosServiceTutor.seguimiento);
   }
   notificar() {
     this.bandera = !this.bandera;

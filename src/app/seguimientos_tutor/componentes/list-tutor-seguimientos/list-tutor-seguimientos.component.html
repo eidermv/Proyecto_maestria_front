@@ -63,7 +63,7 @@
 <!--  <div style="text-align: right;">
     <button class="material-icons button is-link"  (click)="crearPDF()" > picture_as_pdf PDF</button>
   </div> -->
-<div [hidden]="bandera">
+<div *ngIf="!bandera">
   <p>
   </p>
   <app-editar-seguimiento-tutor (banNotificaciones)='notificar()'></app-editar-seguimiento-tutor>

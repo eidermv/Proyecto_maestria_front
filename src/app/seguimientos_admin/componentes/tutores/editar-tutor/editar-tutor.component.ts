@@ -49,12 +49,12 @@ export class EditarTutorComponent implements OnInit {
             id_tutor:this.tutor.identificacion,
             nombres:this.tutor.nombre,
             apellidos:this.tutor.apellido,
-            identificacion:this.tutor.identificacion,
+            identificacion:this.tutor.identificacion.toString(),
             correo:this.tutor.correo,
             telefono:this.tutor.telefono,
             departamento:this.tutor.departamento,
             grupo_investigacion:this.tutor.grupoInvestigacion,
-            id_tipo_tutor:   this.tutor.tipo.id,
+            id_tipo_tutor:   this.tutor.tipo['idTipoTutor'],
             universidad:this.tutor.universidad
         };
         console.log("tutor formado para enviar:  ",nuevo);

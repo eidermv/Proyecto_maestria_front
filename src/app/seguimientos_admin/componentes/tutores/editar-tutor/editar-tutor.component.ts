@@ -43,23 +43,23 @@ export class EditarTutorComponent implements OnInit {
   }
   onSubmit(event:Event)
   {
-     console.log("TUTOR:   ",this.tutor);
+     console.log("TIPO:   ",this.tutor);
       let nuevo ={
             
-            id_tutor:this.formulario.get('identificacion').value,
-            nombres:this.formulario.get('nombre').value,
-            apellidos:this.formulario.get('apellido').value,
-            identificacion:this.formulario.get('identificacion').value,
-            correo:this.formulario.get('correo').value,
-            telefono:this.formulario.get('telefono').value,
-            departamento:this.formulario.get('departamento').value,
-            grupo_investigacion:this.formulario.get('grupoInvestigacion').value,
-            id_tipo_tutor:   this.formulario.get('tipo').value.id,
-            universidad:this.formulario.get('universidad').value
+            id_tutor:this.tutor.identificacion,
+            nombres:this.tutor.nombre,
+            apellidos:this.tutor.apellido,
+            identificacion:this.tutor.identificacion,
+            correo:this.tutor.correo,
+            telefono:this.tutor.telefono,
+            departamento:this.tutor.departamento,
+            grupo_investigacion:this.tutor.grupoInvestigacion,
+            id_tipo_tutor:   this.tutor.tipo.id,
+            universidad:this.tutor.universidad
         };
         console.log("tutor formado para enviar:  ",nuevo);
         this.tutorService.onEditTutor(nuevo).subscribe(result=>{
-        console.log("RESULTADO DE GUARDAR EL TUTOR EDITADO");
+        console.log("RESULTADO DE GUARDAR EL TUTOR EDITADO",result);
         })
         //GUARDAR 
         this.dialogoReg.close();

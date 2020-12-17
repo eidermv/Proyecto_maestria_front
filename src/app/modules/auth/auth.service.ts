@@ -17,6 +17,7 @@ export class AuthService {
 
   stringApp: StringApp;
   public infoTutor: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  public infoEstudiante: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(private httpClient: HttpClient, private router: Router, private permiso: PermisosService) {
     this.stringApp = new StringApp();
@@ -34,10 +35,13 @@ export class AuthService {
         .subscribe((data) => {
           if (data.estado === 'exito') {
             if (sessionStorage.getItem('rol') === 'Estudiante') {
-              console.log('ES UN ESTUDIANTE###################');
-            sessionStorage.setItem('code', data.data[0].codigo);
-            sessionStorage.setItem('nameStudent', data.data[0].nombres + ' ' + data.data[0].apellidos);
-            } else if (sessionStorage.getItem('rol') === 'Tutor') {
+              console.log('ES UN ESTUDIANTE###################:       ',data.data[0]);
+              sessionStorage.setItem('code', data.data[0].codigo);
+              sessionStorage.setItem('id', data.data[0].id);
+              sessionStorage.setItem('nameStudent', data.data[0].nombres + ' ' + data.data[0].apellidos);
+              this.infoEstudiante.next(true); 
+              console.log("ID ASIGNADO A SESSION STORAGE:  ",sessionStorage.getItem('id')); 
+          } else if (sessionStorage.getItem('rol') === 'Tutor') {
 
               console.log('ES UN TUTOR################### ' + JSON.stringify(data.data[0]));
               sessionStorage.setItem('id', data.data[0].id_tutor);

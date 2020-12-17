@@ -1,3 +1,4 @@
+import { SeguimientosEstudianteService } from './../../services/seguimientos-estudiante.service';
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import {Seguimiento} from '../../../seguimientos_admin/modelos/seguimiento.model';
@@ -9,6 +10,9 @@ import {VerSeguimientoEstudianteComponent} from '../ver-seguimiento-estudiante/v
 import {MatDialog} from '@angular/material/dialog';
 import { PdfMakeWrapper, Table, Txt } from 'pdfmake-wrapper';
 import pdfFonts from "pdfmake/build/vfs_fonts"; 
+import {ReplaySubject} from 'rxjs';
+import { AuthService } from '../../../modules/auth/auth.service';
+import {take, takeUntil} from 'rxjs/operators';
 PdfMakeWrapper.setFonts(pdfFonts);
 @Component({
   selector: 'app-listar-seguimiento-estudiante',
@@ -21,24 +25,56 @@ export class ListarSeguimientoEstudianteComponent implements OnInit {
   dataSource: MatTableDataSource<Seguimiento>;
   bandListar: boolean;
   filtrado:boolean;
+  private subs: ReplaySubject<void> = new ReplaySubject();
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   seguimientos: Array<Seguimiento> = [];
   seguimientosPDF: Array<Seguimiento> = [];
+  
   constructor( private router: Router,
-               private seguimientoService: SeguimientosService,
-  private dialog: MatDialog) {
+               private seguimientoEstudianteService:SeguimientosEstudianteService,
+  private dialog: MatDialog,  private auth: AuthService) {
     // Create 100 users
-
-    this.seguimientos = this.seguimientoService.onSeguimientos();
-
-    // Assign the data to the data source for the table to render
-    this.dataSource = new MatTableDataSource(this.seguimientos);
   }
 
   ngOnInit(): void {
-    this.dataSource.paginator = this.paginator;
+    
+    
+    this.auth.infoEstudiante.pipe(takeUntil(this.subs)).subscribe((valor) => {
+      if (valor) {
+        let idEst=Number(sessionStorage.getItem('id'));
+        console.log("ID Estudiante:   ",Number(sessionStorage.getItem('id')));
+        this.seguimientoEstudianteService.obtenerSeguimientosEstudiante(idEst).subscribe(
+          result=>{
+    console.log("SEGUIMIENTOS DE ESTUDIANTE :   ",result.data);
+          }
+        );
+        this.seguimientoEstudianteService.obtenerActividadesEstudiante(idEst).subscribe(
+          result=>{
+            console.log("ACTIVIDADES DE ESTUDIANTE :   ",2);
+          }
+        );
+    
+        // Assign the data to the data source for the table to render
+        this.dataSource = new MatTableDataSource(this.seguimientos);
+        this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+       /*  this.seguimientoEstudianteService.obtenerSeguimientosEstudiante(Number(sessionStorage.getItem('id'))).pipe(take(1)).subscribe((data) => {
+          console.log('ESTOS SON LOS SEGUIMIENTO DE TUTOR', JSON.stringify(data));
+          if (data.estado === 'exito') {
+            data.data.forEach( (item) => {
+              const seguimiento: SeguimientoTutorCompleto = item;
+              this.segumientos.push(seguimiento);
+            });
+            console.log('SEGUIMIENTOS TUTOR OBTENIDOS:   ', this.segumientos);
+            this.seguimientosEspera();
+            this.dataSource.data = this.segAceptado;
+            this.dataSource.sort = this.sort;
+            this.dataSource.paginator = this.paginator;
+          }
+        });  */
+      }
+    });
   }
  
   /** Builds and returns a new User. */

@@ -3,41 +3,26 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Tutor } from '../modelos/tutor.model';
 const httpOptions = new HttpHeaders({ 'Content-Type': 'application/json'});
-
+const RUTA="http://localhost:8099";
 @Injectable()
 export class TutorService {
     tutores:Array<Tutor>=[];
-    public onTutores():void
-    {
-        this.tutores=[];
-        let nuevo :Tutor;
-        nuevo={
-            nombre:"Carlos",
-            apellido:"Cobos",
-            identificacion:"10618776564",
-            correo:"ccobos@unicauca.edu.co",
-            telefono:"3008765666",
-            departamento:"Sistemas",
-            grupoInvestigacion:"SIR",
-            tipo:"Interno",
-            universidad:"Universidad del Cauca"          
-        };
-        this.tutores.push(nuevo);
-        nuevo={
-            nombre:"Sandra",
-            apellido:"Buitron",
-            identificacion:"10618776564",
-            correo:"ccobos@unicauca.edu.co",
-            telefono:"3008765666",
-            departamento:"Sistemas",
-            grupoInvestigacion:"SIR",
-            tipo:"Interno",
-            universidad:"Universidad del Cauca"            
-        };
-        this.tutores.push(nuevo);
+    constructor(private http: HttpClient){
+
     }
-    public eliminarTutor(id:number)
+    getTutores(): Observable<any>
     {
-        console.log("Eliminando TUTOR:  "+id);
+      return this.http.get(RUTA+'/tutor/listar');
     }
+    onTiposTutor(): Observable<any> {
+      return this.http.get(RUTA+'/tipo_tutor/tipos');
+    }
+   
+      eliminarTutor(id:number): Observable<any>
+      {
+        console.log("Eliminar tutor con id:  ",id);
+        console.log("RUTA ELIMINAR:   ",RUTA+'/tutor/eliminar/'+id);
+        return this.http.delete(RUTA+'/tutor/eliminar/'+id);
+      }
+    
 }

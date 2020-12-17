@@ -1,33 +1,27 @@
-import { CommonModule } from '@angular/common';  
-import { BrowserModule } from '@angular/platform-browser';
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Output } from '@angular/core';
+import { EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import Swal from 'sweetalert2';
-import { Tutor } from '../../../modelos/tutor.model';
-import { TutorService } from '../../../servicios/tutor.service';
-import { TipoTutor } from '../../../modelos/tipoTutor.model';
+import Swal from 'sweetalert2/*/sweetalert2.js';
+import { TipoTutor } from '../../seguimientos_admin/modelos/tipoTutor.model';
+import { Tutor } from '../../seguimientos_admin/modelos/tutor.model';
+import { TutorService } from '../servicios/tutor.service';
 
 @Component({
   selector: 'app-crear-tutor',
   templateUrl: './crear-tutor.component.html',
-  styleUrls: ['./crear-tutor.component.css']
+  styleUrls: ['./crear-tutor.component.scss']
 })
 export class CrearTutorComponent implements OnInit {
   formulario: FormGroup;
   externo:boolean=false;
-  optionsTiposTutor:TipoTutor[]=[];
-  
+  optionsTiposTutor:TipoTutor[]=[];  
   @Output() tutor= new EventEmitter<Tutor>();
   constructor(public dialogoReg:MatDialogRef<CrearTutorComponent>,private formBuilder: FormBuilder, 
-    private tutorService:TutorService) {
+    private tutorService:TutorService) { }
 
-
-  }
-  ngOnInit(): void {
-
-
-
+  ngOnInit() {
     this.tutorService.onTiposTutor().subscribe(
       result=>{
         this.optionsTiposTutor=[];
@@ -72,11 +66,15 @@ export class CrearTutorComponent implements OnInit {
           }
         );
   }
-  
   onSubmit(event:Event)
   {
       console.log("Guardado",event);
-     
+      Swal.fire({
+        icon: 'success',
+        title: 'Guardado' ,
+        text: 'Tutor Almacenado!' ,
+        footer: 'El tutor fué almacenado correctamente' 
+      });
       let nuevo :Tutor;
         nuevo={
             nombre:this.formulario.get('nombre').value,
@@ -89,24 +87,6 @@ export class CrearTutorComponent implements OnInit {
             tipo:   this.formulario.get('tipo').value,
             universidad:this.formulario.get('universidad').value
         };
-        this.tutorService.onCrearTutor(nuevo).subscribe(result=>{
-          if(result.estado=="exito"){
-            Swal.fire({
-              icon: 'success',
-              title: 'Guardado' ,
-              text: 'Tutor Almacenado!' ,
-              footer: 'El tutor fué almacenado correctamente' 
-            });
-          }
-          else{
-            Swal.fire({
-              icon: 'error',
-              title: 'NO Guardado' ,
-              text: 'Tutor NO Almacenado!' ,
-              footer: 'El tutor NO fué almacenado' 
-            });
-          }
-        });
         this.tutor.emit(nuevo);
         this.dialogoReg.close();
 
@@ -122,4 +102,5 @@ export class CrearTutorComponent implements OnInit {
     })
     this.dialogoReg.close();
   }
+
 }

@@ -1,3 +1,4 @@
+import { TutorCompleto } from './../../../seguimientos_admin/modelos/tutorCompleto.model';
 import { TutorService } from './../../servicios/tutor.service';
 import { Tutor } from './../../modelos/tutor.model';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -20,28 +21,42 @@ import Swal from 'sweetalert2';
 export class ListarTutorComponent implements OnInit {
 
   displayedColumns: string[] = ['nombre', 'correo', 'departamento' ,'universidad','opciones'];
-  dataSource: MatTableDataSource<Tutor>;
+  dataSource: MatTableDataSource<TutorCompleto>;
   bandListar: boolean;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
-  tutores: Array<Tutor> = [];
+  tutores: Array<TutorCompleto> = [];
   constructor( private router: Router, private tutorService:TutorService,private dialog: MatDialog) {
-    this.tutorService.onTutores();
-    this.tutores=this.tutorService.tutores;
-    this.dataSource = new MatTableDataSource(this.tutores);
+   
   }
 
   ngOnInit(): void {
+    this.tutores=[];
+    this.tutorService.getTutores().subscribe(result=>{
+      console.log("TUTORES RECIBIDOS:    ",result);
+      result.data?.forEach(element => {       
+        let tutor:TutorCompleto={
+          apellido:element.apellido,
+          correo:element.correo,
+          departamento:element.departamento,
+          grupoInvestigacion:element.grupoInvestigacion,
+          identificacion:element.id_tutor,
+          nombre:element.nombre,
+          telefono:element.telefono,
+          tipo:element.tipoTutor,
+          universidad:element.universidad
+        };
+        this.tutores.push(tutor);
+      });
+      console.log("Array de tutores:   ",this.tutores);
+      this.dataSource = new MatTableDataSource(this.tutores); 
+      this.bandListar=true;
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort; 
+    });
+     
     
-    // Assign the data to the data source for the table to render
-    
-    for(let i of this.dataSource.data)
-    {
-      console.log("TUTORES DATA SOURCE:  ", i);
-    }
-    this.bandListar=true;
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+  
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -64,7 +79,7 @@ export class ListarTutorComponent implements OnInit {
 
   }
   /** Builds and returns a new User. */
-  verTutor(row:Tutor)
+  verTutor(row:TutorCompleto)
   {
      const dialogRef = this.dialog.open(VerTutorComponent, {
       width: '800px',
@@ -79,9 +94,8 @@ export class ListarTutorComponent implements OnInit {
     });
 
   }
-  eliminarTutor(identificacion:number)
+  eliminarTutor(row:TutorCompleto)
   {
-    this.tutorService.eliminarTutor(identificacion);
     Swal.fire({
       title: 'ELIMINAR TUTOR',
       allowOutsideClick: false,
@@ -98,13 +112,30 @@ export class ListarTutorComponent implements OnInit {
       confirmButtonColor: '#3085d6'      
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire(
-          {
-            title: 'Eliminado!',
-          text: 'El Tutor ha sido Eliminado.' /* + JSON.stringify(result) */,
-          icon: 'success',
-          timer: 2500}
+        this.tutorService.eliminarTutor(parseInt(row.identificacion)).subscribe(
+          result=>{
+            console.log("result de eliminar:   ",result);
+            if(result.estado=="exito"){
+              Swal.fire(
+                {
+                  title: 'Eliminado!',
+                text: 'El Tutor ha sido Eliminado.' /* + JSON.stringify(result) */,
+                icon: 'success',
+                timer: 2500}
+              );
+            }
+            else{
+              Swal.fire(
+                {
+                  title: 'No Eliminado!',
+                text: 'El Tutor NO se ha sido Eliminado.' /* + JSON.stringify(result) */,
+                icon: 'error',
+                timer: 2500}
+              );
+            }
+          }
         );
+       
       } else if (
         /* Read more about handling dismissals below */
         result.isDismissed
@@ -118,14 +149,14 @@ export class ListarTutorComponent implements OnInit {
   });
 }
   
-  editarTutor(row:Tutor)
+  editarTutor(row:TutorCompleto)
   {
      const dialogRef = this.dialog.open(EditarTutorComponent, {
       width: '800px',
       height:'500px',
       data:{}
     });    
-    dialogRef.componentInstance.tutor=row; 
+    dialogRef.componentInstance.tutor=row;  
     console.log("ROW ASIGNADA Y ENVIADA",row);
 
     dialogRef.afterClosed().subscribe(result => {

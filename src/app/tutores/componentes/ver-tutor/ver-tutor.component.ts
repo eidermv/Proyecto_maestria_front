@@ -1,3 +1,4 @@
+import { TutorCompleto } from './../../../seguimientos_admin/modelos/tutorCompleto.model';
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
@@ -13,7 +14,7 @@ import { Tutor } from '../../modelos/tutor.model';
 })
 export class VerTutorComponent implements OnInit {
   panelOpenState = false;
-  tutor:Tutor;
+  tutor:TutorCompleto;
   formulario:FormGroup;
   texto:string="";
   objEspec:string[];
@@ -36,7 +37,7 @@ export class VerTutorComponent implements OnInit {
         identificacion: [this.tutor.identificacion, []],
         correo: [this.tutor.correo, [Validators.email]],
         telefono: [this.tutor.telefono, []],
-        tipo: [this.tutor.tipo, []],
+        tipo: [this.tutor.tipo.nombre, []],
         departamento:[this.tutor.departamento,[]],
         universidad:[this.tutor.universidad,[]]
       });

@@ -18,7 +18,7 @@
       <!-- nombre Column -->
       <ng-container matColumnDef="nombre">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> NOMBRE </th>
-        <td mat-cell *matCellDef="let row"> {{row.nombre+" "+ row.apellido}} </td>
+        <td mat-cell *matCellDef="let row"> {{row.nombre+" "+ row.apellido|uppercase}} </td>
       </ng-container>
 
       <!-- tutor Column -->
@@ -29,13 +29,13 @@
          <!-- estudiante Column -->
          <ng-container matColumnDef="departamento">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> DEPARTAMENTO </th>
-          <td mat-cell *matCellDef="let row"> {{row.departamento}} </td>
+          <td mat-cell *matCellDef="let row"> {{row.departamento|uppercase}} </td>
         </ng-container>
 
       <!-- estudiante Column -->
       <ng-container matColumnDef="universidad">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> UNIVERSIDAD </th>
-        <td mat-cell *matCellDef="let row"> {{row.universidad}} </td>
+        <td mat-cell *matCellDef="let row"> {{row.universidad|uppercase}} </td>
       </ng-container>
       <!-- estado Column -->
      
@@ -46,7 +46,7 @@
           <div class="btn-group">
             <a class="btn" (click)="verTutor(row)"><i class="fa fa-eye"></i></a>
             <a class="btn" (click)="editarTutor(row)"><i class="fa fa-pencil"></i></a>            
-            <a class="btn" (click)="eliminarTutor(row.identificacion)"><i class="fa fa-times"></i></a>
+            <a class="btn" (click)="eliminarTutor(row)"><i class="fa fa-times"></i></a>
             <!-- <app-editar-seguimiento [seguimiento]=row></app-editar-seguimiento>
             <app-eliminar-seguimiento [seguimiento]=row></app-eliminar-seguimiento>
           --> </div>

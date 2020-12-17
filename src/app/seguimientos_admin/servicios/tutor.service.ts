@@ -1,3 +1,4 @@
+import { CrearTutorComponent } from './../componentes/tutores/crear-tutor/crear-tutor.component';
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -12,32 +13,7 @@ export class TutorService {
     constructor(private http: HttpClient) { }
     onTutores():void
     {
-        this.tutores=[];
-        let nuevo :Tutor;
-        nuevo={
-            nombre:"Carlos",
-            apellido:"Cobos",
-            identificacion:"10618776564",
-            correo:"ccobos@unicauca.edu.co",
-            telefono:"3008765666",
-            departamento:"Sistemas",
-            grupoInvestigacion:"SIR",
-            tipo:"Interno",
-            universidad:"Universidad del Cauca"          
-        };
-        this.tutores.push(nuevo);
-        nuevo={
-            nombre:"Sandra",
-            apellido:"Buitron",
-            identificacion:"10618776564",
-            correo:"ccobos@unicauca.edu.co",
-            telefono:"3008765666",
-            departamento:"Sistemas",
-            grupoInvestigacion:"SIR",
-            tipo:"Interno",
-            universidad:"Universidad del Cauca"            
-        };
-        this.tutores.push(nuevo);
+        
     }
     getTutores(): Observable<any>
     {
@@ -54,5 +30,18 @@ export class TutorService {
         {id:2, nombre:"Interno"}
       ];
       return nuevo;
+    }
+    eliminarTutor(id:number):Observable<any>{
+        return this.http.delete(RUTA+'/tutor/eliminar/'+id);
+    }
+    onCrearTutor(t:any):Observable<any>{
+      return this.http.post(RUTA+'/tutor/crear',t, {headers : new HttpHeaders({ 'Content-Type': 'application/json'}) ,
+      reportProgress: true, observe: 'events'});
+    }
+    onEditTutor(t:any):Observable<any>
+    {     
+      console.log("TUTOR EN EDITAR:   ",t);
+      return this.http.put(RUTA+'/tutor/editar', t, {headers : new HttpHeaders({ 'Content-Type': 'application/json'}) ,
+      reportProgress: true, observe: 'events'});
     }
 }

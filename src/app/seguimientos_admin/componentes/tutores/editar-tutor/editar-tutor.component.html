@@ -133,7 +133,7 @@
                                                 class="fa fa-user-circle"></i><small>Tipo</small></span>
                                     </div>
                                     <select type="text" class="form-control" formControlName="tipo" #tipo>
-                                        <option [ngValue]="tutor.tipo" disabled hidden >{{tutor.tipo}}</option>
+                                        <option [ngValue]="null" disabled hidden >{{tutor.tipo.nombre}}</option>
                                         <option [ngValue]="oe" *ngFor="let oe of optionsTiposTutor">{{oe.nombre}}
                                         </option>
                                     </select>
@@ -161,7 +161,7 @@
                                >Cancelar
                             </button>
                             <button type="submit" class="btn btn-lg  btn-primary"
-                                [disabled]="formulario.invalid">Guardar
+                                >Guardar
                             </button>
                         </div>
                     </form>

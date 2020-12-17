@@ -1,3 +1,5 @@
+import { debounceTime } from 'rxjs/operators';
+import { TutorCompleto } from './../../../modelos/tutorCompleto.model';
 import { CommonModule } from '@angular/common';  
 import { BrowserModule } from '@angular/platform-browser';
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
@@ -17,18 +19,54 @@ export class EditarTutorComponent implements OnInit {
 
   formulario: FormGroup;
   externo:boolean=false;
-  tutor:Tutor;
+  tutor:TutorCompleto;
   defaultValue="";
   
   optionsTiposTutor:TipoTutor[]=[];
   constructor(public dialogoReg:MatDialogRef<EditarTutorComponent>,private formBuilder: FormBuilder,
     private tutorService:TutorService) {
+  }
+  ngOnInit(): void {
+    this.tutorService.onTiposTutor().subscribe(result=>{
+      this.optionsTiposTutor=[];
+     result.data.forEach(element => {
+       let tipoT:TipoTutor={
+         id:element.idTipoTutor,
+         nombre:element.nombre
+       }
+       this.optionsTiposTutor.push(tipoT)
+     });
+    });
+    this.defaultValue=this.tutor.tipo.nombre;
+    this.crearFormulario();
+      
+  }
+  onSubmit(event:Event)
+  {
+     console.log("TUTOR:   ",this.tutor);
+      let nuevo ={
+            
+            id_tutor:this.formulario.get('identificacion').value,
+            nombres:this.formulario.get('nombre').value,
+            apellidos:this.formulario.get('apellido').value,
+            identificacion:this.formulario.get('identificacion').value,
+            correo:this.formulario.get('correo').value,
+            telefono:this.formulario.get('telefono').value,
+            departamento:this.formulario.get('departamento').value,
+            grupo_investigacion:this.formulario.get('grupoInvestigacion').value,
+            id_tipo_tutor:   this.formulario.get('tipo').value.id,
+            universidad:this.formulario.get('universidad').value
+        };
+        console.log("tutor formado para enviar:  ",nuevo);
+        this.tutorService.onEditTutor(nuevo).subscribe(result=>{
+        console.log("RESULTADO DE GUARDAR EL TUTOR EDITADO");
+        })
+        //GUARDAR 
+        this.dialogoReg.close();
 
 
   }
-  ngOnInit(): void {
-    this.optionsTiposTutor=this.tutorService.tiposTutor();
-    this.defaultValue=this.tutor.tipo;
+  crearFormulario(){
     this.formulario = this.formBuilder.group(
       {
         nombre: [this.tutor.nombre, [Validators.required,
@@ -42,52 +80,71 @@ export class EditarTutorComponent implements OnInit {
         correo: [this.tutor.correo, [Validators.required,Validators.email]],
         grupoInvestigacion:[this.tutor.grupoInvestigacion,[]],
         departamento:[this.tutor.departamento,[]],
-        tipo: [this.tutor.tipo,[Validators.required]],
+        tipo: [null,[Validators.required]],
         universidad:[this.tutor.universidad,[Validators.required]]
       });
-      console.log("TUTOR:   ",this.tutor);
-      this.formulario.get('tipo').valueChanges.subscribe(
+      this.formulario.get('nombre').valueChanges.pipe(debounceTime(1000)).subscribe(
+        value=>{
+          console.log("Tutor    :",this.tutor);
+          this.tutor.nombre=value;
+
+        });
+        this.formulario.get('apellido').valueChanges.pipe(debounceTime(1000)).subscribe(
           value=>{
-            console.log("TIPO:  ",value);
-            if(value.nombre!=null&& value.nombre==='Externo')
+            console.log("Tutor    :",this.tutor);
+            this.tutor.apellido=value;
+          });
+          this.formulario.get('identificacion').valueChanges.pipe(debounceTime(1000)).subscribe(
+            value=>{
+              console.log("Tutor    :",this.tutor);
+              this.tutor.identificacion=value;
+            });
+            this.formulario.get('telefono').valueChanges.pipe(debounceTime(1000)).subscribe(
+              value=>{
+                console.log("Tutor    :",this.tutor);
+                this.tutor.telefono=value;
+              });
+              this.formulario.get('correo').valueChanges.pipe(debounceTime(1000)).subscribe(
+                value=>{
+                  console.log("Tutor    :",this.tutor);
+                  this.tutor.correo=value;
+                });
+                this.formulario.get('grupoInvestigacion').valueChanges.pipe(debounceTime(1000)).subscribe(
+                  value=>{
+                    console.log("Tutor    :",this.tutor);
+                    this.tutor.grupoInvestigacion=value;
+                  });
+                  this.formulario.get('departamento').valueChanges.pipe(debounceTime(1000)).subscribe(
+                    value=>{
+                      console.log("Tutor    :",this.tutor);
+                      this.tutor.departamento=value;
+                    });
+                  
+            this.formulario.get('tipo').valueChanges.subscribe(
+          value=>{
+            console.log("Tutor    :",this.tutor);
+            this.tutor.tipo.id=value.id;
+            this.tutor.tipo.nombre=value.nombre;
+            if(value.nombre!=null&& value.nombre=='Externo')
             {
               this.externo=true;
+              
               this.formulario.get('universidad').setValue('');
             }
             else
             {
               this.externo=false;
               this.formulario.get('universidad').setValue('Universidad del Cauca');
+              this.tutor.universidad='Universidad del Cauca';
             }
           }
         );
-  }
-  onSubmit(event:Event)
-  {
-
-      console.log("Guardado",event);
-      Swal.fire({
-        icon: 'success',
-        title: 'Guardado' ,
-        text: 'Tutor Editado!'/* ,
-        footer: 'El tutor no fué almacenado' */
-      });
-      let nuevo :Tutor;
-        nuevo={
-            nombre:this.formulario.get('nombre').value,
-            apellido:this.formulario.get('apellido').value,
-            identificacion:this.formulario.get('identificacion').value,
-            correo:this.formulario.get('correo').value,
-            telefono:this.formulario.get('telefono').value,
-            departamento:this.formulario.get('departamento').value,
-            grupoInvestigacion:this.formulario.get('grupoInvestigacion').value,
-            tipo:   this.formulario.get('tipo').value,
-            universidad:this.formulario.get('universidad').value
-        };
-        //GUARDAR 
-        this.dialogoReg.close();
-
-
+        this.formulario.get('universidad').valueChanges.pipe(debounceTime(1000)).subscribe(
+          value=>{
+            console.log("Tutor    :",this.tutor);
+            this.tutor.universidad=value;
+          });
+        
   }
   onCancel()
   {

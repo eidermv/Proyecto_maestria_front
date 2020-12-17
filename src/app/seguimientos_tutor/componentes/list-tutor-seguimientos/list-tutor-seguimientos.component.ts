@@ -3,7 +3,7 @@ import { SeguimientoTutorCompleto } from './../../modelos/seguimientoTutorComple
 import { SeguimientoCompleto } from './../../../seguimientos_admin/modelos/seguimientoCompleto.model';
 import { notificacionesTutor } from './../notificaciones-tutor/notificaciones-tutor.component';
 import {Router} from '@angular/router';
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
@@ -16,12 +16,15 @@ import { PdfMakeWrapper, Table, Txt } from 'pdfmake-wrapper';
 import { VerSeguimientoComponent } from '../../../seguimientos_admin/componentes/verSeguimiento/ver-seguimiento/ver-seguimiento.component';
 import { Seguimiento } from '../../../seguimientos_admin/modelos/seguimiento.model';
 import { VerSeguimientoTutorComponent } from '../ver-seguimiento-tutor/ver-seguimiento-tutor.component';
+import {ReplaySubject} from 'rxjs';
+import {AuthService} from '../../../modules/auth/auth.service';
+import {take, takeUntil} from 'rxjs/operators';
 @Component({
   selector: 'app-list-tutor-seguimientos',
   templateUrl: './list-tutor-seguimientos.component.html',
   styleUrls: ['./list-tutor-seguimientos.component.css'],
 })
-export class ListTutorSeguimientosComponent implements OnInit {
+export class ListTutorSeguimientosComponent implements OnInit, OnDestroy {
   hidden = false;
   segEspera:SeguimientoTutorCompleto[]=[];
   segAceptado:SeguimientoTutorCompleto[]=[];
@@ -32,25 +35,37 @@ export class ListTutorSeguimientosComponent implements OnInit {
   seguimiento: SeguimientoTutorCompleto;
   filtrado:boolean;
   seguimientosPDF: Array<Seguimiento> = [];
+  private subs: ReplaySubject<void> = new ReplaySubject();
 
-  constructor(private router: Router, private dialog: MatDialog, private seguimientosServiceTutor: SeguimientosTutorServices) {}
+  constructor(
+    private router: Router,
+    private dialog: MatDialog,
+    private seguimientosServiceTutor: SeguimientosTutorServices,
+    private auth: AuthService) {}
+
+
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+
   ngOnInit(): void {
     this.bandera=true;
     console.log("ID TUTOR SESIÓN:   ",sessionStorage.getItem('id'));
-    this.seguimientosServiceTutor.obtenerSeguimientosTutor(Number(sessionStorage.getItem('id'))).subscribe((data) => {
-      console.log('ESTOS SON LOS SEGUIMIENTO DE TUTOR', JSON.stringify(data));
-      if (data.estado === 'exito') {
-        data.data.forEach( (item) => {
-          const seguimiento: SeguimientoTutorCompleto = item;
-          this.segumientos.push(seguimiento);
+    this.auth.infoTutor.pipe(takeUntil(this.subs)).subscribe((valor) => {
+      if (valor) {
+        this.seguimientosServiceTutor.obtenerSeguimientosTutor(Number(sessionStorage.getItem('id'))).pipe(take(1)).subscribe((data) => {
+          console.log('ESTOS SON LOS SEGUIMIENTO DE TUTOR', JSON.stringify(data));
+          if (data.estado === 'exito') {
+            data.data.forEach( (item) => {
+              const seguimiento: SeguimientoTutorCompleto = item;
+              this.segumientos.push(seguimiento);
+            });
+            console.log('SEGUIMIENTOS TUTOR OBTENIDOS:   ', this.segumientos);
+            this.seguimientosEspera();
+            this.dataSource.data = this.segAceptado;
+            this.dataSource.sort = this.sort;
+            this.dataSource.paginator = this.paginator;
+          }
         });
-        console.log('SEGUIMIENTOS TUTOR OBTENIDOS:   ', this.segumientos);
-        this.seguimientosEspera();
-        this.dataSource = new MatTableDataSource(this.segAceptado);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
       }
     });
   }
@@ -183,6 +198,11 @@ var options = { year: 'numeric', month: 'long', day: 'numeric' };
       console.log(`Dialog result: ${result}`);
     });
     dialogRef.componentInstance.seguimiento = seg;
+  }
+
+  ngOnDestroy(): void {
+    this.subs.next();
+    this.subs.complete();
   }
 }
 

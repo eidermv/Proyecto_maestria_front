@@ -30,7 +30,7 @@ export class EditarActividadTutorComponent implements OnInit {
   }
   private crearFormulario():void{
   console.log("ACTIVIDAD:  ",this.actividad);
-    if(this.actividad.visibilidad==0)
+    if(this.actividad.visible==0)
     {
        this.checked=true;
        console.log("VISIBILIDAD TRUE");
@@ -44,11 +44,11 @@ export class EditarActividadTutorComponent implements OnInit {
         semana: [this.actividad.semana, [
         Validators.maxLength(30)]
         ],
-        cumplido: [this.actividad.cumplido,  [/* Validators.required */]],
+        cumplido: [this.actividad.cumplida,  [/* Validators.required */]],
         entregas: [this.actividad.entregas, [/* Validators.required */]],
         compromisos: [this.actividad.compromisos, [/* Validators.required */]],
-        fecha_inicio:[this.actividad.fecha_inicio, [ Validators.required]],
-        fecha_entrega: [this.actividad.fecha_entrega, [/* Validators.required */] ],
+        fecha_inicio:[this.actividad.fechaInicio, [ Validators.required]],
+        fecha_entrega: [this.actividad.fechaEntrega, [/* Validators.required */] ],
         visibilidad:[this.checked, [/* Validators.required */] ]
       });
 

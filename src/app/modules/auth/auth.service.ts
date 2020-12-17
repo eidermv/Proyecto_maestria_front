@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient, HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import { StringApp } from '../../resources/stringApp';
 import { Router } from '@angular/router';
 import {PermisosService} from '../../guards/permisos.service';
@@ -16,6 +16,7 @@ const httpOptions = {
 export class AuthService {
 
   stringApp: StringApp;
+  public infoTutor: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(private httpClient: HttpClient, private router: Router, private permiso: PermisosService) {
     this.stringApp = new StringApp();
@@ -38,8 +39,9 @@ export class AuthService {
             sessionStorage.setItem('nameStudent', data.data[0].nombres + ' ' + data.data[0].apellidos);
             } else if (sessionStorage.getItem('rol') === 'Tutor') {
 
-              console.log('ES UN TUTOR###################');
+              console.log('ES UN TUTOR################### ' + JSON.stringify(data.data[0]));
               sessionStorage.setItem('id', data.data[0].id_tutor);
+              this.infoTutor.next(true);
             } else {
               console.log('OTRO ROL');
             }

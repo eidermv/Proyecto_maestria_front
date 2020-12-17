@@ -1,11 +1,11 @@
 export class ActividadTutor {
-    id:number;
+    idActividad:number;
     semana:string;
-    fecha_inicio: Date;
-    fecha_entrega: Date;
+    fechaInicio: Date;
+    fechaEntrega: Date;
     entregas: string;
     compromisos: string;
-    cumplido: number;
-    visibilidad:number;
+    cumplida: number;
+    visible:number;
     constructor(){ }
   }

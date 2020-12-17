@@ -29,12 +29,14 @@ import {MatRadioModule} from '@angular/material/radio';
 // Importaciones de los servicios
 import { SeguimientosTutorServices } from '../servicios/seguimientosTutor.service';
 import { TutorTutorService } from '../servicios/tutor-tutor.service';
+import { MostrarActividadesTutorComponent } from '../componentes/mostrar-actividades-tutor/mostrar-actividades-tutor.component';
 
 @NgModule({
   declarations: [
     ListTutorSeguimientosComponent,
     NotificacionesTutorComponent,
-    EditarSeguimientoTutorComponent
+    EditarSeguimientoTutorComponent,
+    MostrarActividadesTutorComponent
   ],
   imports: [
     CommonModule,

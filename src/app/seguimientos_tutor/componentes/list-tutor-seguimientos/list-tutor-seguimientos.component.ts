@@ -48,7 +48,7 @@ export class ListTutorSeguimientosComponent implements OnInit {
         });
         console.log('SEGUIMIENTOS TUTOR OBTENIDOS:   ', this.segumientos);
         this.seguimientosEspera();
-        this.dataSource.data = this.segAceptado;
+        this.dataSource = new MatTableDataSource(this.segAceptado);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       }

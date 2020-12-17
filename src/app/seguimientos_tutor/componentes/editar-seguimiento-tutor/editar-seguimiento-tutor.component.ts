@@ -35,10 +35,8 @@ import { TutorTutorService } from '../../servicios/tutor-tutor.service';
   styleUrls: ['./editar-seguimiento-tutor.component.css']
 })
 export class EditarSeguimientoTutorComponent implements OnInit {
-  displayedColumns: string[] = ['Codigo', 'Nombre', 'Tipo', 'Estudiante', 'Estado', 'Accion'];
-  actividades: ActividadTutor[] = [];
-  dataSource = new MatTableDataSource(this.actividades);
   panelOpenState = false;
+  actividades: ActividadTutor[] = [];
   seguimientoTutor: SeguimientoTutorCompleto;
   @Input() seguimiento: SeguimientoTutor;
   formulario: FormGroup;
@@ -61,34 +59,41 @@ export class EditarSeguimientoTutorComponent implements OnInit {
       this.estudianteService.onEstudiantes();
       this.YEAR_END_COHORTE = 2008;
       this.optionsCohorte = [];
-      this.optionsEstadoSeguimiento = this.seguimientoTutorService.estadosSeguimientos();
-      this.optionsTiposSeguimiento = this.seguimientoTutorService.tiposSeguimiento();
      }
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+
 
   ngOnInit(): void {
     this.seguimientoTutor = new SeguimientoTutorCompleto();
     this.seguimientoTutor = this.seguimientoTutorService.seguimiento;
-    this.dataSource = new MatTableDataSource(this.actividades);
     this.listarEstadosProyecto();
+    this.cargarActividades();
     const oe = '';
     const cont = 1;
     this.objEspec = [];
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
-    //this.seguimiento = this.seguimientoTutorService.Seguimiento[0];
+
     this.crearFormulario();
     this.getAllCohorte();
     this.options2 = this.estudianteService.estudiantes;
 
   }
+  //lista los estados del proyecto que se encuentran disponible
   listarEstadosProyecto(){
     this.seguimientoTutorService.listarEstadosProyecto().subscribe((data) => {
       if (data.estado === 'exito') {
         data.data.forEach( (item) => {
           const estados: EstadoProyectoCompleto = item;
           this.optionsEstadoProyecto.push(estados);
+        });
+      }
+    });
+  }
+  //lista las actividades del seguimiento seleccionado
+  cargarActividades(){
+    this.actividadesTutorService.obtenerActividadesTutor(this.seguimientoTutor.idSeguimiento).subscribe((data) => {
+      if (data.estado === 'exito') {
+        data.data.forEach( (item) => {
+          const actividadesE: ActividadTutor = item;
+          this.actividades.push(actividadesE);
         });
       }
     });
@@ -143,14 +148,14 @@ const options = { year: 'numeric', month: 'long', day: 'numeric' };
     for (const act of this.actividades) {
       const fila: any[] = [];
       fila[contc] = act.semana; contc++;
-      const fechaI = act.fecha_inicio;
+      const fechaI = act.fechaInicio;
       fila[contc] = fechaI.toLocaleDateString('es-ES', options); contc++;
-      const fechaE = act.fecha_entrega;
+      const fechaE = act.fechaEntrega;
       fila[contc] = fechaE.toLocaleDateString('es-ES', options); contc++;
       fila[contc] = act.entregas; contc++;
       fila[contc] = act.compromisos; contc++;
-      if (act.cumplido === 0) {fila[contc] = 'No Cumplido'; contc++; } else {fila[contc] = 'Cumplido'; contc++; }
-      if (act.visibilidad === 0) {
+      if (act.cumplida === 0) {fila[contc] = 'No Cumplido'; contc++; } else {fila[contc] = 'Cumplido'; contc++; }
+      if (act.visible === 0) {
         fila[contc] = 'No Visible para Coordinador'; contc++;
       } else {
         fila[contc] = 'Visible para Coordinador'; contc++;
@@ -203,18 +208,7 @@ const options = { year: 'numeric', month: 'long', day: 'numeric' };
     );
     this.banNotificaciones.emit(true);
   }
-  editarActividad(elem: ActividadTutor) {
-    const dialogRef = this.dialog.open(EditarActividadTutorComponent, {
-      width: '900px', height: '600px',
-      data: {
-      }
-    });
-    dialogRef.componentInstance.actividad = elem;
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
 
-    });
-  }
   private crearFormulario(): void {
     console.log("Entro a crear un formulario de edita",this.seguimientoTutor);
     this.formulario = this.formBuilder.group(
@@ -229,7 +223,7 @@ const options = { year: 'numeric', month: 'long', day: 'numeric' };
         estado: [null, [Validators.required] ],
         objetivo: [this.seguimientoTutor.objetivoGeneral, [ Validators.required] ],
         coodirector: [{value: this.seguimientoTutor.codirector, disabled:true}, [Validators.required] ],
-        objetivosEspecificos: [this.seguimientoTutor.objetivosEspecificos, [/* Validators.required */]]
+        objetivosEspecificos: [this.seguimientoTutor.objetivosEspecificos, [Validators.required]]
       });
 
      this.formulario.valueChanges.pipe(
@@ -265,16 +259,4 @@ const options = { year: 'numeric', month: 'long', day: 'numeric' };
       this.optionsCohorte[i] = '' + (dateYear - i);
     }
   }
-  agregarActividad() {
-    const dialogRef = this.dialog.open(AgregarActividadComponent, {
-      width: '700px', height: '600px',
-      data: {
-      }
-    });
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
-
-    });
-  }
-
 }

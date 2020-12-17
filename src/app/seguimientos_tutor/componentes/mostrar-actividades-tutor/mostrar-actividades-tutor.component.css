@@ -1,0 +1,32 @@
+table {
+  width: 100%;
+}
+
+th.mat-sort-header-sorted {
+  color: black;
+}
+.full{
+  width: 100%;
+  display: flex;
+  justify-content: right;
+  justify-items: right;
+}
+.izq {
+  margin-right: 0%;
+  margin-left: auto;
+  display: inline-flex;
+  justify-self: right;
+}
+.example-section {
+  margin: 12px 0;
+}
+
+.example-margin {
+  margin: 0 12px;
+}
+.redondeado {
+  border-radius: 5px;
+}
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 16px;
+}

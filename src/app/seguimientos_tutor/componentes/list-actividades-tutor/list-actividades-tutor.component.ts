@@ -37,7 +37,6 @@ export class ListActividadesTutorComponent implements OnInit {
               console.log("Actividad agregada: ",this.actividades);
             });
             this.dataSource = new MatTableDataSource(this.actividades);
-            this.dataSource = new MatTableDataSource(this.actividades);
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
           }

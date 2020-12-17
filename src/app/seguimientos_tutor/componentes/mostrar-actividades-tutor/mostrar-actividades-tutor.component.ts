@@ -50,12 +50,11 @@ export class MostrarActividadesTutorComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed');
-
     });
   }
   editarActividad(elem: ActividadTutor) {
     const dialogRef = this.dialog.open(EditarActividadTutorComponent, {
-      width: '900px', height: '600px',
+      width: '700px', height: '600px',
       data: {
       }
     });

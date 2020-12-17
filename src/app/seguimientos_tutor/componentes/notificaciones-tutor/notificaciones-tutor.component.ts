@@ -11,19 +11,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 import { SeguimientosTutorServices } from '../../servicios/seguimientosTutor.service';
 import { SeguimientoTutorCompleto } from '../../modelos/seguimientoTutorCompleto.model';
+import { Subscription } from 'rxjs';
 // tslint:disable-next-line: class-name
-export interface notificacionesTutor {
-  Codigo: number;
-  Nombre: string;
-  Tipo: string;
-  Estudiante: string;
-  Estado: string;
-  Accion: string;
-}
-const ELEMENT_DATA: notificacionesTutor[] = [
-  {Codigo: 1, Nombre: 'Requisitos NF', Tipo: 'tesis', Estudiante: 'Santiago Castillo', Estado: 'inicio', Accion: 'ddd'},
-  {Codigo: 2, Nombre: 'Modelo de NF', Tipo: 'tesis', Estudiante: 'Jhonatan Zuñiga', Estado: 'inicio', Accion: 'ddd'},
-];
+
 
 @Component({
   selector: 'app-notificaciones-tutor',
@@ -32,6 +22,7 @@ const ELEMENT_DATA: notificacionesTutor[] = [
 })
 export class NotificacionesTutorComponent implements OnInit {
   notificacionesInstance: SeguimientoTutorCompleto[]=[];
+  copiaAceptados: SeguimientoTutorCompleto[]=[];
   notificaciones: SeguimientoTutorCompleto[]=[];
   displayedColumns: string[] = ['Codigo', 'Nombre', 'Tipo', 'Estudiante', 'Estado', 'Accion'];
   dataSource = new MatTableDataSource(this.notificacionesInstance);
@@ -43,7 +34,20 @@ export class NotificacionesTutorComponent implements OnInit {
     this.dataSource = new MatTableDataSource(this.notificacionesInstance);
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
+    this.refrescarEspera();
 
+  }
+  refrescarEspera(){
+    this.copiaAceptados=this.notificacionesInstance;
+    this.notificacionesInstance=[];
+    for(let s of this.copiaAceptados){
+      if(s.estadoSeguimiento.nombre === "Espera"){
+        this.notificacionesInstance.push(s);
+      }
+    }
+    this.dataSource = new MatTableDataSource(this.notificacionesInstance);
+    console.log("objetos de NOTIFICACIONES",this.notificacionesInstance);
+    console.log("objetos de NOTIFICACIONES",this.copiaAceptados);
   }
 
   guardarAceptar(seguimiento: SeguimientoTutorCompleto) {
@@ -61,7 +65,14 @@ export class NotificacionesTutorComponent implements OnInit {
       idEstadoSeguimiento : 1,
     }
     this.segumientoTutorService.guardarSeguimientoTutor(seguimientoGuardar);
-
+    for(let s of this.notificacionesInstance){
+      if(s.idSeguimiento === seguimiento.idSeguimiento)
+      {
+        s.estadoSeguimiento.nombre="Aceptado";
+        s.estadoSeguimiento.idEstadoSeguimiento=1;
+      }
+    }
+    this.ngOnInit();
   }
   guardarRechazar(seguimiento: SeguimientoTutorCompleto) {
     let seguimientoGuardar={
@@ -78,5 +89,13 @@ export class NotificacionesTutorComponent implements OnInit {
       idEstadoSeguimiento : 3,
     }
     this.segumientoTutorService.guardarSeguimientoTutor(seguimientoGuardar);
+    for(let s of this.notificacionesInstance){
+      if(s.idSeguimiento === seguimiento.idSeguimiento)
+      {
+        s.estadoSeguimiento.nombre="Rechazado";
+        s.estadoSeguimiento.idEstadoSeguimiento=3;
+      }
+    }
+    this.ngOnInit();
   }
 }

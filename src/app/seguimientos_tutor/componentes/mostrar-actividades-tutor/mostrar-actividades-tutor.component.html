@@ -33,8 +33,10 @@
     <!-- Symbol Column -->
     <ng-container matColumnDef="Estado">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Cumplido </th>
-      <td mat-cell *matCellDef="let element"  > <p *ngIf="element.cumplida==1"></p>Cumplido </td>
-      <td mat-cell *matCellDef="let element"  > <p *ngIf="element.cumplida==0"></p>No Cumplido </td>
+      <td mat-cell *matCellDef="let element">
+        <p *ngIf="element.cumplida==1; else nuevo">Cumplido </p>
+        <ng-template #nuevo>No Cumplido</ng-template>
+      </td>
     </ng-container>
     <!-- Symbol Column -->
     <ng-container matColumnDef="Accion">

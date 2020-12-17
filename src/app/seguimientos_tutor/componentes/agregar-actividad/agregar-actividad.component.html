@@ -1,7 +1,7 @@
 <h1 mat-dialog-title class="titulo " style="text-align: center; background-color: #5bc0de;">AGREGAR ACTIVIDAD</h1>
 <div mat-dialog-content>
   <form [formGroup]="formulario" (ngSubmit)="onSubmit()" #f="ngForm">
-    
+
     <div class="input-group mb-3">
       <div class="input-group-prepend">
         <span class="input-group-text" id="basic-addon2">Semana <span style="color: red">*</span></span>
@@ -14,7 +14,7 @@
       </div>
       <mat-form-field appearance="fill">
         <mat-label>Seleccione Fecha de Inicio</mat-label>
-        <input matInput [matDatepicker]="dp1" formControlName="fecha_inicio">
+        <input matInput [matDatepicker]="dp1" formControlName="fechaInicio">
         <mat-datepicker-toggle matSuffix [for]="dp1"></mat-datepicker-toggle>
         <mat-datepicker #dp1></mat-datepicker>
       </mat-form-field>
@@ -25,35 +25,35 @@
       </div>
       <mat-form-field appearance="fill">
         <mat-label>Seleccione Fecha de Entrega</mat-label>
-        <input matInput [matDatepicker]="dp2" formControlName="fecha_entrega">
+        <input matInput [matDatepicker]="dp2" formControlName="fechaEntrega">
         <mat-datepicker-toggle matSuffix [for]="dp2"></mat-datepicker-toggle>
         <mat-datepicker #dp2></mat-datepicker>
-      </mat-form-field>  
+      </mat-form-field>
     </div>
     <div class="input-group mb-3">
       <div class="input-group-prepend">
         <span class="input-group-text" id="basic-addon4">Cumplido <span style="color: red">*</span></span>
       </div>
-      <input id="cumplido" type="text"   class="form-control" formControlName="cumplido" aria-label="Username" aria-describedby="basic-addon1">
+      <input id="cumplido" type="text"   class="form-control" formControlName="cumplida" aria-label="Username" aria-describedby="basic-addon1">
     </div>
     <div class="input-group mb-3">
       <div class="input-group-prepend">
         <span class="input-group-text" id="basic-addon4">Compromisos <span style="color: red">*</span></span>
       </div>
       <textarea  id="compromisos"  type="text" class="form-control" formControlName="compromisos" aria-label="Username" aria-describedby="basic-addon1" name="" id="" cols="30" rows="5"></textarea>
-      
+
     </div>
     <div class="input-group mb-3">
       <div class="input-group-prepend">
         <span class="input-group-text" id="basic-addon4">Visibilidad <span style="color: red">*</span></span>
-        <input type="checkbox" formControlName="visibilidad" id="visibilidad" class="form-check-input"  />
-        
+        <input type="checkbox" formControlName="visible" id="visibilidad" class="form-check-input"  />
+
       </div>
-              
+
     </div>
-  
+
   </form>
-  
+
 
 </div>
 

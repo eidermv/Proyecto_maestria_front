@@ -1,7 +1,6 @@
 import { element } from 'protractor';
 import { SeguimientoTutorCompleto } from './../../modelos/seguimientoTutorCompleto.model';
 import { SeguimientoCompleto } from './../../../seguimientos_admin/modelos/seguimientoCompleto.model';
-import { notificacionesTutor } from './../notificaciones-tutor/notificaciones-tutor.component';
 import {Router} from '@angular/router';
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
@@ -29,12 +28,12 @@ export class ListTutorSeguimientosComponent implements OnInit, OnDestroy {
   segEspera:SeguimientoTutorCompleto[]=[];
   segAceptado:SeguimientoTutorCompleto[]=[];
   displayedColumns: string[] = ['Codigo', 'Nombre', 'Tipo', 'Estudiante', 'Estado', 'Accion'];
-  segumientos: SeguimientoTutorCompleto[] = [];
-  dataSource = new MatTableDataSource<SeguimientoTutorCompleto>(this.segumientos);
+  seguimientos: SeguimientoTutorCompleto[] = [];
+  dataSource = new MatTableDataSource<SeguimientoTutorCompleto>(this.seguimientos);
   bandera:boolean;
   seguimiento: SeguimientoTutorCompleto;
   filtrado:boolean;
-  seguimientosPDF: Array<Seguimiento> = [];
+  seguimientosPDF: SeguimientoTutorCompleto[] = [];
   private subs: ReplaySubject<void> = new ReplaySubject();
 
   constructor(
@@ -48,6 +47,10 @@ export class ListTutorSeguimientosComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   ngOnInit(): void {
+    this.segEspera=[];
+    this.segAceptado=[];
+    this.seguimientos=[];
+    this.filtrado=false;
     this.bandera=true;
     console.log("ID TUTOR SESIÓN:   ",sessionStorage.getItem('id'));
     this.auth.infoTutor.pipe(takeUntil(this.subs)).subscribe((valor) => {
@@ -57,9 +60,10 @@ export class ListTutorSeguimientosComponent implements OnInit, OnDestroy {
           if (data.estado === 'exito') {
             data.data.forEach( (item) => {
               const seguimiento: SeguimientoTutorCompleto = item;
-              this.segumientos.push(seguimiento);
+              this.seguimientos.push(seguimiento);
+              this.seguimientosPDF.push(seguimiento);
             });
-            console.log('SEGUIMIENTOS TUTOR OBTENIDOS:   ', this.segumientos);
+            console.log('SEGUIMIENTOS TUTOR OBTENIDOS:   ', this.seguimientos);
             this.seguimientosEspera();
             this.dataSource.data = this.segAceptado;
             this.dataSource.sort = this.sort;
@@ -68,11 +72,13 @@ export class ListTutorSeguimientosComponent implements OnInit, OnDestroy {
         });
       }
     });
+
   }
 
   seguimientosEspera()
   {
-    for(let s of this.segumientos)
+    console.log("Entro a seguimientos espera: ",this.seguimientos)
+    for(let s of this.seguimientos)
     {
       if(s.estadoSeguimiento.nombre==='Espera'){ this.segEspera.push(s);}
       if(s.estadoSeguimiento.nombre==='Aceptado'){this.segAceptado.push(s);}
@@ -122,11 +128,11 @@ var options = { year: 'numeric', month: 'long', day: 'numeric' };
       let fila:any[]=[];
       fila[contc]=contf;contc++;
       fila[contc]=seg.nombre;contc++;
-      fila[contc]=seg.tipo;contc++;
-      fila[contc]=seg.tutor;contc++;
+      fila[contc]=seg.tipoSeguimiento.nombre;contc++;
+      fila[contc]=seg.tutor.nombre;contc++;
       fila[contc]=seg.estudiante;contc++;
-      fila[contc]=seg.estado;contc++;
-      fila[contc]=seg.coodirector;contc++;
+      fila[contc]=seg.estadoSeguimiento.nombre;contc++;
+      fila[contc]=seg.codirector;contc++;
       body[contf]=fila;contc=0; contf++;
     }
     /* console.log("BODY:   ",body); */
@@ -146,15 +152,15 @@ var options = { year: 'numeric', month: 'long', day: 'numeric' };
     fila1[contc]="Estado";contc++;
     fila1[contc]="Coodirector";contc++;
     body[0]=fila1;contc=0;
-    for(let seg of this.segumientos)
+    for(let seg of this.seguimientos)
     {
       let fila:any[]=[];
       fila[contc]=contf;contc++;
       fila[contc]=seg.nombre;contc++;
-      fila[contc]=seg.tipoSeguimiento;contc++;
-      fila[contc]=seg.tutor;contc++;
-      fila[contc]=seg.estudiante;contc++;
-      fila[contc]=seg.estadoSeguimiento;contc++;
+      fila[contc]=seg.tipoSeguimiento.nombre;contc++;
+      fila[contc]=seg.tutor.nombre+''+seg.tutor.apellido;contc++;
+      fila[contc]=seg.estudiante.nombres+''+seg.estudiante.apellidos;contc++;
+      fila[contc]=seg.estadoSeguimiento.nombre;contc++;
       fila[contc]=seg.codirector;contc++;
       body[contf]=fila;contc=0; contf++;
     }
@@ -183,6 +189,7 @@ var options = { year: 'numeric', month: 'long', day: 'numeric' };
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
+      this.ngOnInit();
     });
     dialogRef.componentInstance.notificacionesInstance = this.segEspera;
   }

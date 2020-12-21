@@ -1,11 +1,5 @@
-import { SeguimientoCompleto } from './../../seguimientos_admin/modelos/seguimientoCompleto.model';
-import { Observable } from 'rxjs';
-import { ActividadTutor } from './../modelos/actividadTutor.model';
-import { Seguimiento } from './../../seguimientos_admin/modelos/seguimiento.model';
-import { DataSource } from '@angular/cdk/table';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { SeguimientoTutor } from '../modelos/seguimientoTutor.model';
 import { TipoSeguimiento } from '../../seguimientos_admin/modelos/tipoSeguimiento.model';
 import { EstadoProyecto } from '../../seguimientos_admin/modelos/estadosProyecto.model';
 import { EstadoSeguimiento } from '../../seguimientos_admin/modelos/estadoSeguimiento.model';

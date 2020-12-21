@@ -27,7 +27,7 @@ export class VerSeguimientoTutorComponent implements OnInit {
         coodirector: [{value: this.seguimiento.codirector, disabled:true}, []],
         objetivoGeneral:[{value: this.seguimiento.objetivoGeneral, disabled:true},[]],
         objetivosEspec:[{value:this.seguimiento.objetivosEspecificos, disabled:true},[]],
-        cohorte: [{value: this.seguimiento.estudiante.cohorte, disabled:true}, []],
+        cohorte: [{value: this.seguimiento.cohorte, disabled:true}, []],
         estadoSeguimiento: [{value: this.seguimiento.estadoSeguimiento.nombre, disabled:true}, []],
       });
       this.formulario.valueChanges.pipe(

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -39,6 +39,7 @@ export class MostrarActividadesTutorComponent implements OnInit {
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       }
+      console.log("ACTIVIDADES OBTENIAS DEL SERVICIO: ",this.actividades);
     });
 
   }
@@ -59,6 +60,7 @@ export class MostrarActividadesTutorComponent implements OnInit {
       }
     });
     dialogRef.componentInstance.actividad = elem;
+    dialogRef.componentInstance.seguimiento=this.seguimientoTutor;
     dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed');
     });

@@ -1,3 +1,4 @@
+import { VerActividadTutorComponent } from './../componentes/ver-actividad-tutor/ver-actividad-tutor.component';
 import { ActividadesTutorServices } from './../servicios/actividadesTutor.service';
 import { NgModule } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
@@ -36,7 +37,8 @@ import { MostrarActividadesTutorComponent } from '../componentes/mostrar-activid
     ListTutorSeguimientosComponent,
     NotificacionesTutorComponent,
     EditarSeguimientoTutorComponent,
-    MostrarActividadesTutorComponent
+    MostrarActividadesTutorComponent,
+    VerActividadTutorComponent
   ],
   imports: [
     CommonModule,

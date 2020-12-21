@@ -1,3 +1,4 @@
+import { element } from 'protractor';
 import { SeguimientosTutorServices } from './../../servicios/seguimientosTutor.service';
 import { ActividadesTutorServices } from './../../servicios/actividadesTutor.service';
 import { ActividadTutor } from './../../modelos/actividadTutor.model';
@@ -8,6 +9,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
+import { VerActividadTutorComponent } from '../ver-actividad-tutor/ver-actividad-tutor.component';
 
 @Component({
   selector: 'app-list-actividades-tutor',
@@ -42,6 +44,17 @@ export class ListActividadesTutorComponent implements OnInit {
           }
       }
     );
+  }
+  verActividad(element: ActividadTutor){
+    const dialogRef = this.dialog.open(VerActividadTutorComponent, {
+      width: '800px', height: '500px',
+      data: {
+      }
+    });
+    dialogRef.componentInstance.actividad = element;
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
+    });
   }
 
 }

@@ -120,6 +120,7 @@ export class AgregarSeguimientoComponent implements OnInit {
     this.tutorService.getTutores().subscribe(
       result=>{ this.options=[];
         result.data.forEach(element => {
+          console.log("TUTOR:   ",element);
           let tipoTutor:TipoTutor={
             id:element.tipoTutor.idTipoTutor,
             nombre:element.tipoTutor.nombre
@@ -133,7 +134,8 @@ export class AgregarSeguimientoComponent implements OnInit {
             nombre:element.nombre,
             telefono:element.telefono,
             tipo:tipoTutor,
-            universidad:element.universidad
+            universidad:element.universidad,
+            id:element.id_tutor
           };
           this.options.push(tutor);
         });
@@ -143,25 +145,24 @@ export class AgregarSeguimientoComponent implements OnInit {
   }
   //TODO
   onSubmit(event: Event) {
-
     if (this.formulario.valid) {
 
       let seg={
         nombre:this.formulario.get('nombre').value,
-        id_tutor:this.formulario.get('tutor').value.identificacion+'',
+        id_tutor:this.formulario.get('tutor').value.id,
         codirector:this.formulario.get('coodirector').value,
-        id_estudiante:this.formulario.get('estudiante').value.id+'',
+        id_estudiante:this.formulario.get('estudiante').value.id,
         cohorte:this.formulario.get('cohorte').value,
         objetivoGeneral:this.formulario.get('objetivo').value,
         objetivosEspecificos:'',
-        id_estado_proyecto:this.formulario.get('estado').value.id+'',
-        id_tipo_seguimiento:this.formulario.get('tipo').value.id+'',
-        id_estado_seguimiento:this.formulario.get('estadoSeguimiento').value.id+''
+        id_estado_proyecto:this.formulario.get('estado').value.id,
+        id_tipo_seguimiento:this.formulario.get('tipo').value.id,
+        id_estado_seguimiento:this.formulario.get('estadoSeguimiento').value.id
       };
       console.log("$$$$$$$$$$$$$$$$$ SEGUIMIENTO FORMADO:   ",seg);
       this.seguimientoService.onCrearSeguimiento(seg).subscribe(
         result=>{
-          console.log("REESULT EN AGREGAR SEGUIMIENTO:   ",result['body']);
+          console.log("REESULT EN AGREGAR SEGUIMIENTO:   ",result);
           if(result.body?.estado=="exito"){
             this.bandAgregar.emit(true);
             Swal.fire(

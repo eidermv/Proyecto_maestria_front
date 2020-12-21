@@ -81,7 +81,7 @@ this.seguimientos=[];
           };
     
           let tutor:TutorCompleto={
-            identificacion:element.tutor.id_tutor,
+            identificacion:element.tutor.identificacion,
             apellido:element.tutor.apellido,
             correo:element.tutor.correo,
             departamento:element.tutor.departamento,
@@ -89,7 +89,8 @@ this.seguimientos=[];
             nombre:element.tutor.nombre,
             telefono:element.tutor.telefono,
             tipo:tipoTutor,
-            universidad:element.tutor.universidad
+            universidad:element.tutor.universidad,
+            id:element.tutor.id_tutor
           };
           
           let seg: SeguimientoCompleto={
@@ -105,7 +106,6 @@ this.seguimientos=[];
             tipo:tipoSeguimiento,
             tutor:tutor
           };
-          console.log("SEGUIMIENTO FORMADO.  ",seg);
           this.seguimientos.push(seg);
         });
         this.dataSource = new MatTableDataSource(this.seguimientos);

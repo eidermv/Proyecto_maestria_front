@@ -9,4 +9,5 @@ export interface TutorCompleto {
     departamento: string;
     grupoInvestigacion:string;
     universidad:string;
+    id:string;
   }

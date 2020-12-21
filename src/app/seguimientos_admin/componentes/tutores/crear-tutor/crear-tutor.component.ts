@@ -1,3 +1,4 @@
+import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';  
 import { BrowserModule } from '@angular/platform-browser';
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
@@ -7,6 +8,7 @@ import Swal from 'sweetalert2';
 import { Tutor } from '../../../modelos/tutor.model';
 import { TutorService } from '../../../servicios/tutor.service';
 import { TipoTutor } from '../../../modelos/tipoTutor.model';
+import { TutorCompleto } from '../../../modelos/tutorCompleto.model';
 
 @Component({
   selector: 'app-crear-tutor',
@@ -17,7 +19,7 @@ export class CrearTutorComponent implements OnInit {
   formulario: FormGroup;
   externo:boolean=false;
   optionsTiposTutor:TipoTutor[]=[];
-  
+  subs:Subscription;
   @Output() tutor= new EventEmitter<Tutor>();
   constructor(public dialogoReg:MatDialogRef<CrearTutorComponent>,private formBuilder: FormBuilder, 
     private tutorService:TutorService) {
@@ -77,20 +79,20 @@ export class CrearTutorComponent implements OnInit {
   {
       console.log("Guardado",event);
      
-      let nuevo :Tutor;
+      let nuevo;
         nuevo={
-            nombre:this.formulario.get('nombre').value,
-            apellido:this.formulario.get('apellido').value,
+            nombres:this.formulario.get('nombre').value,
+            apellidos:this.formulario.get('apellido').value,
             identificacion:this.formulario.get('identificacion').value,
             correo:this.formulario.get('correo').value,
             telefono:this.formulario.get('telefono').value,
             departamento:this.formulario.get('departamento').value,
-            grupoInvestigacion:this.formulario.get('grupoInvestigacion').value,
-            tipo:   this.formulario.get('tipo').value,
+            grupo_investigacion:this.formulario.get('grupoInvestigacion').value,
+            id_tipo_tutor:   this.formulario.get('tipo').value.id,
             universidad:this.formulario.get('universidad').value
         };
-        this.tutorService.onCrearTutor(nuevo).subscribe(result=>{
-          if(result.estado=="exito"){
+        this.subs= this.tutorService.onCrearTutor(nuevo).subscribe(result=>{
+          if(result.body?.estado=="exito"){
             Swal.fire({
               icon: 'success',
               title: 'Guardado' ,
@@ -107,8 +109,9 @@ export class CrearTutorComponent implements OnInit {
             });
           }
         });
+        this.subs.unsubscribe();        
         this.tutor.emit(nuevo);
-        this.dialogoReg.close();
+        this.dialogoReg.close(nuevo);
 
 
   }

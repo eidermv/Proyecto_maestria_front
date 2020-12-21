@@ -114,7 +114,7 @@ export class EditarSeguimientoComponent implements OnInit {
             nombre:element.tipoTutor.nombre
           };
           let tutor:TutorCompleto={
-            identificacion:element.id_tutor,
+            identificacion:element.identificacion,
             apellido:element.apellido,
             correo:element.correo,
             departamento:element.departamento,
@@ -122,7 +122,8 @@ export class EditarSeguimientoComponent implements OnInit {
             nombre:element.nombre,
             telefono:element.telefono,
             tipo:tipoTutor,
-            universidad:element.universidad
+            universidad:element.universidad,
+            id:element.id_tutor
           };
           this.options.push(tutor);
         });
@@ -140,7 +141,7 @@ export class EditarSeguimientoComponent implements OnInit {
       console.log("SEGUIMIENTO FORMADO:   ",this.seguimiento); 
        let seg={
         nombre:this.seguimiento.nombre,
-        id_tutor:this.seguimiento.tutor.identificacion,
+        id_tutor:this.seguimiento.tutor.id,
         codirector:this.seguimiento.coodirector,
         id_estudiante:this.seguimiento.estudiante.getId(),
         cohorte:this.seguimiento.cohorte+'',
@@ -153,11 +154,21 @@ export class EditarSeguimientoComponent implements OnInit {
       };
        this.seguimientoService.onEditSeguimiento(seg).subscribe(
         result=>{console.log("RESULTADO EDITAR SEGUIMIENTO:   ",result);
+      if(result.body?.estado=="exito"){
         Swal.fire(
           'Exito!',
           'Seguimiento Almacenado!',
           'success'
-        );}
+        );
+      } 
+      else{
+        Swal.fire(
+          'Error!',
+          'Seguimiento No Almacenado!',
+          'error'
+        );
+      }
+      }
       );    
      
       this.dialogoReg.close();

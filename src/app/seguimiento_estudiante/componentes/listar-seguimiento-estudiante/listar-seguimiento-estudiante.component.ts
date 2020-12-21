@@ -69,7 +69,8 @@ export class ListarSeguimientoEstudianteComponent implements OnInit {
                 telefono:element.tutor.telefono,
                 tipo:tipoTutor,
                 universidad:element.tutor.universidad,
-                identificacion:element.tutor.identificacion
+                identificacion:element.tutor.identificacion,
+                id:element.tutor.id_tutor
               }
               let estudiante:Student=new Student();            
                 estudiante.setCodigo(element.estudiante.codigo);

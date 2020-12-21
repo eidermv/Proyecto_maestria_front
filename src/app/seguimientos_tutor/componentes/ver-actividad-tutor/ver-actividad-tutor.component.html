@@ -1,0 +1,49 @@
+<h1 mat-dialog-title class="titulo " style="text-align: center; background-color: #5bc0de;">VER ACTIVIDAD</h1>
+<div mat-dialog-content>
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="basic-addon1">Codigo:</span>
+    </div>
+    <input id="codigo"  disabled type="text" class="form-control" value="{{actividad.idActividad}}" aria-label="Username" aria-describedby="basic-addon1">
+  </div>
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="basic-addon2">Semana </span>
+    </div>
+    <input id="semana"  disabled type="text" class="form-control" value="{{actividad.semana}}" aria-label="Username" aria-describedby="basic-addon1">
+  </div>
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="basic-addon3">Fecha Inicio </span>
+    </div>
+    <input id="fecha_inicio"  disabled type="text" class="form-control" value="{{actividad.fechaInicio|date}}" aria-label="Username" aria-describedby="basic-addon1">
+  </div>
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="basic-addon4" >Fecha Entrega </span>
+    </div>
+    <input id="fecha_entrega"  disabled type="text" class="form-control"  value="{{actividad.fechaEntrega|date}}"  aria-label="Username" aria-describedby="basic-addon1">
+  </div>
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="basic-addon4">Cumplido </span>
+    </div>
+    <div *ngIf="actividad.cumplida==1; else nuevo">
+      <input id="cumplido" type="text"  disabled class="form-control" value="Cumplida" aria-label="Username" aria-describedby="basic-addon1">
+    </div>
+    <ng-template #nuevo>
+      <input id="cumplido" type="text"  disabled class="form-control" value="No cumplida" aria-label="Username" aria-describedby="basic-addon1">
+    </ng-template>
+  </div>
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="basic-addon4">Compromisos</span>
+    </div>
+    <textarea  id="compromisos" disabled type="text" class="form-control" value="{{actividad.compromisos}}" aria-label="Username" aria-describedby="basic-addon1" name="" id="" cols="30" rows="5"></textarea>
+
+  </div>
+</div>
+<div style="text-align:right">
+  <button mat-button class="button is-info" (click)="okClick()" cdkFocusInitial>Ok</button>
+</div>
+

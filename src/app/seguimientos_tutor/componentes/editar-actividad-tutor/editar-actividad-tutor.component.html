@@ -1,7 +1,7 @@
 <h1 mat-dialog-title class="titulo " style="text-align: center; background-color: #5bc0de;">EDITAR ACTIVIDAD</h1>
 <div mat-dialog-content>
   <form [formGroup]="formulario" (ngSubmit)="onSubmit()" #f="ngForm">
-    
+
     <div class="input-group mb-3">
       <div class="input-group-prepend">
         <span class="input-group-text" id="basic-addon2">Semana <span style="color: red">*</span></span>
@@ -12,12 +12,14 @@
       <div class="input-group-prepend">
         <span class="input-group-text" id="basic-addon3">Fecha Inicio <span style="color: red">*</span></span>
       </div>
-      <mat-form-field appearance="fill">
-        <mat-label>Seleccione Fecha de Inicio</mat-label>
-        <input matInput [matDatepicker]="dp1" formControlName="fecha_inicio">
-        <mat-datepicker-toggle matSuffix [for]="dp1"></mat-datepicker-toggle>
-        <mat-datepicker #dp1></mat-datepicker>
-      </mat-form-field>
+      <div>
+        <mat-form-field appearance="fill">
+          <mat-label>Seleccione Fecha de Inicio</mat-label>
+          <input matInput [matDatepicker]="dp1" formControlName="fecha_inicio">
+          <mat-datepicker-toggle matSuffix [for]="dp1"></mat-datepicker-toggle>
+          <mat-datepicker #dp1></mat-datepicker>
+        </mat-form-field>
+      </div>
     </div>
     <div class="input-group mb-3">
       <div class="input-group-prepend">
@@ -28,30 +30,42 @@
         <input matInput [matDatepicker]="dp2" formControlName="fecha_entrega">
         <mat-datepicker-toggle matSuffix [for]="dp2"></mat-datepicker-toggle>
         <mat-datepicker #dp2></mat-datepicker>
-      </mat-form-field>  
+      </mat-form-field>
     </div>
     <div class="input-group mb-3">
       <div class="input-group-prepend">
         <span class="input-group-text" id="basic-addon4">Cumplido <span style="color: red">*</span></span>
       </div>
-      <input id="cumplido" type="text"   class="form-control" formControlName="cumplido" aria-label="Username" aria-describedby="basic-addon1">
+
+      <select type="text" class="form-control" formControlName="cumplida" #cumplida>
+        <option [ngValue]="null" disabled hidden >{{actividad.cumplida}}</option>
+        <!-- <div *ngIf="actividad.cumplida==1; else nuevo">
+          <option [ngValue]="null" disabled hidden >{{actividad.cumplida}}</option>
+        </div>
+        <ng-template #nuevo>
+          <option [ngValue]="null" disabled hidden >{{actividad.cumplida}}</option>
+        </ng-template> -->
+        <option [ngValue]="estado" *ngFor="let estado of opcionesCumplido">{{estado}}</option>
+      </select>
+
+
     </div>
     <div class="input-group mb-3">
       <div class="input-group-prepend">
         <span class="input-group-text" id="basic-addon4">Compromisos <span style="color: red">*</span></span>
       </div>
       <textarea  id="compromisos"  type="text" class="form-control" formControlName="compromisos" aria-label="Username" aria-describedby="basic-addon1" name="" id="" cols="30" rows="5"></textarea>
-      
+
     </div>
     <div class="input-group mb-3">
       <div class="input-group-prepend">
         <span class="input-group-text" id="basic-addon4">Visibilidad <span style="color: red">*</span></span>
         </div>
-        <input type="checkbox" formControlName="visibilidad" id="visibilidad" class="form-check-input"  /> 
+        <input type="checkbox" formControlName="visibilidad" id="visibilidad" class="form-check-input"  />
     </div>
-  
+
   </form>
-  
+
 
 </div>
 

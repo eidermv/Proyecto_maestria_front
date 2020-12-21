@@ -38,12 +38,7 @@
     <ng-container matColumnDef="opciones">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> OPCIONES </th>
       <td mat-cell *matCellDef="let row">
-        <!-- <div class="btn-group" *ngIf="row.visibilidad==1; else nuevo"> -->
-          <!-- <a class="btn" (click)="verActividad(row)"><i class="fa fa-eye"></i></a> -->
-        <!-- </div>
-        <ng-template #nuevo>
-          SIN PERMISO
-        </ng-template> -->
+        <a class="btn" (click)="verActividad(row)"><i class="fa fa-eye"></i></a>
       </td>
     </ng-container>
 

@@ -84,11 +84,10 @@
                           <span class="input-group-text"><i
                                   class="fa fa-user-circle"></i><small>Estado Proyecto</small></span>
                       </div>
-                          <select type="text" class="form-control" formControlName="estado" #estadoProyecto>
-                              <option [ngValue]="null" disabled hidden >{{seguimientoTutor.estadoProyecto.nombre}}</option>
-                              <option [ngValue]="oe" *ngFor="let oe of optionsEstadoProyecto">{{oe.nombre}}
-                              </option>
-                          </select>
+                      <select type="text" class="form-control" formControlName="estado" #estadoProyecto>
+                        <option [ngValue]="null" disabled hidden >{{seguimientoTutor.estadoProyecto.nombre}}</option>
+                        <option [ngValue]="estado" *ngFor="let estado of optionsEstadoProyecto">{{estado.nombre}}</option>
+                      </select>
                   </div>
               </div>
 

@@ -12,6 +12,7 @@ import { VerTutorComponent } from '../ver-tutor/ver-tutor.component';
 import { CrearTutorComponent } from '../../../seguimientos_admin/componentes/tutores/crear-tutor/crear-tutor.component';
 import { EditarTutorComponent } from '../../../seguimientos_admin/componentes/tutores/editar-tutor/editar-tutor.component';
 import Swal from 'sweetalert2';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-listar-tutor',
@@ -23,6 +24,7 @@ export class ListarTutorComponent implements OnInit {
   displayedColumns: string[] = ['nombre', 'correo', 'departamento' ,'universidad','opciones'];
   dataSource: MatTableDataSource<TutorCompleto>;
   bandListar: boolean;
+  subs:Subscription;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   tutores: Array<TutorCompleto> = [];
@@ -32,7 +34,7 @@ export class ListarTutorComponent implements OnInit {
 
   ngOnInit(): void {
     this.tutores=[];
-    this.tutorService.getTutores().subscribe(result=>{
+    this.subs=this.tutorService.getTutores().subscribe(result=>{
       console.log("TUTORES RECIBIDOS:    ",result);
       result.data?.forEach(element => {       
         let tutor:TutorCompleto={
@@ -44,7 +46,8 @@ export class ListarTutorComponent implements OnInit {
           nombre:element.nombre,
           telefono:element.telefono,
           tipo:element.tipoTutor,
-          universidad:element.universidad
+          universidad:element.universidad,
+          id:element.id_tutor
         };
         this.tutores.push(tutor);
       });
@@ -74,8 +77,12 @@ export class ListarTutorComponent implements OnInit {
       data:{}
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      console.log('Dialog result: ',result);
+      this.subs.unsubscribe();
+      this.ngOnInit();
+       
     });
+    
 
   }
   /** Builds and returns a new User. */

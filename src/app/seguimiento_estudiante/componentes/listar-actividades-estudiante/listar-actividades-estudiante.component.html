@@ -17,13 +17,13 @@
     <!-- tutor Column -->
     <ng-container matColumnDef="fecha_inicio">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> FECHA INICIO </th>
-      <td mat-cell *matCellDef="let row"> {{row.fecha_inicio}} </td>
+      <td mat-cell *matCellDef="let row"> {{row.fecha_inicio|date}} </td>
     </ng-container>
 
     <!-- estudiante Column -->
     <ng-container matColumnDef="fecha_entrega">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> FECHA ENTREGA </th>
-      <td mat-cell *matCellDef="let row" > {{row.fecha_entrega}} </td>
+      <td mat-cell *matCellDef="let row" > {{row.fecha_entrega|date}} </td>
     </ng-container>
  
      <!-- estado Column -->

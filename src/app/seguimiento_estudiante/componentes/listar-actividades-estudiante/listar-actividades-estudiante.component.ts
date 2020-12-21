@@ -69,12 +69,13 @@ export class ListarActividadesEstudianteComponent implements OnInit {
   }
   /** Builds and returns a new User. */
 
-  verActividad() {
+  verActividad(row:Actividad) {
     const dialogRef = this.dialog.open(VerActividadEstudianteComponent, {
       width: '400px',
       data: {
       }
     });
+    dialogRef.componentInstance.actividad=row;
     dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed');
 

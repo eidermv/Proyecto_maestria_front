@@ -10,7 +10,7 @@ const routes: Routes = [
     },
     children: [
       {
-        path: 'listar/:id',
+        path: 'listar',
         component: ListarSeguimientoEstudianteComponent,
         data:
           {

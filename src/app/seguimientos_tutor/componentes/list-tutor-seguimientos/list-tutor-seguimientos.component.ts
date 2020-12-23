@@ -52,10 +52,9 @@ export class ListTutorSeguimientosComponent implements OnInit, OnDestroy {
     this.seguimientos=[];
     this.filtrado=false;
     this.bandera=true;
-    console.log("ID TUTOR SESIÓN:   ",sessionStorage.getItem('id'));
-    this.auth.infoTutor.pipe(takeUntil(this.subs)).subscribe((valor) => {
-      if (valor) {
-        this.seguimientosServiceTutor.obtenerSeguimientosTutor(Number(sessionStorage.getItem('id'))).pipe(take(1)).subscribe((data) => {
+    console.log("ID TUTOR SESIÓN:   ",localStorage.getItem('id'));
+    this.auth.infoTutor.next(false);
+        this.seguimientosServiceTutor.obtenerSeguimientosTutor(Number(localStorage.getItem('id'))).subscribe((data) => {
           console.log('ESTOS SON LOS SEGUIMIENTO DE TUTOR', JSON.stringify(data));
           if (data.estado === 'exito') {
             data.data.forEach( (item) => {
@@ -70,9 +69,6 @@ export class ListTutorSeguimientosComponent implements OnInit, OnDestroy {
             this.dataSource.paginator = this.paginator;
           }
         });
-      }
-    });
-
   }
 
   seguimientosEspera()

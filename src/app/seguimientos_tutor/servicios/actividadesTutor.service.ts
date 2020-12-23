@@ -1,6 +1,6 @@
 import { ActividadTutor } from './../modelos/actividadTutor.model';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 const opcionesCumplido: string[] = ['Cumplida','No cumplida'];
 const RUTA = 'http://localhost:8099';
@@ -21,5 +21,13 @@ export class ActividadesTutorServices {
   }
   obtenerTiposCumplida(){
   return opcionesCumplido;
+  }
+  editarActividad(act:any){
+    console.log("ENTRO A ACTUALIZAR: ",act);
+    this.http.put<any>(RUTA + '/actividad/editar/' + act.idSeguimiento, act)
+    .subscribe(
+      (response) => console.log('editar actividad: ' + response.estado),
+      error => console.log('Error al editar: ' + JSON.stringify(error))
+    );
   }
 }

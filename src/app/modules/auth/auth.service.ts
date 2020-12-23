@@ -39,12 +39,12 @@ export class AuthService {
               sessionStorage.setItem('code', data.data[0].codigo);
               sessionStorage.setItem('id', data.data[0].id);
               sessionStorage.setItem('nameStudent', data.data[0].nombres + ' ' + data.data[0].apellidos);
-              this.infoEstudiante.next(true); 
-              console.log("ID ASIGNADO A SESSION STORAGE:  ",sessionStorage.getItem('id')); 
+              this.infoEstudiante.next(true);
+              console.log("ID ASIGNADO A SESSION STORAGE:  ",sessionStorage.getItem('id'));
           } else if (sessionStorage.getItem('rol') === 'Tutor') {
 
               console.log('ES UN TUTOR################### ' + JSON.stringify(data.data[0]));
-              sessionStorage.setItem('id', data.data[0].id_tutor);
+              localStorage.setItem('id', data.data[0].id_tutor);
               this.infoTutor.next(true);
             } else {
               console.log('OTRO ROL');

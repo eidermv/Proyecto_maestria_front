@@ -44,7 +44,7 @@ export class ListarSeguimientoEstudianteComponent implements OnInit {
 
   ngOnInit(): void {
         
-        this.id=parseInt(this.route.snapshot.params.id);
+        this.id=parseInt(localStorage.getItem('id'));
         this.seguimientoEstudianteService.obtenerSeguimientosEstudiante(this.id).subscribe(
           result=>{
             result.data.forEach(element => {
@@ -188,10 +188,10 @@ var options = { year: 'numeric', month: 'long', day: 'numeric' };
       let fila:any[]=[]; 
       fila[contc]=contf;contc++;
       fila[contc]=seg.nombre;contc++;
-      fila[contc]=seg.tipo;contc++;
-      fila[contc]=seg.tutor;contc++;
-      fila[contc]=seg.estudiante;contc++;
-      fila[contc]=seg.estado;contc++;
+      fila[contc]=seg.tipo.nombre;contc++;
+      fila[contc]=seg.tutor.nombre+" "+seg.tutor.apellido;contc++;
+      fila[contc]=seg.estudiante.getName()+""+seg.estudiante.getSurname();contc++;
+      fila[contc]=seg.estado.nombre;contc++;
       fila[contc]=seg.coodirector;contc++;      
       body[contf]=fila;contc=0; contf++;
     } 

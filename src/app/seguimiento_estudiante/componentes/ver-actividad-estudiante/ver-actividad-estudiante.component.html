@@ -28,7 +28,8 @@
     <div class="input-group-prepend">
       <span class="input-group-text" id="basic-addon4">Cumplido <span style="color: red">*</span></span>
     </div>
-    <input id="cumplido" type="text"  disabled class="form-control" value="{{actividad.cumplido}}" aria-label="Username" aria-describedby="basic-addon1">
+    <input *ngIf="actividad.cumplido==0"  id="cumplido" type="text"  disabled class="form-control" value="CUMPLIDO" aria-label="Username" aria-describedby="basic-addon1">
+    <input *ngIf="actividad.cumplido==1"  id="cumplido" type="text"  disabled class="form-control" value="NO CUMPLIDO" aria-label="Username" aria-describedby="basic-addon1">
   </div>
   <div class="input-group mb-3">
     <div class="input-group-prepend">

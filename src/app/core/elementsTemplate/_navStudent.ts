@@ -63,7 +63,7 @@ export const navStudent = [
     children: [
       {
         name: 'Listar Seguimiento',
-        url: '/seguimiento-estudiante/listar/'+sessionStorage.getItem('id'),
+        url: '/seguimiento-estudiante/listar',
         icon: 'fa fa-cloud-upload'
       }
     ]

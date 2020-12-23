@@ -113,15 +113,15 @@ export class EditarActividadTutorComponent implements OnInit {
   onSubmit(){
     if (this.formulario.valid) {
       let seg={
-        id_actividad: this.actividad.idActividad,
+        id_actividad: this.actividad.idActividad+'',
         semana: this.actividad.semana,
         fecha_inicio: this.actividad.fechaInicio,
         fecha_entrega: this.actividad.fechaEntrega,
         entregas: this.actividad.entregas,
         compromisos: this.actividad.compromisos,
-        cumplido:this.actividad.cumplida,
-        id_seguimiento:this.seguimiento.idSeguimiento,
-        visibilidad:this.actividad.visible
+        cumplido:this.actividad.cumplida+'',
+        id_seguimiento:this.seguimiento.idSeguimiento+'',
+        visibilidad:this.actividad.visible+''
       };
       console.log(" ACTIVIDAD EDITADA$$$$$$:   ",this.actividad);
       this.actividadService.editarActividad(seg);

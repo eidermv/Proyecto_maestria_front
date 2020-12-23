@@ -24,7 +24,7 @@ export class ActividadesTutorServices {
   }
   editarActividad(act:any){
     console.log("ENTRO A ACTUALIZAR: ",act);
-    this.http.put<any>(RUTA + '/actividad/editar/' + act.idSeguimiento, act)
+    this.http.put<any>(RUTA + '/actividad/editar', act)
     .subscribe(
       (response) => console.log('editar actividad: ' + response.estado),
       error => console.log('Error al editar: ' + JSON.stringify(error))

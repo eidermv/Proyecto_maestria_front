@@ -31,14 +31,13 @@
       <div class="input-group-prepend">
         <span class="input-group-text" id="basic-addon4">Cumplido <span style="color: red">*</span></span>
       </div>
-
       <select type="text" class="form-control" formControlName="cumplida" #cumplida>
-        <div *ngIf=" actividad.cumplida == 1; else nuevo">
-          <option [ngValue]="null" disabled hidden >Cumplida</option>
-        </div>
-        <ng-template #nuevo>
+        <option *ngIf="actividad.cumplida===1"  [ngValue]="actividad.cumplida" disabled hidden >Cumplida</option>
+        <option *ngIf="actividad.cumplida===0"  [ngValue]="actividad.cumplida" disabled hidden >No Cumplida</option>
+       
+       <!--  <ng-template #nuevo>
           <option [ngValue]="null" disabled hidden >No cumplida</option>
-        </ng-template>
+        </ng-template> -->
         <option [ngValue]="estado" *ngFor="let estado of opcionesCumplido">{{estado}}</option>
       </select>
 

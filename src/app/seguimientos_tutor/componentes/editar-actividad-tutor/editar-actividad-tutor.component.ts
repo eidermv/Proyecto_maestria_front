@@ -8,6 +8,7 @@ import { ActividadTutor } from '../../modelos/actividadTutor.model';
 import { ActividadesTutorServices } from '../../servicios/actividadesTutor.service';
 import { SeguimientoTutorCompleto } from '../../modelos/seguimientoTutorCompleto.model';
 import Swal from 'sweetalert2';
+import { cibLgtm } from '@coreui/icons';
 
 @Component({
   selector: 'app-editar-actividad-tutor',
@@ -43,22 +44,31 @@ export class EditarActividadTutorComponent implements OnInit {
     this.formulario = this.formBuilder.group(
       {
         semana: [this.actividad.semana, [Validators.maxLength(30)]],
-        cumplida: [null,[Validators.required]],
+        cumplida: [this.actividad.cumplida,[]],
         entregas: [this.actividad.entregas, [Validators.required]],
         fecha_inicio:[new Date (this.actividad.fechaInicio), [ Validators.required]],
         fecha_entrega: [new Date (this.actividad.fechaEntrega), [Validators.required] ],
         compromisos: [this.actividad.compromisos, [Validators.required]],
         visibilidad:[this.checked, [/* Validators.required */] ]
       });
+      this.formulario.get('fecha_inicio').valueChanges.subscribe(
+        value=>{
+          let finicio=(new Date(Date.parse(value)).toLocaleString())+"";
+          finicio=finicio.replace('/','-');
+          finicio=finicio.replace('/','-');
+          console.log("Fecha inicio Local String:   ",finicio);
+          this.actividad.fechaInicio=new Date(finicio);
+        }
+      );
       this.formulario.get('semana').valueChanges.subscribe(
         value=>{
           if(this.formulario.get('semana').valid){
-            this.actividad.entregas=this.formulario.get('entregas').value;
+            this.actividad.semana=this.formulario.get('semana').value;
           }
         }
       );
       this.formulario.get('cumplida').valueChanges.subscribe(
-        value=>{
+        value=>{         
           if(value=="Cumplida"){
             this.actividad.cumplida=1;
           }
@@ -81,6 +91,13 @@ export class EditarActividadTutorComponent implements OnInit {
           } else if(this.formulario.get('visibilidad').value==false){
             this.actividad.visible = 0;
           }
+        }
+      );
+      this.formulario.get('compromisos').valueChanges.subscribe(
+        value=>{
+          if(this.formulario.get('compromisos').valid){
+            this.actividad.compromisos = this.formulario.get('compromisos').value;
+          } 
         }
       );
 

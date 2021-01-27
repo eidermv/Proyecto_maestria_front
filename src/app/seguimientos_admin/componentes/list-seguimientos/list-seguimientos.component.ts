@@ -120,7 +120,7 @@ this.seguimientos=[];
     console.log("SEGUIMIENTO ANTES DE ENVIAR A EDITAR:   ",row);
     const dialogRef = this.dialog.open(EditarSeguimientoComponent, {
       width: '800px',
-      height:'500px',
+      height:'600px',
       data:{}
     });
     
@@ -254,7 +254,7 @@ var options = { year: 'numeric', month: 'long', day: 'numeric' };
     console.log("SEGUIMIENTO A PASAR:  ",row);
     const dialogRef = this.dialog.open(VerSeguimientoComponent, {
       width: '800px',
-      height:'500px',
+      height:'700px',
       data:{}
     });
     dialogRef.afterClosed().subscribe(result => {

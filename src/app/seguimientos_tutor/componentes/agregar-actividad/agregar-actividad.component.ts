@@ -1,12 +1,12 @@
 import { SeguimientoTutorCompleto } from './../../modelos/seguimientoTutorCompleto.model';
-import { SeguimientoCompleto } from './../../../seguimientos_admin/modelos/seguimientoCompleto.model';
 import { ActividadTutor } from './../../modelos/actividadTutor.model';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { debounceTime } from 'rxjs/operators';
-import { ActividadesTutorServices } from '../../servicios/actividadesTutor.service';
 import { SeguimientosTutorServices } from '../../servicios/seguimientosTutor.service';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+
 @Component({
   selector: 'app-agregar-actividad',
   templateUrl: './agregar-actividad.component.html',
@@ -15,6 +15,7 @@ import { SeguimientosTutorServices } from '../../servicios/seguimientosTutor.ser
 export class AgregarActividadComponent implements OnInit {
   actividad: ActividadTutor;
   seguimiento: SeguimientoTutorCompleto;
+  opcionesCumplido: String[] = ['Cumplida','No cumplida'];
   fi:string;
   fe:string;
   formulario:FormGroup;
@@ -38,13 +39,12 @@ export class AgregarActividadComponent implements OnInit {
     this.formulario = this.formBuilder.group(
       {
         semana: [, [Validators.maxLength(30)]],
-        cumplida: [,  [Validators.required]],
+        cumplida: [null,  [Validators.required]],
         entregas: [, [Validators.required]],
         compromisos: [, [Validators.required]],
-        fechaInicio:[, [ Validators.required]],
-        fechaEntrega: [, [Validators.required]],
-        visible:[, [Validators.required]],
-        idSeguimiento: [this.seguimiento.idSeguimiento, [Validators.required]]
+        fechaInicio:[null, [ Validators.required]],
+        fechaEntrega: [null, [Validators.required]],
+        visibilidad:[, [Validators.required]],
       });
 
      this.formulario.valueChanges.pipe(
@@ -58,6 +58,9 @@ export class AgregarActividadComponent implements OnInit {
   onSubmit()
   {
     console.log("GUARDANDO DESDE EDITAR CTIVIDAD TUTOR");
+  }
+  cancelar() {
+    this.dialogRef.close();
   }
 
 }

@@ -34,7 +34,7 @@
       <select type="text" class="form-control" formControlName="cumplida" #cumplida>
         <option *ngIf="actividad.cumplida===1"  [ngValue]="actividad.cumplida" disabled hidden >Cumplida</option>
         <option *ngIf="actividad.cumplida===0"  [ngValue]="actividad.cumplida" disabled hidden >No Cumplida</option>
-       
+
        <!--  <ng-template #nuevo>
           <option [ngValue]="null" disabled hidden >No cumplida</option>
         </ng-template> -->
@@ -47,6 +47,12 @@
         <span class="input-group-text" id="basic-addon4">Compromisos <span style="color: red">*</span></span>
       </div>
       <textarea  id="compromisos"  type="text" class="form-control" formControlName="compromisos" aria-label="Username" aria-describedby="basic-addon1" name="" id="" cols="30" rows="5"></textarea>
+    </div>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon4">Entregas <span style="color: red">*</span></span>
+      </div>
+      <textarea  id="entregas"  type="text" class="form-control" formControlName="entregas" aria-label="Username" aria-describedby="basic-addon1" name="" id="" cols="30" rows="5"></textarea>
     </div>
 
     <div class="input-group mb-6">

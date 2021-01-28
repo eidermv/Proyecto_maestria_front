@@ -1,5 +1,6 @@
 <h1 mat-dialog-title class="titulo " style="text-align: center; background-color: #5bc0de;">AGREGAR ACTIVIDAD</h1>
 <div mat-dialog-content>
+
   <form [formGroup]="formulario" (ngSubmit)="onSubmit()" #f="ngForm">
 
     <div class="input-group mb-3">
@@ -8,56 +9,58 @@
       </div>
       <input id="semana"   type="text" class="form-control" formControlName="semana" aria-label="Username" aria-describedby="basic-addon1">
     </div>
-    <div class="input-group mb-3">
-      <div class="input-group-prepend">
-        <span class="input-group-text" id="basic-addon3">Fecha Inicio <span style="color: red">*</span></span>
+    <div class="input-group col-12">
+      <div class="col-md-6 col-lg-6 col-sm-12">
+        <mat-form-field appearance="fill">
+          <mat-label>Fecha de Inicio<span style="color: red">*</span></mat-label>
+          <input matInput [matDatepicker]="dp1" formControlName="fechaInicio">
+          <mat-datepicker-toggle matSuffix [for]="dp1"></mat-datepicker-toggle>
+          <mat-datepicker #dp1></mat-datepicker>
+        </mat-form-field>
       </div>
-      <mat-form-field appearance="fill">
-        <mat-label>Seleccione Fecha de Inicio</mat-label>
-        <input matInput [matDatepicker]="dp1" formControlName="fechaInicio">
-        <mat-datepicker-toggle matSuffix [for]="dp1"></mat-datepicker-toggle>
-        <mat-datepicker #dp1></mat-datepicker>
-      </mat-form-field>
-    </div>
-    <div class="input-group mb-3">
-      <div class="input-group-prepend">
-        <span class="input-group-text" id="basic-addon4" >Fecha Entrega <span style="color: red">*</span></span>
+      <div class="col-md-6 col-lg-6 col-sm-12">
+        <mat-form-field appearance="fill">
+          <mat-label>Fecha de Entrega<span style="color: red">*</span></mat-label>
+          <input matInput [matDatepicker]="dp2" formControlName="fechaEntrega">
+          <mat-datepicker-toggle matSuffix [for]="dp2"></mat-datepicker-toggle>
+          <mat-datepicker #dp2></mat-datepicker>
+        </mat-form-field>
       </div>
-      <mat-form-field appearance="fill">
-        <mat-label>Seleccione Fecha de Entrega</mat-label>
-        <input matInput [matDatepicker]="dp2" formControlName="fechaEntrega">
-        <mat-datepicker-toggle matSuffix [for]="dp2"></mat-datepicker-toggle>
-        <mat-datepicker #dp2></mat-datepicker>
-      </mat-form-field>
     </div>
     <div class="input-group mb-3">
       <div class="input-group-prepend">
         <span class="input-group-text" id="basic-addon4">Cumplido <span style="color: red">*</span></span>
       </div>
-      <input id="cumplido" type="text"   class="form-control" formControlName="cumplida" aria-label="Username" aria-describedby="basic-addon1">
+      <select type="text" class="form-control" formControlName="cumplida" #cumplida>
+        <option  disabled hidden >Cumplida</option>
+        <option [ngValue]="estado" *ngFor="let estado of opcionesCumplido">{{estado}}</option>
+      </select>
+
     </div>
     <div class="input-group mb-3">
       <div class="input-group-prepend">
         <span class="input-group-text" id="basic-addon4">Compromisos <span style="color: red">*</span></span>
       </div>
       <textarea  id="compromisos"  type="text" class="form-control" formControlName="compromisos" aria-label="Username" aria-describedby="basic-addon1" name="" id="" cols="30" rows="5"></textarea>
-
     </div>
-    <div class="input-group mb-3">
+
+    <div class="input-group mb-6">
       <div class="input-group-prepend">
         <span class="input-group-text" id="basic-addon4">Visibilidad <span style="color: red">*</span></span>
-        <input type="checkbox" formControlName="visible" id="visibilidad" class="form-check-input"  />
-
       </div>
-
+      <div class="input-col-md-12">
+        <mat-checkbox class="example-margin" formControlName="visibilidad"
+        id="visibilidad" [(ngModel)]="checked"></mat-checkbox>
+      </div>
     </div>
-
   </form>
-
-
+  <div style="text-align:right">
+    <button type="button" class="button is-danger" (click)="cancelar()">Cancelar
+    </button>
+    <button type="submit"  class="button is-info"
+      [disabled]="formulario.invalid">Guardar</button>
+  </div>
 </div>
 
-<div style="text-align:right">
-  <button mat-button class="btn btn-primary" (click)="okClick()" cdkFocusInitial>Ok</button>
-</div>
+
 

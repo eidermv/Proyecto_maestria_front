@@ -1,4 +1,3 @@
-import { SeguimientoCompleto } from './../../../seguimientos_admin/modelos/seguimientoCompleto.model';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -7,6 +6,7 @@ import { Actividad } from '../../../seguimientos_admin/modelos/actividad.model';
 import { ActividadTutor } from '../../modelos/actividadTutor.model';
 import { ActividadesTutorServices } from '../../servicios/actividadesTutor.service';
 import { SeguimientoTutorCompleto } from '../../modelos/seguimientoTutorCompleto.model';
+import { DatePipe } from "@angular/common";
 import Swal from 'sweetalert2';
 import { cibLgtm } from '@coreui/icons';
 
@@ -24,11 +24,12 @@ export class EditarActividadTutorComponent implements OnInit {
   fe:string;
   formulario:FormGroup;
   checked:boolean;
-  constructor(public dialogRef: MatDialogRef<EditarActividadTutorComponent>,
+  constructor(private datePipe: DatePipe,public dialogRef: MatDialogRef<EditarActividadTutorComponent>,
     private actividadService:ActividadesTutorServices,
     private formBuilder:FormBuilder) {}
 
   ngOnInit(): void {
+    console.log('IMPRIMIENDO TIPO FECHA LLEGANDO',this.actividad.fechaInicio);
     this.crearFormulario();
   }
 
@@ -46,20 +47,12 @@ export class EditarActividadTutorComponent implements OnInit {
         semana: [this.actividad.semana, [Validators.maxLength(30)]],
         cumplida: [this.actividad.cumplida,[]],
         entregas: [this.actividad.entregas, [Validators.required]],
-        fecha_inicio:[new Date (this.actividad.fechaInicio), [ Validators.required]],
-        fecha_entrega: [new Date (this.actividad.fechaEntrega), [Validators.required] ],
+        fecha_inicio:[new Date(this.actividad.fechaInicio+''), [ Validators.required]],//revisar esta parte
+        fecha_entrega: [new Date(this.actividad.fechaInicio+''), [Validators.required] ],//revisar esta parte
         compromisos: [this.actividad.compromisos, [Validators.required]],
-        visibilidad:[this.checked, [/* Validators.required */] ]
+        visibilidad:[this.checked, [] ]
       });
-      this.formulario.get('fecha_inicio').valueChanges.subscribe(
-        value=>{
-          let finicio=(new Date(Date.parse(value)).toLocaleString())+"";
-          finicio=finicio.replace('/','-');
-          finicio=finicio.replace('/','-');
-          console.log("Fecha inicio Local String:   ",finicio);
-          this.actividad.fechaInicio=new Date(finicio);
-        }
-      );
+
       this.formulario.get('semana').valueChanges.subscribe(
         value=>{
           if(this.formulario.get('semana').valid){
@@ -68,15 +61,36 @@ export class EditarActividadTutorComponent implements OnInit {
         }
       );
       this.formulario.get('cumplida').valueChanges.subscribe(
-        value=>{         
-          if(value=="Cumplida"){
-            this.actividad.cumplida=1;
+        value=>{
+            if(value=="Cumplida"){
+              this.actividad.cumplida=1;
+              console.log("IMPRIMIENDO CAMBIO A CUMPLIDA: ",this.actividad.cumplida);
+            }
+            else if(value=="No cumplida"){
+              this.actividad.cumplida=0;
+              console.log("IMPRIMIENDO CAMBIO A NO CUMPLIDA: ",this.actividad.cumplida);
+            }
           }
-          else if(value=="No cumplida"){
-            this.actividad.cumplida=0;
+      );
+
+
+
+      this.formulario.get('fecha_inicio').valueChanges.subscribe(
+        value=>{
+          if(this.formulario.get('fecha_inicio').valid){
+            this.actividad.fechaInicio = this.datePipe.transform(value, "yyyy-MM-dd HH:mm:ss");
           }
         }
       );
+      this.formulario.get('fecha_entrega').valueChanges.subscribe(
+        value=>{
+          if(this.formulario.get('fecha_entrega').valid){
+            this.actividad.fechaEntrega = this.datePipe.transform(value, "yyyy-MM-dd HH:mm:ss");
+          }
+
+        }
+      );
+
       this.formulario.get('entregas').valueChanges.subscribe(
         value=>{
           if(this.formulario.get('entregas').valid){
@@ -97,7 +111,7 @@ export class EditarActividadTutorComponent implements OnInit {
         value=>{
           if(this.formulario.get('compromisos').valid){
             this.actividad.compromisos = this.formulario.get('compromisos').value;
-          } 
+          }
         }
       );
 
@@ -113,18 +127,21 @@ export class EditarActividadTutorComponent implements OnInit {
   onSubmit(){
     if (this.formulario.valid) {
       let seg={
-        id_actividad: this.actividad.idActividad+'',
+        id_actividad: this.actividad.idActividad,
         semana: this.actividad.semana,
         fecha_inicio: this.actividad.fechaInicio,
         fecha_entrega: this.actividad.fechaEntrega,
+        /* fecha_inicio: this.actividad.fechaInicio.split(' ')[0],
+        fecha_entrega: this.actividad.fechaEntrega.split(' ')[0], */
         entregas: this.actividad.entregas,
         compromisos: this.actividad.compromisos,
-        cumplido:this.actividad.cumplida+'',
-        id_seguimiento:this.seguimiento.idSeguimiento+'',
-        visibilidad:this.actividad.visible+''
+        cumplido:this.actividad.cumplida,
+        id_seguimiento:this.seguimiento.idSeguimiento,
+        visibilidad:this.actividad.visible
       };
-      console.log(" ACTIVIDAD EDITADA$$$$$$:   ",this.actividad);
+      console.log(" ACTIVIDAD EDITADA$$$$$$:   ",seg);
       this.actividadService.editarActividad(seg);
+      this.dialogRef.close();
     }
   }
 }

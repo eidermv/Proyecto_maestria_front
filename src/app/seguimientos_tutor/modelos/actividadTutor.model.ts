@@ -1,8 +1,8 @@
 export class ActividadTutor {
     idActividad:number;
     semana:string;
-    fechaInicio: Date;
-    fechaEntrega: Date;
+    fechaInicio: String;
+    fechaEntrega: String;
     entregas: string;
     compromisos: string;
     cumplida: number;

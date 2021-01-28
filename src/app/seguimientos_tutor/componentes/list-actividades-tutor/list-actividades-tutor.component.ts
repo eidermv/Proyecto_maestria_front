@@ -10,6 +10,7 @@ import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { VerActividadTutorComponent } from '../ver-actividad-tutor/ver-actividad-tutor.component';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-list-actividades-tutor',
@@ -23,7 +24,7 @@ export class ListActividadesTutorComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   actividades: ActividadTutor[]=[];
-  constructor(private router: Router,
+  constructor(private router: Router,private datePipe: DatePipe,
               private actividadesService:ActividadesTutorServices,
               private dialog: MatDialog, private seguimientosTutorService:SeguimientosTutorServices) { }
 
@@ -31,10 +32,12 @@ export class ListActividadesTutorComponent implements OnInit {
       this.actividadesService.obtenerActividadesTutor(this.seguimiento.idSeguimiento).subscribe(
       result =>{
         this.actividades=[];
-        console.log("ACTIVIDADES QUE LLEGARON:*****  ",JSON.stringify(result.data));
+        console.log("ACTIVIDADES QUE LLEGARON:*****  ",result.data);
           if (result.estado === 'exito') {
               result.data.forEach( (item) => {
               const actividad: ActividadTutor = item;
+              actividad.fechaInicio=this.datePipe.transform(actividad.fechaInicio, "dd/MM/yyyy")
+              actividad.fechaEntrega=this.datePipe.transform(actividad.fechaEntrega, "dd/MM/yyyy")
               this.actividades.push(actividad);
               console.log("Actividad agregada: ",this.actividades);
             });

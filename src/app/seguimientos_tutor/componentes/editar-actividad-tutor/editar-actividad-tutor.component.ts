@@ -78,14 +78,14 @@ export class EditarActividadTutorComponent implements OnInit {
       this.formulario.get('fecha_inicio').valueChanges.subscribe(
         value=>{
           if(this.formulario.get('fecha_inicio').valid){
-            this.actividad.fechaInicio = this.datePipe.transform(value, "yyyy-MM-dd HH:mm:ss");
+            this.actividad.fechaInicio = this.datePipe.transform(value, "yyyy-MM-dd HH:mm:ss.SSSSSS");
           }
         }
       );
       this.formulario.get('fecha_entrega').valueChanges.subscribe(
         value=>{
           if(this.formulario.get('fecha_entrega').valid){
-            this.actividad.fechaEntrega = this.datePipe.transform(value, "yyyy-MM-dd HH:mm:ss");
+            this.actividad.fechaEntrega = this.datePipe.transform(value, "yyyy-MM-dd HH:mm:ss.SSSSSS");
           }
 
         }
@@ -129,15 +129,15 @@ export class EditarActividadTutorComponent implements OnInit {
       let seg={
         id_actividad: this.actividad.idActividad,
         semana: this.actividad.semana,
-        fecha_inicio: this.actividad.fechaInicio,
-        fecha_entrega: this.actividad.fechaEntrega,
+        fecha_inicio: this.datePipe.transform(this.actividad.fechaInicio, "dd/MM/yyyy"),
+        fecha_entrega: this.datePipe.transform(this.actividad.fechaEntrega, "dd/MM/yyyy"),
         /* fecha_inicio: this.actividad.fechaInicio.split(' ')[0],
         fecha_entrega: this.actividad.fechaEntrega.split(' ')[0], */
         entregas: this.actividad.entregas,
         compromisos: this.actividad.compromisos,
-        cumplido:this.actividad.cumplida,
+        cumplido:this.actividad.cumplida+"",
         id_seguimiento:this.seguimiento.idSeguimiento,
-        visibilidad:this.actividad.visible
+        visibilidad:this.actividad.visible+""
       };
       console.log(" ACTIVIDAD EDITADA$$$$$$:   ",seg);
       this.actividadService.editarActividad(seg);

@@ -1,14 +1,13 @@
 <!-- HAY QUE VOLVERLA MODAL -->
-<h2 mat-dialog-title style="background-color:#5bc0de; color: white;text-align-last: center;"> VER SEGUIMIENTO</h2>
+<div mat-dialog-title class="h1"  style="background-color:#5bc0de;text-align-last: center; color: white; height: 1.5cm;">
+    <h1 style="padding-top: 0.3cm; "> VER SEGUIMIENTO</h1>
+</div>
 <div mat-dialog-content class="mat-typography">
 
     <form [formGroup]="formulario"  #f="ngForm">
-        <h1 class="title text-center">VER SEGUIMIENTO</h1>
-        <p class="text-muted text-center">En este formulario podrá Consultar los detalles del Seguimientos</p>
-
+        <p class="text-muted text-center">En este formulario podrá Consultar los detalles del Seguimiento</p>
         <div class="row">
             <div class="formGroup col-6">
-               
                 <div class="input-group mb-3">
                     <div class="input-group-prepend ">
                         <span class="input-group-text"><i
@@ -100,7 +99,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="formGroup">               
+            <div class="formGroup col-12">               
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i
@@ -111,7 +110,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="formGroup">               
+            <div class="formGroup col-12">               
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i
@@ -136,14 +135,10 @@
                 <app-listar-actividades [seguimiento]="seguimiento"></app-listar-actividades>
             </mat-expansion-panel>
         </mat-accordion>
-        <p>  </p>
-        <div style="text-align:right">
-            
-            <button (click)="ok()"   class="button is-info"
-                >OK
-            </button>
-            
-        </div>
+        <p>  </p>       
     </form>
 
+</div>
+<div mat-dialog-actions  style="text-align:right">
+    <button (click)="ok()" style="position: relative; left: 90%;"  class="button is-info" [mat-dialog-close]="true">OK</button>
 </div>

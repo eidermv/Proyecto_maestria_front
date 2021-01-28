@@ -1,13 +1,14 @@
+
+<div mat-dialog-title class="h1"  style="background-color:#5bc0de;text-align-last: center; color: white; height: 1.5cm;">
+    <h1 style="padding-top: 0.3cm; "> EDITAR SEGUIMIENTO</h1>
+</div>
 <div class="animated fadeIn">
     <div class="row">
         <div class="col-lg-12 ">
             <div class="card ">
-                <div class="card-header bg-info" style="text-align: center;">
-                    <strong>EDITAR SEGUIMIENTO</strong>
-                </div>
                 <div class="card-body">
                     <form [formGroup]="formulario" (ngSubmit)="onSubmit()" #f="ngForm">
-                        <h1 class="title text-center">EDITAR SEGUIMIENTO</h1>
+                       
                         <p class="text-muted text-center">En este formulario podrá editar los Seguimientos, los
                             campos con * son obligatorios</p>
 
@@ -163,7 +164,7 @@
 
                         </div>
                         <div class="row">
-                            <div class="formGroup">
+                            <div class="formGroup col-12">
                                 <i class="fa fa-exclamation-circle uncheck"
                                     *ngIf="(formulario.get('objetivo').errors?.required  && formulario.get('objetivo').touched)">
                                     Objetivo Vacío. Campo Obligatorio
@@ -177,19 +178,18 @@
                                         <textarea type="text" placeholder="* O. General" formControlName="objetivo" cols="50" rows="5"></textarea>
                                 </div>
                             </div>
-                        </div>
-                        <div style="text-align:right">
-                            <button type="button" class="button is-danger" (click)="cancelar()" 
-                                >Cancelar
-                            </button>
-                            <button type="submit"  class="button is-info"
-                                [disabled]="formulario.invalid">Guardar
-                            </button>
-                            
-                        </div>
+                        </div>                        
                     </form>
                 </div>
             </div>
         </div>
     </div>
+</div>
+<div mat-dialog-actions  style="text-align:right">
+    <button type="button" class="button is-danger" (click)="cancelar()" style="position: relative; left: 75%;"
+    >Cancelar
+    </button>
+    <button (click)="onSubmit()"  class="button is-info" style="position: relative; left: 75%;"
+        [disabled]="formulario.invalid">Guardar
+    </button>
 </div>

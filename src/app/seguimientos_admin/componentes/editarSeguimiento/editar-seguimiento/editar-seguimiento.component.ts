@@ -258,6 +258,17 @@ export class EditarSeguimientoComponent implements OnInit {
          this.seguimiento.nombre=value;
         }
       );
+     
+      this.formulario.get('objetivo').valueChanges.pipe(debounceTime(50)).subscribe(
+        value=>{
+         this.seguimiento.oGeneral=value;
+        }
+      );
+      this.formulario.get('coodirector').valueChanges.pipe(debounceTime(50)).subscribe(
+        value=>{
+         this.seguimiento.coodirector=value;
+        }
+      );
 
   }
   clearArray(arrayClear: Array<string>) {

@@ -60,6 +60,22 @@ export class EditarTutorComponent implements OnInit {
         console.log("tutor formado para enviar:  ",nuevo);
         this.tutorService.onEditTutor(nuevo).subscribe(result=>{
         console.log("RESULTADO DE GUARDAR EL TUTOR EDITADO",result);
+        if(result.body?.estado=="exito"){
+          Swal.fire({
+            icon: 'success',
+            title: 'Editado' ,
+            text: 'Tutor Editado!' ,
+            footer: 'El tutor fué editado correctamente' 
+          });
+        }
+        else{
+          Swal.fire({
+            icon: 'error',
+            title: 'NO Editado' ,
+            text: 'Tutor NO Editado!' ,
+            footer: 'El tutor NO fué Editado' 
+          });
+        }
         })
         //GUARDAR 
         this.dialogoReg.close();

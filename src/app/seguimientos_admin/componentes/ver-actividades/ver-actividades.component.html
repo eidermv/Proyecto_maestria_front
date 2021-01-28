@@ -1,4 +1,6 @@
-<h1 mat-dialog-title class="titulo " style="text-align: center; background-color: #5bc0de;">VER ACTIVIDAD</h1>
+<div mat-dialog-title class="h1"  style="background-color:#5bc0de;text-align-last: center; color: white; height: 1.5cm;">
+  <h1 style="padding-top: 0.3cm; "> VER ACTIVIDAD</h1>
+</div>
 <div mat-dialog-content>
   <div class="input-group mb-3">
     <div class="input-group-prepend">
@@ -28,8 +30,13 @@
     <div class="input-group-prepend">
       <span class="input-group-text" id="basic-addon4">Cumplido <span style="color: red">*</span></span>
     </div>
-    <input id="cumplido" type="text"  disabled class="form-control" value="{{actividad.cumplido}}" aria-label="Username" aria-describedby="basic-addon1">
-  </div>
+    <div [hidden]="actividad.cumplido==1">
+      <input  id="cumplido" type="text"  disabled class="form-control" value="SI" aria-label="Username" aria-describedby="basic-addon1">
+    </div>   
+    <div [hidden]="actividad.cumplido==0">
+      <input  id="cumplido" type="text"  disabled class="form-control" value="NO" aria-label="Username" aria-describedby="basic-addon1">
+    </div>
+    </div>
   <div class="input-group mb-3">
     <div class="input-group-prepend">
       <span class="input-group-text" id="basic-addon4">Compromisos <span style="color: red">*</span></span>

@@ -2,14 +2,12 @@
     <div class="row">
         <div class="col-lg-12 ">
             <div class="card ">
-                <div class="card-header bg-info" style="text-align: center;">
-                    <strong>EDITAR TUTOR</strong>
-                </div>
+                <div mat-dialog-title class="h1"  style="background-color:#5bc0de;text-align-last: center; color: white; height: 1.5cm;">
+                    <h1 style="padding-top: 0.3cm; "> EDITAR TUTOR</h1>
+                  </div>
                 <div class="card-body">
                     <form [formGroup]="formulario" (ngSubmit)="onSubmit()" #f="ngForm">
-                        <h1 class="title text-center">EDITAR TUTOR</h1>
-                        <p class="text-muted text-center">Edita los datos de un tutor. Campos con * son obligatorios</p>
-
+                        <p class="text-muted text-center">Edita los datos de un tutor. <br> Campos con <strong style="color: red;">*</strong> son obligatorios</p>
                         <div class="row">
                             <div class="formGroup col-6">
                                 <i class="fa fa-exclamation-circle uncheck"

@@ -163,21 +163,21 @@ export class AgregarSeguimientoComponent implements OnInit {
       this.seguimientoService.onCrearSeguimiento(seg).subscribe(
         result=>{
           console.log("REESULT EN AGREGAR SEGUIMIENTO:   ",result);
-          if(result.body?.estado=="exito"){
+         /*  if(result.body?.estado=="exito"){ */
             this.bandAgregar.emit(true);
             Swal.fire(
               'Exito!',
               'Seguimiento Almacenado!',
               'success'
             )
-          }
+         /*  }
           else{
             Swal.fire(
               'Error!',
               'El seguimiento NO ha sido Almacenado!',
               'error'
             )
-          }
+          } */
          
         }
       );

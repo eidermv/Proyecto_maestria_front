@@ -28,6 +28,7 @@ import { AgregarActividadComponent } from '../agregar-actividad/agregar-activida
 import { PdfMakeWrapper, Table, Txt } from 'pdfmake-wrapper';
 import {SeguimientoTutor} from '../../modelos/seguimientoTutor.model';
 import { TutorTutorService } from '../../servicios/tutor-tutor.service';
+import { DatePipe } from "@angular/common";
 
 @Component({
   selector: 'app-editar-seguimiento-tutor',
@@ -52,7 +53,7 @@ export class EditarSeguimientoTutorComponent implements OnInit {
   objEspec: string[];
   @Output()banNotificaciones = new EventEmitter<boolean>();
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private dialog: MatDialog,
+  constructor(private datePipe: DatePipe, private formBuilder: FormBuilder, private router: Router, private dialog: MatDialog,
     private seguimientoTutorService: SeguimientosTutorServices, private actividadesTutorService: ActividadesTutorServices,
     private tutorService: TutorTutorService, private estudianteService: EstudianteService) {
       this.seguimientoTutor=new SeguimientoTutorCompleto();
@@ -171,7 +172,7 @@ const options = { year: 'numeric', month: 'long', day: 'numeric' };
       console.log('FORMULARIO VALIDO');
       Swal.fire(
         'Exito!',
-        'Seguimiento Almacenado!',
+        'Seguimiento Actualizado!',
         'success'
       );
 
@@ -203,7 +204,7 @@ const options = { year: 'numeric', month: 'long', day: 'numeric' };
     this.crearFormulario();
     Swal.fire(
       'Cancelado!',
-      'Seguimiento no Almacenado!',
+      'Seguimiento no Actualizado!',
       'error'
     );
     this.banNotificaciones.emit(true);

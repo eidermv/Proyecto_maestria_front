@@ -137,9 +137,21 @@ export class EditarActividadTutorComponent implements OnInit {
         id_seguimiento:this.seguimiento.idSeguimiento,
         visibilidad:this.actividad.visible+""
       };
+      Swal.fire(
+        'Exito!',
+        '¡Actividad actualizada!',
+        'success'
+      );
       console.log(" ACTIVIDAD EDITADA$$$$$$:   ",seg);
       this.actividadService.editarActividad(seg);
       this.dialogRef.close();
+    }
+    else{
+      Swal.fire(
+        'Fallo!',
+        '¡Actividad no actualizada!',
+        'error'
+      );
     }
     this.ngOnInit();
   }

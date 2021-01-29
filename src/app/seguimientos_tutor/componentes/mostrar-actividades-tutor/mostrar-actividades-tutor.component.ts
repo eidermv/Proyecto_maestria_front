@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -20,7 +21,7 @@ export class MostrarActividadesTutorComponent implements OnInit {
   actividades: ActividadTutor[] = [];
   seguimientoTutor: SeguimientoTutorCompleto;
   dataSource = new MatTableDataSource<ActividadTutor>(this.actividades);
-  constructor(private dialog: MatDialog , private actividadesTutorService: ActividadesTutorServices,private seguimientoTutorService: SeguimientosTutorServices) { }
+  constructor(private datePipe :DatePipe, private dialog: MatDialog , private actividadesTutorService: ActividadesTutorServices,private seguimientoTutorService: SeguimientosTutorServices) { }
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   ngOnInit(): void {
@@ -33,6 +34,8 @@ export class MostrarActividadesTutorComponent implements OnInit {
       if (data.estado === 'exito') {
         data.data.forEach( (item) => {
           const actividadesE: ActividadTutor = item;
+          actividadesE.fechaInicio=this.datePipe.transform(actividadesE.fechaInicio, "dd/MM/yyyy")
+          actividadesE.fechaEntrega=this.datePipe.transform(actividadesE.fechaEntrega, "dd/MM/yyyy")
           this.actividades.push(actividadesE);
         });
         this.dataSource = new MatTableDataSource(this.actividades);

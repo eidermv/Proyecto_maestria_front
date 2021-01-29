@@ -30,4 +30,12 @@ export class ActividadesTutorServices {
       error => console.log('Error al editar: ' + JSON.stringify(error))
     );
   }
+  agregarActividad(act:any){
+    console.log("ENTRO A AGREGAR ACTIVIDAD: ",act);
+    this.http.post<any>(RUTA + '/actividad/crear', act)
+    .subscribe(
+      (response) => console.log('crear actividad: ' + response.estado),
+      error => console.log('Error al crear actividad: ' + JSON.stringify(error))
+    );
+  }
 }

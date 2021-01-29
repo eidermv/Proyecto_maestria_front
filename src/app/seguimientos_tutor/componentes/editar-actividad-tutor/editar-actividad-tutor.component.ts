@@ -13,7 +13,8 @@ import { cibLgtm } from '@coreui/icons';
 @Component({
   selector: 'app-editar-actividad-tutor',
   templateUrl: './editar-actividad-tutor.component.html',
-  styleUrls: ['./editar-actividad-tutor.component.css']
+  styleUrls: ['./editar-actividad-tutor.component.css'],
+
 })
 
 export class EditarActividadTutorComponent implements OnInit {
@@ -29,18 +30,15 @@ export class EditarActividadTutorComponent implements OnInit {
     private formBuilder:FormBuilder) {}
 
   ngOnInit(): void {
-    console.log('IMPRIMIENDO TIPO FECHA LLEGANDO',this.actividad.fechaInicio);
     this.crearFormulario();
   }
 
   private crearFormulario():void{
     if(this.actividad.visible==1){
        this.checked=true;
-       console.log("VISIBILIDAD TRUE");
     }
     else {
       this.checked=false;
-      console.log("VISIBILIDAD FALSO");
     }
     this.formulario = this.formBuilder.group(
       {
@@ -48,7 +46,7 @@ export class EditarActividadTutorComponent implements OnInit {
         cumplida: [this.actividad.cumplida,[]],
         entregas: [this.actividad.entregas, [Validators.required]],
         fecha_inicio:[new Date(this.actividad.fechaInicio+''), [ Validators.required]],//revisar esta parte
-        fecha_entrega: [new Date(this.actividad.fechaEntrega+''), [Validators.required] ],//revisar esta parte
+        fecha_entrega:[new Date(this.actividad.fechaEntrega+''), [Validators.required] ],//revisar esta parte
         compromisos: [this.actividad.compromisos, [Validators.required]],
         visibilidad:[this.checked, [] ]
       });
@@ -72,20 +70,17 @@ export class EditarActividadTutorComponent implements OnInit {
             }
           }
       );
-
-
-
       this.formulario.get('fecha_inicio').valueChanges.subscribe(
         value=>{
           if(this.formulario.get('fecha_inicio').valid){
-            this.actividad.fechaInicio = this.datePipe.transform(value, "yyyy-MM-dd HH:mm:ss.SSSSSS");
+            this.actividad.fechaInicio = this.datePipe.transform(value, "dd/MM/yyyy");
           }
         }
       );
       this.formulario.get('fecha_entrega').valueChanges.subscribe(
         value=>{
           if(this.formulario.get('fecha_entrega').valid){
-            this.actividad.fechaEntrega = this.datePipe.transform(value, "yyyy-MM-dd HH:mm:ss.SSSSSS");
+            this.actividad.fechaEntrega = this.datePipe.transform(value, "dd/MM/yyyy");
           }
 
         }

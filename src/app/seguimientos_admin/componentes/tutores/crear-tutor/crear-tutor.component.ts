@@ -92,14 +92,14 @@ export class CrearTutorComponent implements OnInit {
             universidad:this.formulario.get('universidad').value
         };
         this.subs= this.tutorService.onCrearTutor(nuevo).subscribe(result=>{
-          if(result.body?.estado=="exito"){
+         /*  if(result.body?.estado=="exito"){ */
             Swal.fire({
               icon: 'success',
               title: 'Guardado' ,
               text: 'Tutor Almacenado!' ,
               footer: 'El tutor fué almacenado correctamente' 
             });
-          }
+          /* }
           else{
             Swal.fire({
               icon: 'error',
@@ -107,7 +107,7 @@ export class CrearTutorComponent implements OnInit {
               text: 'Tutor NO Almacenado!' ,
               footer: 'El tutor NO fué almacenado' 
             });
-          }
+          } */
         });
         this.subs.unsubscribe();        
         this.tutor.emit(nuevo);

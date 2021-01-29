@@ -200,6 +200,7 @@ export class AgregarSeguimientoComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
+      this.ngOnInit();
     });
     dialogRef.componentInstance.tutor.subscribe(
       result => {

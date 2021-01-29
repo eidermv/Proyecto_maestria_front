@@ -76,15 +76,16 @@ export class ListActividadesTutorComponent implements OnInit {
 var fecha = new Date();
 var options = { year: 'numeric', month: 'long', day: 'numeric' };
     pdf.pageMargins([ 100, 60, 40, 40 ]);
-      pdf.header("\n\n.     \t\t"+fecha.toLocaleDateString("es-ES", options));
+    pdf.header("\n\n.     \t\t"+fecha.toLocaleDateString("es-ES", options));
     pdf.add(new Txt('Listado de Actividades').alignment('center').bold().end );
     pdf.add(new Txt('Seguimiento:  '+this.seguimiento.nombre).end );
     pdf.add(new Txt('Tutor:  '+this.seguimiento.tutor.nombre+" "+this.seguimiento.tutor.apellido).end );
-    pdf.add(new Txt('Estudiante:  '+this.seguimiento.estudiante.nombres +' '+this.seguimiento.estudiante.apellidos ));
+    let estudiante=this.seguimiento.estudiante.nombres +' '+this.seguimiento.estudiante.apellidos;
+    pdf.add(new Txt('Estudiante:  '+estudiante ).end);
     pdf.add("\n\n\n");/*
     pdf.watermark('UNIVERSIDAD DEL CAUCA');  */
 
-    pdf.add(this.crearTabla());
+    pdf.add(this.crearTabla()); 
     pdf.create().download();
   }
   crearTabla() {

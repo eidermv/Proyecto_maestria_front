@@ -131,8 +131,6 @@ export class EditarActividadTutorComponent implements OnInit {
         semana: this.actividad.semana,
         fecha_inicio: this.datePipe.transform(this.actividad.fechaInicio, "dd/MM/yyyy"),
         fecha_entrega: this.datePipe.transform(this.actividad.fechaEntrega, "dd/MM/yyyy"),
-        /* fecha_inicio: this.actividad.fechaInicio.split(' ')[0],
-        fecha_entrega: this.actividad.fechaEntrega.split(' ')[0], */
         entregas: this.actividad.entregas,
         compromisos: this.actividad.compromisos,
         cumplido:this.actividad.cumplida+"",

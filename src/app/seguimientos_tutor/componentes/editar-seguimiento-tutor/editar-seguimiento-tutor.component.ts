@@ -149,9 +149,9 @@ const options = { year: 'numeric', month: 'long', day: 'numeric' };
       const fila: any[] = [];
       fila[contc] = act.semana; contc++;
       const fechaI = act.fechaInicio;
-      fila[contc] = fechaI.toLocaleDateString('es-ES', options); contc++;
+      fila[contc] = fechaI; contc++;
       const fechaE = act.fechaEntrega;
-      fila[contc] = fechaE.toLocaleDateString('es-ES', options); contc++;
+      fila[contc] = fechaE; contc++;
       fila[contc] = act.entregas; contc++;
       fila[contc] = act.compromisos; contc++;
       if (act.cumplida === 0) {fila[contc] = 'No Cumplido'; contc++; } else {fila[contc] = 'Cumplido'; contc++; }

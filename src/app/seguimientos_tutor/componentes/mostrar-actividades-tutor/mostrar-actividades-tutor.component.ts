@@ -17,14 +17,19 @@ import { EditarActividadTutorComponent } from '../editar-actividad-tutor/editar-
   styleUrls: ['./mostrar-actividades-tutor.component.css']
 })
 export class MostrarActividadesTutorComponent implements OnInit {
-  displayedColumns: string[] = ['Codigo', 'Nombre', 'Tipo', 'Estudiante', 'Estado', 'Accion'];
-  actividades: ActividadTutor[] = [];
   seguimientoTutor: SeguimientoTutorCompleto;
-  dataSource = new MatTableDataSource<ActividadTutor>(this.actividades);
-  constructor(private datePipe :DatePipe, private dialog: MatDialog , private actividadesTutorService: ActividadesTutorServices,private seguimientoTutorService: SeguimientosTutorServices) { }
+  actividades: ActividadTutor[]=[];
+  displayedColumns: string[] = ['Codigo', 'Nombre', 'Tipo', 'Estudiante', 'Estado', 'Accion'];
+  dataSource: MatTableDataSource<ActividadTutor>;
+
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+
+  constructor(private datePipe :DatePipe, private dialog: MatDialog , private actividadesTutorService: ActividadesTutorServices,
+    private seguimientoTutorService: SeguimientosTutorServices) { }
+
   ngOnInit(): void {
+    this.actividades = [];
     this.seguimientoTutor = new SeguimientoTutorCompleto();
     this.seguimientoTutor = this.seguimientoTutorService.seguimiento;
     this.cargarActividades();
@@ -37,12 +42,11 @@ export class MostrarActividadesTutorComponent implements OnInit {
           this.actividades.push(actividadesE);
         });
         this.dataSource = new MatTableDataSource(this.actividades);
-        this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       }
       console.log("ACTIVIDADES OBTENIAS DEL SERVICIO: ",this.actividades);
     });
-
   }
   agregarActividad() {
     const dialogRef = this.dialog.open(AgregarActividadComponent, {
@@ -52,6 +56,7 @@ export class MostrarActividadesTutorComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed');
+      this.ngOnInit();
     });
   }
   editarActividad(elem: ActividadTutor) {

@@ -194,7 +194,7 @@ var options = { year: 'numeric', month: 'long', day: 'numeric' };
   {
     const dialogRef = this.dialog.open(VerSeguimientoTutorComponent, {
       width: '800px',
-      height:'670px',
+      height:'550px',
       data:{}
     });
     dialogRef.afterClosed().subscribe(result => {

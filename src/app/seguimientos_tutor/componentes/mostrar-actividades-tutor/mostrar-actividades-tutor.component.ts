@@ -34,8 +34,6 @@ export class MostrarActividadesTutorComponent implements OnInit {
       if (data.estado === 'exito') {
         data.data.forEach( (item) => {
           const actividadesE: ActividadTutor = item;
-          actividadesE.fechaInicio=this.datePipe.transform(actividadesE.fechaInicio, "dd/MM/yyyy")
-          actividadesE.fechaEntrega=this.datePipe.transform(actividadesE.fechaEntrega, "dd/MM/yyyy")
           this.actividades.push(actividadesE);
         });
         this.dataSource = new MatTableDataSource(this.actividades);

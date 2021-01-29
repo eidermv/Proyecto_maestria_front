@@ -31,7 +31,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import { SeguimientosTutorServices } from '../servicios/seguimientosTutor.service';
 import { TutorTutorService } from '../servicios/tutor-tutor.service';
 import { MostrarActividadesTutorComponent } from '../componentes/mostrar-actividades-tutor/mostrar-actividades-tutor.component';
-
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 @NgModule({
   declarations: [
     ListTutorSeguimientosComponent,
@@ -65,6 +65,6 @@ import { MostrarActividadesTutorComponent } from '../componentes/mostrar-activid
     MatButtonModule,
     MatExpansionModule
   ],
-  providers: [SeguimientosTutorServices, ActividadesTutorServices, TutorTutorService, DatePipe],
+  providers: [SeguimientosTutorServices, ActividadesTutorServices, TutorTutorService, DatePipe,{ provide: MAT_DATE_LOCALE, useValue: 'es-ES' }],
 })
 export class SeguimientosTutorModule { }

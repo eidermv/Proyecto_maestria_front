@@ -68,6 +68,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import { AgregarActividadComponent } from './seguimientos_tutor/componentes/agregar-actividad/agregar-actividad.component';
 import { VerSeguimientoTutorComponent } from './seguimientos_tutor/componentes/ver-seguimiento-tutor/ver-seguimiento-tutor.component';
 import { ListActividadesTutorComponent } from './seguimientos_tutor/componentes/list-actividades-tutor/list-actividades-tutor.component';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 @NgModule({
   imports: [
     AppRoutingModule,
@@ -126,6 +127,7 @@ import { ListActividadesTutorComponent } from './seguimientos_tutor/componentes/
   },
   { provide: MatPaginatorIntl, useClass: MyMatPaginatorInt},
   CrearTutorComponent, {provide: MatDialogRef, useValue: {}},
+  { provide: MAT_DATE_LOCALE, useValue: 'es-ES' }
 ],
   bootstrap: [ AppComponent ]
 })

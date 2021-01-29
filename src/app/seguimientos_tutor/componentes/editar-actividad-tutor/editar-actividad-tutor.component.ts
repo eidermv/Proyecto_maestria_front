@@ -48,7 +48,7 @@ export class EditarActividadTutorComponent implements OnInit {
         cumplida: [this.actividad.cumplida,[]],
         entregas: [this.actividad.entregas, [Validators.required]],
         fecha_inicio:[new Date(this.actividad.fechaInicio+''), [ Validators.required]],//revisar esta parte
-        fecha_entrega: [new Date(this.actividad.fechaInicio+''), [Validators.required] ],//revisar esta parte
+        fecha_entrega: [new Date(this.actividad.fechaEntrega+''), [Validators.required] ],//revisar esta parte
         compromisos: [this.actividad.compromisos, [Validators.required]],
         visibilidad:[this.checked, [] ]
       });
@@ -141,5 +141,6 @@ export class EditarActividadTutorComponent implements OnInit {
       this.actividadService.editarActividad(seg);
       this.dialogRef.close();
     }
+    this.ngOnInit();
   }
 }

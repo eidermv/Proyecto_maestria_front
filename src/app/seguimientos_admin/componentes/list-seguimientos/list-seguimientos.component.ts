@@ -126,7 +126,7 @@ this.seguimientos=[];
     
     dialogRef.componentInstance.seguimiento=row;
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      this.ngOnInit();
     });
   }
  

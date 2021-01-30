@@ -6,7 +6,7 @@
                     <h1 style="padding-top: 0.3cm; "> EDITAR TUTOR</h1>
                   </div>
                 <div class="card-body">
-                    <form [formGroup]="formulario" (ngSubmit)="onSubmit()" #f="ngForm">
+                    <form [formGroup]="formulario"  #f="ngForm">
                         <p class="text-muted text-center">Edita los datos de un tutor. <br> Campos con <strong style="color: red;">*</strong> son obligatorios</p>
                         <div class="row">
                             <div class="formGroup col-6">
@@ -17,7 +17,7 @@
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i
-                                                class="fa fa-id-card-o"></i><small>Nombre</small></span>
+                                                class="fa fa-id-card-o"></i><small>* Nombre</small></span>
                                     </div>
                                     <input type="text" class="form-control" placeholder="* Digite nombre del tutor"
                                         formControlName="nombre">
@@ -32,7 +32,7 @@
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i
-                                                class="fa fa-envelope-o"></i><small>Apellido</small></span>
+                                                class="fa fa-envelope-o"></i><small>* Apellido</small></span>
                                     </div>
                                     <input type="text" class="form-control" placeholder="* Digite apellido del tutor"
                                         formControlName="apellido">
@@ -49,7 +49,7 @@
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i
-                                                class="fa fa-user-circle"></i><small>Identificación</small></span>
+                                                class="fa fa-user-circle"></i><small>* Identificación</small></span>
                                     </div>
                                     <input type="text" class="form-control"
                                         placeholder="* Digite Identificación del tutor"
@@ -83,7 +83,7 @@
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i
-                                                class="fa fa-user-circle"></i><small>Correo</small></span>
+                                                class="fa fa-user-circle"></i><small>* Correo</small></span>
                                     </div>
                                     <input type="email" class="form-control" placeholder="* Ingrese correo Ej: correo@dominio.com"
                                         formControlName="correo">
@@ -158,9 +158,10 @@
                             <button type="button" class="button is-danger" (click)="onCancel()" 
                                >Cancelar
                             </button>
-                            <button type="submit" class="btn btn-lg  btn-primary"
+                            <button  [disabled]="formulario.invalid" (click)="onSubmit()"  class="btn btn-lg  btn-primary"
                                 >Guardar
                             </button>
+                           
                         </div>
                     </form>
                 </div>

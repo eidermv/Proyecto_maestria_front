@@ -216,7 +216,7 @@ export class EditarSeguimientoComponent implements OnInit {
         estudiante: [null, [/* Validators.required */]],
         cohorte:[null, [/* Validators.required */]],
         estado: [null, [/* Validators.required */] ],
-        objetivo:[this.seguimiento.oGeneral, [ Validators.required] ],        
+        objetivo:[this.seguimiento.oGeneral, [ /* Validators.required */] ],        
         coodirector:[this.seguimiento.coodirector, [/* Validators.required */] ],
         estadoSeguimiento:[null, [/* Validators.required */]]
       });

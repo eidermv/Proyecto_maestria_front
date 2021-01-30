@@ -96,7 +96,7 @@ export class EditarTutorComponent implements OnInit {
         correo: [this.tutor.correo, [Validators.required,Validators.email]],
         grupoInvestigacion:[this.tutor.grupoInvestigacion,[]],
         departamento:[this.tutor.departamento,[]],
-        tipo: [null,[Validators.required]],
+        tipo: [null,[]],
         universidad:[this.tutor.universidad,[Validators.required]]
       });
       this.formulario.get('nombre').valueChanges.pipe(debounceTime(1000)).subscribe(

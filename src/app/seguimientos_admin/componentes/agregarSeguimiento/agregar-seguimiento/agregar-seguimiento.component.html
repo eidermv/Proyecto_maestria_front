@@ -20,7 +20,7 @@
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend ">
                                         <span class="input-group-text">
-                                            <i class="fa fa-id-card-o"></i><small> Nombre</small></span>
+                                            <i class="fa fa-id-card-o"></i><small>* Nombre</small></span>
                                     </div>
                                     <input type="text" class="form-control"
                                         placeholder="* Digite nombre del seguimiento" formControlName="nombre">
@@ -35,7 +35,7 @@
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i
-                                                class="fa fa-envelope-o"></i><small>TIPO</small></span>
+                                                class="fa fa-envelope-o"></i><small>* Tipo</small></span>
                                     </div>
                                    
                                     <select type="text" class="form-control" formControlName="tipo" #tipoSeguimiento>
@@ -57,7 +57,7 @@
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i
-                                                class="fa fa-user-circle"></i><small>tutor</small></span>
+                                                class="fa fa-user-circle"></i><small>* Tutor</small></span>
                                     </div>
                                     <select type="text" class="form-control" formControlName="tutor" #tutor>
                                         <option [ngValue]="null" disabled hidden >Seleccione</option>
@@ -79,7 +79,7 @@
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fa fa-user-circle"></i>
-                                            <small>Estudiante</small></span>
+                                            <small>* Estudiante</small></span>
                                     </div>
                                     <select type="text" class="form-control" formControlName="estudiante" #estudiante>
                                         <option [ngValue]="null" disabled hidden >Seleccione</option>
@@ -98,7 +98,7 @@
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i
-                                                class="fa fa-user-circle"></i><small>Estado Proyecto</small></span>
+                                                class="fa fa-user-circle"></i><small>* Estado Proyecto</small></span>
                                     </div>                                   
                                         <select type="text" class="form-control" formControlName="estado" #estadoProyecto>
                                             <option [ngValue]="null" disabled hidden >Seleccione</option>
@@ -117,7 +117,7 @@
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fa fa-user-circle"></i>
-                                            <small>Cohorte</small></span>
+                                            <small>* Cohorte</small></span>
                                     </div>
                                    
                                     <select type="text" class="form-control" formControlName="cohorte" #cohorteStudent>
@@ -151,7 +151,7 @@
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend ">
                                         <span class="input-group-text"><i
-                                                class="fa fa-user-circle"></i><small>Estado Seguimiento</small></span>
+                                                class="fa fa-user-circle"></i><small>* Estado Seguimiento</small></span>
                                     </div>
                                     <select type="text" class="form-control" formControlName="estadoSeguimiento" #estadoSeguimiento>
                                         <option [ngValue]="null" disabled hidden >Seleccione</option>

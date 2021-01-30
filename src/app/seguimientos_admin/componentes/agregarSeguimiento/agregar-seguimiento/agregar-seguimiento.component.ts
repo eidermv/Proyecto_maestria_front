@@ -200,7 +200,7 @@ export class AgregarSeguimientoComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
-      this.ngOnInit();
+      this.getAllTutores();
     });
     dialogRef.componentInstance.tutor.subscribe(
       result => {
@@ -215,14 +215,14 @@ export class AgregarSeguimientoComponent implements OnInit {
         nombre: ['', [Validators.required,
         Validators.maxLength(30)]
         ],
-        tipo: [null,  [/* Validators.required */]],
-        tutor: [null, [/* Validators.required */]],
-        estudiante: [null, [/* Validators.required */]],
-        cohorte:[null, [/* Validators.required */]],
-        estado: [null, [/* Validators.required */] ],
-        objetivo:['', [ Validators.required] ],        
+        tipo: [null,  [ Validators.required ]],
+        tutor: [null, [ Validators.required ]],
+        estudiante: [null, [ Validators.required ]],
+        cohorte:[null, [ Validators.required ]],
+        estado: [null, [ Validators.required ] ],
+        objetivo:['', [ /* Validators.required */] ],        
         coodirector:['', [/* Validators.required */] ],
-        estadoSeguimiento:[null, [/* Validators.required */]]
+        estadoSeguimiento:[null, [ Validators.required ]]
       });
      
       
@@ -245,13 +245,10 @@ export class AgregarSeguimientoComponent implements OnInit {
         if (value.tutor != null) p++;
         if (value.estudiante != null) p++;
         if (value.estado != "") p++;
-        if (value.cohorte != null) p++;
-        if (value.objetivo != "") p++;
-        if (value.coodirector != "") p++;
+        if (value.cohorte != null) p++;        
         if (value.estadoSeguimiento != null) p++;
-        if (value.objetivo != "") p++;
-        this.porcentaje = (10 * p);
-        console.log(value);
+        this.porcentaje = (p/7)*100;
+        console.log("Porcentaje:  ",this.porcentaje);
       }
     );
   }

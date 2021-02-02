@@ -39,7 +39,8 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header> OPCIONES </th>
       <td mat-cell *matCellDef="let row">
         <a class="btn" (click)="verActividad(row)"><i class="fa fa-eye"></i></a>
-      </td>
+        <!-- <a class="btn" (click)="eliminarActividad(row)"><i class="fa fa-times"></i></a>
+      --> </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

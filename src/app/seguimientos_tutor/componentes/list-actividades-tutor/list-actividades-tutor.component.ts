@@ -60,6 +60,12 @@ export class ListActividadesTutorComponent implements OnInit {
       console.log('The dialog was closed');
     });
   }
+  eliminarActividad(element: ActividadTutor){
+    this.actividadesService.eliminarActividadTutor(element.idActividad).subscribe(
+      (result) => {
+      console.log('RESULTADO DE ELIMINAR:   ',result);
+    });
+  }
   async crearPDF()
   {
 

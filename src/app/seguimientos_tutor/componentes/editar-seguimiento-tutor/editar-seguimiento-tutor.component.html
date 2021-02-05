@@ -85,8 +85,8 @@
                                   class="fa fa-user-circle"></i><small>Estado Proyecto</small></span>
                       </div>
                       <select type="text" class="form-control" formControlName="estado" #estadoProyecto>
-                        <option [ngValue]="null" disabled hidden >{{seguimientoTutor.estadoProyecto.nombre}}</option>
-                        <option [ngValue]="estado" *ngFor="let estado of optionsEstadoProyecto">{{estado.nombre}}</option>
+                        <option [ngValue]="" disabled hidden >{{seguimientoTutor.estadoProyecto.nombre}}</option>
+                        <option [ngValue]="estad" *ngFor="let estad of optionsEstadoProyecto">{{estad.nombre}}</option>
                       </select>
                   </div>
               </div>
@@ -116,9 +116,7 @@
                       <input type="text" class="form-control" formControlName="coodirector">
                   </div>
               </div>
-
-
-      </div>
+          </div>
           <div class="row">
               <div class="formGroup">
                   <i class="fa fa-exclamation-circle uncheck"
@@ -166,13 +164,13 @@
           <app-mostrar-actividades-tutor></app-mostrar-actividades-tutor>
         </mat-expansion-panel>
   </mat-accordion>
-  <div style="text-align:right">
-    <button type="button" class="button is-danger" (click)="cancelar()">Cancelar
-    </button>
-    <button type="button" (click)="onSubmit()"  class="button is-info" [disabled]="formulario.invalid">Guardar
-    </button>
-
-  </div>
-
   </mat-card-content>
+  <mat-card-actions>
+    <div style="text-align:right">
+      <button type="button" class="button is-danger" (click)="cancelar()">Cancelar
+      </button>
+      <button type="button" (click)="onSubmit()"  class="button is-info" [disabled]="formulario.invalid">Guardar
+      </button>
+    </div>
+  </mat-card-actions>
   </mat-card>

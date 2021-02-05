@@ -38,13 +38,13 @@ export class MostrarActividadesTutorComponent implements OnInit {
     this.crearFormulario();
   }
   private crearFormulario():void{
-    
+
     this.formulario = this.formBuilder.group(
-      {      
+      {
         visibilidad:[false, [] ]
       });
 
-     
+
       this.formulario.get('visibilidad').valueChanges.subscribe(
         value=>
         {
@@ -69,7 +69,7 @@ Swal.fire({
     confirmButtonText: 'Confirmar',
     cancelButtonText: 'Cancelar',
     reverseButtons: true,
-  confirmButtonColor: '#3085d6'      
+  confirmButtonColor: '#3085d6'
 }).then((result) => {
   if (result.isConfirmed) {
     console.log("CAMBIANDO VISIBILIDAD");
@@ -108,7 +108,7 @@ Swal.fire({
   }
 });
 /////////////////FIN
-/* 
+/*
            */
         }
       );

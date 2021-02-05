@@ -39,7 +39,7 @@ export class EditarSeguimientoTutorComponent implements OnInit {
   panelOpenState = false;
   actividades: ActividadTutor[] = [];
   seguimientoTutor: SeguimientoTutorCompleto;
-  @Input() seguimiento: SeguimientoTutor;
+  @Input() seguimiento: SeguimientoTutorCompleto;
   formulario: FormGroup;
   porcentaje: number;
   YEAR_END_COHORTE: number;
@@ -66,6 +66,7 @@ export class EditarSeguimientoTutorComponent implements OnInit {
   ngOnInit(): void {
     this.seguimientoTutor = new SeguimientoTutorCompleto();
     this.seguimientoTutor = this.seguimientoTutorService.seguimiento;
+    console.log("SEGUMIENTO POR PARAMETRO Y SEG POR SERVICIO:",this.seguimiento);
     this.listarEstadosProyecto();
     this.cargarActividades();
     const oe = '';
@@ -115,11 +116,11 @@ export class EditarSeguimientoTutorComponent implements OnInit {
     title: 'Listado De Actividades',
     author: 'Universidad del Cauca',
     subject: 'Reporte',
-});
-const fecha = new Date();
-const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  });
+  const fecha = new Date();
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
     pdf.pageMargins([ 100, 60, 40, 40 ]);
-     pdf.header('\n\n.     \t\t' + fecha.toLocaleDateString('es-ES', options));
+    pdf.header('\n\n.     \t\t' + fecha.toLocaleDateString('es-ES', options));
     pdf.add(new Txt('Listado de Actividades').alignment('center').bold().end );
     pdf.add(new Txt('Seguimiento:  ' + this.seguimiento.nombre).end );
     pdf.add(new Txt('Tutor:  ' + this.seguimiento.tutor).end );
@@ -169,39 +170,37 @@ const options = { year: 'numeric', month: 'long', day: 'numeric' };
   }
   onSubmit() {
     if (this.formulario.valid) {
+      let seg={
+      nombre : this.seguimientoTutor.nombre,
+      id_tutor : this.seguimientoTutor.tutor.id_tutor,
+      codirector: this.seguimientoTutor.codirector,
+      id_estudiante : this.seguimientoTutor.estudiante.id,
+      objetivoGeneral : this.seguimientoTutor.objetivoGeneral,
+      cohorte : this.seguimientoTutor.cohorte,
+      idSeguimiento : this.seguimientoTutor.idSeguimiento,
+      objetivosEspecificos : this.seguimientoTutor.objetivosEspecificos,
+      idEstadoProyecto : this.seguimientoTutor.estadoProyecto.idEstadoSeguimiento,
+      idTipoSeguimiento: this.seguimientoTutor.tipoSeguimiento.idTipoSeguimiento,
+      idEstadoSeguimiento : this.seguimientoTutor.estadoSeguimiento.idEstadoSeguimiento,
+      };
+      this.seguimientoTutorService.guardarSeguimientoTutor(seg);
       console.log('FORMULARIO VALIDO');
       Swal.fire(
         'Exito!',
         'Seguimiento Actualizado!',
         'success'
       );
-
-    this.banNotificaciones.emit(true);
-
-    } else {
+      this.banNotificaciones.emit(true);
+    } else{
       console.log('FORMULARIO IN VALIDO');
       this.formulario.markAllAsTouched();
-      // this.errorFormulario();
     }
     this.crearFormulario();
   }
-
-  crearTutor() {
-    const dialogRef = this.dialog.open(CrearTutorComponent, {
-      width: '600px',
-      data: {}
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
-    dialogRef.componentInstance.tutor.subscribe(
-      result => {
-        this.formulario.get('tutor').setValue(result.nombre + ' ' + result.apellido);
-      }
-    );
-  }
   cancelar() {
+    //se vuelve a llamar?
     this.crearFormulario();
+    this.ngOnInit();
     Swal.fire(
       'Cancelado!',
       'Seguimiento no Actualizado!',
@@ -209,24 +208,22 @@ const options = { year: 'numeric', month: 'long', day: 'numeric' };
     );
     this.banNotificaciones.emit(true);
   }
-
   private crearFormulario(): void {
-    console.log("Entro a crear un formulario de edita",this.seguimientoTutor);
+    console.log("Entro a crear un formulario de editar",this.seguimientoTutor);
     this.formulario = this.formBuilder.group(
       {
-        nombre: [{value: this.seguimientoTutor.nombre, disabled:true}, [Validators.required,
-        Validators.maxLength(30)]
-        ],
+        nombre: [{value: this.seguimientoTutor.nombre, disabled:true},
+          [Validators.required, Validators.maxLength(30)]],
         tipo: [{value: this.seguimientoTutor.tipoSeguimiento.nombre, disabled:true},  [Validators.required ]],
         tutor: [{value: this.seguimientoTutor.tutor.nombre+' '+this.seguimientoTutor.tutor.apellido, disabled:true}, [Validators.required ]],
         estudiante: [{value: this.seguimientoTutor.estudiante.nombres+' '+this.seguimientoTutor.estudiante.apellidos, disabled:true}, [Validators.required]],
         cohorte: [{value: this.seguimientoTutor.cohorte, disabled:true}, [Validators.required]],
-        estado: [null, [Validators.required] ],
+        estado: [this.seguimientoTutor.estadoProyecto.nombre, [Validators.required] ],
         objetivo: [this.seguimientoTutor.objetivoGeneral, [ Validators.required] ],
         coodirector: [{value: this.seguimientoTutor.codirector, disabled:true}, [Validators.required] ],
         objetivosEspecificos: [this.seguimientoTutor.objetivosEspecificos, [Validators.required]]
       });
-
+      //Explicar este evaluador de cambios
      this.formulario.valueChanges.pipe(
       debounceTime(350)
       ).subscribe(
@@ -245,6 +242,27 @@ const options = { year: 'numeric', month: 'long', day: 'numeric' };
           if (value.objetivo != '') { p++; }
           this.porcentaje = (10 * p);
           console.log(value);
+        }
+      );
+      this.formulario.get('estado').valueChanges.subscribe(
+        value=>{
+          if(this.formulario.get('estado').valid){
+            this.seguimientoTutor.estadoProyecto=this.formulario.get('estado').value;
+          }
+        }
+      );
+      this.formulario.get('objetivo').valueChanges.subscribe(
+        value=>{
+          if(this.formulario.get('objetivo').valid){
+            this.seguimientoTutor.objetivoGeneral=this.formulario.get('objetivo').value;
+          }
+        }
+      );
+      this.formulario.get('objetivosEspecificos').valueChanges.subscribe(
+        value=>{
+          if(this.formulario.get('objetivosEspecificos').valid){
+            this.seguimientoTutor.objetivosEspecificos=this.formulario.get('objetivosEspecificos').value;
+          }
         }
       );
   }

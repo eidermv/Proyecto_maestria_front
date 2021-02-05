@@ -35,7 +35,7 @@ export class MostrarActividadesTutorComponent implements OnInit {
     this.seguimientoTutor = new SeguimientoTutorCompleto();
     this.seguimientoTutor = this.seguimientoTutorService.seguimiento;
     this.cargarActividades();
-    this.crearFormulario();
+    //this.crearFormulario();
   }
   private crearFormulario():void{
 
@@ -121,7 +121,48 @@ Swal.fire({
         }
       ); */
   }
+  enviarActividades(){
+    Swal.fire({
+      title: '¡Mensaje de confirmación!',
+      text: '¿Está seguro que desea hacer visible todas las actividades al Coordinador?',
+      //icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'SI',
+      cancelButtonText: 'NO'
+    }).then((result) => {
+      if (result.value) {
+        for(let actividad of this.actividades){
+          let seg={
+            id_actividad: actividad.idActividad,
+            semana: actividad.semana,
+            fecha_inicio: this.datePipe.transform(actividad.fechaInicio, "dd/MM/yyyy"),
+            fecha_entrega: this.datePipe.transform(actividad.fechaEntrega, "dd/MM/yyyy"),
+            entregas: actividad.entregas,
+            compromisos: actividad.compromisos,
+            cumplido:actividad.cumplida+"",
+            id_seguimiento:this.seguimientoTutor.idSeguimiento,
+            visibilidad:1+""
+          };
+          this.actividadesTutorService.editarActividad(seg);
+        }
+        Swal.fire(
+          'Exito!',
+          'Todas las actividades visibles.',
+          'success'
+        )
+        this.actividades=[];
+        this.ngOnInit();
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire(
+          'Cancelado',
+          'No se han modificado las actividades',
+          'error'
+        )
+      }
+    })
+  }
   cargarActividades(){
+    this.actividades=[];
     this.actividadesTutorService.obtenerActividadesTutor(this.seguimientoTutor.idSeguimiento).subscribe((data) => {
       if (data.estado === 'exito') {
         data.data.forEach( (item) => {
@@ -164,5 +205,4 @@ Swal.fire({
       console.log('RESULTADO DE ELIMINAR:   ',result);
     });
   }
-
 }

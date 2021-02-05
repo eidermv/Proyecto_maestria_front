@@ -1,9 +1,11 @@
 <!-- Desde aquí se llama el componente de listar actividades edit -->
-<h3>¿Desea que el coordinador vea todas las actividad?</h3>
+<!-- <h3>¿Desea que el coordinador vea todas las actividad?</h3>
 <form [formGroup]="formulario" >
   <mat-checkbox class="example-margin" formControlName="visibilidad">Mostrar actividades</mat-checkbox>
-</form>
+</form> -->
+
 <p class="full">
+  <button class="btn btn-secondary der" (click)="enviarActividades()">Enviar actividades</button>
   <button class="btn btn-primary izq" (click)="agregarActividad()">Agregar</button>
 </p>
 

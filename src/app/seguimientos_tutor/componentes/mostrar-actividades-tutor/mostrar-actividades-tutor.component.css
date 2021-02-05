@@ -17,6 +17,12 @@ th.mat-sort-header-sorted {
   display: inline-flex;
   justify-self: right;
 }
+.der{
+  margin-right: 0%;
+  margin-right: auto;
+  display: inline-flex;
+  justify-self: left;
+}
 .example-section {
   margin: 12px 0;
 }

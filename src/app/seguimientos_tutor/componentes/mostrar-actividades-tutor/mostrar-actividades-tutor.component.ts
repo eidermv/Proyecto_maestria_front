@@ -188,15 +188,17 @@ Swal.fire({
     });
   }
   editarActividad(elem: ActividadTutor) {
+    let act:ActividadTutor={...elem};
     const dialogRef = this.dialog.open(EditarActividadTutorComponent, {
       width: '700px', height: '600px',
       data: {
       }
     });
-    dialogRef.componentInstance.actividad = elem;
+    dialogRef.componentInstance.actividad = act;
     dialogRef.componentInstance.seguimiento=this.seguimientoTutor;
     dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed');
+      this.ngOnInit();
     });
   }
   eliminarActividad(element: ActividadTutor){

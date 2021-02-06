@@ -65,7 +65,7 @@ export class EditarSeguimientoTutorComponent implements OnInit {
 
   ngOnInit(): void {
     this.seguimientoTutor = new SeguimientoTutorCompleto();
-    this.seguimientoTutor = this.seguimientoTutorService.seguimiento;
+    this.seguimientoTutor = {...this.seguimientoTutorService.seguimiento};
     console.log("SEGUMIENTO POR PARAMETRO Y SEG POR SERVICIO:",this.seguimiento);
     this.listarEstadosProyecto();
     this.cargarActividades();
@@ -183,6 +183,7 @@ export class EditarSeguimientoTutorComponent implements OnInit {
       idTipoSeguimiento: this.seguimientoTutor.tipoSeguimiento.idTipoSeguimiento,
       idEstadoSeguimiento : this.seguimientoTutor.estadoSeguimiento.idEstadoSeguimiento,
       };
+      
       this.seguimientoTutorService.guardarSeguimientoTutor(seg);
       console.log('FORMULARIO VALIDO');
       Swal.fire(

@@ -17,3 +17,19 @@
   display: inline-flex;
   justify-self: right;
 }
+.full{
+  width: 100%;
+  display: flex;
+  justify-content: right;
+  justify-items: right;
+}
+.der{
+  margin-right: 0%;
+  margin-right: auto;
+  display: inline-flex;
+  justify-self: left;
+}
+
+
+
+

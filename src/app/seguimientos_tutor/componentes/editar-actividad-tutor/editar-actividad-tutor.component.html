@@ -65,12 +65,15 @@
         <!-- <input type="checkbox" formControlName="visibilidad" id="visibilidad" class="form-check-input"  /> -->
       </div>
     </div>
-    <div style="text-align:right">
-      <button type="submit"  class="button is-info"
-        [disabled]="formulario.invalid">Guardar</button>
-    </div>
   </form>
 </div>
-
+<mat-dialog-actions>
+  <div class="izq">
+    <button type="button" class="button is-danger" (click)="cancelar()">Cancelar
+    </button>
+    <button stype="button" (click)="onSubmit()"  class="button is-info" [disabled]="formulario.invalid">Guardar
+    </button>
+  </div>
+</mat-dialog-actions>
 
 

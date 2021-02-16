@@ -150,4 +150,7 @@ export class EditarActividadTutorComponent implements OnInit {
     }
     this.ngOnInit();
   }
+  cancelar(){
+    this.dialogRef.close();
+  }
 }

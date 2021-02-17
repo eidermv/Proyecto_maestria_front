@@ -46,8 +46,8 @@ export class AgregarActividadComponent implements OnInit {
         semana: ['', [Validators.maxLength(30)]],
         cumplida: [null,  []],
         entregas: ['', [Validators.required]],
-        fecha_inicio:[new Date(), [ Validators.required]],
-        fecha_entrega:[new Date(), [Validators.required]],
+        fecha_inicio:[null, [ Validators.required]],
+        fecha_entrega:[null, [Validators.required]],
         compromisos: ['', [Validators.required]],
         visibilidad:[this.checked, []],
       });

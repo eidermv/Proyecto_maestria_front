@@ -202,9 +202,44 @@ Swal.fire({
     });
   }
   eliminarActividad(element: ActividadTutor){
-    this.actividadesTutorService.eliminarActividadTutor(element.idActividad).subscribe(
-      (result) => {
-      console.log('RESULTADO DE ELIMINAR:   ',result);
-    });
+    Swal.fire({
+      title: '¡Mensaje de confirmación!',
+      text: '¿Está seguro que desea eliminar esta actividad?',
+      //icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'SI',
+      cancelButtonText: 'NO'
+    }).then((result) => {
+      if (result.value) {
+        this.actividadesTutorService.eliminarActividadTutor(element.idActividad).subscribe(
+          (result) => {
+            if(result.estado ==='exito'){
+              console.log('HIZO ELIMINAR ACTIVIDAD:   ',result);
+              Swal.fire(
+                'Exito!',
+                'La actividad ha sido eliminada.',
+                'success'
+              )
+              this.actividades=[];
+              this.ngOnInit();
+            }
+            else{
+              Swal.fire(
+                'Cancelado',
+                'ha ocurrido un error al eliminar la actividad',
+                'error'
+              )
+            }
+        });
+
+      }
+      else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire(
+          'Cancelado',
+          'No se ha eliminado la actividad',
+          'error'
+        )
+      }
+    })
   }
 }

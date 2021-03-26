@@ -15,15 +15,18 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatButtonModule} from '@angular/material/button';
 import {MatExpansionModule} from '@angular/material/expansion';
+import { ReactiveFormsModule } from '@angular/forms';
+import { VerTutorComponent } from '../componentes/ver-tutor/ver-tutor.component';
 @NgModule({
     declarations: [
-      ListarTutorComponent
+      ListarTutorComponent,
+      VerTutorComponent
     ],
     imports: [
       CommonModule,
       TutoresRoutingModule ,MatTableModule,
       MatSortModule,
-      MatInputModule,    
+      MatInputModule,
       MatIconModule,
       MatPaginatorModule,
       MatCardModule,
@@ -31,11 +34,12 @@ import {MatExpansionModule} from '@angular/material/expansion';
       MatProgressBarModule,
       MatButtonModule,
       MatExpansionModule,
+      FormsModule,
+      ReactiveFormsModule,
     ],
     providers: [TutorService],
   })
-  export class TutorModule 
-  { 
-      
+  export class TutorModule
+  {
+
   }
-  

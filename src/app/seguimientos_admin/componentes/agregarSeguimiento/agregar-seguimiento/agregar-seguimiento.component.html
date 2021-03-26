@@ -6,7 +6,7 @@
                     <strong>AGREGAR SEGUIMIENTO</strong>
                 </div>
                 <div class="card-body">
-                    <form [formGroup]="formulario" (ngSubmit)="onSubmit()" #f="ngForm">
+                    <form [formGroup]="formulario" (ngSubmit)="onSubmit($event)" #f="ngForm">
                         <h1 class="title text-center">AGREGAR SEGUIMIENTO</h1>
                         <p class="text-muted text-center">En este formulario podrá registrar los Seguimientos, los
                             campos con * son obligatorios</p>
@@ -37,13 +37,13 @@
                                         <span class="input-group-text"><i
                                                 class="fa fa-envelope-o"></i><small>* Tipo</small></span>
                                     </div>
-                                   
+
                                     <select type="text" class="form-control" formControlName="tipo" #tipoSeguimiento>
                                         <option [ngValue]="null" disabled hidden >Seleccione</option>
                                         <option [ngValue]="oe" *ngFor="let oe of optionsTiposSeguimiento">{{oe.nombre}}
                                         </option>
                                     </select>
-                                    
+
                                 </div>
                             </div>
                         </div>
@@ -66,7 +66,7 @@
                                     </select>
                                     <i class="button is-primary fa fa-plus-circle sinborde iconos fa-2x"
                                         data-toggle="modal"
-                                        data-target="#myModal" (click)="crearTutor()"></i>                                    
+                                        data-target="#myModal" (click)="crearTutor()"></i>
                                 </div>
                             </div>
 
@@ -99,7 +99,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i
                                                 class="fa fa-user-circle"></i><small>* Estado Proyecto</small></span>
-                                    </div>                                   
+                                    </div>
                                         <select type="text" class="form-control" formControlName="estado" #estadoProyecto>
                                             <option [ngValue]="null" disabled hidden >Seleccione</option>
                                             <option [ngValue]="oe" *ngFor="let oe of optionsEstadoProyecto">{{oe.nombre}}
@@ -119,7 +119,7 @@
                                         <span class="input-group-text"><i class="fa fa-user-circle"></i>
                                             <small>* Cohorte</small></span>
                                     </div>
-                                   
+
                                     <select type="text" class="form-control" formControlName="cohorte" #cohorteStudent>
                                         <option [ngValue]="null" disabled hidden >Seleccione</option>
                                         <option [ngValue]="years" *ngFor="let years of optionsCohorte">{{years}}
@@ -158,7 +158,7 @@
                                         <option [ngValue]="oe" *ngFor="let oe of optionsEstadoSeguimiento">{{oe.nombre}}
                                         </option>
                                     </select>
-                                 
+
                                 </div>
                             </div>
 
@@ -174,20 +174,20 @@
                                         <span class="input-group-text"><i
                                                 class="fa fa-user-circle"></i><small>Objetivo General</small></span>
                                     </div>
-                                    
+
                                         <textarea type="text" placeholder="* O. General" formControlName="objetivo" cols="50" rows="5"></textarea>
                                 </div>
                             </div>
                         </div>
                         <mat-progress-bar mode="determinate" value="{{porcentaje}}"></mat-progress-bar>
                         <div style="text-align:right">
-                            <button type="button" class="button is-danger" (click)="cancelar()" 
+                            <button type="button" class="button is-danger" (click)="cancelar()"
                                 >Cancelar
                             </button>
                             <button type="submit"  class="button is-info"
                                 [disabled]="formulario.invalid">Guardar
                             </button>
-                            
+
                         </div>
                     </form>
                 </div>

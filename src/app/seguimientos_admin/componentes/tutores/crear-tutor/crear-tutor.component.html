@@ -6,7 +6,7 @@
                     <strong>CREAR TUTOR</strong>
                 </div>
                 <div class="card-body">
-                    <form [formGroup]="formulario" (ngSubmit)="onSubmit()" #f="ngForm">
+                    <form [formGroup]="formulario" (ngSubmit)="onSubmit($event)" #f="ngForm">
                         <h1 class="title text-center">CREAR TUTOR</h1>
                         <p class="text-muted text-center">Crear un Nuevo tutor. Campos con * son obligatorios</p>
 
@@ -79,9 +79,9 @@
                                     </i>
                                     <i class="fa fa-exclamation-circle uncheck"
                                     *ngIf="formulario.get('correo').errors?.email">
-                                    Formato de correo Incorrecto. 
+                                    Formato de correo Incorrecto.
                                 </i>
-                                </div>                               
+                                </div>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i
@@ -140,7 +140,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="row" *ngIf="formulario.get('tipo').value!=null&&formulario.get('tipo').value.nombre==='Externo'; else interno" >
                             <div class="formGroup col-6">
                                 <i class="fa fa-exclamation-circle uncheck"
@@ -154,25 +154,25 @@
                                     <input type="text" class="form-control" placeholder="* Ingrese Universidad"
                                         formControlName="universidad">
                                 </div>
-                            </div>                          
+                            </div>
                         </div>
                         <ng-template #interno hidden>
                             <div class="row" *ngIf="formulario.get('tipo').value!=null&&formulario.get('tipo').value.nombre==='Externo'" >
                                 <div class="formGroup col-6">
-                                    
+
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fa fa-user-circle"></i><small>Universidad</small></span>
                                         </div>
                                         <input type="text" class="form-control" placeholder="* Ingrese Universidad"
                                             formControlName="universidad" value="Universidad del Cauca">
-                                            
+
                                     </div>
-                                </div>                          
+                                </div>
                             </div>
                         </ng-template>
                         <div style="text-align:right">
-                            <button type="button" class="button is-danger" (click)="onCancel()" 
+                            <button type="button" class="button is-danger" (click)="onCancel()"
                                >Cancelar
                             </button>
                             <button type="submit" class="btn btn-lg  btn-primary"

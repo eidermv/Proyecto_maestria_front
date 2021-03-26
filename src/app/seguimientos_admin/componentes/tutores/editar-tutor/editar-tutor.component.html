@@ -77,9 +77,9 @@
                                     </i>
                                     <i class="fa fa-exclamation-circle uncheck"
                                     *ngIf="formulario.get('correo').errors?.email">
-                                    Formato de correo Incorrecto. 
+                                    Formato de correo Incorrecto.
                                 </i>
-                                </div>                               
+                                </div>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i
@@ -135,7 +135,7 @@
                                         <option [ngValue]="oe" *ngFor="let oe of optionsTiposTutor">{{oe.nombre}}
                                         </option>
                                     </select>
-                                   
+
                                 </div>
                             </div>
                         </div>
@@ -152,16 +152,16 @@
                                     <input type="text" class="form-control" placeholder="* Ingrese Universidad"
                                         formControlName="universidad">
                                 </div>
-                            </div>                          
+                            </div>
                         </div>
                         <div style="text-align:right">
-                            <button type="button" class="button is-danger" (click)="onCancel()" 
+                            <button type="button" class="button is-danger" (click)="onCancel()"
                                >Cancelar
                             </button>
-                            <button  [disabled]="formulario.invalid" (click)="onSubmit()"  class="btn btn-lg  btn-primary"
+                            <button  [disabled]="formulario.invalid" (click)="onSubmit($event)"  class="btn btn-lg  btn-primary"
                                 >Guardar
                             </button>
-                           
+
                         </div>
                     </form>
                 </div>

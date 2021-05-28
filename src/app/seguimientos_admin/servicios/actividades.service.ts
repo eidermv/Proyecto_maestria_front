@@ -3,6 +3,7 @@ import { Actividad } from '../modelos/actividad.model';
 import { DatePipe } from '@angular/common';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 /** Constants used to fill up our data base. */
 const SEMANAS: string[] = [
   'SEMANA 1', 'SEMANA 2', 'SEMANA 3', 'SEMANA 4', 'SEMANA 6', 'SEMANA 7', 'SEMANA 8','SEMANA 9'
@@ -16,7 +17,7 @@ const ENTREGAS: string[] = [
   const FECHAS: string[] = [
     "2020-03-25", "2020-04-11", "2020-07-27","2020-08-01","2020-06-13","2020-05-12"
   ];
-  const RUTA="http://localhost:8099";
+  const RUTA=environment.URL_SERVICIO;
 @Injectable({
   providedIn: 'root'
 })
@@ -38,11 +39,11 @@ getActividades(id_seguimiento:number): Observable<any> {
 }
 crearActividad(id: number): Actividad {
 
-  const sem = SEMANAS[Math.round(Math.random() * (SEMANAS.length - 1))]; 
-  const entr = ENTREGAS[Math.round(Math.random() * (ENTREGAS.length - 1))]; 
-  const compr = COMPROMISOS[Math.round(Math.random() * (COMPROMISOS.length - 1))];  
-  const fi = FECHAS[Math.round(Math.random() * (FECHAS.length - 1))]; 
-  const fe = FECHAS[Math.round(Math.random() * (FECHAS.length - 1))]; 
+  const sem = SEMANAS[Math.round(Math.random() * (SEMANAS.length - 1))];
+  const entr = ENTREGAS[Math.round(Math.random() * (ENTREGAS.length - 1))];
+  const compr = COMPROMISOS[Math.round(Math.random() * (COMPROMISOS.length - 1))];
+  const fi = FECHAS[Math.round(Math.random() * (FECHAS.length - 1))];
+  const fe = FECHAS[Math.round(Math.random() * (FECHAS.length - 1))];
     this.id += 1;
     const identificador = this.id;
     if(this.cump==0)
@@ -60,6 +61,6 @@ crearActividad(id: number): Actividad {
     visibilidad:1-this.cump
     };
   }
- 
+
 
 }

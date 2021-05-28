@@ -4,7 +4,8 @@ import { TipoSeguimiento } from '../../seguimientos_admin/modelos/tipoSeguimient
 import { EstadoProyecto } from '../../seguimientos_admin/modelos/estadosProyecto.model';
 import { EstadoSeguimiento } from '../../seguimientos_admin/modelos/estadoSeguimiento.model';
 import { SeguimientoTutorCompleto } from '../modelos/seguimientoTutorCompleto.model';
-const RUTA = 'http://localhost:8099';
+import { environment } from '../../../environments/environment';
+const RUTA = environment.URL_SERVICIO;
 @Injectable()
 // tslint:disable-next-line: class-name
 

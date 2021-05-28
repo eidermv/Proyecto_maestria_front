@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-const RUTA = 'http://localhost:8099';
+import { environment } from '../../../environments/environment';
+const RUTA = environment.URL_SERVICIO;
 @Injectable({
   providedIn: 'root'
 })

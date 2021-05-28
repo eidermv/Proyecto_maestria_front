@@ -6,9 +6,10 @@ import { Seguimiento } from '../modelos/seguimiento.model';
 import { EstadoSeguimiento } from '../modelos/estadoSeguimiento.model';
 import { EstadoProyecto } from '../modelos/estadosProyecto.model';
 import { TipoSeguimiento } from '../modelos/tipoSeguimiento.model';
+import { environment } from '../../../environments/environment';
 
 const httpOptions = new HttpHeaders({ 'Content-Type': 'application/json'});
-const RUTA="http://localhost:8099";
+const RUTA=environment.URL_SERVICIO;
 /** Constants used to fill up our data base. */
 const PROYECTS: string[] = [
     'TESIS1', 'TESIS2', 'TESIS3', 'TESIS4', 'TESIS5'
@@ -36,7 +37,7 @@ export class SeguimientosService {
         this.seguimientos = Array.from({ length: 100 }, (_, k) => this.crearSeguimientos(k + 1));
         return this.seguimientos;
     }
-    getSeguimientos(): Observable<any> {      
+    getSeguimientos(): Observable<any> {
       return this.http.get(RUTA+'/seguimiento/listar');
     }
     deleteSeguimiento(id:number): Observable<any>
@@ -48,12 +49,12 @@ export class SeguimientosService {
       return this.crearSeguimientos(n);
     }
     onEditSeguimiento(seg:any):Observable<any>
-    {      
-      console.log("SEGUIMIENTO EN EDITAR:   ",seg); 
+    {
+      console.log("SEGUIMIENTO EN EDITAR:   ",seg);
       return this.http.put(RUTA+'/seguimiento/editar/'+seg.idSeguimiento,seg, {headers : new HttpHeaders({ 'Content-Type': 'application/json'}) ,
       reportProgress: true, observe: 'events'});
     }
-    onCrearSeguimiento(s:any):Observable<any>{/* 
+    onCrearSeguimiento(s:any):Observable<any>{/*
       console.log("SEGUIMIENTO EN CREAR:   ",s); */
       return this.http.post(RUTA+'/seguimiento/crear',s, {headers : new HttpHeaders({ 'Content-Type': 'application/json'}) ,
       reportProgress: true, observe: 'events'});
@@ -124,5 +125,5 @@ export class SeguimientosService {
         return nuevo;
       }
 
-      
+
 }

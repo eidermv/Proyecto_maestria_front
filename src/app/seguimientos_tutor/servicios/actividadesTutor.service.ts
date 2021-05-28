@@ -3,8 +3,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 const opcionesCumplido: string[] = ['Cumplida','No cumplida'];
-const RUTA = 'http://localhost:8099';
+const RUTA = environment.URL_SERVICIO;
 @Injectable()
 // tslint:disable-next-line: class-name
 export class ActividadesTutorServices {

@@ -2,16 +2,17 @@ import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Student } from '../../models/student';
+import { environment } from '../../../environments/environment';
 
 const httpOptions = new HttpHeaders({ 'Content-Type': 'application/json' });
-const RUTA = "http://localhost:8099";
+const RUTA = environment.URL_SERVICIO;
 
 
 @Injectable()
 export class EstudianteService {
     estudiantes: Student[] = [];
     constructor(private httpClient: HttpClient) { }
-  
+
     onEstudiantes(): Observable<any> {
         return this.httpClient.get(RUTA + '/estudiante/buscar/todo');
     }

@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  URL_SERVICIO: 'http://localhost:8099/'
+  URL_SERVICIO: 'http://localhost:8080/gestordocumenta-0.0.1-SNAPSHOT'
 };

@@ -4,8 +4,9 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Tutor } from '../modelos/tutor.model';
 import { TipoTutor } from '../modelos/tipoTutor.model';
+import { environment } from '../../../environments/environment';
 const httpOptions = new HttpHeaders({ 'Content-Type': 'application/json'});
-const RUTA="http://localhost:8099";
+const RUTA= environment.URL_SERVICIO;
 @Injectable()
 export class TutorService {
     tutores:Tutor[]=[];
@@ -13,7 +14,7 @@ export class TutorService {
     constructor(private http: HttpClient) { }
     onTutores():void
     {
-        
+
     }
     getTutores(): Observable<any>
     {
@@ -39,7 +40,7 @@ export class TutorService {
       reportProgress: true, observe: 'events'});
     }
     onEditTutor(t:any):Observable<any>
-    {     
+    {
       console.log("TUTOR EN EDITAR:   ",t);
       return this.http.put(RUTA+'/tutor/editar', t, {headers : new HttpHeaders({ 'Content-Type': 'application/json'}) ,
       reportProgress: true, observe: 'events'});

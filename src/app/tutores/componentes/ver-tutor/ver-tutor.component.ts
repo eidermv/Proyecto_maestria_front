@@ -18,14 +18,14 @@ export class VerTutorComponent implements OnInit {
   formulario:FormGroup;
   texto:string="";
   objEspec:string[];
-  
+
   constructor(public dialogRef: MatDialogRef<VerTutorComponent>,private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     let oe:string="";
     let cont=1;
     this.objEspec=[];
-    console.log("Asignando tutor al form:  ",this.tutor);
+
     this.formulario = this.formBuilder.group(
       {
         nombre: [this.tutor.nombre+"", [Validators.required,
@@ -41,7 +41,7 @@ export class VerTutorComponent implements OnInit {
         departamento:[this.tutor.departamento,[]],
         universidad:[this.tutor.universidad,[]]
       });
-      
+
 
       this.formulario.valueChanges.pipe(
         debounceTime(350)
@@ -51,10 +51,10 @@ export class VerTutorComponent implements OnInit {
   okClick() {
     this.dialogRef.close();
   }
- 
+
   separar()
   {
-    console.log("PRESIONO ENTER")
+
   }
   consultarSeguimiento()
   {

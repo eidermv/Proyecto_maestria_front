@@ -1,6 +1,6 @@
 import { debounceTime } from 'rxjs/operators';
 import { TutorCompleto } from './../../../modelos/tutorCompleto.model';
-import { CommonModule } from '@angular/common';  
+import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -21,7 +21,7 @@ export class EditarTutorComponent implements OnInit {
   externo:boolean=false;
   tutor:TutorCompleto;
   defaultValue="";
-  
+
   optionsTiposTutor:TipoTutor[]=[];
   constructor(public dialogoReg:MatDialogRef<EditarTutorComponent>,private formBuilder: FormBuilder,
     private tutorService:TutorService) {
@@ -39,13 +39,13 @@ export class EditarTutorComponent implements OnInit {
     });
     this.defaultValue=this.tutor.tipo.nombre;
     this.crearFormulario();
-      
+
   }
   onSubmit(event:Event)
   {
-     console.log("TIPO:   ",this.tutor);
+
       let nuevo ={
-            
+
             id_tutor:this.tutor.identificacion,
             nombres:this.tutor.nombre,
             apellidos:this.tutor.apellido,
@@ -57,15 +57,15 @@ export class EditarTutorComponent implements OnInit {
             id_tipo_tutor:   this.tutor.tipo['idTipoTutor'],
             universidad:this.tutor.universidad
         };
-        console.log("tutor formado para enviar:  ",nuevo);
+
         this.tutorService.onEditTutor(nuevo).subscribe(result=>{
-        console.log("RESULTADO DE GUARDAR EL TUTOR EDITADO",result);
+
         if(result.body?.estado=="exito"){
           Swal.fire({
             icon: 'success',
             title: 'Editado' ,
             text: 'Tutor Editado!' ,
-            footer: 'El tutor fué editado correctamente' 
+            footer: 'El tutor fué editado correctamente'
           });
         }
         else{
@@ -73,11 +73,11 @@ export class EditarTutorComponent implements OnInit {
             icon: 'error',
             title: 'NO Editado' ,
             text: 'Tutor NO Editado!' ,
-            footer: 'El tutor NO fué Editado' 
+            footer: 'El tutor NO fué Editado'
           });
         }
         })
-        //GUARDAR 
+        //GUARDAR
         this.dialogoReg.close();
 
 
@@ -101,50 +101,50 @@ export class EditarTutorComponent implements OnInit {
       });
       this.formulario.get('nombre').valueChanges.pipe(debounceTime(1000)).subscribe(
         value=>{
-          console.log("Tutor    :",this.tutor);
+
           this.tutor.nombre=value;
 
         });
         this.formulario.get('apellido').valueChanges.pipe(debounceTime(1000)).subscribe(
           value=>{
-            console.log("Tutor    :",this.tutor);
+
             this.tutor.apellido=value;
           });
           this.formulario.get('identificacion').valueChanges.pipe(debounceTime(1000)).subscribe(
             value=>{
-              console.log("Tutor    :",this.tutor);
+
               this.tutor.identificacion=value;
             });
             this.formulario.get('telefono').valueChanges.pipe(debounceTime(1000)).subscribe(
               value=>{
-                console.log("Tutor    :",this.tutor);
+
                 this.tutor.telefono=value;
               });
               this.formulario.get('correo').valueChanges.pipe(debounceTime(1000)).subscribe(
                 value=>{
-                  console.log("Tutor    :",this.tutor);
+
                   this.tutor.correo=value;
                 });
                 this.formulario.get('grupoInvestigacion').valueChanges.pipe(debounceTime(1000)).subscribe(
                   value=>{
-                    console.log("Tutor    :",this.tutor);
+
                     this.tutor.grupoInvestigacion=value;
                   });
                   this.formulario.get('departamento').valueChanges.pipe(debounceTime(1000)).subscribe(
                     value=>{
-                      console.log("Tutor    :",this.tutor);
+
                       this.tutor.departamento=value;
                     });
-                  
+
             this.formulario.get('tipo').valueChanges.subscribe(
           value=>{
-            console.log("Tutor    :",this.tutor);
+
             this.tutor.tipo.id=value.id;
             this.tutor.tipo.nombre=value.nombre;
             if(value.nombre!=null&& value.nombre=='Externo')
             {
               this.externo=true;
-              
+
               this.formulario.get('universidad').setValue('');
             }
             else
@@ -157,10 +157,10 @@ export class EditarTutorComponent implements OnInit {
         );
         this.formulario.get('universidad').valueChanges.pipe(debounceTime(1000)).subscribe(
           value=>{
-            console.log("Tutor    :",this.tutor);
+
             this.tutor.universidad=value;
           });
-        
+
   }
   onCancel()
   {

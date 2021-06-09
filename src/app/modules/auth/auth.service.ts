@@ -35,19 +35,19 @@ export class AuthService {
         .subscribe((data) => {
           if (data.estado === 'exito') {
             if (sessionStorage.getItem('rol') === 'Estudiante') {
-              console.log('ES UN ESTUDIANTE###################:       ',data.data[0]);
+
               localStorage.setItem('code', data.data[0].codigo);
               localStorage.setItem('id', data.data[0].id);
               localStorage.setItem('nameStudent', data.data[0].nombres + ' ' + data.data[0].apellidos);
 
-              console.log("ID ASIGNADO A SESSION STORAGE:  ",localStorage.getItem('id'));
+
           } else if (sessionStorage.getItem('rol') === 'Tutor') {
 
-              console.log('ES UN TUTOR################### ' + JSON.stringify(data.data[0]));
+
               localStorage.setItem('id', data.data[0].id_tutor);
               this.infoTutor.next(true);
             } else {
-              console.log('OTRO ROL');
+
             }
           }
           },
@@ -59,7 +59,7 @@ export class AuthService {
 
    setSession(authResult) {
     sessionStorage.setItem('token', authResult['token']);
-     console.log('roles desde el back ' + authResult['roles']);
+
     sessionStorage.setItem('rol', authResult['roles']);
     // this.permiso.rolActivo(authResult['roles']);
      if (sessionStorage.getItem('rol') !== 'Coordinador') {

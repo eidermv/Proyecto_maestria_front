@@ -13,13 +13,12 @@ export class AccesDenyInterceptorService implements HttpInterceptor {
   constructor(private route: Router, private permiso: PermisosService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log('------------ 1 ' + JSON.stringify(req));
     return next.handle(req).do(
-     (event: any) => {console.log("INICIO DE SESIÓN");},
+     (event: any) => {},
      (error: any) => {
                       if (error.status === 403) {
                         const aux = error.url.split('/'); // tomo el nombre del servicio para no usarlo en el login
-                        console.log(aux[3]);
+
                         if (aux[3] !== 'login') {
                           sessionStorage.clear();
                           this.permiso.limpiarServicio();
@@ -27,7 +26,7 @@ export class AccesDenyInterceptorService implements HttpInterceptor {
                         }
                       }
                       if (error.status === 401) {
-                        console.log('tutor quiere logearse' + this.permiso.valor);
+
                         sessionStorage.clear();
                         this.permiso.limpiarServicio();
                         this.route.navigate(['404']);

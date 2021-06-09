@@ -50,12 +50,12 @@ export class SeguimientosService {
     }
     onEditSeguimiento(seg:any):Observable<any>
     {
-      console.log("SEGUIMIENTO EN EDITAR:   ",seg);
+
       return this.http.put(RUTA+'/seguimiento/editar/'+seg.idSeguimiento,seg, {headers : new HttpHeaders({ 'Content-Type': 'application/json'}) ,
       reportProgress: true, observe: 'events'});
     }
     onCrearSeguimiento(s:any):Observable<any>{/*
-      console.log("SEGUIMIENTO EN CREAR:   ",s); */
+
       return this.http.post(RUTA+'/seguimiento/crear',s, {headers : new HttpHeaders({ 'Content-Type': 'application/json'}) ,
       reportProgress: true, observe: 'events'});
     }

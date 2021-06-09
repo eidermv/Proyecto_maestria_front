@@ -29,7 +29,7 @@ export class ActividadesTutorServices {
   return opcionesCumplido;
   }
   editarActividad(act:any){
-    console.log("ENTRO A ACTUALIZAR: ",act);
+
     this.http.put<any>(RUTA + '/actividad/editar', act)
     .subscribe(
       (response) => console.log('editar actividad: ' + response.estado),
@@ -37,7 +37,7 @@ export class ActividadesTutorServices {
     );
   }
   agregarActividad(act:any){
-    console.log("ENTRO A AGREGAR ACTIVIDAD: ",act);
+
     this.http.post<any>(RUTA + '/actividad/crear', act)
     .subscribe(
       (response) => console.log('crear actividad: ' + response.estado),

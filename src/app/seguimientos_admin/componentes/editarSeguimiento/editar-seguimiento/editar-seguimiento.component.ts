@@ -32,14 +32,14 @@ export class EditarSeguimientoComponent implements OnInit {
   optionsEstadoSeguimiento:EstadoSeguimiento[]=[];
   optionsEstadoProyecto:EstadoProyecto[]=[];
   optionsTiposSeguimiento:TipoSeguimiento[]=[];
-  constructor(private formBuilder: FormBuilder, private dialog: MatDialog, private tutorService: TutorService, private estudianteService:EstudianteService, public dialogoReg:MatDialogRef<EditarSeguimientoComponent>, private seguimientoService:SeguimientosService) 
-  {  
+  constructor(private formBuilder: FormBuilder, private dialog: MatDialog, private tutorService: TutorService, private estudianteService:EstudianteService, public dialogoReg:MatDialogRef<EditarSeguimientoComponent>, private seguimientoService:SeguimientosService)
+  {
     this.YEAR_END_COHORTE = 2008;
-    this.optionsCohorte = [];   
+    this.optionsCohorte = [];
    }
 
   ngOnInit(): void {
-    console.log("SEGUIMIENTO RECIBIDO EN EDITAR:  ",this.seguimiento);
+
     this.crearFormulario();
     this.getAllCohorte();
     this.getAllTutores();
@@ -57,7 +57,7 @@ export class EditarSeguimientoComponent implements OnInit {
             nombre:element.nombre
           }
           this.optionsTiposSeguimiento.push(ots);
-        });       
+        });
       }
     )
   }
@@ -127,18 +127,17 @@ export class EditarSeguimientoComponent implements OnInit {
           };
           this.options.push(tutor);
         });
-        
+
       }
     )
   }
   //***************************EDITAR SEGUIMIENTO******* */
- 
+
   onSubmit()
   {
-    if (this.formulario.valid) 
+    if (this.formulario.valid)
     {
-      console.log("FORMULARIO VALIDO");
-      console.log("SEGUIMIENTO FORMADO:   ",this.seguimiento); 
+
        let seg={
         nombre:this.seguimiento.nombre,
         id_tutor:this.seguimiento.tutor.id,
@@ -153,14 +152,14 @@ export class EditarSeguimientoComponent implements OnInit {
         idSeguimiento :this.seguimiento.id
       };
        this.seguimientoService.onEditSeguimiento(seg).subscribe(
-        result=>{console.log("RESULTADO EDITAR SEGUIMIENTO:   ",result);
+        result=>{
       if(result.body?.estado=="exito"){
         Swal.fire(
           'Exito!',
           'Seguimiento Almacenado!',
           'success'
         );
-      } 
+      }
       else{
         Swal.fire(
           'Error!',
@@ -169,12 +168,12 @@ export class EditarSeguimientoComponent implements OnInit {
         );
       }
       }
-      );    
-     
+      );
+
       this.dialogoReg.close();
     }
     else {
-      console.log("FORMULARIO IN VALIDO");
+
       this.formulario.markAllAsTouched();
       //this.errorFormulario();
     }
@@ -187,7 +186,7 @@ export class EditarSeguimientoComponent implements OnInit {
       data:{}
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+
     });
     dialogRef.componentInstance.tutor.subscribe(
       result => {
@@ -216,11 +215,11 @@ export class EditarSeguimientoComponent implements OnInit {
         estudiante: [null, [/* Validators.required */]],
         cohorte:[null, [/* Validators.required */]],
         estado: [null, [/* Validators.required */] ],
-        objetivo:[this.seguimiento.oGeneral, [ /* Validators.required */] ],        
+        objetivo:[this.seguimiento.oGeneral, [ /* Validators.required */] ],
         coodirector:[this.seguimiento.coodirector, [/* Validators.required */] ],
         estadoSeguimiento:[null, [/* Validators.required */]]
       });
-     
+
       this.formulario.get('tipo').valueChanges.pipe(debounceTime(50)).subscribe(
         value=>{
           this.seguimiento.tipo=value;
@@ -228,24 +227,24 @@ export class EditarSeguimientoComponent implements OnInit {
       );
       this.formulario.get('tutor').valueChanges.pipe(debounceTime(50)).subscribe(
         value=>{
-         this.seguimiento.tutor=value;         
+         this.seguimiento.tutor=value;
         }
       );
       this.formulario.get('estudiante').valueChanges.pipe(debounceTime(50)).subscribe(
         value=>{
-         this.seguimiento.estudiante=value;         
+         this.seguimiento.estudiante=value;
         }
       );
       this.formulario.get('estado').valueChanges.pipe(debounceTime(50)).subscribe(
         value=>{
          this.seguimiento.estado=value;
-         
+
         }
       );
       this.formulario.get('cohorte').valueChanges.pipe(debounceTime(50)).subscribe(
         value=>{
          this.seguimiento.cohorte=value;
-         //this.seguimiento.estudiante.setCohorte(value);        
+         //this.seguimiento.estudiante.setCohorte(value);
         }
       );
       this.formulario.get('estadoSeguimiento').valueChanges.pipe(debounceTime(50)).subscribe(
@@ -258,7 +257,7 @@ export class EditarSeguimientoComponent implements OnInit {
          this.seguimiento.nombre=value;
         }
       );
-     
+
       this.formulario.get('objetivo').valueChanges.pipe(debounceTime(50)).subscribe(
         value=>{
          this.seguimiento.oGeneral=value;

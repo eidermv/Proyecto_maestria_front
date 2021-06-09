@@ -41,7 +41,7 @@ export class SeguimientosTutorServices {
       {id: 1, nombre: 'Aceptado'},
       {id: 2, nombre: 'Rechazado'}
     ];
-    console.log('Retornando desde estados:  ', nuevo);
+
     return nuevo;
   }
   onEstadosProyecto() {
@@ -69,7 +69,6 @@ export class SeguimientosTutorServices {
 
   // Se usa para enviar la informacion editada por el tutor
   guardarSeguimientoTutor(seguimientotutor: any) {
-    console.log("ENTRO A ACTUALIZAR: ",seguimientotutor);
     this.http.put<any>(RUTA + '/seguimiento/editar/' + seguimientotutor.idSeguimiento, seguimientotutor)
     .subscribe(
       (response) => console.log('resultado guardar: ' + response.estado),
@@ -79,7 +78,7 @@ export class SeguimientosTutorServices {
   onSeguimientosTutor() {
     this.http.get(RUTA + '/seguimiento/listarPorTutor/1').subscribe(
       result => {
-        console.log('Seguimientos tutor:  ', result);
+
       }
     );
 

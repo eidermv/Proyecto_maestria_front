@@ -126,7 +126,7 @@ export class EditStudentComponent implements OnInit {
     }
 
   verifyChangesOnEdit(newDateStudent: any) {
-    console.log();
+
     if (this.studentOldEdit.code === newDateStudent.id && this.studentOldEdit.name === newDateStudent.name &&
       this.studentOldEdit.surname === newDateStudent.surname && this.studentOldEdit.tutor === newDateStudent.tutor &&
       this.studentOldEdit.email === newDateStudent.email && this.studentOldEdit.cohorte === newDateStudent.cohorte &&

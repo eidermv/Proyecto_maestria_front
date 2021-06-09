@@ -29,13 +29,13 @@ export class ListarActividadesEstudianteComponent implements OnInit {
   constructor( private router: Router,
                private actividadesService: SeguimientosEstudianteService,
                private dialog: MatDialog) {
-    // Create 100 users  
+    // Create 100 users
   }
 
   ngOnInit(): void {
     this.actividadesService.obtenerActividadesEstudiante(this.seguimiento.id).subscribe(
       result =>{
-        console.log("Actividade del seguimiento:  ",result.data);
+
         this.actividades=[];
         if(result.data.length>0)
         result.data.forEach(element => {
@@ -58,7 +58,7 @@ export class ListarActividadesEstudianteComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
       });
-   
+
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -77,7 +77,7 @@ export class ListarActividadesEstudianteComponent implements OnInit {
     });
     dialogRef.componentInstance.actividad=row;
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
+
 
     });
   }

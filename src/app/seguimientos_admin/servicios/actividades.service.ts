@@ -31,7 +31,7 @@ cump=0;
 actividades: Array<Actividad> = [];
 onActividades(id:number): Array<Actividad> {
     this.actividades = Array.from({ length: 5 }, (_, k) => this.crearActividad(k + 1));
-    console.log("Actividades a retornar:   ",this.actividades);
+
     return this.actividades;
 }
 getActividades(id_seguimiento:number): Observable<any> {
@@ -49,7 +49,7 @@ crearActividad(id: number): Actividad {
     if(this.cump==0)
     this.cump=1;
     else this.cump=0;
-    console.log("FECHAAAA:  ",fi);
+
     return {
       id:this.id,
     semana:sem,

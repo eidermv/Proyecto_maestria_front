@@ -21,7 +21,7 @@ import { SeguimientoCompleto } from '../../modelos/seguimientoCompleto.model';
 
 export class ListarActividadesComponent implements OnInit {
 
-  
+
   @Input() seguimiento:SeguimientoCompleto;
   displayedColumns: string[] = ['codigo', 'semana', 'fecha_inicio', 'fecha_entrega','cumplido','opciones'];
   dataSource: MatTableDataSource<Actividad>;
@@ -36,7 +36,7 @@ export class ListarActividadesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("Seguimiento entrante ACTIVIDADES:  ",this.seguimiento);
+
     this.actividades = this.actividadesService.onActividades(this.seguimiento.id);
     this.actividadesService.getActividades(this.seguimiento.id).subscribe(
       result =>{
@@ -62,7 +62,7 @@ export class ListarActividadesComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
       });
-   
+
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -74,7 +74,7 @@ export class ListarActividadesComponent implements OnInit {
   /** Builds and returns a new User. */
 
   verActividad(row) {
-    console.log("ROW ENTRANTE:  ",row);
+
     const dialogRef = this.dialog.open(VerActividadesComponent, {
       width: '400px', position:{top: '65px' },
       data: {
@@ -93,14 +93,14 @@ export class ListarActividadesComponent implements OnInit {
     };
     dialogRef.componentInstance.actividad=a;
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
+
 
     });
   }
 
   async crearPDF()
   {
-    
+
     const pdf = new PdfMakeWrapper();
     pdf.defaultStyle({
       bold: false,
@@ -114,38 +114,38 @@ export class ListarActividadesComponent implements OnInit {
 var fecha = new Date();
 var options = { year: 'numeric', month: 'long', day: 'numeric' };
     pdf.pageMargins([ 100, 60, 40, 40 ]);
-      pdf.header("\n\n.     \t\t"+fecha.toLocaleDateString("es-ES", options));   
+      pdf.header("\n\n.     \t\t"+fecha.toLocaleDateString("es-ES", options));
     pdf.add(new Txt('Listado de Actividades').alignment('center').bold().end );
-    pdf.add(new Txt('Seguimiento:  '+this.seguimiento.nombre).end ); 
-    pdf.add(new Txt('Tutor:  '+this.seguimiento.tutor.nombre+" "+this.seguimiento.tutor.apellido).end ); 
-    pdf.add(new Txt('Estudiante:  '+this.seguimiento.estudiante.getName()).end );  
-    pdf.add("\n\n\n");/* 
+    pdf.add(new Txt('Seguimiento:  '+this.seguimiento.nombre).end );
+    pdf.add(new Txt('Tutor:  '+this.seguimiento.tutor.nombre+" "+this.seguimiento.tutor.apellido).end );
+    pdf.add(new Txt('Estudiante:  '+this.seguimiento.estudiante.getName()).end );
+    pdf.add("\n\n\n");/*
     pdf.watermark('UNIVERSIDAD DEL CAUCA');  */
-    
+
     pdf.add(this.crearTabla());
     pdf.create().download();
   }
 
 crearTabla()
   {
-    let body:any[]=[];    
+    let body:any[]=[];
     let contf=1;
-    let contc=0;  
-    let fila1:any[]=[]; 
+    let contc=0;
+    let fila1:any[]=[];
     fila1[contc]="Semana";contc++;
     fila1[contc]="Fecha Inicio";contc++;
     fila1[contc]="Fecha Entrega";contc++;
     fila1[contc]="Entregas";contc++;
     fila1[contc]="Compromisos";contc++;
     fila1[contc]="Cumplido";contc++;
-    fila1[contc]="Visibilidad";contc++; 
+    fila1[contc]="Visibilidad";contc++;
     body[0]=fila1;contc=0;
-    console.log("Tabla hasta el momento:  ",body);
-    
-    var options = { year: 'numeric', month: 'long', day: 'numeric' }; 
+
+
+    var options = { year: 'numeric', month: 'long', day: 'numeric' };
     for(let act of this.actividades)
     {
-      let fila:any[]=[];     
+      let fila:any[]=[];
       fila[contc]=act.semana;contc++;
       var fechaI = act.fecha_inicio;
       fila[contc]=fechaI.toLocaleDateString("es-ES", options);contc++;
@@ -157,9 +157,9 @@ crearTabla()
       else{fila[contc]="Cumplido";contc++;}
       if(act.visibilidad==0){fila[contc]="No Visible para Coordinador";contc++;}
       else{fila[contc]="Visible para Coordinador";contc++;}
-           
+
       body[contf]=fila;contc=0; contf++;
-    } 
+    }
     /* console.log("BODY:   ",body); */
     return new Table(body).end;
   }

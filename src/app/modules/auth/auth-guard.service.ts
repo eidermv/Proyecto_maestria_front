@@ -11,7 +11,7 @@ export class AuthGuard implements CanActivate {
     const url: string = state.url;
 
       if (sessionStorage.getItem('token') != null) {
-        console.log("TOKEN:      ",sessionStorage.getItem('token'));
+
         return true;
       } else {
         this.router.navigate(['404']);

@@ -15,10 +15,9 @@ export class PermisoEstudianteGuard implements CanActivateChild {
   canActivateChild(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    console.log('------ ' + this.permisosService.valor);
+
     this.permisosService.valor = sessionStorage.getItem('rol');
     if (this.permisosService.valor !== 'Estudiante') {
-      console.log('No tiene acceso');
       // this.router.navigate(['/']);
       Swal.fire(
         'Permiso',

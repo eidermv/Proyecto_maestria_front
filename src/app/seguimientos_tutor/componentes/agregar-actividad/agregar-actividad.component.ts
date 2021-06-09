@@ -125,7 +125,7 @@ export class AgregarActividadComponent implements OnInit {
         '¡Actividad creada!',
         'success'
       );
-      console.log(" ACTIVIDAD AGREGADA:   ",seg);
+
       this.actividadService.agregarActividad(seg);//crear servicio
       this.dialogRef.close();
     }

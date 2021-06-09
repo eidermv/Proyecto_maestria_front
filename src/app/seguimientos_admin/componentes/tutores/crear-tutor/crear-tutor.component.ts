@@ -1,5 +1,5 @@
 import { Subscription } from 'rxjs';
-import { CommonModule } from '@angular/common';  
+import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -21,7 +21,7 @@ export class CrearTutorComponent implements OnInit {
   optionsTiposTutor:TipoTutor[]=[];
   subs:Subscription;
   @Output() tutor= new EventEmitter<Tutor>();
-  constructor(public dialogoReg:MatDialogRef<CrearTutorComponent>,private formBuilder: FormBuilder, 
+  constructor(public dialogoReg:MatDialogRef<CrearTutorComponent>,private formBuilder: FormBuilder,
     private tutorService:TutorService) {
 
 
@@ -40,7 +40,7 @@ export class CrearTutorComponent implements OnInit {
             nombre:element.nombre
           };
           this.optionsTiposTutor.push(e);
-        });       
+        });
       }
     );
     this.formulario = this.formBuilder.group(
@@ -53,14 +53,14 @@ export class CrearTutorComponent implements OnInit {
           ],
         identificacion: ['', [Validators.required]],
         telefono: ['', []],
-        correo: ['', [Validators.required,Validators.email]],        
+        correo: ['', [Validators.required,Validators.email]],
         departamento:['',/* [Validators.required] */],
         grupoInvestigacion:['',/* [Validators.required] */],
         tipo: [null,[Validators.required]],
         universidad:['',[Validators.required]]
       });
       this.formulario.get('tipo').valueChanges.subscribe(
-          value=>{  console.log(value); 
+          value=>{
             if(value.nombre!=null&& value.nombre==='Externo')
             {
               this.externo=true;
@@ -74,11 +74,11 @@ export class CrearTutorComponent implements OnInit {
           }
         );
   }
-  
+
   onSubmit(event:Event)
   {
-      console.log("Guardado",event);
-     
+
+
       let nuevo;
         nuevo={
             nombres:this.formulario.get('nombre').value,
@@ -97,7 +97,7 @@ export class CrearTutorComponent implements OnInit {
               icon: 'success',
               title: 'Guardado' ,
               text: 'Tutor Almacenado!' ,
-              footer: 'El tutor fué almacenado correctamente' 
+              footer: 'El tutor fué almacenado correctamente'
             });
           /* }
           else{
@@ -105,11 +105,11 @@ export class CrearTutorComponent implements OnInit {
               icon: 'error',
               title: 'NO Guardado' ,
               text: 'Tutor NO Almacenado!' ,
-              footer: 'El tutor NO fué almacenado' 
+              footer: 'El tutor NO fué almacenado'
             });
           } */
         });
-        this.subs.unsubscribe();        
+        this.subs.unsubscribe();
         this.tutor.emit(nuevo);
         this.dialogoReg.close(nuevo);
 

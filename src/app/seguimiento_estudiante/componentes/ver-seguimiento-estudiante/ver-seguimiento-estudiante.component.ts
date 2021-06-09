@@ -35,19 +35,19 @@ export class VerSeguimientoEstudianteComponent implements OnInit {
          cohorte: [{value: this.seguimiento.estudiante.getCohorte(), disabled:true}, []],
          estadoSeguimiento: [{value: this.seguimiento.estadoSeguimiento.nombre, disabled:true}, []],
        });
- 
- 
+
+
        this.formulario.valueChanges.pipe(
          debounceTime(350)
          ).subscribe(
            value=>{})
- 
+
   }
   separar()
   {
-    console.log("PRESIONO ENTER")
+
   }
-  
+
   ok()
   {
     this.dialogRef.close();

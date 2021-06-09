@@ -16,7 +16,6 @@ export class PermisoAdminGuard implements CanActivateChild {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     this.permisosService.valor = sessionStorage.getItem('rol');
     if (this.permisosService.valor !== 'Coordinador') {
-      console.log('No tiene acceso');
       Swal.fire(
         'Permiso',
         'No tiene permiso para acceder a esta ruta',

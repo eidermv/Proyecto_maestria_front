@@ -34,7 +34,7 @@ export class ModalProgressComponent implements OnChanges {
   }
 
   redirectTo() {
-    console.log('llegue a redirigir' + this.urlRedirectTo);
+
     this.viewProgressRequest.hide();
     if (this.enableRedirect) {
       this.router.navigate(['' + this.urlRedirectTo, this.paramsRedirecTo]);

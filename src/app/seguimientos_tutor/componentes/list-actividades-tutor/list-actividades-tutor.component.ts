@@ -33,14 +33,14 @@ export class ListActividadesTutorComponent implements OnInit {
       this.actividadesService.obtenerActividadesTutor(this.seguimiento.idSeguimiento).subscribe(
       result =>{
         this.actividades=[];
-        console.log("ACTIVIDADES QUE LLEGARON:*****  ",result.data);
+
           if (result.estado === 'exito') {
               result.data.forEach( (item) => {
               const actividad: ActividadTutor = item;
               actividad.fechaInicio=this.datePipe.transform(actividad.fechaInicio, "dd/MM/yyyy")
               actividad.fechaEntrega=this.datePipe.transform(actividad.fechaEntrega, "dd/MM/yyyy")
               this.actividades.push(actividad);
-              console.log("Actividad agregada: ",this.actividades);
+
             });
             this.dataSource = new MatTableDataSource(this.actividades);
             this.dataSource.paginator = this.paginator;
@@ -57,13 +57,13 @@ export class ListActividadesTutorComponent implements OnInit {
     });
     dialogRef.componentInstance.actividad = element;
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
+
     });
   }
   eliminarActividad(element: ActividadTutor){
     this.actividadesService.eliminarActividadTutor(element.idActividad).subscribe(
       (result) => {
-      console.log('RESULTADO DE ELIMINAR:   ',result);
+
     });
   }
   async crearPDF()
@@ -91,7 +91,7 @@ var options = { year: 'numeric', month: 'long', day: 'numeric' };
     pdf.add("\n\n\n");/*
     pdf.watermark('UNIVERSIDAD DEL CAUCA');  */
 
-    pdf.add(this.crearTabla()); 
+    pdf.add(this.crearTabla());
     pdf.create().download();
   }
   crearTabla() {
@@ -107,7 +107,7 @@ var options = { year: 'numeric', month: 'long', day: 'numeric' };
     fila1[contc] = 'Cumplido'; contc++;
     fila1[contc] = 'Visibilidad'; contc++;
     body[0] = fila1; contc = 0;
-    console.log('Tabla hasta el momento:  ', body);
+
 
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     for (const act of this.actividades) {

@@ -50,7 +50,7 @@ seguimiento:SeguimientoCompleto;
   }
   separar()
   {
-    console.log("PRESIONO ENTER")
+
   }
   consultarSeguimiento()
   {

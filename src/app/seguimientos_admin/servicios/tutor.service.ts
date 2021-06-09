@@ -41,7 +41,7 @@ export class TutorService {
     }
     onEditTutor(t:any):Observable<any>
     {
-      console.log("TUTOR EN EDITAR:   ",t);
+
       return this.http.put(RUTA+'/tutor/editar', t, {headers : new HttpHeaders({ 'Content-Type': 'application/json'}) ,
       reportProgress: true, observe: 'events'});
     }

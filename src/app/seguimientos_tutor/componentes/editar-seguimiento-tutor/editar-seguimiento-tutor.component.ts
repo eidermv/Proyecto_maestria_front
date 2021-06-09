@@ -66,7 +66,7 @@ export class EditarSeguimientoTutorComponent implements OnInit {
   ngOnInit(): void {
     this.seguimientoTutor = new SeguimientoTutorCompleto();
     this.seguimientoTutor = {...this.seguimientoTutorService.seguimiento};
-    console.log("SEGUMIENTO POR PARAMETRO Y SEG POR SERVICIO:",this.seguimiento);
+
     this.listarEstadosProyecto();
     this.cargarActividades();
     const oe = '';
@@ -103,7 +103,7 @@ export class EditarSeguimientoTutorComponent implements OnInit {
   volver() {
     // this.router.navigate(['/seguimientos_tutor/']);
     this.banNotificaciones.emit(true);
-    console.log('emitido: ');
+
   }
   async crearPDF() {
 
@@ -144,7 +144,7 @@ export class EditarSeguimientoTutorComponent implements OnInit {
     fila1[contc] = 'Cumplido'; contc++;
     fila1[contc] = 'Visibilidad'; contc++;
     body[0] = fila1; contc = 0;
-    console.log('Tabla hasta el momento:  ', body);
+
 
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     for (const act of this.actividades) {
@@ -183,9 +183,9 @@ export class EditarSeguimientoTutorComponent implements OnInit {
       idTipoSeguimiento: this.seguimientoTutor.tipoSeguimiento.idTipoSeguimiento,
       idEstadoSeguimiento : this.seguimientoTutor.estadoSeguimiento.idEstadoSeguimiento,
       };
-      
+
       this.seguimientoTutorService.guardarSeguimientoTutor(seg);
-      console.log('FORMULARIO VALIDO');
+
       Swal.fire(
         'Exito!',
         'Seguimiento Actualizado!',
@@ -193,7 +193,7 @@ export class EditarSeguimientoTutorComponent implements OnInit {
       );
       this.banNotificaciones.emit(true);
     } else{
-      console.log('FORMULARIO IN VALIDO');
+
       this.formulario.markAllAsTouched();
     }
     this.crearFormulario();
@@ -210,7 +210,7 @@ export class EditarSeguimientoTutorComponent implements OnInit {
     this.banNotificaciones.emit(true);
   }
   private crearFormulario(): void {
-    console.log("Entro a crear un formulario de editar",this.seguimientoTutor);
+
     this.formulario = this.formBuilder.group(
       {
         nombre: [{value: this.seguimientoTutor.nombre, disabled:true},
@@ -229,7 +229,7 @@ export class EditarSeguimientoTutorComponent implements OnInit {
       debounceTime(350)
       ).subscribe(
         value => {
-          console.log('VALUE:   ', value);
+
           let p = 0;
           if (value.nombre != '') { p++; }
           if (value.tipo != null) { p++; }
@@ -242,7 +242,7 @@ export class EditarSeguimientoTutorComponent implements OnInit {
           if (value.estadoSeguimiento != null) { p++; }
           if (value.objetivo != '') { p++; }
           this.porcentaje = (10 * p);
-          console.log(value);
+
         }
       );
       this.formulario.get('estado').valueChanges.subscribe(

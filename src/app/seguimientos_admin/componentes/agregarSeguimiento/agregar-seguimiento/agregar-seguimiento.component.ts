@@ -42,15 +42,15 @@ export class AgregarSeguimientoComponent implements OnInit {
   porcentaje: number = 0;
   @Output() bandAgregar = new EventEmitter<boolean>();
   @Output() seguimientoCreado = new EventEmitter<SeguimientoCompleto>();
-  
+
   constructor(private formBuilder: FormBuilder, private tutorService: TutorService, private estudianteService: EstudianteService, private dialog: MatDialog, private seguimientoService: SeguimientosService) {
     this.tutorService.onTutores();
     this.YEAR_END_COHORTE = 2008;
     this.optionsCohorte = [];
   }
 
-  ngOnInit(): void {    
-    console.log("ON INIT DEL AGREGAR");
+  ngOnInit(): void {
+
     this.getAllCohorte();
     this.getAllTutores();
     this.getAllEstudiantes();
@@ -68,7 +68,7 @@ export class AgregarSeguimientoComponent implements OnInit {
             nombre:element.nombre
           }
           this.optionsTiposSeguimiento.push(ots);
-        });       
+        });
       }
     )
   }
@@ -120,7 +120,7 @@ export class AgregarSeguimientoComponent implements OnInit {
     this.tutorService.getTutores().subscribe(
       result=>{ this.options=[];
         result.data.forEach(element => {
-          console.log("TUTOR:   ",element);
+
           let tipoTutor:TipoTutor={
             id:element.tipoTutor.idTipoTutor,
             nombre:element.tipoTutor.nombre
@@ -139,7 +139,7 @@ export class AgregarSeguimientoComponent implements OnInit {
           };
           this.options.push(tutor);
         });
-        
+
       }
     )
   }
@@ -159,10 +159,10 @@ export class AgregarSeguimientoComponent implements OnInit {
         id_tipo_seguimiento:this.formulario.get('tipo').value.id,
         id_estado_seguimiento:this.formulario.get('estadoSeguimiento').value.id
       };
-      console.log("$$$$$$$$$$$$$$$$$ SEGUIMIENTO FORMADO:   ",seg);
+
       this.seguimientoService.onCrearSeguimiento(seg).subscribe(
         result=>{
-          console.log("REESULT EN AGREGAR SEGUIMIENTO:   ",result);
+
          /*  if(result.body?.estado=="exito"){ */
             this.bandAgregar.emit(true);
             Swal.fire(
@@ -178,16 +178,16 @@ export class AgregarSeguimientoComponent implements OnInit {
               'error'
             )
           } */
-         
+
         }
       );
-      
+
       this.bandAgregar.emit(true);
-     
-      
+
+
     }
     else {
-      console.log("FORMULARIO IN VALIDO");
+
       this.formulario.markAllAsTouched();
       //this.errorFormulario();
     }
@@ -199,7 +199,7 @@ export class AgregarSeguimientoComponent implements OnInit {
       data: {}
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+
       this.getAllTutores();
     });
     dialogRef.componentInstance.tutor.subscribe(
@@ -208,7 +208,7 @@ export class AgregarSeguimientoComponent implements OnInit {
       }
     )
   }
-  
+
   private crearFormulario(): void {
     this.formulario = this.formBuilder.group(
       {
@@ -220,12 +220,12 @@ export class AgregarSeguimientoComponent implements OnInit {
         estudiante: [null, [ Validators.required ]],
         cohorte:[null, [ Validators.required ]],
         estado: [null, [ Validators.required ] ],
-        objetivo:['', [ /* Validators.required */] ],        
+        objetivo:['', [ /* Validators.required */] ],
         coodirector:['', [/* Validators.required */] ],
         estadoSeguimiento:[null, [ Validators.required ]]
       });
-     
-      
+
+
     this.filteredOptions = this.formulario.get('tutor').valueChanges.pipe(debounceTime(350),
       /* startWith(''), */
       map(value => this._filter(value).map(v2 => v2.nombre))
@@ -238,17 +238,17 @@ export class AgregarSeguimientoComponent implements OnInit {
       debounceTime(350)
     ).subscribe(
       value => {
-        console.log("VALUE:   ", value)
+
         let p = 0;
         if (value.nombre != "") p++;
         if (value.tipo != null) p++;
         if (value.tutor != null) p++;
         if (value.estudiante != null) p++;
         if (value.estado != "") p++;
-        if (value.cohorte != null) p++;        
+        if (value.cohorte != null) p++;
         if (value.estadoSeguimiento != null) p++;
         this.porcentaje = (p/7)*100;
-        console.log("Porcentaje:  ",this.porcentaje);
+
       }
     );
   }
@@ -304,7 +304,7 @@ export class AgregarSeguimientoComponent implements OnInit {
       'error'
     )
   }
-  
+
 
   errorFormulario() {
     Swal.fire({

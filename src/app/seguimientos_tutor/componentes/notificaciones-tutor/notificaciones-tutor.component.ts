@@ -46,8 +46,7 @@ export class NotificacionesTutorComponent implements OnInit {
       }
     }
     this.dataSource = new MatTableDataSource(this.notificacionesInstance);
-    console.log("objetos de NOTIFICACIONES",this.notificacionesInstance);
-    console.log("objetos de NOTIFICACIONES",this.copiaAceptados);
+
   }
 
   guardarAceptar(seguimiento: SeguimientoTutorCompleto) {

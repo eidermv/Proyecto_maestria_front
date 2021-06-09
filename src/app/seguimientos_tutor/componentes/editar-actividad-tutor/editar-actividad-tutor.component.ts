@@ -62,11 +62,11 @@ export class EditarActividadTutorComponent implements OnInit {
         value=>{
             if(value=="Cumplida"){
               this.actividad.cumplida=1;
-              console.log("IMPRIMIENDO CAMBIO A CUMPLIDA: ",this.actividad.cumplida);
+
             }
             else if(value=="No cumplida"){
               this.actividad.cumplida=0;
-              console.log("IMPRIMIENDO CAMBIO A NO CUMPLIDA: ",this.actividad.cumplida);
+
             }
           }
       );
@@ -114,8 +114,7 @@ export class EditarActividadTutorComponent implements OnInit {
       debounceTime(350)
       ).subscribe(
         value=>{
-          console.log(value);
-          console.log("Actividad formada ====",this.actividad);
+
         }
       );
   }
@@ -137,7 +136,7 @@ export class EditarActividadTutorComponent implements OnInit {
         '¡Actividad actualizada!',
         'success'
       );
-      console.log(" ACTIVIDAD EDITADA$$$$$$:   ",seg);
+
       this.actividadService.editarActividad(seg);
       this.dialogRef.close();
     }

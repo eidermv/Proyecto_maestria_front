@@ -128,7 +128,7 @@ export class AddMagazineComponent implements OnInit {
 
 
   onSubmit() {
-    console.log('revisa aqui');
+
     if (this.fileToArticle === null) {
       this.showErrorArticle = true;
       this.msjErrorArticle = 'Debe cargar un PDF del artículo ';

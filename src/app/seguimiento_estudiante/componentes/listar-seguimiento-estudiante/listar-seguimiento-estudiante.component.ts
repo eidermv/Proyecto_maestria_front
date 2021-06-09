@@ -14,7 +14,7 @@ import {SeguimientosService} from '../../../seguimientos_admin/servicios/seguimi
 import {VerSeguimientoEstudianteComponent} from '../ver-seguimiento-estudiante/ver-seguimiento-estudiante.component';
 import {MatDialog} from '@angular/material/dialog';
 import { PdfMakeWrapper, Table, Txt } from 'pdfmake-wrapper';
-import pdfFonts from "pdfmake/build/vfs_fonts"; 
+import pdfFonts from "pdfmake/build/vfs_fonts";
 import {ReplaySubject} from 'rxjs';
 import { AuthService } from '../../../modules/auth/auth.service';
 import {take, takeUntil} from 'rxjs/operators';
@@ -43,7 +43,7 @@ export class ListarSeguimientoEstudianteComponent implements OnInit {
   }
 
   ngOnInit(): void {
-        
+
         this.id=parseInt(localStorage.getItem('id'));
         this.seguimientoEstudianteService.obtenerSeguimientosEstudiante(this.id).subscribe(
           result=>{
@@ -64,7 +64,7 @@ export class ListarSeguimientoEstudianteComponent implements OnInit {
                 apellido:element.tutor.apellido,
                 correo:element.tutor.correo,
                 departamento:element.tutor.departamento,
-                grupoInvestigacion:element.tutor.grupoInvestigacion,              
+                grupoInvestigacion:element.tutor.grupoInvestigacion,
                 nombre:element.tutor.nombre,
                 telefono:element.tutor.telefono,
                 tipo:tipoTutor,
@@ -72,7 +72,7 @@ export class ListarSeguimientoEstudianteComponent implements OnInit {
                 identificacion:element.tutor.identificacion,
                 id:element.tutor.id_tutor
               }
-              let estudiante:Student=new Student();            
+              let estudiante:Student=new Student();
                 estudiante.setCodigo(element.estudiante.codigo);
                 estudiante.setCohorte(element.estudiante.cohorte);
                 estudiante.setEmail(element.estudiante.correo);
@@ -87,7 +87,7 @@ export class ListarSeguimientoEstudianteComponent implements OnInit {
                 id:element.tipoSeguimiento.idTipoSeguimiento,
                 nombre:element.tipoSeguimiento.nombre
               };
-              
+
               let seg:SeguimientoCompleto={
                 cohorte:element.cohorte,
                 coodirector:element.codirector,
@@ -107,10 +107,10 @@ export class ListarSeguimientoEstudianteComponent implements OnInit {
         this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
           }
-          
-        );        
+
+        );
         // Assign the data to the data source for the table to render
-       
+
        /*  this.seguimientoEstudianteService.obtenerSeguimientosEstudiante(Number(sessionStorage.getItem('id'))).pipe(take(1)).subscribe((data) => {
           console.log('ESTOS SON LOS SEGUIMIENTO DE TUTOR', JSON.stringify(data));
           if (data.estado === 'exito') {
@@ -125,25 +125,25 @@ export class ListarSeguimientoEstudianteComponent implements OnInit {
             this.dataSource.paginator = this.paginator;
           }
         });  */
-      
-    
+
+
   }
- 
+
   /** Builds and returns a new User. */
   verSeguimiento(row:SeguimientoCompleto) {
-  
+
     const dialogRef = this.dialog.open(VerSeguimientoEstudianteComponent, {
       width: '850px',position: { top: '65px', left: '270px'},
       data:{}
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });   
+
+    });
     dialogRef.componentInstance .seguimiento=row;
-    
-    
+
+
   }
- 
+
   async crearPDF()
   {
     const pdf = new PdfMakeWrapper();
@@ -159,42 +159,42 @@ export class ListarSeguimientoEstudianteComponent implements OnInit {
 var fecha = new Date();
 var options = { year: 'numeric', month: 'long', day: 'numeric' };
     pdf.pageMargins([ 100, 60, 40, 40 ]);
-     pdf.header("\n\n.     \t\t"+fecha.toLocaleDateString("es-ES", options));  
+     pdf.header("\n\n.     \t\t"+fecha.toLocaleDateString("es-ES", options));
     pdf.add(new Txt('Listado de proyectos').alignment('center').bold().end );
-    pdf.add(new Txt('Maestría en Automática').alignment('center').bold().end );  
-    pdf.add("\n\n\n");/* 
+    pdf.add(new Txt('Maestría en Automática').alignment('center').bold().end );
+    pdf.add("\n\n\n");/*
     pdf.watermark('UNIVERSIDAD DEL CAUCA');  */
-    
+
     pdf.add(this.crearTablaNoFiltrado());
     pdf.create().download();
   }
-  
+
   crearTablaNoFiltrado()
   {
-    let body:any[]=[];    
+    let body:any[]=[];
     let contf=1;
-    let contc=0;  
-    let fila1:any[]=[]; 
+    let contc=0;
+    let fila1:any[]=[];
     fila1[contc]="#";contc++;
     fila1[contc]="Nombre";contc++;
     fila1[contc]="Tipo";contc++;
     fila1[contc]="Tutor";contc++;
     fila1[contc]="Estudiante";contc++;
     fila1[contc]="Estado";contc++;
-    fila1[contc]="Coodirector";contc++; 
+    fila1[contc]="Coodirector";contc++;
     body[0]=fila1;contc=0;
     for(let seg of this.seguimientos)
     {
-      let fila:any[]=[]; 
+      let fila:any[]=[];
       fila[contc]=contf;contc++;
       fila[contc]=seg.nombre;contc++;
       fila[contc]=seg.tipo.nombre;contc++;
       fila[contc]=seg.tutor.nombre+" "+seg.tutor.apellido;contc++;
       fila[contc]=seg.estudiante.getName()+""+seg.estudiante.getSurname();contc++;
       fila[contc]=seg.estado.nombre;contc++;
-      fila[contc]=seg.coodirector;contc++;      
+      fila[contc]=seg.coodirector;contc++;
       body[contf]=fila;contc=0; contf++;
-    } 
+    }
     /* console.log("BODY:   ",body); */
     return new Table(body).end;
   }

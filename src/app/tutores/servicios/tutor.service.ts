@@ -21,8 +21,7 @@ export class TutorService {
 
       eliminarTutor(id:number): Observable<any>
       {
-        console.log("Eliminar tutor con id:  ",id);
-        console.log("RUTA ELIMINAR:   ",RUTA+'/tutor/eliminar/'+id);
+
         return this.http.delete(RUTA+'/tutor/eliminar/'+id);
       }
 

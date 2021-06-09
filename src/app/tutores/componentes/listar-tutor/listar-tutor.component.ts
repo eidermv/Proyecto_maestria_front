@@ -2,7 +2,7 @@ import { TutorCompleto } from './../../../seguimientos_admin/modelos/tutorComple
 import { TutorService } from './../../servicios/tutor.service';
 import { Tutor } from './../../modelos/tutor.model';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { CommonModule } from '@angular/common';  
+import { CommonModule } from '@angular/common';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -29,14 +29,14 @@ export class ListarTutorComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   tutores: Array<TutorCompleto> = [];
   constructor( private router: Router, private tutorService:TutorService,private dialog: MatDialog) {
-   
+
   }
 
   ngOnInit(): void {
     this.tutores=[];
     this.subs=this.tutorService.getTutores().subscribe(result=>{
-      console.log("TUTORES RECIBIDOS:    ",result);
-      result.data?.forEach(element => {       
+
+      result.data?.forEach(element => {
         let tutor:TutorCompleto={
           apellido:element.apellido,
           correo:element.correo,
@@ -51,15 +51,15 @@ export class ListarTutorComponent implements OnInit {
         };
         this.tutores.push(tutor);
       });
-      console.log("Array de tutores:   ",this.tutores);
-      this.dataSource = new MatTableDataSource(this.tutores); 
+
+      this.dataSource = new MatTableDataSource(this.tutores);
       this.bandListar=true;
       this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort; 
+      this.dataSource.sort = this.sort;
     });
-     
-    
-  
+
+
+
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -77,12 +77,11 @@ export class ListarTutorComponent implements OnInit {
       data:{}
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('Dialog result: ',result);
       this.subs.unsubscribe();
       this.ngOnInit();
-       
+
     });
-    
+
 
   }
   /** Builds and returns a new User. */
@@ -92,12 +91,12 @@ export class ListarTutorComponent implements OnInit {
       width: '800px',
       height:'500px',
       data:{}
-    });    
-    dialogRef.componentInstance.tutor=row; 
-    console.log("ROW ASIGNADA Y ENVIADA",row);
+    });
+    dialogRef.componentInstance.tutor=row;
+
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+
     });
 
   }
@@ -111,17 +110,17 @@ export class ListarTutorComponent implements OnInit {
       },
       hideClass: {
         popup: 'animate__animated animate__fadeOutUp'
-      },      
+      },
         showCancelButton: true,
         confirmButtonText: 'Confirmar',
         cancelButtonText: 'Cancelar',
         reverseButtons: true,
-      confirmButtonColor: '#3085d6'      
+      confirmButtonColor: '#3085d6'
     }).then((result) => {
       if (result.isConfirmed) {
         this.tutorService.eliminarTutor(parseInt(row.identificacion)).subscribe(
           result=>{
-            console.log("result de eliminar:   ",result);
+
             if(result.estado=="exito"){
               Swal.fire(
                 {
@@ -142,7 +141,7 @@ export class ListarTutorComponent implements OnInit {
             }
           }
         );
-       
+
       } else if (
         /* Read more about handling dismissals below */
         result.isDismissed
@@ -155,19 +154,19 @@ export class ListarTutorComponent implements OnInit {
       }
   });
 }
-  
+
   editarTutor(row:TutorCompleto)
   {
      const dialogRef = this.dialog.open(EditarTutorComponent, {
       width: '800px',
       height:'500px',
       data:{}
-    });    
-    dialogRef.componentInstance.tutor=row;  
-    console.log("ROW ASIGNADA Y ENVIADA",row);
+    });
+    dialogRef.componentInstance.tutor=row;
+
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+
     });
 
   }

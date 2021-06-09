@@ -43,7 +43,7 @@ export class ShowTeachingPracticeComponent implements OnInit, AfterViewInit {
   }
 
   nn() {
-    console.log('click fuera');
+
   }
 
 

@@ -16,7 +16,7 @@ export class PermisoTutorGuard implements CanActivateChild {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     this.permisosService.valor = sessionStorage.getItem('rol');
     if (this.permisosService.valor !== 'Tutor') {
-      console.log('No tiene acceso');
+
       // this.router.navigate(['/']);
       Swal.fire(
         'Permiso',

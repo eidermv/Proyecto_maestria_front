@@ -72,7 +72,6 @@ Swal.fire({
   confirmButtonColor: '#3085d6'
 }).then((result) => {
   if (result.isConfirmed) {
-    console.log("CAMBIANDO VISIBILIDAD");
            if(this.formulario.get('visibilidad').value==true)
            {
             for(let actividad of this.actividades){
@@ -112,14 +111,7 @@ Swal.fire({
            */
         }
       );
-    /*  this.formulario.valueChanges.pipe(
-      debounceTime(350)
-      ).subscribe(
-        value=>{
-          console.log(value);
-          console.log("Actividad formada ====",this.actividad);
-        }
-      ); */
+
   }
   enviarActividades(){
     Swal.fire({
@@ -214,7 +206,6 @@ Swal.fire({
         this.actividadesTutorService.eliminarActividadTutor(element.idActividad).subscribe(
           (result) => {
             if(result.estado ==='exito'){
-              console.log('HIZO ELIMINAR ACTIVIDAD:   ',result);
               Swal.fire(
                 'Exito!',
                 'La actividad ha sido eliminada.',

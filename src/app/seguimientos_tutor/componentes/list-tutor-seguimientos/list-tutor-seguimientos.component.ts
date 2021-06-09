@@ -52,17 +52,17 @@ export class ListTutorSeguimientosComponent implements OnInit, OnDestroy {
     this.seguimientos=[];
     this.filtrado=false;
     this.bandera=true;
-    console.log("ID TUTOR SESIÓN:   ",localStorage.getItem('id'));
+
     this.auth.infoTutor.next(false);
         this.seguimientosServiceTutor.obtenerSeguimientosTutor(Number(localStorage.getItem('id'))).subscribe((data) => {
-          console.log('ESTOS SON LOS SEGUIMIENTO DE TUTOR', JSON.stringify(data));
+
           if (data.estado === 'exito') {
             data.data.forEach( (item) => {
               const seguimiento: SeguimientoTutorCompleto = item;
               this.seguimientos.push(seguimiento);
               this.seguimientosPDF.push(seguimiento);
             });
-            console.log('SEGUIMIENTOS TUTOR OBTENIDOS:   ', this.seguimientos);
+
             this.seguimientosEspera();
             this.dataSource.data = this.segAceptado;
             this.dataSource.sort = this.sort;
@@ -73,7 +73,7 @@ export class ListTutorSeguimientosComponent implements OnInit, OnDestroy {
 
   seguimientosEspera()
   {
-    console.log("Entro a seguimientos espera: ",this.seguimientos)
+
     for(let s of this.seguimientos)
     {
       if(s.estadoSeguimiento.nombre==='Espera'){ this.segEspera.push(s);}
@@ -169,11 +169,9 @@ var options = { year: 'numeric', month: 'long', day: 'numeric' };
   editarSeguimientoTutor(element: SeguimientoTutorCompleto) {
     this.bandera = !this.bandera;
     this.seguimientosServiceTutor.seguimiento = element;
-    console.log('imprimiendo desde editar: ', this.seguimientosServiceTutor.seguimiento);
   }
   notificar() {
     this.bandera = !this.bandera;
-    console.log('imprimiendo desde notificaciones: ', this.bandera);
   }
   contarNoticaciones() {
     this.hidden = !this.hidden;
@@ -184,7 +182,6 @@ var options = { year: 'numeric', month: 'long', day: 'numeric' };
       data:{}
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
       this.ngOnInit();
     });
     dialogRef.componentInstance.notificacionesInstance = this.segEspera;
@@ -198,7 +195,6 @@ var options = { year: 'numeric', month: 'long', day: 'numeric' };
       data:{}
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
     });
     dialogRef.componentInstance.seguimiento = seg;
   }

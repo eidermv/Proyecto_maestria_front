@@ -9,6 +9,6 @@ export class TutorTutorService {
     constructor(private http: HttpClient) { }
 
     onTiposTutor(){
-      return this.http.get<any>(RUTA+'/tipo_tutor/tipos');
+      return this.http.get<any>(RUTA+'tipo_tutor/tipos');
     }
 }

@@ -35,7 +35,7 @@ onActividades(id:number): Array<Actividad> {
     return this.actividades;
 }
 getActividades(id_seguimiento:number): Observable<any> {
-  return this.http.get(RUTA+'/actividad/listarPorVisibilidad/'+id_seguimiento);
+  return this.http.get(RUTA+'actividad/listarPorVisibilidad/'+id_seguimiento);
 }
 crearActividad(id: number): Actividad {
 

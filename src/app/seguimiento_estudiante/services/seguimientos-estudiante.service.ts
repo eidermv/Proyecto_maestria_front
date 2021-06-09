@@ -9,10 +9,10 @@ export class SeguimientosEstudianteService {
 
 constructor(private http: HttpClient) { }
 obtenerSeguimientosEstudiante(id: number){
-  return this.http.get<any>(RUTA + '/seguimiento/listarPorEstudiante/' + id);
+  return this.http.get<any>(RUTA + 'seguimiento/listarPorEstudiante/' + id);
 }
 obtenerActividadesEstudiante(id: number){
-  return this.http.get<any>(RUTA + '/actividad/listarPorSeguimiento/' +id);
+  return this.http.get<any>(RUTA + 'actividad/listarPorSeguimiento/' +id);
 }
 
 }

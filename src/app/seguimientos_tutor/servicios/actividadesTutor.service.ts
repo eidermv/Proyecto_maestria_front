@@ -16,11 +16,11 @@ export class ActividadesTutorServices {
   // Esta función retorna las actividades relacionadas con un seguimiento
 
   obtenerActividadesTutor(id: number){
-    return this.http.get<any>(RUTA + '/actividad/listarPorSeguimiento/' +id);
+    return this.http.get<any>(RUTA + 'actividad/listarPorSeguimiento/' +id);
   }
   eliminarActividadTutor(id: number): Observable<any>
   {
-    return this.http.delete<any>(RUTA + '/actividad/eliminar/' +id);
+    return this.http.delete<any>(RUTA + 'actividad/eliminar/' +id);
   }
   actividadActual(actividadActual: ActividadTutor){
     this.actividad = actividadActual;
@@ -30,7 +30,7 @@ export class ActividadesTutorServices {
   }
   editarActividad(act:any){
 
-    this.http.put<any>(RUTA + '/actividad/editar', act)
+    this.http.put<any>(RUTA + 'actividad/editar', act)
     .subscribe(
       (response) => console.log('editar actividad: ' + response.estado),
       error => console.log('Error al editar: ' + JSON.stringify(error))
@@ -38,7 +38,7 @@ export class ActividadesTutorServices {
   }
   agregarActividad(act:any){
 
-    this.http.post<any>(RUTA + '/actividad/crear', act)
+    this.http.post<any>(RUTA + 'actividad/crear', act)
     .subscribe(
       (response) => console.log('crear actividad: ' + response.estado),
       error => console.log('Error al crear actividad: ' + JSON.stringify(error))

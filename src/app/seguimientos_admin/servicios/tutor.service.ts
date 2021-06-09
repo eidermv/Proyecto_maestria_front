@@ -18,10 +18,10 @@ export class TutorService {
     }
     getTutores(): Observable<any>
     {
-      return this.http.get(RUTA+'/tutor/listar');
+      return this.http.get(RUTA+'tutor/listar');
     }
     onTiposTutor(): Observable<any> {
-      return this.http.get(RUTA+'/tipo_tutor/tipos');
+      return this.http.get(RUTA+'tipo_tutor/tipos');
     }
     tiposTutor():TipoTutor[]
     {
@@ -33,16 +33,16 @@ export class TutorService {
       return nuevo;
     }
     eliminarTutor(id:number):Observable<any>{
-        return this.http.delete(RUTA+'/tutor/eliminar/'+id);
+        return this.http.delete(RUTA+'tutor/eliminar/'+id);
     }
     onCrearTutor(t:any):Observable<any>{
-      return this.http.post(RUTA+'/tutor/crear',t, {headers : new HttpHeaders({ 'Content-Type': 'application/json'}) ,
+      return this.http.post(RUTA+'tutor/crear',t, {headers : new HttpHeaders({ 'Content-Type': 'application/json'}) ,
       reportProgress: true, observe: 'events'});
     }
     onEditTutor(t:any):Observable<any>
     {
 
-      return this.http.put(RUTA+'/tutor/editar', t, {headers : new HttpHeaders({ 'Content-Type': 'application/json'}) ,
+      return this.http.put(RUTA+'tutor/editar', t, {headers : new HttpHeaders({ 'Content-Type': 'application/json'}) ,
       reportProgress: true, observe: 'events'});
     }
 }

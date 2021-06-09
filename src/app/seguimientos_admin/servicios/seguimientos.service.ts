@@ -38,11 +38,11 @@ export class SeguimientosService {
         return this.seguimientos;
     }
     getSeguimientos(): Observable<any> {
-      return this.http.get(RUTA+'/seguimiento/listar');
+      return this.http.get(RUTA+'seguimiento/listar');
     }
     deleteSeguimiento(id:number): Observable<any>
     {
-      return this.http.delete(RUTA+'/seguimiento/eliminar/'+id);
+      return this.http.delete(RUTA+'seguimiento/eliminar/'+id);
     }
     seguimiento(n:number):Seguimiento
     {
@@ -51,12 +51,12 @@ export class SeguimientosService {
     onEditSeguimiento(seg:any):Observable<any>
     {
 
-      return this.http.put(RUTA+'/seguimiento/editar/'+seg.idSeguimiento,seg, {headers : new HttpHeaders({ 'Content-Type': 'application/json'}) ,
+      return this.http.put(RUTA+'seguimiento/editar/'+seg.idSeguimiento,seg, {headers : new HttpHeaders({ 'Content-Type': 'application/json'}) ,
       reportProgress: true, observe: 'events'});
     }
-    onCrearSeguimiento(s:any):Observable<any>{/*
+    onCrearSeguimiento(s:any):Observable<any>{
 
-      return this.http.post(RUTA+'/seguimiento/crear',s, {headers : new HttpHeaders({ 'Content-Type': 'application/json'}) ,
+      return this.http.post(RUTA+'seguimiento/crear',s, {headers : new HttpHeaders({ 'Content-Type': 'application/json'}) ,
       reportProgress: true, observe: 'events'});
     }
     crearSeguimientos(id: number): Seguimiento {
@@ -86,7 +86,7 @@ export class SeguimientosService {
       }
       onEstadosSeguimientos():Observable<any>
       {
-        return this.http.get(RUTA+'/estado_seguimiento/estados');
+        return this.http.get(RUTA+'estado_seguimiento/estados');
       }
       estadosSeguimientos():EstadoSeguimiento[]
       {
@@ -100,7 +100,7 @@ export class SeguimientosService {
       }
       onEstadosProyecto():Observable<any>
       {
-        return this.http.get(RUTA+'/estado_proyecto/estados');
+        return this.http.get(RUTA+'estado_proyecto/estados');
       }
       estadosProyecto():EstadoProyecto[]
       {
@@ -113,7 +113,7 @@ export class SeguimientosService {
       }
       onTiposSeguimiento():Observable<any>
       {
-        return this.http.get(RUTA+'/tipo_seguimiento/tipos');
+        return this.http.get(RUTA+'tipo_seguimiento/tipos');
       }
       tiposSeguimiento():TipoSeguimiento[]
       {

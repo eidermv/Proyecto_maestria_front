@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  URL_SERVICIO: 'http://localhost:8099/'
+  URL_SERVICIO: 'https://fiet.unicauca.edu.co/GestorMaestria/'
 };

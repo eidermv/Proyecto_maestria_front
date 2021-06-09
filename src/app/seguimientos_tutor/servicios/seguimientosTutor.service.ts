@@ -26,11 +26,11 @@ export class SeguimientosTutorServices {
 
   // Se usa para recibir la información de los seguimientos relacionados con un tutor
   obtenerSeguimientosTutor(id: number){
-    return this.http.get<any>(RUTA + '/seguimiento/listarPorTutor/' + id);
+    return this.http.get<any>(RUTA + 'seguimiento/listarPorTutor/' + id);
   }
   //Listado estados proyecto
   listarEstadosProyecto(){
-    return this.http.get<any>(RUTA+'/estado_proyecto/estados');
+    return this.http.get<any>(RUTA+'estado_proyecto/estados');
   }
   onEstadosSeguimientos() {
 
@@ -69,14 +69,14 @@ export class SeguimientosTutorServices {
 
   // Se usa para enviar la informacion editada por el tutor
   guardarSeguimientoTutor(seguimientotutor: any) {
-    this.http.put<any>(RUTA + '/seguimiento/editar/' + seguimientotutor.idSeguimiento, seguimientotutor)
+    this.http.put<any>(RUTA + 'seguimiento/editar/' + seguimientotutor.idSeguimiento, seguimientotutor)
     .subscribe(
       (response) => console.log('resultado guardar: ' + response.estado),
       error => console.log('Error al guardar: ' + JSON.stringify(error))
     );
   }
   onSeguimientosTutor() {
-    this.http.get(RUTA + '/seguimiento/listarPorTutor/1').subscribe(
+    this.http.get(RUTA + 'seguimiento/listarPorTutor/1').subscribe(
       result => {
 
       }

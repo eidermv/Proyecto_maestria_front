@@ -14,7 +14,7 @@ export class EstudianteService {
     constructor(private httpClient: HttpClient) { }
 
     onEstudiantes(): Observable<any> {
-        return this.httpClient.get(RUTA + '/estudiante/buscar/todo');
+        return this.httpClient.get(RUTA + 'estudiante/buscar/todo');
     }
 
 }

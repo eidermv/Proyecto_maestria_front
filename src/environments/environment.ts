@@ -5,5 +5,13 @@
 
 export const environment = {
   production: false,
-  URL_SERVICIO: 'http://localhost:8080/GestorMaestria/'
+  URL_SERVICIO: 'http://localhost:8080/GestorMaestria/',
+  firebase: {
+    apiKey: "AIzaSyCJGt5Rs7Qd_V9W2aZN3Q1TYrsAgV3yrYA",
+    authDomain: "gestordocumental-75ed0.firebaseapp.com",
+    projectId: "gestordocumental-75ed0",
+    storageBucket: "gestordocumental-75ed0.appspot.com",
+    messagingSenderId: "177097683324",
+    appId: "1:177097683324:web:ad336eaff09201a4c874f9"
+  }
 };

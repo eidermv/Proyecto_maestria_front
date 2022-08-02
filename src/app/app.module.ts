@@ -69,6 +69,8 @@ import { AgregarActividadComponent } from './seguimientos_tutor/componentes/agre
 import { VerSeguimientoTutorComponent } from './seguimientos_tutor/componentes/ver-seguimiento-tutor/ver-seguimiento-tutor.component';
 import { ListActividadesTutorComponent } from './seguimientos_tutor/componentes/list-actividades-tutor/list-actividades-tutor.component';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from '../environments/environment';
 @NgModule({
   imports: [
     AppRoutingModule,
@@ -99,7 +101,8 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
     MatButtonModule,
     MatExpansionModule,
     TutorModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    AngularFireModule.initializeApp(environment.firebase)
   ],
   declarations: [
     AppComponent,

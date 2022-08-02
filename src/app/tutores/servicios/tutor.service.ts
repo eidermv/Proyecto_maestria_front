@@ -13,16 +13,16 @@ export class TutorService {
     }
     getTutores(): Observable<any>
     {
-      return this.http.get(RUTA+'/tutor/listar');
+      return this.http.get(RUTA+'tutor/listar');
     }
     onTiposTutor(): Observable<any> {
-      return this.http.get(RUTA+'/tipo_tutor/tipos');
+      return this.http.get(RUTA+'tipo_tutor/tipos');
     }
 
       eliminarTutor(id:number): Observable<any>
       {
 
-        return this.http.delete(RUTA+'/tutor/eliminar/'+id);
+        return this.http.delete(RUTA+'tutor/eliminar/'+id);
       }
 
 }

@@ -55,7 +55,7 @@ export const navAdministrator = [
     children: [
       {
         name: 'Listar Tutores',
-        url: '/tutor/listar',
+        url: 'tutor/listar',
         icon: 'fa fa-cloud-upload'
       }
     ]

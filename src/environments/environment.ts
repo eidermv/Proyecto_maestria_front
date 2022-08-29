@@ -5,7 +5,8 @@
 
 export const environment = {
   production: false,
-  URL_SERVICIO: 'http://localhost:8080/GestorMaestria/',
+  URL_SERVICIO: 'https://back-gestor-dot-august-mesh-330702.uc.r.appspot.com/',
+  //URL_SERVICIO: 'http://localhost:8080/GestorMaestria/',
   firebase: {
     apiKey: "AIzaSyCJGt5Rs7Qd_V9W2aZN3Q1TYrsAgV3yrYA",
     authDomain: "gestordocumental-75ed0.firebaseapp.com",

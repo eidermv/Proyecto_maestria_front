@@ -1,3 +1,4 @@
+import { tutor } from './../../../models/student';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { StudentService } from '../student.service';
 import { Router, ActivatedRoute, Params} from '@angular/router';
@@ -23,9 +24,9 @@ export class EditStudentComponent implements OnInit {
   isFormAddStudent: boolean;
   showFormEdit: boolean;
   textErrorService: string;
-  studentEdit: {code: string, name: string, surname: string, tutor: string, email: string,
+  studentEdit: {code: string, name: string, surname: string, tutor: tutor, email: string,
                 cohorte: string, state: string, semesterEntered: string, enteredBy: string};
-  studentOldEdit: {code: string, id: string, name: string, surname: string, tutor: string, email: string,
+  studentOldEdit: {code: string, id: string, name: string, surname: string, tutor: tutor, email: string,
                   cohorte: string, state: string, semesterEntered: string, enteredBy: string};
   progressRequest: string;
   titleModalSucces: string;
@@ -46,6 +47,7 @@ export class EditStudentComponent implements OnInit {
                }
 
   ngOnInit() {
+
     const id = this.route.snapshot.params['id'];
     if (id != null) {
       this.getStudentToEdit(id);
@@ -64,17 +66,20 @@ export class EditStudentComponent implements OnInit {
   }
 
   proccessResponseStudent(dateStudentEdit: Array<string>) {
+console.log(" estudiante a castear:  ",dateStudentEdit);
+
     this.studentEdit = {
                           code: dateStudentEdit['codigo'],
                           name: dateStudentEdit ['nombres'],
                           surname: dateStudentEdit['apellidos'],
-                          tutor: dateStudentEdit['tutor']['nombre'],
+                          tutor: dateStudentEdit['tutor'],
                           email: dateStudentEdit['correo'],
                           cohorte: dateStudentEdit['cohorte'],
                           state: dateStudentEdit['estado'],
                           semesterEntered: dateStudentEdit['semestre'],
                           enteredBy: dateStudentEdit['pertenece'],
                       };
+
     this.studentOldEdit = {
                         id: dateStudentEdit['id'],
                         code: dateStudentEdit['codigo'],
@@ -87,6 +92,8 @@ export class EditStudentComponent implements OnInit {
                         semesterEntered: dateStudentEdit['semestre'],
                         enteredBy: dateStudentEdit['pertenece']
                       };
+    console.log("estudent edit: ", this.studentEdit);
+
    this.showFormEdit = true;
   }
 
@@ -104,7 +111,7 @@ export class EditStudentComponent implements OnInit {
         this.student.setEnteredBy(dateFormEdit.enteredBy);
         this.student.setCohorte(dateFormEdit.cohorte);
         this.student.setState(dateFormEdit.state);
-
+console.log("enviando estudiante:  ",this.student);
         this.studentService.updateStudent(this.student)
         .subscribe(event => {
             this.proccesResponseEditStudentOk(event);

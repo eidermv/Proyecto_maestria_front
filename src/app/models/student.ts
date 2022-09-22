@@ -1,3 +1,14 @@
+export interface tutor {
+  apellido: string
+  correo: string
+  departamento: string
+  grupoInvestigacion: string
+  id_tutor: string
+  identificacion: string
+  nombre: string
+  telefono: string
+  universidad: string
+}
 export class Student {
   private id: string;
   private codigo: string;

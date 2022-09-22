@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { StringApp } from '../../resources/stringApp';
 import { Student } from '../../models/student';
 
-const httpOptions = new HttpHeaders({ 'Content-Type': 'application/json'});
+const httpOptions = new HttpHeaders({ 'Content-Type': 'application/json' });
 
 
 
@@ -19,7 +19,34 @@ export class StudentService {
   }
 
   getAllTutors() {
-    return this.httpClient.get<Array<any>>(this.stringApp.URL_SERVICIO_GET_ALL_TUTORS);
+     return this.httpClient.get<Array<any>>(this.stringApp.URL_SERVICIO_GET_ALL_TUTORS);
+   /* const newtutor =
+      [{
+        apellido: "cobos",
+        correo: "carloscobos@unicauca.edu.co",
+        departamento: "sistemas",
+        grupoInvestigacion: "idis",
+        id_tutor: "1",
+        identificacion: "10614444455",
+        nombre: "carlos",
+        telefono: "30087654345",
+        universidad: "unicauca",
+      },
+      {
+        apellido: "buitron",
+        correo: "sbuitrons@unicauca.edu.co",
+        departamento: "sistemas",
+        grupoInvestigacion: "idis",
+        id_tutor: "2",
+        identificacion: "1061444443675",
+        nombre: "sandra",
+        telefono: "30087654366",
+        universidad: "unicauca",
+      }
+
+      ]
+
+    return newtutor;*/
   }
 
   createStudent(student: Student) {
@@ -38,13 +65,15 @@ export class StudentService {
     );
 
     return this.httpClient.post(this.stringApp.URL_SERVICIO_CREATE_STUDENT, newStudent,
-                              {headers : new HttpHeaders({ 'Content-Type': 'application/json'}) ,
-                                 reportProgress: true, observe: 'events'});
+      {
+        headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+        reportProgress: true, observe: 'events'
+      });
   }
 
   getAllStudents() {
 
-    return this.httpClient.get<Array<any>>(this.stringApp.URL_SERVICIO_GET_ALL_STUDENTS );
+    return this.httpClient.get<Array<any>>(this.stringApp.URL_SERVICIO_GET_ALL_STUDENTS);
   }
 
   getStudentByCode(code: string) {
@@ -66,8 +95,10 @@ export class StudentService {
         tutor: student.getTutor()
       }
     );
-    return this.httpClient.post(this.stringApp.URL_SERVICIO_UPDATE_STUDENT, updateStudent ,
-                                {headers : new HttpHeaders({ 'Content-Type': 'application/json'}) ,
-                                reportProgress: true, observe: 'events'});
+    return this.httpClient.post(this.stringApp.URL_SERVICIO_UPDATE_STUDENT, updateStudent,
+      {
+        headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+        reportProgress: true, observe: 'events'
+      });
   }
 }

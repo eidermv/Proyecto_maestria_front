@@ -1,3 +1,5 @@
+import { TutorService } from './../../../tutores/servicios/tutor.service';
+import { tutor } from './../../../models/student';
 import { Component, OnInit, Input, ViewChild, EventEmitter, Output, OnChanges, SimpleChanges } from '@angular/core';
 import { StringValidation } from '../../../resources/stringValidation';
 import { FormGroup, FormBuilder, Validators, EmailValidator, NgForm } from '@angular/forms';
@@ -19,7 +21,7 @@ export class FormStudentComponent implements OnInit, OnChanges {
   stringValidation: StringValidation;
 
   /***********************VARIABLES LOCALES***************** */
-  @Input() studenEdit: {code: string, name: string, surname: string, tutor: string, email: string, cohorte: string,
+  @Input() studenEdit: {code: string, name: string, surname: string, tutor: tutor, email: string, cohorte: string,
                         state: string, semesterEntered: string, enteredBy: string};
   @Input() titleForm: {titleForm: string};
   @Input() subtitleForm: {subtitleForm: string};
@@ -36,7 +38,7 @@ export class FormStudentComponent implements OnInit, OnChanges {
   optionsState: Array<string>;
   optionsEnteredSemester: Array<string>;
   optionsModeEntered: Array<string>;
-  optionsTutor: Array<string>;
+  optionsTutor: Array<any>;
 
   /************************VARIABLES DE INSTANCIA********** */
   @Output() getStudent = new EventEmitter<{id: string, name: string, surname: string, tutor: string, email: string, cohorte: string,
@@ -44,7 +46,8 @@ export class FormStudentComponent implements OnInit, OnChanges {
   fieldsForm: FormGroup;
 
 
-  constructor(private formBuilder: FormBuilder, private studentService: StudentService) {
+  constructor(private formBuilder: FormBuilder, private studentService: StudentService,
+    private tutorService:TutorService) {
     this.stringValidation = new StringValidation();
     this.YEAR_END_COHORTE = 2008;
     this.DEFAULT_dATE = '1';
@@ -59,6 +62,8 @@ export class FormStudentComponent implements OnInit, OnChanges {
    }
 
    ngOnInit() {
+    console.log("estudiante a editar desde constructor:  ",this.studenEdit);
+
     this.fieldsForm = this.formBuilder.group(
       {
         idStudent:    ['', [Validators.required,
@@ -101,16 +106,23 @@ export class FormStudentComponent implements OnInit, OnChanges {
   }
 
    getTutors() {
-     this.studentService.getAllTutors()
-     .subscribe(data => {
-
-        this.proccessResponseTutors(data);
+   this.tutorService.getTutores().subscribe(data => {
+console.log("Data service tutor:¨ ",data);
+        this.proccessResponseTutors(data?.data);
       });
+
+
+//this.proccessResponseTutors(this.studentService.getAllTutors())
+
    }
 
    private proccessResponseTutors(data: Array<any>) {
+
     this.optionsTutor = data;
-    if (!this.isFormAddStudent) {
+         console.log("DATA options:¨ ",this.optionsTutor);
+      console.log("Student edit:¨ ",this.studenEdit);
+
+         if (!this.isFormAddStudent) {
       this.setTutor();
     }
   }
@@ -141,7 +153,9 @@ export class FormStudentComponent implements OnInit, OnChanges {
       this.optionsCohorte = this.organizateOptions(this.optionsCohorte, this.studenEdit.cohorte, this.IS_NOT_TUTOR);
     }
     setTutor() {
+      console.log("Student edit:¨ ",this.studenEdit);
       this.optionsTutor = this.organizateOptions (this.optionsTutor, this.studenEdit.tutor, this.IS_TUTOR);
+    console.log("TUTORES:¨ ",this.optionsTutor);
     }
     setState() {
       this.optionsState = this.organizateOptions(this.optionsState, this.studenEdit.state, this.IS_NOT_TUTOR);
@@ -150,17 +164,19 @@ export class FormStudentComponent implements OnInit, OnChanges {
       this.optionsModeEntered = this.organizateOptions(this.optionsModeEntered, this.studenEdit.enteredBy, this.IS_NOT_TUTOR);
     }
 
-    organizateOptions(optionsOrganizate: Array<string>, dataSetFirst: string, isTutor: boolean) {
+    organizateOptions(optionsOrganizate: Array<string>, dataSetFirst: any, isTutor: boolean) {
+      console.log("Options Organizate",optionsOrganizate);
+      console.log("Name datasetfirst:¨ ",dataSetFirst);
       const optionTypeAux = [];
       if (isTutor) {
-        optionTypeAux.push({nombre: dataSetFirst});
+        optionTypeAux.push(dataSetFirst);
       } else {
         optionTypeAux.push(dataSetFirst);
       }
       for (let i = 0; i < optionsOrganizate.length; i++) {
 
         if (isTutor) {
-          if (optionsOrganizate[i]['nombre'] !== optionTypeAux[0]['nombre']) {
+          if (optionsOrganizate[i] !== optionTypeAux[0]) {
             optionTypeAux.push(optionsOrganizate[i]);
           }
         } else {
@@ -177,6 +193,7 @@ export class FormStudentComponent implements OnInit, OnChanges {
     }
 
     getDataStudent() {
+      console.log("Data tutor guardada:¨ ", this.cbx_tutorStudent.nativeElement);
       this.getStudent.emit(
                             {
                               id: this.fieldsForm.get('idStudent').value.trim(),

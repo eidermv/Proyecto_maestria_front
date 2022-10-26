@@ -43,6 +43,7 @@ export class Student {
   }
 
   public getTutor() {
+    console.log("prueba eider tutor", this.tutor);
     return this.tutor;
   }
   public setTutor(tutor: string) {

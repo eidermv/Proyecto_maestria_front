@@ -122,9 +122,9 @@ console.log("Data service tutor:¨ ",data);
          console.log("DATA options:¨ ",this.optionsTutor);
       console.log("Student edit:¨ ",this.studenEdit);
 
-         if (!this.isFormAddStudent) {
-      this.setTutor();
-    }
+      //if (!this.isFormAddStudent) {
+      //this.setTutor();
+      //}
   }
 
 
@@ -193,13 +193,13 @@ console.log("Data service tutor:¨ ",data);
     }
 
     getDataStudent() {
-      console.log("Data tutor guardada:¨ ", this.cbx_tutorStudent.nativeElement);
+      console.log("Data tutor guardada:¨ ", JSON.stringify(this.cbx_tutorStudent.nativeElement));
       this.getStudent.emit(
                             {
                               id: this.fieldsForm.get('idStudent').value.trim(),
                               name:  this.fieldsForm.get('nameStudent').value.trim(),
                               surname: this.fieldsForm.get('surnameStudent').value.trim(),
-                              tutor: this.cbx_tutorStudent.nativeElement.value,
+                              tutor: this.cbx_tutorStudent.nativeElement.,
                               email: this.fieldsForm.get('emailStudent').value,
                               cohorte: this.cbx_cohorteStudent.nativeElement.value,
                               state: this.cbx_stateStudent.nativeElement.value,

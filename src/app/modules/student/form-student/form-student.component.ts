@@ -54,8 +54,8 @@ export class FormStudentComponent implements OnInit, OnChanges {
     this.IS_NOT_TUTOR = false;
     this.IS_TUTOR = true;
     this.optionsCohorte = [];
-    this.optionsState = ['Activo', 'Graduado', 'Inactivo'];
-    this.optionsModeEntered = ['Maestría', 'Doctorado'];
+    this.optionsState = ['activo', 'graduado', 'inactivo'];
+    this.optionsModeEntered = ['maestría', 'doctorado'];
     this.optionsTutor = [];
     this.getAllCohorte();
     this.getTutors();
@@ -107,7 +107,6 @@ export class FormStudentComponent implements OnInit, OnChanges {
 
    getTutors() {
    this.tutorService.getTutores().subscribe(data => {
-console.log("Data service tutor:¨ ",data);
         this.proccessResponseTutors(data?.data);
       });
 
@@ -122,9 +121,9 @@ console.log("Data service tutor:¨ ",data);
          console.log("DATA options:¨ ",this.optionsTutor);
       console.log("Student edit:¨ ",this.studenEdit);
 
-      //if (!this.isFormAddStudent) {
-      //this.setTutor();
-      //}
+      if (!this.isFormAddStudent) {
+      this.setTutor();
+      }
   }
 
 
@@ -153,9 +152,7 @@ console.log("Data service tutor:¨ ",data);
       this.optionsCohorte = this.organizateOptions(this.optionsCohorte, this.studenEdit.cohorte, this.IS_NOT_TUTOR);
     }
     setTutor() {
-      console.log("Student edit:¨ ",this.studenEdit);
       this.optionsTutor = this.organizateOptions (this.optionsTutor, this.studenEdit.tutor, this.IS_TUTOR);
-    console.log("TUTORES:¨ ",this.optionsTutor);
     }
     setState() {
       this.optionsState = this.organizateOptions(this.optionsState, this.studenEdit.state, this.IS_NOT_TUTOR);
@@ -165,8 +162,6 @@ console.log("Data service tutor:¨ ",data);
     }
 
     organizateOptions(optionsOrganizate: Array<string>, dataSetFirst: any, isTutor: boolean) {
-      console.log("Options Organizate",optionsOrganizate);
-      console.log("Name datasetfirst:¨ ",dataSetFirst);
       const optionTypeAux = [];
       if (isTutor) {
         optionTypeAux.push(dataSetFirst);
@@ -193,13 +188,13 @@ console.log("Data service tutor:¨ ",data);
     }
 
     getDataStudent() {
-      console.log("Data tutor guardada:¨ ", JSON.stringify(this.cbx_tutorStudent.nativeElement));
+      console.log("Data tutor guardada:¨ ", this.cbx_tutorStudent.nativeElement);
       this.getStudent.emit(
                             {
                               id: this.fieldsForm.get('idStudent').value.trim(),
                               name:  this.fieldsForm.get('nameStudent').value.trim(),
                               surname: this.fieldsForm.get('surnameStudent').value.trim(),
-                              tutor: this.cbx_tutorStudent.nativeElement.,
+                              tutor: this.cbx_tutorStudent.nativeElement.value,
                               email: this.fieldsForm.get('emailStudent').value,
                               cohorte: this.cbx_cohorteStudent.nativeElement.value,
                               state: this.cbx_stateStudent.nativeElement.value,

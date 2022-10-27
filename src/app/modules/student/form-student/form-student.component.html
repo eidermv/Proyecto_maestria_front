@@ -104,7 +104,7 @@
                     <span class="input-group-text"><i class="fa fa-user-secret"><small> Tutor</small></i></span>
                   </div>
                   <select type="text" class="form-control" #tutor>
-                    <option [ngValue]="tutors.id_tutor" *ngFor="let tutors of optionsTutor">{{tutors?.nombre+' '+tutors?.apellido}}</option>
+                    <option [value]="tutors.identificacion" *ngFor="let tutors of optionsTutor">{{tutors?.nombre+' '+tutors?.apellido}}</option>
                   </select>
                 </div>
               </div>

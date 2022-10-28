@@ -48,6 +48,7 @@ export class FormStudentComponent implements OnInit, OnChanges {
 
   constructor(private formBuilder: FormBuilder, private studentService: StudentService,
     private tutorService:TutorService) {
+
     this.stringValidation = new StringValidation();
     this.YEAR_END_COHORTE = 2008;
     this.DEFAULT_dATE = '1';
@@ -62,6 +63,7 @@ export class FormStudentComponent implements OnInit, OnChanges {
    }
 
    ngOnInit() {
+
     console.log("estudiante a editar desde constructor:  ",this.studenEdit);
 
     this.fieldsForm = this.formBuilder.group(
@@ -146,7 +148,7 @@ export class FormStudentComponent implements OnInit, OnChanges {
     }
 
     ressetForm() {
-      this.form.reset();
+      this.form?.reset();
     }
     setCohorte() {
       this.optionsCohorte = this.organizateOptions(this.optionsCohorte, this.studenEdit.cohorte, this.IS_NOT_TUTOR);
@@ -161,17 +163,18 @@ export class FormStudentComponent implements OnInit, OnChanges {
       this.optionsModeEntered = this.organizateOptions(this.optionsModeEntered, this.studenEdit.enteredBy, this.IS_NOT_TUTOR);
     }
 
-    organizateOptions(optionsOrganizate: Array<string>, dataSetFirst: any, isTutor: boolean) {
+    organizateOptions(optionsOrganizate: Array<any>, dataSetFirst: any, isTutor: boolean) {
+      console.log("Data set:_ ",optionsOrganizate);
       const optionTypeAux = [];
-      if (isTutor) {
+      let optionsDuplicated=[];
+
         optionTypeAux.push(dataSetFirst);
-      } else {
-        optionTypeAux.push(dataSetFirst);
-      }
+
       for (let i = 0; i < optionsOrganizate.length; i++) {
 
         if (isTutor) {
-          if (optionsOrganizate[i] !== optionTypeAux[0]) {
+          if ((optionsOrganizate[i] !== optionTypeAux[0])&&(optionsOrganizate[i]?.id_tutor != this.studenEdit?.tutor?.id_tutor)) {
+            console.log("ES UN TUTOR_   ",optionsOrganizate[i]);
             optionTypeAux.push(optionsOrganizate[i]);
           }
         } else {
@@ -180,6 +183,8 @@ export class FormStudentComponent implements OnInit, OnChanges {
           }
         }
       }
+      console.log("Array a devolver:  ",optionTypeAux);
+      console.log("TUTOR A NO COLOCAR:  ",this.studenEdit?.tutor);
       return optionTypeAux;
     }
 
